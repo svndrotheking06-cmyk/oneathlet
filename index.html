@@ -255,6 +255,22 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .sub .sw{display:flex;align-items:center;gap:4px;font-size:1.3rem;flex:none}
 .sub .sw i{font-style:normal;font-size:.8rem;color:var(--basil);font-weight:800}
 
+/* compte */
+.acctbar{display:flex;gap:8px;justify-content:flex-end;align-items:center;flex-wrap:wrap}
+.acctbtn{display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--line);background:var(--surface);border-radius:99px;padding:6px 14px 6px 8px;font-weight:700;font-size:.85rem}
+.acctbtn .dot{width:26px;height:26px;border-radius:50%;background:var(--basil-soft);display:grid;place-items:center;color:var(--basil);font-weight:800}
+.acctbtn.on .dot{background:var(--basil);color:#FFFFFF}
+.ovl{position:fixed;inset:0;z-index:20;background:rgba(11,27,51,.38);display:grid;place-items:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.acct{width:min(420px,100%);background:var(--surface);border-radius:24px;padding:24px;display:grid;gap:14px;box-shadow:0 30px 60px -30px rgba(11,27,51,.6);position:relative;overflow:hidden;isolation:isolate}
+.acct::before{content:"";position:absolute;z-index:-1;width:180px;height:180px;border-radius:50%;right:-70px;top:-80px;background:radial-gradient(circle at 32% 28%,var(--sky),var(--basil) 70%);opacity:.85}
+.acct h3{font-size:1.4rem;font-weight:800;max-width:14ch}
+.acct input{width:100%;padding:12px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--bg)}
+.acct .row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.acct .ghost{border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-weight:700;border-radius:12px;padding:10px 16px}
+.acct .x{position:absolute;top:12px;right:12px;width:34px;height:34px;border-radius:50%;border:0;background:rgba(255,255,255,.85);font-size:1.1rem;font-weight:800}
+.acct .perks{display:grid;gap:6px;margin:0;padding:0;list-style:none;font-size:.86rem;font-weight:600}
+.acct .perks li::before{content:"✓ ";color:var(--basil);font-weight:800}
+
 /* water */
 .glasses{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:8px}
 .glass{border:0;background:none;padding:0}
@@ -311,7 +327,16 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
       <a href="#menu" data-go="menu">Menus</a>
     </nav>
   </header>
-  <div class="pill" id="demoPill" style="justify-self:end"><span>Exemple pré-rempli</span><button id="resetAll" type="button">Tout effacer</button></div>
+  <div class="acctbar">
+    <div class="pill" id="demoPill"><span>Exemple pré-rempli</span><button id="resetAll" type="button">Tout effacer</button></div>
+    <button class="acctbtn" type="button" id="acctBtn" hidden><span class="dot" aria-hidden="true">?</span><span id="acctLbl">Mon compte</span></button>
+  </div>
+  <div class="ovl" id="acctOvl" hidden>
+    <div class="acct" role="dialog" aria-modal="true" aria-labelledby="acctTitle">
+      <button class="x" type="button" id="acctClose" aria-label="Fermer">×</button>
+      <div id="acctBody" style="display:grid;gap:14px"></div>
+    </div>
+  </div>
 
 <div class="page" id="p-accueil">
   <!-- 0. Accroche -->
@@ -532,6 +557,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 </div>
 <div class="toast" id="toast" role="status"></div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script>
 (function(){
 const $=s=>document.querySelector(s);
@@ -587,7 +613,11 @@ function sample(){return{
 let S;
 try{S=JSON.parse(localStorage.getItem('assiette-legere'))}catch(e){}
 if(!S||typeof S!=='object')S=sample();
-function save(){try{localStorage.setItem('assiette-legere',JSON.stringify(S))}catch(e){}}
+const SB_URL='https://dbrpduznzqynkuebulxx.supabase.co',SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRicnBkdXpuenF5bmt1ZWJ1bHh4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIxMDM4OTAsImV4cCI6MjEwNzY3OTg5MH0.8XVULvee0zcbp7qjlmHupBdhxUKb0tYz6fm1xK4eJkk';
+const sb=(!window.claude&&window.supabase&&window.supabase.createClient)?window.supabase.createClient(SB_URL,SB_KEY):null;
+let sbUser=null,pushT=null;
+function pushRemote(){if(!sb||!sbUser)return;clearTimeout(pushT);pushT=setTimeout(async()=>{const{error}=await sb.from('profils').upsert({user_id:sbUser.id,state:S,updated_at:new Date().toISOString()});if(error)console.warn('sync',error.message)},1200)}
+function save(){try{localStorage.setItem('assiette-legere',JSON.stringify(S))}catch(e){}pushRemote()}
 function touch(){if(S.demo){S.demo=false;}save();$('#demoPill').hidden=!S.demo}
 
 let tt;function toast(t){const el=$('#toast');el.textContent=t;el.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>el.classList.remove('on'),1400)}
@@ -975,7 +1005,93 @@ $('#rvNext').addEventListener('click',()=>$('#rvTrack').scrollBy({left:300,behav
 function drawStars(){$('#rvStars').innerHTML=[1,2,3,4,5].map(i=>`<button type="button" data-s="${i}" class="${i<=myStars?'on':''}" aria-label="${i} étoile${i>1?'s':''}" aria-pressed="${i===myStars}">★</button>`).join('')}
 $('#rvStars').addEventListener('click',e=>{const b=e.target.closest('[data-s]');if(b){myStars=+b.dataset.s;drawStars()}});
 renderReviews();drawStars();
+async function loadReviewsSB(){
+  const{data,error}=await sb.from('avis').select('user_id,prenom,texte,note,kilos,created_at').order('created_at',{ascending:false}).limit(60);
+  if(error){$('#rvMsg').textContent='Impossible de charger les avis pour le moment.';return}
+  reviews=(data||[]).map(r=>({...r,date:r.created_at}));renderReviews();
+  const mine=sbUser&&(data||[]).find(r=>r.user_id===sbUser.id);
+  if(mine){$('#rvName').value=mine.prenom||'';$('#rvKg').value=+mine.kilos||'';$('#rvText').value=mine.texte||'';myStars=+mine.note||5;drawStars();$('#rvSend').textContent='Mettre à jour mon avis'}
+}
+function reviewsUI(){
+  if(!sb)return;
+  $('#rvForm').hidden=!sbUser;
+  $('#rvMsg').innerHTML=sbUser?'':'<button type="button" class="btn" data-acct="1">Connectez-vous pour laisser un avis</button>';
+}
+if(sb){
+  $('#rvForm').addEventListener('submit',async e=>{e.preventDefault();if(!sbUser){openAcct();return}
+    const prenom=$('#rvName').value.trim(),texte=$('#rvText').value.trim();if(!prenom||!texte){toast('Ajoutez votre prénom et votre avis');return}
+    const btn=$('#rvSend');btn.disabled=true;
+    const{error}=await sb.from('avis').upsert({user_id:sbUser.id,prenom:prenom.slice(0,24),texte:texte.slice(0,280),note:myStars,kilos:Math.min(150,Math.max(0,+$('#rvKg').value||0))},{onConflict:'user_id'});
+    btn.disabled=false;
+    if(error){$('#rvMsg').textContent='L\'avis n\'a pas pu être publié. Réessayez.';return}
+    toast('Merci ! Avis publié');loadReviewsSB();
+  });
+  loadReviewsSB();reviewsUI();
+}
+
+/* ---- Compte (Supabase) ---- */
+let acctMode='login';
+function openAcct(){if(!sb)return;renderAcct();$('#acctOvl').hidden=false;const f=$('#acctOvl input');if(f)f.focus()}
+function closeAcct(){$('#acctOvl').hidden=true}
+function renderAcct(msg){
+  const b=$('#acctBody');
+  if(sbUser){
+    b.innerHTML=`<span class="lbl" style="color:var(--basil)">Mon compte</span><h3 id="acctTitle">Vous êtes connecté</h3>
+      <p class="msg" style="margin:0">${esc(sbUser.email||'')}</p>
+      <ul class="perks"><li>Profil et plan sauvegardés</li><li>Repas, eau et poids synchronisés</li><li>Retrouvez tout sur chaque appareil</li></ul>
+      <button class="ghost" type="button" id="acctOut">Se déconnecter</button>`;
+    return;
+  }
+  const up=acctMode==='signup';
+  b.innerHTML=`<span class="lbl" style="color:var(--basil)">OneAthlet</span><h3 id="acctTitle">${up?'Créez votre compte':'Content de vous revoir'}</h3>
+    <ul class="perks"><li>Votre plan sauvegardé</li><li>Votre suivi sur tous vos appareils</li><li>Publiez votre avis</li></ul>
+    <form id="acctForm" style="display:grid;gap:10px">
+      <input id="acctEmail" type="email" autocomplete="email" placeholder="Adresse e-mail" aria-label="Adresse e-mail" required>
+      <input id="acctPass" type="password" autocomplete="${up?'new-password':'current-password'}" minlength="6" placeholder="Mot de passe (6 caractères min.)" aria-label="Mot de passe" required>
+      <button class="btn" type="submit" id="acctGo">${up?'Créer mon compte':'Se connecter'}</button>
+    </form>
+    <p class="msg" id="acctMsg" style="margin:0">${msg||''}</p>
+    <button class="ghost" type="button" id="acctSwitch">${up?'J\'ai déjà un compte':'Pas encore de compte ? Inscription'}</button>`;
+}
+const AUTHERR={'Invalid login credentials':'E-mail ou mot de passe incorrect.','Email not confirmed':'Confirmez votre adresse : ouvrez l\'e-mail reçu puis reconnectez-vous.','User already registered':'Ce compte existe déjà : connectez-vous.'};
+if(sb){
+  $('#acctBtn').hidden=false;
+  $('#acctBtn').addEventListener('click',openAcct);
+  $('#acctClose').addEventListener('click',closeAcct);
+  $('#acctOvl').addEventListener('click',e=>{if(e.target.id==='acctOvl')closeAcct()});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#acctOvl').hidden)closeAcct()});
+  document.addEventListener('click',e=>{if(e.target.closest('[data-acct]'))openAcct()});
+  $('#acctBody').addEventListener('click',async e=>{
+    if(e.target.closest('#acctSwitch')){acctMode=acctMode==='login'?'signup':'login';renderAcct();return}
+    if(e.target.closest('#acctOut')){await sb.auth.signOut();toast('Déconnecté');closeAcct()}
+  });
+  $('#acctBody').addEventListener('submit',async e=>{e.preventDefault();
+    const email=$('#acctEmail').value.trim(),password=$('#acctPass').value,go=$('#acctGo');go.disabled=true;$('#acctMsg').textContent='…';
+    const r=acctMode==='signup'?await sb.auth.signUp({email,password,options:{emailRedirectTo:location.origin+location.pathname}}):await sb.auth.signInWithPassword({email,password});
+    go.disabled=false;
+    if(r.error){$('#acctMsg').textContent=AUTHERR[r.error.message]||r.error.message;return}
+    if(acctMode==='signup'&&!r.data.session){$('#acctMsg').textContent='Compte créé ! Ouvrez l\'e-mail de confirmation, puis connectez-vous.';acctMode='login';return}
+    closeAcct();
+  });
+  sb.auth.onAuthStateChange((ev,session)=>{
+    const prev=sbUser&&sbUser.id;sbUser=session?session.user:null;
+    const btn=$('#acctBtn');btn.classList.toggle('on',!!sbUser);
+    btn.querySelector('.dot').textContent=sbUser?(sbUser.email||'?')[0].toUpperCase():'?';
+    $('#acctLbl').textContent=sbUser?'Mon compte':'Se connecter';
+    reviewsUI();
+    if(sbUser&&sbUser.id!==prev){setTimeout(async()=>{
+      const{data,error}=await sb.from('profils').select('state').eq('user_id',sbUser.id).maybeSingle();
+      if(error){console.warn('sync',error.message);return}
+      if(data&&data.state&&typeof data.state==='object'){S=data.state;try{localStorage.setItem('assiette-legere',JSON.stringify(S))}catch(e){}all();toast('Vos données sont récupérées')}
+      else{S.demo=false;save();toast('Compte prêt : suivi sauvegardé')}
+      loadReviewsSB();
+    },0)}
+    if(!sbUser&&prev){loadReviewsSB()}
+  });
+}
+
 (async()=>{
+  if(sb)return;
   let db=null,user=null;
   try{[db,user]=await Promise.all([window.claude?window.claude.use('db'):null,window.claude?window.claude.use('user'):null])}catch(e){}
   if(!db){$('#rvMsg').textContent='Les avis s\'affichent quand le site est ouvert dans Claude, avec un compte connecté.';return}
