@@ -127,7 +127,8 @@ svg text{fill:var(--muted);font-family:var(--body)}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--page)}
 .top{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;padding-block:10px;background:color-mix(in srgb,var(--page) 88%,transparent);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
 .brand{text-decoration:none;color:inherit}
-.nav{display:flex;gap:4px;overflow-x:auto;max-width:100%;scrollbar-width:none;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:4px}
+.wrap>*,.page>*{min-width:0}
+.nav{display:flex;gap:4px;overflow-x:auto;max-width:100%;min-width:0;scrollbar-width:none;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:4px}
 .nav::-webkit-scrollbar{display:none}
 .nav a{flex:none;text-decoration:none;color:var(--muted);font-weight:700;font-size:.88rem;padding:8px 14px;border-radius:10px;transition:background .15s,color .15s}
 .nav a:hover{color:var(--ink)}
@@ -271,6 +272,27 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .acct .perks{display:grid;gap:6px;margin:0;padding:0;list-style:none;font-size:.86rem;font-weight:600}
 .acct .perks li::before{content:"✓ ";color:var(--basil);font-weight:800}
 
+/* coach */
+.coachcard{display:grid;gap:14px}
+.chat{display:flex;flex-direction:column;gap:10px;min-height:260px;max-height:min(60vh,560px);overflow-y:auto;padding:4px 2px;scroll-behavior:smooth}
+.msg-b{max-width:82%;padding:12px 14px;border-radius:18px;font-size:.93rem;line-height:1.5;white-space:pre-wrap;overflow-wrap:anywhere}
+.msg-b.me{align-self:flex-end;background:var(--basil);color:#FFFFFF;border-bottom-right-radius:6px}
+.msg-b.ai{align-self:flex-start;background:var(--bg);border-bottom-left-radius:6px}
+.msg-b.ai.wait{color:var(--muted)}
+.coachhead{display:flex;align-items:center;gap:12px}
+.coachav{width:52px;height:52px;border-radius:50%;flex:none;background:radial-gradient(circle at 32% 28%,var(--sky),var(--basil) 70%);display:grid;place-items:center;color:#FFFFFF;font-family:var(--display);font-weight:800;font-size:1.1rem;box-shadow:0 10px 22px -12px var(--basil)}
+.coachhead b{font-family:var(--display);font-size:1.15rem;display:block}
+.coachhead small{color:var(--leaf);font-weight:700;font-size:.8rem}
+.sugg{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+.sugg::-webkit-scrollbar{display:none}
+.sugg button{flex:none;border:1.5px solid var(--line);background:var(--surface);border-radius:99px;padding:8px 14px;font-weight:700;font-size:.84rem}
+.sugg button:hover{border-color:var(--basil)}
+.coachin{display:flex;gap:8px}
+.coachin textarea{flex:1;min-width:0;resize:none;padding:12px 14px;border-radius:14px;border:1.5px solid var(--line);background:var(--bg);font:inherit;max-height:140px}
+.coachin button{border:0;background:var(--basil);color:#FFFFFF;border-radius:14px;padding:0 18px;font-weight:800}
+.coachin button:disabled{opacity:.45}
+.coachnote{font-size:.74rem;color:var(--muted);margin:0}
+
 /* water */
 .glasses{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:8px}
 .glass{border:0;background:none;padding:0}
@@ -325,6 +347,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
       <a href="#plan" data-go="plan">Mon bilan</a>
       <a href="#suivi" data-go="suivi">Suivi</a>
       <a href="#menu" data-go="menu">Menus</a>
+      <a href="#coach" data-go="coach">Coach IA</a>
     </nav>
   </header>
   <div class="acctbar">
@@ -352,7 +375,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
       <button type="button" data-hg="sain"><span class="e" aria-hidden="true">🥗</span>Manger mieux</button>
       <button type="button" data-hg="energie"><span class="e" aria-hidden="true">⚡</span>Plus d'énergie</button>
     </div>
-    <div class="steps3"><span><b>1</b>Quiz 1 min</span><span><b>2</b>Plan sur mesure</span><span><b>3</b>Suivi quotidien</span></div>
+    <div class="steps3"><span><b>1</b>Quiz 1 min</span><span><b>2</b>Plan sur mesure</span><span><b>3</b>Suivi quotidien</span><span><b>+</b>Coach IA 24 h/24</span></div>
     <button class="cta" type="button" id="heroCta">Commencer mon plan →</button>
   </section>
 
@@ -519,6 +542,24 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
     </section>
   </div>
 
+</div>
+<div class="page" id="p-coach" hidden>
+  <section class="ptitle">
+    <span class="lbl" style="color:var(--basil)">Coach IA</span>
+    <h2>Votre coach, à toute heure</h2>
+    <p>Il connaît votre plan, votre journée et vos goûts. Posez-lui une question, il répond en quelques secondes.</p>
+  </section>
+  <section class="card coachcard" aria-label="Discussion avec le coach">
+    <div class="coachhead"><span class="coachav" aria-hidden="true">OA</span><div><b>Coach OneAthlet</b><small id="coachState">● En ligne</small></div>
+      <button type="button" class="btn-ghost" id="coachClear" style="margin-left:auto;border:0;border-radius:12px;padding:8px 12px;font-weight:700">Nouvelle discussion</button></div>
+    <div class="chat" id="chat" aria-live="polite"></div>
+    <div class="sugg" id="sugg"></div>
+    <form class="coachin" id="coachForm">
+      <textarea id="coachText" rows="1" maxlength="1000" placeholder="Écrivez votre question…" aria-label="Votre question"></textarea>
+      <button type="submit" id="coachSend" aria-label="Envoyer">➤</button>
+    </form>
+    <p class="coachnote">Le coach donne des conseils de nutrition, pas un avis médical. En cas de problème de santé, consultez un professionnel.</p>
+  </section>
 </div>
 <div class="page" id="p-menu" hidden>
   <section class="ptitle">
@@ -973,7 +1014,7 @@ function renderProgs(){
 $('#progList').addEventListener('click',e=>{const b=e.target.closest('[data-pick]');if(b)startQuiz(b.dataset.pick)});
 
 /* ---- Pages ---- */
-const PAGES=['accueil','programmes','plan','suivi','menu'];
+const PAGES=['accueil','programmes','plan','suivi','menu','coach'];
 function go(p,push){
   if(!PAGES.includes(p))p='accueil';
   PAGES.forEach(x=>{$('#p-'+x).hidden=x!==p});
@@ -1109,6 +1150,75 @@ if(sb){
     catch(err){$('#rvMsg').textContent=err&&err.code==='invalid_argument'?'Votre accès ne permet pas de publier un avis.':'L\'avis n\'a pas pu être publié. Réessayez.'}
     finally{btn.disabled=false}});
 })();
+
+/* ---- Coach IA ---- */
+const COACH_RULES=`Tu es le coach nutrition de OneAthlet (perte de poids, muscle, prise de poids, équilibre, énergie). Réponds en français, en tutoyant, en 5 à 8 lignes maximum, concret et motivant. Appuie-toi sur le profil du client ci-dessous. Ne propose jamais un aliment incompatible avec son régime ou ses intolérances. Donne des quantités précises quand tu proposes un repas. Tu n'es pas médecin : pas de diagnostic ni de médicament ; si le client évoque un problème de santé, une grossesse, des troubles alimentaires ou moins de 1 200 kcal par jour, conseille-lui de consulter un médecin ou un diététicien.`;
+const SUGG=['Que manger ce soir ?','Une idée de collation','Analyse ma journée','Je stagne, que faire ?','Un petit-déj rapide','Comment tenir ma motivation ?'];
+function optLabel(k,v){const st=QUIZ.find(x=>x.k===k);if(!st)return v;const o=st.o(S.quiz||{}).find(x=>x[0]===v);return o?o[2]:v}
+function coachProfile(){
+  const Q=S.quiz||{},P=plan(),t=totals();
+  const items=(S.log[today]||[]).map(it=>{const f=itemOf(it);return f?f.n+' ('+f.k+' kcal)':''}).filter(Boolean);
+  const L=a=>a.length?a.join(', '):'aucun';
+  return [
+    'Objectif : '+(Q.goal?optLabel('goal',Q.goal):'non choisi'),
+    'Sexe : '+(S.sex==='H'?'homme':'femme')+' · âge '+S.age+' ans · taille '+S.height+' cm · poids '+S.weight+' kg · objectif '+S.goal+' kg',
+    'Plan : '+P.kcal+' kcal/jour · protéines '+P.prot+' g · glucides '+P.carb+' g · lipides '+P.fat+' g',
+    "Aujourd'hui : "+t.k+' kcal mangées (prot. '+t.p+' g, gluc. '+t.c+' g, lip. '+t.f+' g) · eau '+((S.water[today]||0)*0.25)+' L',
+    "Repas d'aujourd'hui : "+L(items),
+    'Sport : '+(Q.sport?optLabel('sport',Q.sport):'?')+' · repas par jour : '+(Q.meals?optLabel('meals',Q.meals):'?'),
+    'Freins : '+L(arr(Q.obstacle).map(v=>optLabel('obstacle',v))),
+    'Régime : '+L(arr(Q.diet).map(v=>optLabel('diet',v))),
+    'Intolérances : '+L(arr(Q.intol).filter(v=>v!=='aucune').map(v=>optLabel('intol',v))),
+    'Aime manger : '+L(arr(Q.likes).map(v=>optLabel('likes',v))),
+  ].join('\n');
+}
+function fmtMsg(t){return esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/^#+\s*/gm,'')}
+let coachBusy=false,coachCtl=null,coachSampler=null;
+const WELCOME='Salut ! Je suis ton coach OneAthlet. Je connais ton plan et ta journée : pose-moi une question sur tes repas, tes collations ou ta motivation.';
+function renderChat(extra){
+  const turns=S.coach||[];
+  $('#chat').innerHTML=`<div class="msg-b ai">${fmtMsg(WELCOME)}</div>`+turns.map(m=>`<div class="msg-b ${m.role==='user'?'me':'ai'}">${fmtMsg(m.content)}</div>`).join('')+(extra||'');
+  $('#sugg').innerHTML=SUGG.map(q=>`<button type="button" data-q="${esc(q)}">${esc(q)}</button>`).join('');
+  const c=$('#chat');c.scrollTop=c.scrollHeight;
+}
+async function coachBackend(){
+  if(!coachSampler&&window.claude){try{coachSampler=await window.claude.use('sample')}catch(e){}}
+  if(coachSampler)return 'claude';
+  if(sb)return 'supabase';
+  return null;
+}
+async function askCoach(q){
+  q=q.trim();if(!q||coachBusy)return;
+  const be=await coachBackend();
+  if(!be){toast('Le coach IA est indisponible ici');return}
+  if(be==='supabase'&&!sbUser){openAcct();toast('Connectez-vous pour parler au coach');return}
+  S.coach=[...(S.coach||[]),{role:'user',content:q.slice(0,1000)}].slice(-30);save();
+  coachBusy=true;$('#coachSend').disabled=true;$('#coachText').value='';
+  renderChat('<div class="msg-b ai wait" id="coachLive">Le coach réfléchit…</div>');
+  let reply='';
+  try{
+    if(be==='claude'){
+      coachCtl=new AbortController();
+      const turns=[{role:'user',content:COACH_RULES+'\n\nProfil du client :\n'+coachProfile()},...S.coach.slice(-20)];
+      const r=await coachSampler(turns,{cache:false,signal:coachCtl.signal,onText:({text})=>{const el=$('#coachLive');if(el){el.classList.remove('wait');el.innerHTML=fmtMsg(text);const c=$('#chat');c.scrollTop=c.scrollHeight}}});
+      reply=r.text;
+    }else{
+      const{data,error}=await sb.functions.invoke('coach',{body:{messages:S.coach.slice(-20),profile:coachProfile()}});
+      if(error){let m='';try{m=(await error.context.json()).error}catch(e){}throw{code:'sb',message:m||'Le coach n\'a pas pu répondre. Réessayez.'}}
+      reply=(data&&data.reply)||'';
+    }
+    if(reply){S.coach=[...S.coach,{role:'assistant',content:reply}].slice(-30);save()}
+    renderChat();
+  }catch(e){
+    const M={not_granted:'Autorisez Claude pour ce site pour utiliser le coach.',rate_limited:'Le coach est très demandé. Réessayez dans quelques minutes.',session_expired:'Reconnectez-vous puis réessayez.'};
+    renderChat(`<div class="msg-b ai wait">${esc((e&&M[e.code])||(e&&e.code==='sb'&&e.message)||'Le coach n\'a pas pu répondre. Réessayez.')}</div>`);
+  }finally{coachBusy=false;$('#coachSend').disabled=false}
+}
+$('#coachForm').addEventListener('submit',e=>{e.preventDefault();askCoach($('#coachText').value)});
+$('#coachText').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();askCoach($('#coachText').value)}});
+$('#sugg').addEventListener('click',e=>{const b=e.target.closest('[data-q]');if(b)askCoach(b.dataset.q)});
+$('#coachClear').addEventListener('click',()=>{if(coachBusy)return;S.coach=[];save();renderChat()});
+renderChat();
 
 /* ---- Photo de l'assiette ---- */
 let photo=null,scanRes=null,scanCtl=null,samplerP=null;
