@@ -36,7 +36,7 @@ Deno.serve(async (req) => {
   const { data: { user } } = await userClient.auth.getUser();
   if (!user) return json({ error: "Connectez-vous pour continuer." }, 401);
 
-  let body: { action?: string; returnUrl?: string };
+  let body: { action?: string; returnUrl?: string; sessionId?: string };
   try { body = await req.json(); } catch { body = {}; }
   const back = safeReturn(body.returnUrl);
   if (!back) return json({ error: "Adresse de retour non autorisée." }, 400);
@@ -45,6 +45,35 @@ Deno.serve(async (req) => {
   const { data: row } = await admin.from("abonnements").select("*").eq("user_id", user.id).maybeSingle();
 
   try {
+    // Vérifie l'abonnement directement auprès de Stripe (aucun webhook nécessaire).
+    if (body.action === "status") {
+      let sub: Stripe.Subscription | null = null;
+      if (body.sessionId && /^cs_[A-Za-z0-9_]+$/.test(body.sessionId)) {
+        const s = await stripe.checkout.sessions.retrieve(body.sessionId);
+        if (s.client_reference_id === user.id && s.subscription) {
+          sub = await stripe.subscriptions.retrieve(typeof s.subscription === "string" ? s.subscription : s.subscription.id);
+        }
+      }
+      if (!sub && row?.stripe_subscription_id) {
+        sub = await stripe.subscriptions.retrieve(row.stripe_subscription_id);
+      }
+      if ((!sub || !["active", "trialing"].includes(sub.status)) && /^[0-9a-f-]{36}$/.test(user.id)) {
+        const found = await stripe.subscriptions.search({ query: `metadata['user_id']:'${user.id}'`, limit: 10 });
+        sub = found.data.find((x) => ["active", "trialing"].includes(x.status)) ?? sub ?? found.data[0] ?? null;
+      }
+      if (!sub) return json({ premium: false });
+      const end = (sub as any).current_period_end ?? (sub.items?.data?.[0] as any)?.current_period_end;
+      await admin.from("abonnements").upsert({
+        user_id: user.id,
+        stripe_customer_id: typeof sub.customer === "string" ? sub.customer : sub.customer.id,
+        stripe_subscription_id: sub.id,
+        status: sub.status,
+        current_period_end: end ? new Date(end * 1000).toISOString() : null,
+        updated_at: new Date().toISOString(),
+      });
+      return json({ premium: ["active", "trialing"].includes(sub.status) });
+    }
+
     if (body.action === "portal") {
       if (!row?.stripe_customer_id) return json({ error: "Aucun abonnement trouvé." }, 404);
       const portal = await stripe.billingPortal.sessions.create({ customer: row.stripe_customer_id, return_url: back + "#plan" });
@@ -71,7 +100,7 @@ Deno.serve(async (req) => {
       metadata: { user_id: user.id },
       allow_promotion_codes: true,
       locale: "fr",
-      success_url: back + "?premium=ok#plan",
+      success_url: back + "?premium=ok&sid={CHECKOUT_SESSION_ID}#plan",
       cancel_url: back + "#plan",
     });
     return json({ url: session.url });

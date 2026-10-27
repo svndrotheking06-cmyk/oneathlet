@@ -705,6 +705,7 @@ const sb=(!window.claude&&window.supabase&&window.supabase.createClient)?window.
 let sbUser=null,pushT=null;
 let premium=!!window.claude; // version Claude : accès complet ; version web : selon l'abonnement Stripe
 let premiumWait=!!(sb&&/[?&]premium=ok/.test(location.search));
+const premiumSid=(location.search.match(/[?&]sid=(cs_[A-Za-z0-9_]+)/)||[])[1]||null;
 if(premiumWait){try{history.replaceState(null,'',location.pathname+location.hash)}catch(e){}}
 const LOCKOV='<div class="lockov"><div class="lockcard"><span class="lk" aria-hidden="true">🔒</span><b>Réservé aux membres Premium</b><small>Débloquez votre programme complet, vos résultats détaillés et le coach IA.</small><button type="button" class="btn" data-buy>Débloquer — 14,99 €/mois</button></div></div>';
 function applyLocks(){
@@ -719,8 +720,11 @@ function applyLocks(){
 async function loadPremium(tries){
   if(!sb)return;
   if(!sbUser){premium=false;applyLocks();return}
-  const{data}=await sb.from('abonnements').select('status,current_period_end').eq('user_id',sbUser.id).maybeSingle();
-  premium=!!data&&['active','trialing'].includes(data.status)&&(!data.current_period_end||new Date(data.current_period_end).getTime()>Date.now()-864e5);
+  let ok=null;
+  try{const r=await sb.functions.invoke('checkout',{body:{action:'status',sessionId:premiumSid,returnUrl:location.origin+location.pathname}});if(!r.error&&r.data&&typeof r.data.premium==='boolean')ok=r.data.premium}catch(e){}
+  if(ok===null){const{data}=await sb.from('abonnements').select('status,current_period_end').eq('user_id',sbUser.id).maybeSingle();
+    ok=!!data&&['active','trialing'].includes(data.status)&&(!data.current_period_end||new Date(data.current_period_end).getTime()>Date.now()-864e5)}
+  premium=ok;
   applyLocks();
   if(!$('#acctOvl').hidden)renderAcct();
   if(premiumWait){
