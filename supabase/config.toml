@@ -1,0 +1,4 @@
+# Stripe appelle ce webhook sans compte Supabase : la vérification JWT doit être désactivée.
+# (Dans le tableau de bord : Edge Functions → stripe-webhook → désactiver « Enforce JWT verification ».)
+[functions.stripe-webhook]
+verify_jwt = false

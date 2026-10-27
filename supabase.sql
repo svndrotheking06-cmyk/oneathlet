@@ -47,3 +47,20 @@ create policy "avis maj perso" on public.avis
   for update to authenticated using (auth.uid() = user_id) with check (auth.uid() = user_id);
 create policy "avis suppression perso" on public.avis
   for delete to authenticated using (auth.uid() = user_id);
+
+-- 3. Abonnements Premium (remplis uniquement par la fonction stripe-webhook)
+create table if not exists public.abonnements (
+  user_id uuid primary key references auth.users (id) on delete cascade,
+  stripe_customer_id text,
+  stripe_subscription_id text unique,
+  status text not null default 'incomplete',
+  current_period_end timestamptz,
+  updated_at timestamptz not null default now()
+);
+
+alter table public.abonnements enable row level security;
+
+drop policy if exists "abonnements lecture perso" on public.abonnements;
+create policy "abonnements lecture perso" on public.abonnements
+  for select to authenticated using (auth.uid() = user_id);
+-- Aucune règle d'écriture : seul le serveur (clé service_role) peut modifier un abonnement.

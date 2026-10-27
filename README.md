@@ -12,4 +12,8 @@ Comptes clients, sauvegarde du suivi et avis passent par Supabase. Pour créer l
 
 Le coach passe par la fonction Supabase `supabase/functions/coach` (Claude). À déployer dans Supabase → Edge Functions, sous le nom `coach`, avec le secret `ANTHROPIC_API_KEY`.
 
+## Premium (Stripe)
+
+Offre OneAthlet Premium à 14,99 €/mois : plan complet, résultats de la journée, menus et coach IA. Fonctions `supabase/functions/checkout` et `supabase/functions/stripe-webhook`, secrets `STRIPE_SECRET_KEY` et `STRIPE_WEBHOOK_SECRET`, table `abonnements` dans `supabase.sql`.
+
 L'analyse photo de l'assiette fonctionne uniquement dans la version publiée sur Claude.

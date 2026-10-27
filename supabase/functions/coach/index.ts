@@ -32,6 +32,12 @@ Deno.serve(async (req) => {
   const { data: { user } } = await sb.auth.getUser();
   if (!user) return json({ error: "Connectez-vous pour parler au coach." }, 401);
 
+  // Le coach est réservé aux membres Premium.
+  const { data: ab } = await sb.from("abonnements").select("status,current_period_end").eq("user_id", user.id).maybeSingle();
+  const premium = !!ab && ["active", "trialing"].includes(ab.status) &&
+    (!ab.current_period_end || new Date(ab.current_period_end).getTime() > Date.now() - 86_400_000);
+  if (!premium) return json({ error: "Le coach IA est réservé aux membres Premium (14,99 €/mois)." }, 402);
+
   let body: { messages?: unknown; profile?: unknown };
   try { body = await req.json(); } catch { return json({ error: "Requête invalide" }, 400); }
 

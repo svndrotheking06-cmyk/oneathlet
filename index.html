@@ -139,7 +139,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .ptitle{display:grid;gap:8px;padding-block:8px}
 .ptitle h2{font-size:clamp(1.8rem,5vw,2.8rem);font-weight:800;display:block;letter-spacing:-.03em}
 .ptitle p{margin:0;color:var(--muted);max-width:56ch}
-.pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,175px),1fr));gap:12px}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,160px),1fr));gap:12px}
 .pcard{position:relative;overflow:hidden;isolation:isolate;border:1.5px solid var(--line);border-radius:20px;padding:18px;display:grid;gap:8px;align-content:start;background:var(--surface);text-decoration:none;color:inherit;transition:transform .15s,border-color .15s}
 .pcard:hover{transform:translateY(-3px);border-color:var(--basil)}
 .pcard::after{content:"";position:absolute;z-index:-1;width:120px;height:120px;border-radius:50%;right:-40px;top:-40px;background:var(--basil-soft)}
@@ -293,6 +293,24 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .coachin button:disabled{opacity:.45}
 .coachnote{font-size:.74rem;color:var(--muted);margin:0}
 
+/* premium */
+.plock{position:relative}
+.plock.locked>:not(.lockov){filter:blur(9px);user-select:none;pointer-events:none}
+.lockov{display:none}
+.plock.locked>.lockov{display:grid;position:absolute;inset:0;place-items:center;z-index:3;padding:16px}
+.lockcard{background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:20px;padding:18px 20px;display:grid;gap:8px;justify-items:center;text-align:center;max-width:330px}
+.lockcard .lk{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 32% 28%,var(--sky),var(--basil) 70%);color:#FFFFFF;font-size:1.2rem}
+.lockcard b{font-family:var(--display);font-size:1.05rem}
+.lockcard small{color:var(--muted);font-size:.84rem;line-height:1.4}
+.pricing{position:relative;overflow:hidden;isolation:isolate;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:22px;align-items:center}
+@media (max-width:720px){.pricing{grid-template-columns:1fr}}
+.pricing::after{content:"";position:absolute;z-index:-1;width:260px;height:260px;border-radius:50%;right:-90px;bottom:-110px;background:radial-gradient(circle at 32% 28%,var(--sky),var(--basil) 70%);opacity:.18}
+.pricetag{display:flex;align-items:baseline;gap:6px}
+.pricetag b{font-family:var(--display);font-size:clamp(2.6rem,7vw,3.6rem);font-weight:800;color:var(--basil);letter-spacing:-.03em;line-height:1}
+.pricetag span{color:var(--muted);font-weight:700}
+.prem-badge{display:inline-flex;align-items:center;gap:6px;background:var(--basil);color:#FFFFFF;border-radius:99px;padding:4px 12px;font-weight:800;font-size:.78rem;justify-self:start}
+.pfree{color:var(--muted);font-size:.85rem;margin:0}
+
 /* water */
 .glasses{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:8px}
 .glass{border:0;background:none;padding:0}
@@ -389,6 +407,26 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
     <div class="pgrid" id="progPreview"></div>
   </section>
 
+  <!-- Offre Premium -->
+  <section class="card pricing" id="offre" aria-labelledby="h-offre">
+    <div style="display:grid;gap:12px;min-width:0">
+      <span class="prem-badge">★ OneAthlet Premium</span>
+      <h2 id="h-offre" style="font-size:clamp(1.5rem,4vw,2.2rem);display:block">Tout votre programme. Un coach dans la poche.</h2>
+      <div class="pricetag"><b class="num">14,99 €</b><span>/ mois</span></div>
+      <p class="pfree">Sans engagement, résiliable en 2 clics. Le quiz, le profil et le suivi des repas restent gratuits.</p>
+    </div>
+    <div style="display:grid;gap:14px;min-width:0">
+      <ul class="incl">
+        <li>Votre plan complet : calories, protéines, glucides, lipides</li>
+        <li>Résultats de la journée détaillés</li>
+        <li>Menus de la semaine adaptés à votre régime</li>
+        <li>Coach IA 24 h/24 qui connaît votre profil</li>
+      </ul>
+      <button type="button" class="btn" data-buy data-prem-off style="justify-self:stretch;padding:15px 22px;font-size:1.02rem">Passer Premium — 14,99 €/mois</button>
+      <div data-prem-on hidden style="display:grid;gap:8px"><span class="pill" style="justify-self:start">✓ Vous êtes Premium</span><button type="button" class="ghost btn-ghost" data-manage style="border:1.5px solid var(--line);border-radius:12px;padding:10px 16px;font-weight:700;justify-self:start">Gérer mon abonnement</button></div>
+    </div>
+  </section>
+
   <!-- 5b. Avis -->
   <section class="card" aria-labelledby="h-rv">
     <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
@@ -462,6 +500,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
     </div>
     <div style="display:grid;gap:14px;min-width:0">
       <h2><span class="ico" style="background:var(--basil-soft)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--basil)" stroke-width="2.2" stroke-linecap="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></span>Mon plan</h2>
+      <div class="plock" style="display:grid;gap:14px">
       <div class="stats">
         <div class="stat"><span class="lbl">Par jour</span><b class="num" id="sKcal">–</b><small>kcal</small></div>
         <div class="stat"><span class="lbl" id="sLoseLbl">À perdre</span><b class="num" id="sLose">–</b><small>kg</small></div>
@@ -473,6 +512,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
         <div class="bmiscale"><span>Maigreur</span><span>Normal</span><span>Surpoids</span><span>Obésité</span></div>
       </div>
       <div style="overflow-x:auto"><svg id="proj" viewBox="0 0 520 170" width="100%" role="img" aria-label="Courbe de perte de poids prévue"></svg></div>
+      </div>
     </div>
   </section>
 
@@ -486,6 +526,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
   <!-- 2. Aujourd'hui -->
   <section class="card" aria-labelledby="h-today">
     <h2 id="h-today"><span class="ico" style="background:var(--basil-soft)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--basil)" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>Aujourd'hui</h2>
+    <div class="plock">
     <div class="today" style="display:grid;gap:22px">
       <div class="ring">
         <svg viewBox="0 0 180 180" width="180" height="180" aria-hidden="true">
@@ -495,6 +536,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
         <div class="c"><b class="num" id="kLeft">–</b><small id="kLeftLbl">kcal restantes</small></div>
       </div>
       <div class="macros" id="macros"></div>
+    </div>
     </div>
     <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between">
       <span class="lbl">Ajouter à</span>
@@ -549,6 +591,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
     <h2>Votre coach, à toute heure</h2>
     <p>Il connaît votre plan, votre journée et vos goûts. Posez-lui une question, il répond en quelques secondes.</p>
   </section>
+  <div class="plock">
   <section class="card coachcard" aria-label="Discussion avec le coach">
     <div class="coachhead"><span class="coachav" aria-hidden="true">OA</span><div><b>Coach OneAthlet</b><small id="coachState">● En ligne</small></div>
       <button type="button" class="btn-ghost" id="coachClear" style="margin-left:auto;border:0;border-radius:12px;padding:8px 12px;font-weight:700">Nouvelle discussion</button></div>
@@ -560,6 +603,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
     </form>
     <p class="coachnote">Le coach donne des conseils de nutrition, pas un avis médical. En cas de problème de santé, consultez un professionnel.</p>
   </section>
+  </div>
 </div>
 <div class="page" id="p-menu" hidden>
   <section class="ptitle">
@@ -589,8 +633,10 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
       </div>
     </div>
     <div class="days" id="days" role="group" aria-label="Jour"></div>
+    <div class="plock" style="display:grid;gap:14px">
     <div class="menu" id="menu"></div>
     <div class="subs" id="subs"></div>
+    </div>
   </section>
 
 </div>
@@ -657,6 +703,42 @@ if(!S||typeof S!=='object')S=sample();
 const SB_URL='https://dbrpduznzqynkuebulxx.supabase.co',SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRicnBkdXpuenF5bmt1ZWJ1bHh4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIxMDM4OTAsImV4cCI6MjEwNzY3OTg5MH0.8XVULvee0zcbp7qjlmHupBdhxUKb0tYz6fm1xK4eJkk';
 const sb=(!window.claude&&window.supabase&&window.supabase.createClient)?window.supabase.createClient(SB_URL,SB_KEY):null;
 let sbUser=null,pushT=null;
+let premium=!!window.claude; // version Claude : accès complet ; version web : selon l'abonnement Stripe
+let premiumWait=!!(sb&&/[?&]premium=ok/.test(location.search));
+if(premiumWait){try{history.replaceState(null,'',location.pathname+location.hash)}catch(e){}}
+const LOCKOV='<div class="lockov"><div class="lockcard"><span class="lk" aria-hidden="true">🔒</span><b>Réservé aux membres Premium</b><small>Débloquez votre programme complet, vos résultats détaillés et le coach IA.</small><button type="button" class="btn" data-buy>Débloquer — 14,99 €/mois</button></div></div>';
+function applyLocks(){
+  document.querySelectorAll('.plock').forEach(el=>{
+    if(!el.querySelector(':scope > .lockov'))el.insertAdjacentHTML('beforeend',LOCKOV);
+    el.classList.toggle('locked',!premium);
+    el.querySelectorAll(':scope > :not(.lockov)').forEach(c=>{c.inert=!premium});
+  });
+  document.querySelectorAll('[data-prem-on]').forEach(e=>{e.hidden=!premium});
+  document.querySelectorAll('[data-prem-off]').forEach(e=>{e.hidden=premium});
+}
+async function loadPremium(tries){
+  if(!sb)return;
+  if(!sbUser){premium=false;applyLocks();return}
+  const{data}=await sb.from('abonnements').select('status,current_period_end').eq('user_id',sbUser.id).maybeSingle();
+  premium=!!data&&['active','trialing'].includes(data.status)&&(!data.current_period_end||new Date(data.current_period_end).getTime()>Date.now()-864e5);
+  applyLocks();
+  if(!$('#acctOvl').hidden)renderAcct();
+  if(premiumWait){
+    if(premium){premiumWait=false;toast('Bienvenue dans Premium !')}
+    else if((tries||0)<8)setTimeout(()=>loadPremium((tries||0)+1),3000);
+    else{premiumWait=false;toast('Paiement reçu : l\'accès s\'active dans quelques minutes')}
+  }
+}
+async function startCheckout(portal){
+  if(!sb){toast('Le paiement se fait sur oneathlet.vercel.app');return}
+  if(!sbUser){openAcct();toast('Créez votre compte pour continuer');return}
+  toast(portal?'Ouverture de votre abonnement…':'Ouverture du paiement sécurisé…');
+  const{data,error}=await sb.functions.invoke('checkout',{body:{action:portal?'portal':'checkout',returnUrl:location.origin+location.pathname}});
+  if(error){let m='';try{m=(await error.context.json()).error}catch(e){}toast(m||'Le paiement n\'a pas pu démarrer. Réessayez.');return}
+  if(data&&data.already){loadPremium();toast('Vous êtes déjà Premium');return}
+  if(data&&data.url)location.href=data.url;
+}
+document.addEventListener('click',e=>{if(e.target.closest('[data-buy]'))startCheckout(false);else if(e.target.closest('[data-manage]'))startCheckout(true)});
 function pushRemote(){if(!sb||!sbUser)return;clearTimeout(pushT);pushT=setTimeout(async()=>{const{error}=await sb.from('profils').upsert({user_id:sbUser.id,state:S,updated_at:new Date().toISOString()});if(error)console.warn('sync',error.message)},1200)}
 function save(){try{localStorage.setItem('assiette-legere',JSON.stringify(S))}catch(e){}pushRemote()}
 function touch(){if(S.demo){S.demo=false;}save();$('#demoPill').hidden=!S.demo}
@@ -922,15 +1004,18 @@ function renderQuiz(){
     body.innerHTML=`<div class="qres">
       <div class="tags">${tags}</div>
       <div class="big">Votre plan <em>${GOALN[Q.goal]||'Sur mesure'}</em> est prêt.</div>
+      <div class="plock" style="display:grid;gap:14px">
       <div class="stats">
         <div class="stat"><span class="lbl">Par jour</span><b class="num">${fmt(P.kcal)}</b><small>kcal</small></div>
         <div class="stat"><span class="lbl">Protéines</span><b class="num">${P.prot} g</b><small>par jour</small></div>
         <div class="stat"><span class="lbl">Objectif</span><b class="num">${P.lose>0?end.toLocaleDateString('fr-FR',{month:'short',year:'2-digit'}):'✓'}</b><small>${P.lose>0?P.weeks+' semaines':P.dir?'atteint':'dès aujourd\'hui'}</small></div>
       </div>
       <div class="keys">${keys.map(k=>`<div class="key"><span class="e" aria-hidden="true">${k[0]}</span><span><b>${esc(k[1])}</b><small>${esc(k[2])}</small></span></div>`).join('')}</div>
+      </div>
       <div class="verdict"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--basil)" stroke-width="2.4" stroke-linecap="round" style="flex:none"><path d="M5 12l5 5 9-10"/></svg><span>${MOTIV[Q.goal]||MOTIV.perte}</span></div>
       <div class="qnav"><button type="button" id="qRedo">↺ Refaire le quiz</button><a href="#suivi" data-go="suivi" class="btn" style="text-decoration:none">Commencer mon suivi →</a></div>
     </div>`;
+    applyLocks();
     return;
   }
   const st=qSteps(),s=st[qStep];
@@ -1080,6 +1165,7 @@ function renderAcct(msg){
     b.innerHTML=`<span class="lbl" style="color:var(--basil)">Mon compte</span><h3 id="acctTitle">Vous êtes connecté</h3>
       <p class="msg" style="margin:0">${esc(sbUser.email||'')}</p>
       <ul class="perks"><li>Profil et plan sauvegardés</li><li>Repas, eau et poids synchronisés</li><li>Retrouvez tout sur chaque appareil</li></ul>
+      ${premium?'<span class="pill" style="justify-self:start">✓ Premium actif</span><button class="ghost" type="button" data-manage>Gérer mon abonnement</button>':'<button class="btn" type="button" data-buy>Passer Premium — 14,99 €/mois</button>'}
       <button class="ghost" type="button" id="acctOut">Se déconnecter</button>`;
     return;
   }
@@ -1119,7 +1205,7 @@ if(sb){
     const btn=$('#acctBtn');btn.classList.toggle('on',!!sbUser);
     btn.querySelector('.dot').textContent=sbUser?(sbUser.email||'?')[0].toUpperCase():'?';
     $('#acctLbl').textContent=sbUser?'Mon compte':'Se connecter';
-    reviewsUI();
+    reviewsUI();loadPremium();
     if(sbUser&&sbUser.id!==prev){setTimeout(async()=>{
       const{data,error}=await sb.from('profils').select('state').eq('user_id',sbUser.id).maybeSingle();
       if(error){console.warn('sync',error.message);return}
@@ -1192,6 +1278,7 @@ async function askCoach(q){
   const be=await coachBackend();
   if(!be){toast('Le coach IA est indisponible ici');return}
   if(be==='supabase'&&!sbUser){openAcct();toast('Connectez-vous pour parler au coach');return}
+  if(be==='supabase'&&!premium){startCheckout(false);return}
   S.coach=[...(S.coach||[]),{role:'user',content:q.slice(0,1000)}].slice(-30);save();
   coachBusy=true;$('#coachSend').disabled=true;$('#coachText').value='';
   renderChat('<div class="msg-b ai wait" id="coachLive">Le coach réfléchit…</div>');
@@ -1282,7 +1369,7 @@ out.addEventListener('click',e=>{if(!e.target.closest('#scanAdd')||!scanRes)retu
 });
 $('#mealPick').addEventListener('click',()=>{if(scanRes)renderScan()});
 
-renderFoods();all();go(location.hash.slice(1));
+renderFoods();all();applyLocks();if(sb&&!sbUser&&!premiumWait)applyLocks();go(location.hash.slice(1));
 })();
 </script>
 
