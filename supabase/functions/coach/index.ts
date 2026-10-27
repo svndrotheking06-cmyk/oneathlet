@@ -15,7 +15,7 @@ Appuie-toi sur le profil du client fourni ci-dessous : objectif, calories, macro
 Donne des quantités précises (grammes, portions) quand tu proposes un repas.
 Tu n'es pas médecin : pas de diagnostic, pas de médicament. Si le client parle d'un problème de santé, de grossesse, de troubles alimentaires ou veut descendre sous 1 200 kcal par jour, conseille-lui avec bienveillance de consulter un médecin ou un diététicien.`;
 
-const client = new Anthropic(); // lit ANTHROPIC_API_KEY
+const client = new Anthropic({ apiKey: Deno.env.get("ANTHROPIC_API_KEY") ?? Deno.env.get("anthropic_api_key") });
 
 function json(body: unknown, status = 200) {
   return new Response(JSON.stringify(body), { status, headers: { ...CORS, "Content-Type": "application/json" } });
