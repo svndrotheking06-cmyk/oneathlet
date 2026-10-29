@@ -19,7 +19,7 @@ function safeReturn(url: unknown): string | null {
     const u = new URL(String(url));
     const extra = (Deno.env.get("ALLOWED_ORIGINS") ?? "").split(",").map((s) => s.trim()).filter(Boolean);
     const ok = u.protocol === "https:" &&
-      (u.hostname.endsWith(".vercel.app") || u.hostname === "svndrotheking06-cmyk.github.io" || extra.includes(u.origin));
+      (u.hostname.endsWith(".vercel.app") || ["oneathlet.com", "www.oneathlet.com", "svndrotheking06-cmyk.github.io"].includes(u.hostname) || extra.includes(u.origin));
     return ok ? u.origin + u.pathname : null;
   } catch {
     return null;
