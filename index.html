@@ -24,7 +24,7 @@
   --body:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
 }
 *{box-sizing:border-box}
-body{background:radial-gradient(640px circle at 104% -6%,var(--bubble),transparent 64%),radial-gradient(460px circle at -8% 42%,var(--bubble),transparent 62%),radial-gradient(420px circle at 100% 86%,var(--bubble),transparent 62%),radial-gradient(260px circle at 40% 104%,var(--basil-soft),transparent 60%),var(--page);background-attachment:fixed;color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5;
+body{background:var(--page);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5;
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 48px}
 .wrap{max-width:1080px;margin:0 auto;display:grid;gap:18px}
 h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;letter-spacing:-.01em}
@@ -177,7 +177,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .prog.sel{border-color:var(--basil);box-shadow:0 0 0 3px var(--basil-soft),var(--shadow)}
 
 /* accueil léger */
-.h2o{position:relative;overflow:hidden;isolation:isolate;display:grid;grid-template-columns:1fr;gap:24px;align-items:center;padding-block:clamp(28px,6vw,64px);min-height:min(78vh,640px)}
+.h2o{position:relative;overflow:visible;isolation:isolate;display:grid;grid-template-columns:1fr;gap:24px;align-items:center;padding-block:clamp(28px,6vw,64px);min-height:min(78vh,640px)}
 @media (max-width:760px){.h2o{grid-template-columns:1fr;min-height:0}}
 .h2o .bub.b1{right:-60px;top:-40px}
 .h2o .kicker{font-size:.74rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--basil)}
@@ -786,7 +786,6 @@ font[style]{background:none!important;box-shadow:none!important}
 <div class="page" id="p-accueil">
   <!-- Entrée -->
   <section class="h2o" aria-labelledby="h-hero">
-    <span class="bub b1"></span><span class="bub b2"></span><span class="bub b3"></span><span class="bub b4"></span>
     <div class="h2o-txt">
       <span class="kicker">OneAthlet</span>
       <h2 id="h-hero" class="h2o-title"><span class="rot" id="rot">Prendre du muscle en mangeant mieux.</span></h2>
