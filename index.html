@@ -539,6 +539,36 @@ font[style]{background:none!important;box-shadow:none!important}
 .prem-badge{display:inline-flex;align-items:center;gap:6px;background:var(--basil);color:#FFFFFF;border-radius:99px;padding:4px 12px;font-weight:800;font-size:.78rem;justify-self:start}
 .pfree{color:var(--muted);font-size:.85rem;margin:0}
 
+/* budget */
+.bud-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;align-items:center}
+@media (max-width:640px){.bud-grid{grid-template-columns:1fr}}
+.bud-set{display:grid;gap:8px}
+.bud-val{display:flex;align-items:baseline;gap:6px}
+.bud-val b{font-family:var(--display);font-size:2.2rem;line-height:1;color:var(--leaf)}
+.bud-val span{color:var(--muted);font-weight:700}
+#budRange{-webkit-appearance:none;appearance:none;width:100%;height:12px;border-radius:99px;background:linear-gradient(90deg,var(--leaf) var(--p,15%),var(--bg) var(--p,15%));outline-offset:4px;cursor:pointer}
+#budRange::-webkit-slider-thumb{-webkit-appearance:none;width:30px;height:30px;border-radius:50%;background:#FFFFFF;border:4px solid var(--leaf);box-shadow:0 6px 14px -6px rgba(0,0,0,.35)}
+#budRange::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:#FFFFFF;border:4px solid var(--leaf)}
+.bud-scale{display:flex;justify-content:space-between;font-size:.72rem;color:var(--muted);font-weight:700}
+.bud-proj{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px}
+.bud-proj span{background:var(--bg);border-radius:14px;padding:10px 12px;display:grid}
+.bud-proj small{color:var(--muted);font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+.bud-proj b{font-family:var(--display);font-size:1.2rem}
+.bud-day{display:flex;gap:16px;align-items:center;background:var(--bg);border-radius:20px;padding:14px}
+.bud-ring{position:relative;width:118px;height:118px;flex:none}
+.bud-ring svg{width:100%;height:100%}
+.bud-ring div{position:absolute;inset:0;display:grid;place-content:center;text-align:center}
+.bud-ring b{font-family:var(--display);font-size:1.15rem}
+.bud-ring small{font-size:.66rem;color:var(--muted)}
+.bud-info{display:grid;gap:6px;min-width:0}
+.bud-pill{justify-self:start;color:#FFFFFF;border-radius:99px;padding:4px 10px;font-weight:800;font-size:.76rem;background:var(--leaf)}
+.bud-info b{font-family:var(--display);font-size:1.1rem}
+.bud-info small{color:var(--muted);font-size:.82rem;line-height:1.35}
+.bud-note{margin:0;font-size:.74rem;color:var(--muted)}
+.food .price{color:var(--leaf);font-weight:800}
+.food.pricey{box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--tomato) 55%,transparent)}
+.food.pricey .price{color:var(--tomato)}
+
 /* water */
 .glasses{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:8px}
 .glass{border:0;background:none;padding:0}
@@ -948,6 +978,29 @@ font[style]{background:none!important;box-shadow:none!important}
     <div class="log" id="log"></div>
   </section>
 
+  <!-- Budget courses -->
+  <section class="card budget" aria-labelledby="h-budget">
+    <h2 id="h-budget"><span class="ico" style="background:var(--basil-soft)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--leaf)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16l-1.5 11a2 2 0 0 1-2 1.7H7.5a2 2 0 0 1-2-1.7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg></span>Mon budget courses</h2>
+    <div class="bud-grid">
+      <div class="bud-set">
+        <label class="lbl" for="budRange">Mon budget par jour</label>
+        <div class="bud-val"><b class="num" id="budVal">8,00 €</b><span>/ jour</span></div>
+        <input type="range" id="budRange" min="3" max="40" step="0.5" value="8" aria-describedby="budHint">
+        <div class="bud-scale" id="budHint"><span>3 €</span><span>40 €</span></div>
+        <div class="bud-proj"><span><small>Semaine</small><b class="num" id="budWeek">56 €</b></span><span><small>Mois</small><b class="num" id="budMonth">240 €</b></span></div>
+      </div>
+      <div class="bud-day">
+        <div class="bud-ring"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="48" fill="none" stroke="var(--bg)" stroke-width="12"/><circle id="budArc" cx="60" cy="60" r="48" fill="none" stroke="var(--leaf)" stroke-width="12" stroke-linecap="round" stroke-dasharray="301.6" stroke-dashoffset="301.6" transform="rotate(-90 60 60)" style="transition:stroke-dashoffset .5s,stroke .3s"/></svg><div><b class="num" id="budSpent">0,00 €</b><small>aujourd'hui</small></div></div>
+        <div class="bud-info">
+          <span class="bud-pill" id="budPill">Dans le budget ✓</span>
+          <b class="num" id="budLeft">Reste 8,00 €</b>
+          <small id="budTip">Les prix s'affichent sur chaque aliment ci-dessus.</small>
+        </div>
+      </div>
+    </div>
+    <p class="bud-note">Prix moyens estimés en supermarché en France, par portion. Les repas ajoutés par photo ne sont pas comptés.</p>
+  </section>
+
   <!-- 2b. Scanner -->
   <section class="card" aria-labelledby="h-scan">
     <h2 id="h-scan"><span class="ico" style="background:var(--basil-soft)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--basil)" stroke-width="2.2" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg></span>Photo de l'assiette</h2>
@@ -1072,8 +1125,12 @@ const FOODS=[
  {id:'steak',e:'🥩',n:'Steak 5 % 125 g',k:160,p:26,c:0,f:6},
  {id:'gainer',e:'🥤',n:'Mass gainer 100 g',k:380,p:20,c:70,f:4},
  {id:'creatine',e:'⚡',n:'Créatine 5 g',k:0,p:0,c:0,f:0},
+ {id:'laitsoja',e:'🥛',n:'Lait de soja 250 ml',k:85,p:8,c:2,f:5},
+ {id:'laitamande',e:'🥛',n:'Lait d\'amande 250 ml',k:35,p:1,c:1,f:3},
 ];
-const FTAGS={oeuf:'egg',yaourt:'dairy',avoine:'gluten grain',pain:'gluten grain',pomme:'fruit',banane:'fruit',poulet:'meat',saumon:'fish',tofu:'soy legume',lentilles:'legume',riz:'grain',brocoli:'veg',salade:'veg',avocat:'veg',amandes:'nuts',choco:'sugar',shake:'dairy',gainer:'dairy',cacahuete:'peanut legume',pates:'gluten grain',steak:'meat'};
+const PRICES={oeuf:.3,yaourt:.35,avoine:.15,pain:.2,pomme:.4,banane:.25,poulet:1.6,saumon:3,tofu:.9,lentilles:.35,riz:.2,brocoli:.7,salade:1.8,avocat:.6,amandes:.35,choco:.3,shake:.9,cacahuete:.3,pates:.3,steak:2.2,gainer:1.2,creatine:.15,laitsoja:.4,laitamande:.55};
+const eur=n=>n.toLocaleString('fr-FR',{style:'currency',currency:'EUR'});
+const FTAGS={oeuf:'egg',yaourt:'dairy',avoine:'gluten grain',pain:'gluten grain',pomme:'fruit',banane:'fruit',poulet:'meat',saumon:'fish',tofu:'soy legume',lentilles:'legume',riz:'grain',brocoli:'veg',salade:'veg',avocat:'veg',amandes:'nuts',choco:'sugar',shake:'dairy',gainer:'dairy',laitsoja:'soy',laitamande:'nuts',cacahuete:'peanut legume',pates:'gluten grain',steak:'meat'};
 const arr=v=>Array.isArray(v)?v:(v?[v]:[]);
 const DIETX={vegan:['meat','fish','egg','dairy'],vege:['meat','fish'],pesce:['meat'],paleo:['grain','dairy','legume','soy','peanut'],keto:['grain','fruit','sugar','legume']};
 const INTX={gluten:['gluten'],lactose:['dairy'],noix:['nuts'],arachide:['peanut'],oeufs:['egg'],poisson:['fish'],soja:['soy']};
@@ -1217,6 +1274,7 @@ function renderToday(){
   const r=Math.min(1,t.k/P.kcal);
   const arc=$('#ringArc');arc.setAttribute('stroke-dashoffset',(477.5*(1-r)).toFixed(1));
   arc.setAttribute('stroke',left<0?'var(--tomato)':r>.85?'var(--citrus)':'var(--basil)');
+  renderBudget();
   $('#kLeft').textContent=fmt(Math.abs(left));
   $('#kLeftLbl').textContent=(left<0?'kcal en trop':'kcal restantes')+' · '+fmt(t.k)+' / '+fmt(P.kcal);
   const M=[['Protéines',t.p,P.prot,'var(--tomato)'],['Glucides',t.c,P.carb,'var(--citrus)'],['Lipides',t.f,P.fat,'var(--plum)']];
@@ -1237,7 +1295,7 @@ function renderFoods(){
   ok.sort((a,b)=>score(a)-score(b));
   const hid=FOODS.length-ok.length;
   $('#foodsNote').textContent=hid?hid+' aliment'+(hid>1?'s':'')+' masqué'+(hid>1?'s':'')+' selon votre régime et vos intolérances.':'';
-  $('#foods').innerHTML=ok.map(f=>`<button class="food" type="button" data-f="${f.id}"><span class="e" aria-hidden="true">${f.e}</span><span>${f.n}</span><small class="num">${f.k} kcal</small></button>`).join('');
+  $('#foods').innerHTML=ok.map(f=>`<button class="food" type="button" data-f="${f.id}"><span class="e" aria-hidden="true">${f.e}</span><span>${f.n}</span><small class="num">${f.k} kcal</small><small class="price num">${PRICES[f.id]!=null?eur(PRICES[f.id]):''}</small></button>`).join('');renderBudget();
 }
 
 function renderWater(){
@@ -1309,7 +1367,24 @@ function all(){fillForm();renderQuiz();renderProgs();renderFoods();renderPlan();
 
 ['age','height','weight','goal','activity'].forEach(k=>$('#'+k).addEventListener('input',e=>{S[k]=e.target.value;touch();renderPlan();renderToday();renderWeight()}));
 document.querySelectorAll('[data-sex]').forEach(b=>b.addEventListener('click',()=>{S.sex=b.dataset.sex;touch();fillForm();renderPlan();renderToday()}));
-$('#foods').addEventListener('click',e=>{const b=e.target.closest('[data-f]');if(!b)return;(S.log[today]=S.log[today]||[]).push({m:S.meal,f:b.dataset.f});touch();renderToday();const f=FOODS.find(x=>x.id===b.dataset.f);toast('+ '+f.k+' kcal · '+f.n)});
+$('#foods').addEventListener('click',e=>{const b=e.target.closest('[data-f]');if(!b)return;(S.log[today]=S.log[today]||[]).push({m:S.meal,f:b.dataset.f});touch();renderToday();const f=FOODS.find(x=>x.id===b.dataset.f);const over=spentToday()-budget();toast('+ '+f.k+' kcal · '+f.n+(PRICES[f.id]!=null?' · '+eur(PRICES[f.id]):'')+(over>0.004?' · budget dépassé de '+eur(over):''))});
+function budget(){return Math.min(40,Math.max(3,+S.budget||8))}
+function spentToday(){return (S.log[today]||[]).reduce((a,it)=>a+(it.x?0:(PRICES[it.f]||0)),0)}
+function renderBudget(){
+  const el=$('#budRange');if(!el)return;
+  const B=budget(),sp=spentToday(),left=B-sp,r=Math.min(1,sp/B);
+  if(document.activeElement!==el)el.value=B;
+  el.style.setProperty('--p',((B-3)/37*100)+'%');
+  $('#budVal').textContent=eur(B);$('#budWeek').textContent=eur(Math.round(B*7));$('#budMonth').textContent=eur(Math.round(B*30));
+  $('#budSpent').textContent=eur(sp);
+  const st=left<0?'over':r>=.85?'warn':'ok',col={ok:'var(--leaf)',warn:'var(--citrus)',over:'var(--tomato)'}[st];
+  const arc=$('#budArc');arc.setAttribute('stroke-dashoffset',(301.6*(1-r)).toFixed(1));arc.setAttribute('stroke',col);
+  const pill=$('#budPill');pill.textContent={ok:'Dans le budget ✓',warn:'Presque au maximum',over:'Budget dépassé'}[st];pill.style.background=col;
+  $('#budLeft').textContent=left>=0?'Reste '+eur(left):'Dépassement de '+eur(-left);
+  $('#budTip').textContent=st==='over'?'Astuce : œufs, lentilles, riz et flocons d\'avoine donnent beaucoup pour peu cher.':st==='warn'?'Pour la suite de la journée, privilégiez les aliments à moins de 0,50 €.':'Les prix s\'affichent sur chaque aliment ci-dessus.';
+  document.querySelectorAll('#foods .food').forEach(b=>{const pr=PRICES[b.dataset.f];b.classList.toggle('pricey',pr!=null&&pr>Math.max(0,left)+0.001)});
+}
+$('#budRange').addEventListener('input',e=>{S.budget=+e.target.value;save();renderBudget()});
 $('#log').addEventListener('click',e=>{const b=e.target.closest('[data-rm]');if(!b)return;S.log[today].splice(+b.dataset.rm,1);touch();renderToday()});
 $('#mealPick').addEventListener('click',e=>{const b=e.target.closest('[data-m]');if(!b)return;S.meal=b.dataset.m;save();renderToday()});
 $('#glasses').addEventListener('click',e=>{const b=e.target.closest('[data-g]');if(!b)return;const i=+b.dataset.g,n=S.water[today]||0;S.water[today]=(i+1===n)?i:i+1;touch();renderWater()});
