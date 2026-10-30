@@ -312,6 +312,61 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .miniphone i{position:absolute;bottom:7px;width:14px;height:14px;border-radius:50%;border:2px solid #FFFFFF}
 @media (prefers-reduced-motion:reduce){.phone,.ph-scan,.ph-flash,.ph-shutter i{animation:none}.snap-res{animation:none;opacity:1}}
 
+/* objectifs du jour + shakers */
+.dayplan{display:grid;gap:22px;padding-block:12px}
+.dp-head{display:grid;gap:6px;justify-items:center;text-align:center}
+.dp-head h2{font-size:clamp(1.7rem,5vw,2.6rem);font-weight:800;letter-spacing:-.03em;display:block;text-wrap:balance}
+.dp-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:center}
+@media (max-width:760px){.dp-grid{grid-template-columns:1fr}}
+.dp-phone-wrap{display:grid;place-items:center;min-height:500px}
+.phone-light{background:#0B1B33;height:490px;width:250px;transform:rotate(4deg)}
+.dp-screen{background:var(--surface);grid-template-rows:auto 1fr}
+.dp-top{display:grid;gap:10px;justify-items:center;padding:42px 12px 8px}
+.dp-chips{display:flex;gap:4px;background:var(--bg);border-radius:99px;padding:3px}
+.dp-chips button{border:0;background:none;border-radius:99px;padding:5px 8px;font-size:.68rem;font-weight:800;color:var(--muted)}
+.dp-chips button[aria-pressed="true"]{background:var(--basil);color:#FFFFFF}
+.dp-ring{position:relative;width:104px;height:104px}
+.dp-ring svg{width:100%;height:100%}
+.dp-ring div{position:absolute;inset:0;display:grid;place-content:center;text-align:center}
+.dp-ring b{font-family:var(--display);font-size:1.25rem;line-height:1}
+.dp-ring small{font-size:.58rem;color:var(--muted)}
+.dp-rows{list-style:none;margin:0;padding:4px 10px 14px;display:grid;gap:7px;align-content:start}
+.dp-rows li{display:flex;align-items:center;gap:9px;background:var(--bg);border-radius:14px;padding:7px 9px;opacity:0;transform:translateX(16px);animation:rowin .5s ease forwards}
+@keyframes rowin{to{opacity:1;transform:none}}
+.dp-rows .e{width:34px;height:34px;border-radius:10px;background:var(--surface);display:grid;place-items:center;font-size:1.2rem;flex:none}
+.dp-rows .t{flex:1;min-width:0;display:grid;line-height:1.2}
+.dp-rows .t b{font-size:.74rem}
+.dp-rows .t small{font-size:.64rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dp-rows .k{font-size:.7rem;font-weight:800;color:var(--basil);white-space:nowrap}
+.dp-rows li.shake{background:var(--basil-soft)}
+.shk-card{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:20px;box-shadow:var(--shadow);display:grid;gap:12px;position:relative;overflow:hidden;isolation:isolate}
+.shk-card::after{content:"";position:absolute;z-index:-1;width:200px;height:200px;border-radius:50%;right:-80px;top:-80px;background:radial-gradient(circle at 32% 28%,var(--sky),var(--basil) 70%);opacity:.14}
+.shk-badge{justify-self:start;background:var(--basil);color:#FFFFFF;border-radius:99px;padding:4px 12px;font-weight:800;font-size:.76rem}
+.shk-card h3{font-size:clamp(1.25rem,3.5vw,1.6rem);font-weight:800;line-height:1.15;text-wrap:balance}
+.shk-card h3 em{font-style:normal;color:var(--basil)}
+.shk{display:grid;grid-template-columns:auto minmax(0,1fr);gap:16px;align-items:center;min-height:190px;animation:shkin .45s ease}
+@keyframes shkin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.cup{position:relative;width:86px;height:140px}
+.cup .lid{position:absolute;top:0;left:6px;right:6px;height:20px;border-radius:8px 8px 3px 3px;background:#0B1B33}
+.cup .body{position:absolute;top:18px;left:0;right:0;bottom:0;border-radius:6px 6px 20px 20px;background:var(--bg);border:3px solid #0B1B33;overflow:hidden}
+.cup .liq{position:absolute;left:0;right:0;bottom:0;height:78%;background:var(--liq);transition:background .4s}
+.cup .liq::before{content:"";position:absolute;left:0;right:0;top:-6px;height:12px;border-radius:50%;background:var(--liq);filter:brightness(1.08)}
+.shk-info{display:grid;gap:8px;min-width:0}
+.shk-info b{font-family:var(--display);font-size:1.15rem}
+.shk-ing{display:flex;flex-wrap:wrap;gap:5px}
+.shk-ing span{background:var(--bg);border-radius:99px;padding:4px 9px;font-size:.76rem;font-weight:700}
+.shk-num{display:flex;gap:8px;flex-wrap:wrap}
+.shk-num span{font-family:var(--display);font-weight:800;font-size:1rem}
+.shk-num .kc{color:var(--basil);font-size:1.5rem}
+.shk-num .pr{align-self:end;color:var(--tomato)}
+.shk-nav{display:flex;align-items:center;justify-content:center;gap:12px}
+.shk-nav button{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--line);background:var(--surface);font-weight:800}
+.shk-dots{display:flex;gap:6px}
+.shk-dots i{width:8px;height:8px;border-radius:50%;background:var(--line);transition:background .2s,width .2s}
+.shk-dots i.on{background:var(--basil);width:20px;border-radius:99px}
+@media (max-width:420px){.cup{width:66px;height:112px}.shk{gap:12px}}
+@media (prefers-reduced-motion:reduce){.dp-rows li{animation:none;opacity:1;transform:none}.shk{animation:none}}
+
 /* hero */
 .hero{background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:28px;padding:clamp(24px,5vw,48px);display:grid;gap:20px;position:relative;overflow:hidden;isolation:isolate}
 .bub{position:absolute;border-radius:50%;z-index:-1;background:radial-gradient(circle at 32% 28%,var(--sky),var(--basil) 70%);opacity:.9;animation:float 7s ease-in-out infinite alternate}
@@ -645,6 +700,35 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
         <li><span>📊</span>Calories et macros, ajoutées à votre journée</li>
       </ol>
       <button type="button" class="st-go" data-go="suivi" style="justify-self:start;padding:11px 18px;font-size:.92rem">Essayer avec mon assiette →</button>
+    </div>
+  </section>
+
+  <!-- Objectifs de la journée + shakers -->
+  <section class="dayplan" aria-labelledby="h-day">
+    <div class="dp-head"><span class="kicker4">Objectifs du jour</span><h2 id="h-day">Votre journée, déjà dans votre poche.</h2></div>
+    <div class="dp-grid">
+      <div class="dp-phone-wrap">
+        <div class="phone phone-light">
+          <div class="ph-notch"></div>
+          <div class="ph-screen dp-screen">
+            <div class="dp-top">
+              <div class="dp-chips" id="dpChips" role="group" aria-label="Exemple de journée">
+                <button type="button" data-day="mincir">🔥 Mincir</button>
+                <button type="button" data-day="muscle">💪 Muscle</button>
+                <button type="button" data-day="grossir">📈 Grossir</button>
+              </div>
+              <div class="dp-ring"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="48" fill="none" stroke="var(--bg)" stroke-width="11"/><circle id="dpArc" cx="60" cy="60" r="48" fill="none" stroke="var(--basil)" stroke-width="11" stroke-linecap="round" stroke-dasharray="301.6" stroke-dashoffset="301.6" transform="rotate(-90 60 60)" style="transition:stroke-dashoffset 1s ease"/></svg><div><b class="num" id="dpTotal">0</b><small>kcal / jour</small></div></div>
+            </div>
+            <ul class="dp-rows" id="dpRows"></ul>
+          </div>
+        </div>
+      </div>
+      <div class="shk-card" aria-live="polite">
+        <span class="shk-badge">🥤 Pour prendre du poids</span>
+        <h3>Du mal à grossir ? <em>Buvez vos calories.</em></h3>
+        <div class="shk" id="shk"></div>
+        <div class="shk-nav"><button type="button" id="shkPrev" aria-label="Shaker précédent">‹</button><div class="shk-dots" id="shkDots"></div><button type="button" id="shkNext" aria-label="Shaker suivant">›</button></div>
+      </div>
     </div>
   </section>
 
@@ -1308,6 +1392,47 @@ $('#quizBody').addEventListener('click',e=>{
 });
 $('#heroCta').addEventListener('click',()=>startQuiz());
 document.addEventListener('click',e=>{if(e.target.closest('[data-start]'))startQuiz()});
+/* ---- Accueil : objectifs du jour + shakers ---- */
+(function(){
+  const DAYS={
+    mincir:{t:1600,r:[['🥣','Petit-déjeuner','Skyr, fruits rouges, avoine',380],['🥗','Déjeuner','Bowl poulet, quinoa, crudités',520],['🍎','Goûter','Pomme et 15 amandes',160],['🐟','Dîner','Cabillaud, légumes, patate douce',540]]},
+    muscle:{t:2600,r:[['🍳','Petit-déjeuner','Omelette 3 œufs, pain complet',600],['🍗','Déjeuner','Poulet, riz, brocoli',800],['🥤','Goûter','Shaker whey et cacahuète',450,1],['🥩','Dîner','Steak, pâtes, salade',750]]},
+    grossir:{t:3000,r:[['🥞','Petit-déjeuner','Pancakes avoine, banane, miel',650],['🍛','Déjeuner','Poulet, riz, avocat',850],['🥤','Goûter','Shaker banane et avoine',720,1],['🍝','Dîner','Saumon, pâtes, légumes',780]]},
+  };
+  const rows=$('#dpRows'),chips=$('#dpChips');if(!rows||!chips)return;
+  let cur='grossir',auto=true;
+  function show(k){cur=k;const d=DAYS[k];
+    chips.querySelectorAll('[data-day]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.day===k));
+    rows.innerHTML=d.r.map((m,i)=>`<li class="${m[4]?'shake':''}" style="animation-delay:${i*.15}s"><span class="e">${m[0]}</span><span class="t"><b>${m[1]}</b><small>${m[2]}</small></span><span class="k num">${fmt(m[3])} kcal</span></li>`).join('');
+    $('#dpTotal').textContent=fmt(d.t);$('#dpArc').setAttribute('stroke-dashoffset',(301.6*(1-d.t/3200)).toFixed(1));}
+  chips.addEventListener('click',e=>{const b=e.target.closest('[data-day]');if(b){auto=false;show(b.dataset.day)}});
+  show(cur);
+  const order=['grossir','muscle','mincir'];
+  setInterval(()=>{if(!auto||document.hidden||$('#p-accueil').hidden)return;show(order[(order.indexOf(cur)+1)%order.length])},6000);
+
+  const SH=[
+    {n:'Banane & avoine',c:'#E9D8A6',i:['🥣 60 g de flocons d\'avoine','🍌 1 banane','🥜 30 g de beurre de cacahuète','🥛 300 ml de lait entier'],k:710,p:26},
+    {n:'Mass gainer chocolat',c:'#8B5E3C',i:['🥤 1 dose de mass gainer (100 g)','🥛 400 ml de lait entier'],k:640,p:33},
+    {n:'Choco-cacahuète protéiné',c:'#A47148',i:['💪 30 g de whey chocolat','🥜 30 g de beurre de cacahuète','🥣 40 g de flocons d\'avoine','🥛 300 ml de lait'],k:645,p:46},
+    {n:'Vegan avoine & amande',c:'#EADBC8',i:['🌾 300 ml de lait d\'avoine','🥣 60 g de flocons d\'avoine','🌰 30 g de purée d\'amande','🍌 1 banane','🌱 30 g de protéine de pois'],k:765,p:42},
+    {n:'Fruits rouges & skyr',c:'#E07A9B',i:['🥛 200 g de skyr','🍓 100 g de fruits rouges','🥣 40 g de flocons d\'avoine','🍯 1 c. à soupe de miel','🥛 250 ml de lait'],k:530,p:33},
+    {n:'Dattes & amandes',c:'#C49A6C',i:['🌴 4 dattes','🌰 30 g d\'amandes','🥣 40 g de flocons d\'avoine','🥛 300 ml de lait entier'],k:790,p:23},
+    {n:'Café frappé gourmand',c:'#B08968',i:['☕ 1 expresso froid','🍌 1 banane','🥜 20 g de beurre de cacahuète','🍦 2 boules de glace vanille','🥛 250 ml de lait entier'],k:690,p:18},
+    {n:'Mangue & coco',c:'#F4B942',i:['🥭 150 g de mangue','🥥 200 ml de lait de coco léger','🥣 40 g de flocons d\'avoine','💪 30 g de whey vanille'],k:610,p:31},
+  ];
+  let si=0,sAuto=true;const box=$('#shk'),dots=$('#shkDots');if(!box)return;
+  function sh(i){si=(i+SH.length)%SH.length;const x=SH[si];
+    box.style.animation='none';void box.offsetWidth;box.style.animation='';
+    box.innerHTML=`<div class="cup" aria-hidden="true" style="--liq:${x.c}"><span class="lid"></span><span class="body"><span class="liq"></span></span></div>
+      <div class="shk-info"><b>${esc(x.n)}</b><div class="shk-ing">${x.i.map(t=>`<span>${esc(t)}</span>`).join('')}</div>
+      <div class="shk-num"><span class="kc num">≈ ${fmt(x.k)} kcal</span><span class="pr num">${x.p} g de protéines</span></div></div>`;
+    dots.innerHTML=SH.map((_,k)=>`<i class="${k===si?'on':''}"></i>`).join('');}
+  $('#shkPrev').addEventListener('click',()=>{sAuto=false;sh(si-1)});
+  $('#shkNext').addEventListener('click',()=>{sAuto=false;sh(si+1)});
+  sh(0);
+  setInterval(()=>{if(!sAuto||document.hidden||$('#p-accueil').hidden)return;sh(si+1)},3800);
+})();
+
 (function(){const R=['Prendre du muscle en mangeant mieux.','Comprendre son corps.','Mincir sans se priver.','Retrouver son énergie.','Enfin prendre du poids.'];
   const el=$('#rot');if(!el||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;let i=0;
   setInterval(()=>{if(document.hidden)return;el.classList.add('out');setTimeout(()=>{i=(i+1)%R.length;el.textContent=R[i];el.classList.remove('out')},450)},3200)})();
