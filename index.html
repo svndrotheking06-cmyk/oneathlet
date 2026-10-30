@@ -443,6 +443,12 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .rvl-note{margin:0;font-size:.72rem;color:var(--muted);text-align:center}
 @media (prefers-reduced-motion:reduce){.rvl-orb,.rvl-orb span,.rvl-chips span,.rvl-steps li,.rvl-gbar i{animation:none;opacity:1}}
 
+.faq-cond{margin:0 16px 16px 66px;background:var(--bg);border-radius:14px;padding:12px 14px;font-size:.86rem;color:var(--ink)}
+.faq-cond ul{margin:6px 0;padding-left:18px;display:grid;gap:5px;color:var(--muted)}
+.faq-cond li b{color:var(--ink)}
+.faq-cond small{color:var(--muted);font-size:.76rem}
+@media (max-width:480px){.faq-cond{margin-left:16px}}
+
 /* hero */
 .hero{background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:28px;padding:clamp(24px,5vw,48px);display:grid;gap:20px;position:relative;overflow:hidden;isolation:isolate}
 .bub{position:absolute;border-radius:50%;z-index:-1;background:radial-gradient(circle at 32% 28%,var(--sky),var(--basil) 70%);opacity:.9;animation:float 7s ease-in-out infinite alternate}
@@ -853,7 +859,7 @@ font[style]{background:none!important;box-shadow:none!important}
     <div class="trust" aria-label="Nos garanties">
       <span><b aria-hidden="true">🔒</b>Paiement sécurisé Stripe</span>
       <span><b aria-hidden="true">🇪🇺</b>Données hébergées en Europe</span>
-      <span><b aria-hidden="true">↩️</b>Satisfait ou remboursé 14 jours</span>
+      <span><b aria-hidden="true">↩️</b>Satisfait ou remboursé 30 jours*</span>
       <span><b aria-hidden="true">🧮</b>Méthode des diététiciens</span>
     </div>
     <div class="faq-tabs" id="faqTabs" role="group" aria-label="Filtrer les questions">
@@ -871,7 +877,15 @@ font[style]{background:none!important;box-shadow:none!important}
       <details class="faq-i" data-cat="pay"><summary><span class="faq-e" aria-hidden="true">🆓</span><span class="faq-q">C'est vraiment gratuit pour commencer ?</span><span class="faq-plus" aria-hidden="true"></span></summary><p>Oui. Le quiz, le profil et le suivi des repas sont gratuits, sans carte bancaire. Seuls le plan détaillé, les menus et le coach IA demandent l'abonnement Premium.</p></details>
       <details class="faq-i" data-cat="pay"><summary><span class="faq-e" aria-hidden="true">🔒</span><span class="faq-q">Mon paiement est-il sécurisé ?</span><span class="faq-plus" aria-hidden="true"></span></summary><p>Le paiement passe par Stripe, utilisé par des millions d'entreprises dans le monde. Votre numéro de carte va directement chez Stripe : OneAthlet ne le voit jamais et ne le stocke pas.</p></details>
       <details class="faq-i" data-cat="pay"><summary><span class="faq-e" aria-hidden="true">↩️</span><span class="faq-q">Puis-je arrêter quand je veux ?</span><span class="faq-plus" aria-hidden="true"></span></summary><p>Oui, sans engagement. Mon compte → Gérer mon abonnement → Annuler : 2 clics. Vous gardez l'accès jusqu'à la fin du mois déjà payé, puis plus rien n'est prélevé.</p></details>
-      <details class="faq-i" data-cat="pay"><summary><span class="faq-e" aria-hidden="true">💶</span><span class="faq-q">Et si ça ne me plaît pas ?</span><span class="faq-plus" aria-hidden="true"></span></summary><p>Satisfait ou remboursé pendant 14 jours. Si OneAthlet Premium ne vous convient pas, écrivez-nous dans le chat dans les 14 jours qui suivent votre premier paiement : nous vous remboursons en totalité, sans avoir à vous justifier.</p></details>
+      <details class="faq-i" data-cat="pay"><summary><span class="faq-e" aria-hidden="true">💶</span><span class="faq-q">Et si ça ne me plaît pas ?</span><span class="faq-plus" aria-hidden="true"></span></summary><p>Satisfait ou remboursé pendant 30 jours. Si OneAthlet Premium ne vous convient pas, écrivez-nous dans le chat : nous vous remboursons votre premier mois en totalité.</p>
+      <div class="faq-cond"><b>Conditions de la garantie</b><ul>
+        <li>Valable <b>une seule fois par personne</b>, sur le <b>premier abonnement</b> uniquement (même e-mail ou même carte bancaire = même personne).</li>
+        <li>Demande à faire <b>dans les 30 jours</b> qui suivent le premier paiement, par le chat.</li>
+        <li>Avoir <b>vraiment essayé</b> le programme : bilan complété et repas suivis au moins <b>10 jours</b> sur les 30.</li>
+        <li>Le remboursement <b>met fin immédiatement</b> à l'abonnement et à l'accès Premium.</li>
+        <li>Les mois suivants ne sont pas remboursables : une résiliation arrête simplement les prochains prélèvements.</li>
+        <li>En cas d'abus (comptes multiples, demandes répétées), la garantie peut être refusée.</li>
+      </ul><small>Ces conditions s'ajoutent à vos droits légaux, sans les remplacer.</small></div></details>
       <details class="faq-i" data-cat="data"><summary><span class="faq-e" aria-hidden="true">🛡️</span><span class="faq-q">Que faites-vous de mes données ?</span><span class="faq-plus" aria-hidden="true"></span></summary><p>Vos données servent uniquement à calculer et suivre votre plan. Elles sont stockées sur des serveurs sécurisés en Europe (Irlande), seul votre compte y a accès, et elles ne sont jamais vendues. Vous pouvez demander leur suppression par le chat.</p></details>
       <details class="faq-i" data-cat="data"><summary><span class="faq-e" aria-hidden="true">🤖</span><span class="faq-q">Le coach IA, c'est un vrai humain ?</span><span class="faq-plus" aria-hidden="true"></span></summary><p>Non, et on préfère le dire clairement : c'est une intelligence artificielle (Claude), qui connaît votre plan et répond à toute heure. Pour parler à un humain, utilisez la bulle de chat en bas à droite.</p></details>
       <details class="faq-i" data-cat="data"><summary><span class="faq-e" aria-hidden="true">📸</span><span class="faq-q">Les calories de la photo sont-elles exactes ?</span><span class="faq-plus" aria-hidden="true"></span></summary><p>Ce sont des estimations. L'IA reconnaît les aliments et estime les portions à l'œil, comme le ferait un nutritionniste. C'est assez précis pour vous guider au quotidien, mais pas au gramme près.</p></details>
@@ -902,7 +916,7 @@ font[style]{background:none!important;box-shadow:none!important}
       <span class="prem-badge">★ OneAthlet Premium</span>
       <h2 id="h-offre" style="font-size:clamp(1.5rem,4vw,2.2rem);display:block">Tout votre programme. Un coach dans la poche.</h2>
       <div class="pricetag"><b class="num">14,99 €</b><span>/ mois</span></div>
-      <p class="pfree"><b style="color:var(--leaf)">Satisfait ou remboursé 14 jours.</b> Sans engagement, résiliable en 2 clics. Le quiz, le profil et le suivi des repas restent gratuits.</p>
+      <p class="pfree"><b style="color:var(--leaf)">Satisfait ou remboursé 30 jours*</b> sur le premier mois. Sans engagement, résiliable en 2 clics. Le quiz, le profil et le suivi des repas restent gratuits.<br><small>*Une fois par personne, voir les conditions dans la FAQ.</small></p>
     </div>
     <div style="display:grid;gap:14px;min-width:0">
       <ul class="incl">
@@ -1220,7 +1234,7 @@ let premium=!!window.claude; // version Claude : accès complet ; version web : 
 let premiumWait=!!(sb&&/[?&]premium=ok/.test(location.search));
 const premiumSid=(location.search.match(/[?&]sid=(cs_[A-Za-z0-9_]+)/)||[])[1]||null;
 if(premiumWait){try{history.replaceState(null,'',location.pathname+location.hash)}catch(e){}}
-const LOCKOV='<div class="lockov"><div class="lockcard"><span class="lk" aria-hidden="true">🔒</span><b>Réservé aux membres Premium</b><small>Débloquez votre programme complet, vos résultats détaillés et le coach IA. Satisfait ou remboursé 14 jours.</small><button type="button" class="btn" data-buy>Débloquer — 14,99 €/mois</button></div></div>';
+const LOCKOV='<div class="lockov"><div class="lockcard"><span class="lk" aria-hidden="true">🔒</span><b>Réservé aux membres Premium</b><small>Débloquez votre programme complet, vos résultats détaillés et le coach IA. Satisfait ou remboursé 30 jours*.</small><button type="button" class="btn" data-buy>Débloquer — 14,99 €/mois</button></div></div>';
 function applyLocks(){
   document.querySelectorAll('.plock').forEach(el=>{
     if(!el.querySelector(':scope > .lockov'))el.insertAdjacentHTML('beforeend',LOCKOV);
@@ -1641,7 +1655,7 @@ function renderGains(P,Q){
     <div class="rvl-cta">
       ${isPrem?'<button type="button" class="btn" id="rvlSee">Voir mon plan →</button>':'<button type="button" class="btn rvl-buy" data-buy>Débloquer mon programme — 14,99 €/mois</button><button type="button" class="rvl-later" id="rvlSee">Voir mon plan d\'abord</button>'}
     </div>
-    <p class="rvl-note">Satisfait ou remboursé 14 jours · Sans engagement · Estimations si vous suivez votre plan : les résultats varient d'une personne à l'autre. Prix du diététicien et du fast-food : moyennes indicatives en France.</p>
+    <p class="rvl-note">Satisfait ou remboursé 30 jours sur le premier mois (*conditions dans la FAQ) · Sans engagement · Estimations si vous suivez votre plan : les résultats varient d'une personne à l'autre. Prix du diététicien et du fast-food : moyennes indicatives en France.</p>
   </div>`;
   $('#rvlClose').onclick=closeReveal;$('#rvlSee').onclick=closeReveal;
   const buy=$('#revealIn [data-buy]');if(buy)buy.addEventListener('click',closeReveal);
