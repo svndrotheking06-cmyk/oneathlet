@@ -1008,8 +1008,10 @@ const FOODS=[
  {id:'cacahuete',e:'🥜',n:'Beurre de cacahuète 30 g',k:180,p:7,c:5,f:15},
  {id:'pates',e:'🍝',n:'Pâtes complètes 200 g',k:300,p:11,c:58,f:2},
  {id:'steak',e:'🥩',n:'Steak 5 % 125 g',k:160,p:26,c:0,f:6},
+ {id:'gainer',e:'🥤',n:'Mass gainer 100 g',k:380,p:20,c:70,f:4},
+ {id:'creatine',e:'⚡',n:'Créatine 5 g',k:0,p:0,c:0,f:0},
 ];
-const FTAGS={oeuf:'egg',yaourt:'dairy',avoine:'gluten grain',pain:'gluten grain',pomme:'fruit',banane:'fruit',poulet:'meat',saumon:'fish',tofu:'soy legume',lentilles:'legume',riz:'grain',brocoli:'veg',salade:'veg',avocat:'veg',amandes:'nuts',choco:'sugar',shake:'dairy',cacahuete:'peanut legume',pates:'gluten grain',steak:'meat'};
+const FTAGS={oeuf:'egg',yaourt:'dairy',avoine:'gluten grain',pain:'gluten grain',pomme:'fruit',banane:'fruit',poulet:'meat',saumon:'fish',tofu:'soy legume',lentilles:'legume',riz:'grain',brocoli:'veg',salade:'veg',avocat:'veg',amandes:'nuts',choco:'sugar',shake:'dairy',gainer:'dairy',cacahuete:'peanut legume',pates:'gluten grain',steak:'meat'};
 const arr=v=>Array.isArray(v)?v:(v?[v]:[]);
 const DIETX={vegan:['meat','fish','egg','dairy'],vege:['meat','fish'],pesce:['meat'],paleo:['grain','dairy','legume','soy','peanut'],keto:['grain','fruit','sugar','legume']};
 const INTX={gluten:['gluten'],lactose:['dairy'],noix:['nuts'],arachide:['peanut'],oeufs:['egg'],poisson:['fish'],soja:['soy']};
@@ -1274,6 +1276,7 @@ const QUIZ=[
    :[['grignotage','🍪','Le grignotage','Les envies entre les repas'],['sucre','🍰','Le sucre','Desserts, sodas, viennoiseries'],['temps','⏱️','Le manque de temps','Je mange sur le pouce'],['motivation','📉','La motivation','Je commence puis j\'arrête'],['malbouffe','🍔','La malbouffe','Fast-food, plats industriels']]},
  {k:'likes',multi:true,q:()=>'Qu\'aimeriez-vous manger ?',o:()=>[['legumes','🥦','Légumes',''],['fruits','🍓','Fruits',''],['viande','🍗','Viande',''],['poisson','🐟','Poisson',''],['oeufs','🥚','Œufs',''],['laitiers','🧀','Produits laitiers',''],['feculents','🍝','Pâtes, riz, pain',''],['legumineuses','🫘','Légumineuses','Lentilles, pois chiches'],['noix','🥜','Fruits secs',''],['monde','🌶️','Cuisine du monde','Épicé, curry, wok'],['soupes','🍲','Soupes et mijotés',''],['sucre','🍫','Douceurs','En version saine']]},
  {k:'diet',multi:true,q:()=>'Comment mangez-vous ?',o:()=>[['tout','🍽️','De tout','Sans restriction',1],['vege','🥕','Végétarien','Ni viande ni poisson'],['vegan','🌱','Vegan','100 % végétal'],['pesce','🐟','Pescétarien','Poisson, pas de viande'],['paleo','🥩','Paléo','Sans céréales ni laitiers'],['keto','🥑','Cétogène','Très peu de glucides'],['hp','💪','Riche en protéines','Priorité aux protéines'],['medit','🫒','Méditerranéen','Huile d\'olive, poisson, légumes'],['halal','🌙','Halal','Viandes halal']]},
+ {k:'supp',multi:true,q:()=>'Prenez-vous des compléments ?',o:()=>[['prot','💪','Protéines','Whey, protéine végétale'],['crea','⚡','Créatine','Force et puissance'],['gainer','🥤','Mass gainer','Pour prendre du poids'],['conseil','🧭','Je veux des conseils','Lesquels choisir ?'],['aucun','🚫','Aucun','',1]]},
  {k:'intol',multi:true,q:()=>'Avez-vous des intolérances ou allergies ?',o:()=>[['aucune','✅','Aucune','',1],['gluten','🌾','Gluten','Blé, pâtes, pain'],['lactose','🥛','Lactose','Lait, yaourt'],['noix','🌰','Fruits à coque','Amandes, noix'],['arachide','🥜','Arachides','Cacahuètes'],['oeufs','🥚','Œufs',''],['poisson','🦐','Poisson, fruits de mer',''],['soja','🫘','Soja','Tofu, sauce soja']]},
  {k:'time',q:()=>'Combien de temps pour cuisiner ?',o:()=>[['15','⚡','15 min','Express'],['30','🍳','30 min','Normal'],['45','👩‍🍳','45 min et +','J\'aime cuisiner'],['batch','📦','Le dimanche','Je prépare pour la semaine']]},
  {k:'pace',when:d=>!MAINT(d),q:()=>'À quel rythme voulez-vous avancer ?',
@@ -1304,6 +1307,10 @@ const KEYS={
  i_oeufs:['🥚','Sans œufs','Tofu brouillé, yaourt, légumineuses.'],
  i_poisson:['🐟','Sans poisson','Oméga-3 : noix, graines de lin, huile de colza.'],
  i_soja:['🫘','Sans soja','Pois chiches, lentilles, seitan.'],
+ s_prot:['💪','Protéines en poudre','1 dose de 25 à 30 g après la séance ou au goûter suffit.'],
+ s_crea:['⚡','Créatine','3 à 5 g par jour, tous les jours, avec beaucoup d\'eau.'],
+ s_gainer:['🥤','Mass gainer','1 shaker au goûter : 400 à 700 kcal en plus, sans forcer.'],
+ s_conseil:['🧭','Compléments sur mesure','Demandez au coach IA lesquels choisir pour votre objectif.'],
  sain:['📊','Suivi nutritionnel','Calories, protéines, glucides, lipides : vous voyez tout, chaque jour.'],
  grignotage:['🥜','Collation prévue à 16 h','Yaourt + amandes : l\'envie est servie avant d\'arriver.'],
  sucre:['🍓','Le sucré, version fruit','Fruits rouges, chocolat noir 85 %, cannelle dans le yaourt.'],
@@ -1345,7 +1352,7 @@ function renderQuiz(){
     const Q=S.quiz,P=plan();
     const end=new Date();end.setDate(end.getDate()+P.weeks*7);
     const dk=arr(Q.diet).filter(d=>d!=='tout').map(d=>KEYS[d]);
-    const keys=[KEYS[Q.goal],...arr(Q.obstacle).slice(0,2).map(o=>KEYS[o]),...(dk.length?dk:[KEYS.tout]),...arr(Q.intol).filter(i=>i!=='aucune').map(i=>KEYS['i_'+i]),sportKey(Q),mealKey(Q),KEYS[Q.time]].filter(Boolean).slice(0,9);
+    const keys=[KEYS[Q.goal],...arr(Q.obstacle).slice(0,2).map(o=>KEYS[o]),...(dk.length?dk:[KEYS.tout]),...arr(Q.supp).filter(x=>x!=='aucun').map(x=>KEYS['s_'+x]),...arr(Q.intol).filter(i=>i!=='aucune').map(i=>KEYS['i_'+i]),sportKey(Q),mealKey(Q),KEYS[Q.time]].filter(Boolean).slice(0,9);
     const tags=QUIZ.filter(s=>!s.when||s.when(Q)).flatMap(s=>s.o(Q).filter(x=>arr(Q[s.k]).includes(x[0]))).map(o=>`<span>${o[1]} ${esc(o[2])}</span>`).join('');
     body.innerHTML=`<div class="qres">
       <div class="tags">${tags}</div>
@@ -1663,6 +1670,7 @@ function coachProfile(){
     'Sport : '+(Q.sport?optLabel('sport',Q.sport):'?')+' · repas par jour : '+(Q.meals?optLabel('meals',Q.meals):'?'),
     'Freins : '+L(arr(Q.obstacle).map(v=>optLabel('obstacle',v))),
     'Régime : '+L(arr(Q.diet).map(v=>optLabel('diet',v))),
+    'Compléments : '+L(arr(Q.supp).filter(v=>v!=='aucun').map(v=>optLabel('supp',v))),
     'Intolérances : '+L(arr(Q.intol).filter(v=>v!=='aucune').map(v=>optLabel('intol',v))),
     'Aime manger : '+L(arr(Q.likes).map(v=>optLabel('likes',v))),
   ].join('\n');
