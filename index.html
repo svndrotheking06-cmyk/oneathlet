@@ -151,7 +151,42 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .pcard b{font-family:var(--display);font-size:1.15rem}
 .pcard small{color:var(--muted);font-size:.84rem;line-height:1.35}
 .pcard .rate{justify-self:start;font-weight:800;font-size:.8rem;background:var(--basil);color:#FFFFFF;border-radius:99px;padding:3px 10px}
-.plist{display:grid;gap:18px}
+.plist{display:grid;gap:18px;scroll-margin-top:90px}
+.ptiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:14px}
+.ptile{display:grid;gap:8px;justify-items:start;align-content:start;text-align:left;border:2px solid var(--line);background:var(--surface);border-radius:24px;padding:22px;color:var(--ink);font:inherit;transition:transform .15s,border-color .15s;box-shadow:var(--shadow)}
+.ptile:hover{transform:translateY(-3px);border-color:var(--basil)}
+.ptile.sel{border-color:var(--leaf)}
+.ptile.own{background:linear-gradient(135deg,var(--basil),var(--sky));border-color:transparent;color:#FFFFFF}
+.ptile.own small,.ptile.own .pt-go{color:#FFFFFF}
+.ptile.own .pt-f span{background:rgba(255,255,255,.2);color:#FFFFFF}
+.pt-e{font-size:2.6rem;line-height:1}
+.ptile b{font-family:var(--display);font-size:1.3rem}
+.ptile small{color:var(--muted);line-height:1.4}
+.pt-f{display:flex;gap:6px;flex-wrap:wrap}
+.pt-f span{background:var(--basil-soft);color:var(--basil);border-radius:99px;padding:3px 10px;font-weight:800;font-size:.76rem}
+.pt-go{margin-top:2px;font-weight:800;color:var(--basil)}
+.pchoice{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:14px}
+.pch{display:grid;gap:8px;justify-items:start;text-align:left;border:2px solid var(--line);background:var(--surface);border-radius:24px;padding:22px;color:var(--ink);text-decoration:none;font:inherit;transition:transform .15s,border-color .15s}
+.pch:hover{transform:translateY(-3px);border-color:var(--basil)}
+.pch.own{border-color:var(--basil);background:var(--basil-soft)}
+.pch-e{font-size:2.4rem;line-height:1}
+.pch b{font-family:var(--display);font-size:1.25rem}
+.pch small{color:var(--muted)}
+.pch-go{margin-top:4px;font-weight:800;color:var(--basil)}
+.pv-back{justify-self:start;border:0;background:none;color:var(--basil);font-weight:800;padding:4px 0}
+.pv-head{display:grid;gap:14px}
+.pv-head .big{width:72px;height:72px;border-radius:22px;background:var(--basil-soft);display:grid;place-items:center;font-size:2.6rem}
+.pv-head .for{color:var(--muted)}
+.pv-start{justify-self:start;padding:13px 20px;font-size:1rem}
+.pv-meals{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,160px),1fr));gap:10px}
+.pv-days{display:flex;gap:6px;overflow-x:auto}
+.pv-days button{flex:1;min-width:52px;border:1.5px solid var(--line);background:var(--surface);border-radius:14px;padding:8px 4px;font-weight:800;display:grid;justify-items:center;gap:2px}
+.pv-days button small{color:var(--muted);font-weight:700;font-size:.7rem}
+.pv-days button[aria-pressed="true"]{background:var(--basil);border-color:var(--basil);color:#FFFFFF}
+.pv-days button[aria-pressed="true"] small{color:#FFFFFF}
+.pv-own{display:flex;flex-wrap:wrap;gap:14px;align-items:center;background:var(--bg)}
+.pv-own>span:nth-child(2){flex:1;min-width:200px}
+.pv-own small{color:var(--muted)}
 .prog{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px;align-items:start}
 @media (max-width:760px){.prog{grid-template-columns:1fr}}
 .prog .head{display:flex;gap:14px;align-items:center}
@@ -1008,9 +1043,9 @@ font[style]{background:none!important;box-shadow:none!important}
   <section class="ptitle">
     <span class="lbl" style="color:var(--basil)">Programmes</span>
     <h2>Choisissez votre programme</h2>
-    <p>Cinq méthodes, une même exigence : un plan chiffré, des repas simples et un suivi chaque jour.</p>
+    <p>Prenez un programme prêt, ou créez le vôtre.</p>
   </section>
-  <div class="plist" id="progList"></div>
+  <div class="ptiles" id="progList"></div>
 
   <!-- Offre Premium -->
   <section class="card offer2" id="offre" aria-labelledby="h-offre">
@@ -1220,6 +1255,10 @@ font[style]{background:none!important;box-shadow:none!important}
   </div>
 
 </div>
+<div class="page" id="p-prog" hidden>
+  <div id="progView" style="display:grid;gap:18px;min-width:0"></div>
+</div>
+
 <div class="page" id="p-coach" hidden>
   <section class="ptitle">
     <span class="lbl" style="color:var(--basil)">Coach IA</span>
@@ -2021,32 +2060,114 @@ const PROGS=[
   inc:['Sucres lents à chaque repas','Petit-déjeuner protéiné','Fer et magnésium dans les menus','Hydratation suivie chaque jour'],
   day:[['🍳','Œufs + pain complet'],['🥗','Bowl lentilles'],['🍌','Banane + amandes'],['🐟','Saumon patate douce']]},
 ];
+const PREF={perte:1600,muscle:2600,prise:2800,sain:2000,energie:2100};
+const PWEEK={
+ perte:[
+  [['🥣','Porridge avoine + fruits rouges',330],['🥗','Bowl poulet, quinoa, crudités',480],['🍎','Pomme + 10 amandes',150],['🍲','Soupe de légumes + 2 œufs',380]],
+  [['🥛','Skyr, flocons d\'avoine, kiwi',300],['🐟','Cabillaud, riz complet, haricots verts',470],['🥕','Bâtonnets de carotte + houmous',140],['🍳','Omelette champignons + salade',360]],
+  [['🍞','Pain complet + œuf + tomate',320],['🥙','Wrap complet dinde, crudités',460],['🍐','Poire + fromage blanc',160],['🥘','Poêlée de légumes + tofu',380]],
+  [['🥣','Porridge pomme cannelle',320],['🍗','Poulet, patate douce, brocoli',480],['🥒','Concombre + œuf dur',130],['🍜','Soupe miso + saumon',400]],
+  [['🥛','Fromage blanc + muesli sans sucre',310],['🥗','Salade lentilles, feta, légumes',470],['🍊','Orange + 5 noix',160],['🐟','Truite, quinoa, courgettes',380]],
+  [['🍳','Œufs brouillés + pain complet',340],['🍝','Pâtes complètes, sauce tomate, thon',480],['🍓','Fraises + skyr',140],['🥘','Chili sin carne léger',370]],
+  [['🥞','Pancakes avoine + banane',350],['🍗','Poulet rôti, légumes au four',470],['🍏','Pomme + fromage',150],['🍲','Velouté potiron + œuf',350]]],
+ muscle:[
+  [['🍳','Omelette 3 œufs + pain + avocat',620],['🍗','Poulet, riz, brocoli',750],['🥤','Shake whey + banane',380],['🥩','Steak, pâtes, haricots verts',800]],
+  [['🥣','Porridge + whey + beurre de cacahuète',650],['🐟','Saumon, quinoa, épinards',760],['🥛','Skyr + muesli',350],['🍗','Dinde, patate douce, salade',780]],
+  [['🥞','Pancakes protéinés + fruits',630],['🌯','Wrap poulet, riz, haricots',740],['🥜','Tartine beurre de cacahuète',380],['🐟','Thon, pâtes complètes, tomates',800]],
+  [['🍳','Œufs brouillés + jambon + pain',610],['🥩','Bœuf haché, riz, légumes',780],['🥤','Shake whey + avoine',400],['🍗','Poulet curry, riz basmati',770]],
+  [['🥣','Skyr, granola, banane',600],['🐟','Cabillaud, pommes de terre, légumes',720],['🥚','2 œufs durs + fruit',300],['🥩','Steak, quinoa, poivrons',820]],
+  [['🍳','Omelette fromage + pain complet',640],['🍝','Pâtes bolognaise maison',800],['🥤','Shake whey + lait',350],['🐟','Saumon, riz, haricots verts',770]],
+  [['🥞','Pancakes avoine + œufs',620],['🍗','Poulet rôti, pommes de terre',780],['🥛','Fromage blanc + noix',360],['🌮','Tacos dinde, haricots, avocat',760]]],
+ prise:[
+  [['🥞','Pancakes + beurre de cacahuète + banane',700],['🍝','Pâtes saumon crème légère',850],['🥤','Smoothie lait, avoine, banane, cacahuète',650],['🍛','Curry poulet, riz, naan',820]],
+  [['🥣','Porridge lait entier, miel, noix',680],['🍗','Poulet, riz, avocat, maïs',860],['🥜','Mélange fruits secs + chocolat noir',500],['🥩','Steak, frites au four, salade',880]],
+  [['🍞','Tartines avocat, œufs, fromage',720],['🌯','Burrito bœuf, riz, haricots',880],['🥤','Mass gainer maison',700],['🐟','Saumon, pâtes, pesto',840]],
+  [['🥣','Granola, yaourt grec, miel',650],['🍗','Poulet, pommes de terre, sauce',840],['🥜','Tartine beurre de cacahuète + banane',520],['🍝','Lasagnes maison',900]],
+  [['🍳','Omelette 3 œufs, pain, avocat',700],['🍛','Riz cantonais poulet',850],['🥤','Smoothie lait, dattes, avoine',600],['🥩','Bœuf, purée, haricots',860]],
+  [['🥞','Pancakes, sirop d\'érable, fruits',720],['🍔','Burger maison + frites au four',900],['🥜','Noix de cajou + fruit',480],['🐟','Thon, riz, avocat, sésame',820]],
+  [['🥐','Pain complet, œufs, jambon, fromage',700],['🍗','Poulet rôti, riz, légumes',860],['🥤','Mass gainer maison',650],['🍝','Pâtes carbonara légère',880]]],
+ sain:[
+  [['🍞','Tartine avocat + œuf',420],['🐟','Poisson, légumes, riz complet',560],['🍓','Fruits + yaourt',200],['🥘','Dhal de lentilles',520]],
+  [['🥣','Porridge pomme, noix',400],['🥗','Salade composée, poulet, quinoa',560],['🥕','Crudités + houmous',180],['🍳','Omelette, salade, pain complet',500]],
+  [['🥛','Yaourt grec, muesli, fruits',410],['🌯','Wrap falafel, crudités',580],['🍐','Poire + amandes',200],['🐟','Saumon, patate douce, haricots verts',540]],
+  [['🍳','Œufs + pain complet + tomate',420],['🍗','Poulet, boulgour, ratatouille',570],['🍊','Orange + noix',190],['🍲','Soupe minestrone + fromage',500]],
+  [['🥣','Muesli, lait, banane',400],['🥗','Bowl thon, riz, avocat',560],['🍎','Pomme + fromage',200],['🥘','Curry pois chiches, riz',520]],
+  [['🥞','Pancakes avoine + fruits',430],['🍝','Pâtes complètes, légumes, parmesan',580],['🥛','Fromage blanc + miel',180],['🐟','Cabillaud, purée maison, épinards',510]],
+  [['🍳','Brunch œufs, pain, avocat',450],['🍗','Poulet rôti, légumes au four',560],['🍓','Fruits rouges',150],['🍲','Velouté de légumes + tartine',490]]],
+ energie:[
+  [['🍳','Œufs + pain complet',430],['🥗','Bowl lentilles, légumes, feta',580],['🍌','Banane + amandes',230],['🐟','Saumon, patate douce, épinards',560]],
+  [['🥣','Porridge, graines de chia, kiwi',420],['🍗','Poulet, quinoa, poivrons',590],['🥛','Skyr + noix',220],['🥘','Dhal de lentilles corail, riz',540]],
+  [['🥛','Yaourt grec, flocons d\'avoine, fruits',410],['🐟','Sardines, pommes de terre, salade',570],['🍫','Chocolat noir 85 % + amandes',220],['🍳','Omelette épinards + pain complet',520]],
+  [['🍞','Tartines complètes, beurre de cacahuète, banane',450],['🥩','Bœuf, riz complet, brocoli',600],['🍊','Orange + noix du Brésil',210],['🍲','Soupe pois cassés',520]],
+  [['🥣','Muesli sans sucre, lait, fruits',420],['🥗','Salade pois chiches, œuf, avocat',580],['🍎','Pomme + fromage',220],['🐟','Truite, boulgour, courgettes',550]],
+  [['🍳','Œufs brouillés, avocat, pain',450],['🍝','Pâtes complètes, poulet, pesto',600],['🥛','Fromage blanc + graines',200],['🥘','Curry légumes + tofu, riz',540]],
+  [['🥞','Pancakes avoine + fruits rouges',440],['🍗','Poulet rôti, légumes au four',580],['🍌','Smoothie banane épinards',230],['🍲','Velouté lentilles + œuf',520]]],
+};
+const PTIPS={
+ perte:[['🍽️','La moitié de l\'assiette en légumes','Plus de volume, moins de calories : vous mangez à votre faim.'],['💧','1,5 à 2 L d\'eau par jour','Un grand verre avant chaque repas.'],['⚖️','Pesée 1 fois par semaine','Même jour, à jeun : c\'est la tendance qui compte.']],
+ muscle:[['🥩','Une protéine à chaque repas','Viande, poisson, œufs, skyr ou shake : 4 fois par jour.'],['🏋️','3 à 4 séances par semaine','Le surplus devient du muscle seulement si vous vous entraînez.'],['😴','7 à 9 h de sommeil','C\'est la nuit que le muscle se construit.']],
+ prise:[['🕒','5 prises par jour','3 repas + 2 collations : plus facile que de manger plus d\'un coup.'],['🥤','Buvez vos calories','Un smoothie de 600 kcal passe mieux qu\'une assiette en plus.'],['🥑','Aliments denses','Huile d\'olive, avocat, noix, fromage : plus de calories par bouchée.']],
+ sain:[['🌈','5 couleurs par jour','Varier les fruits et légumes, c\'est varier les vitamines.'],['🍞','Céréales complètes','Pain, pâtes et riz complets : plus de fibres, plus de satiété.'],['🧂','Moins de produits transformés','Cuisiner simple, c\'est savoir ce qu\'on mange.']],
+ energie:[['🌅','Petit-déj protéiné','Œufs ou skyr : de l\'énergie stable jusqu\'à midi.'],['☕','Café après 9 h 30','Et pas après 15 h, pour garder un bon sommeil.'],['🥬','Fer et magnésium','Lentilles, épinards, amandes, chocolat noir dans vos menus.']],
+};
+let progDay=0;
+function openProg(g){S.view=g;progDay=0;renderProgView();go('prog',true)}
+function renderProgView(){
+  const p=PROGS.find(x=>x.g===S.view)||PROGS[0],W=PWEEK[p.g],D=['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'],mine=S.prog===p.g;
+  const day=W[progDay],tot=day.reduce((a,x)=>a+x[2],0);
+  const meals=`<div class="pv-meals">${day.map((x,i)=>`<div class="dish"><span class="e" aria-hidden="true">${x[0]}</span><span class="lbl">${MEALS[i].n}</span><b>${esc(x[1])}</b><div class="k"><em class="num">${fmt(x[2])} kcal</em></div></div>`).join('')}</div>`;
+  $('#progView').innerHTML=`
+  <button type="button" class="pv-back" data-go="programmes">← Tous les programmes</button>
+  <section class="card pv-head">
+    <span class="big" aria-hidden="true">${p.e}</span>
+    <div style="display:grid;gap:6px;min-width:0"><span class="lbl" style="color:var(--basil)">${p.t}</span><h2 style="display:block">Programme ${p.n}</h2><p class="for" style="margin:0">${p.for}</p></div>
+    <div class="facts"><div><span class="lbl">Résultat</span><b class="num">${p.rate}</b></div><div><span class="lbl">Durée</span><b>${p.dur}</b></div><div><span class="lbl">Repère</span><b class="num">≈ ${fmt(PREF[p.g])} kcal</b></div></div>
+    <div style="display:grid;gap:6px"><span class="lbl">Répartition</span>${splitBar(p.sp)}</div>
+    ${mine?'<span class="pill" style="justify-self:start">✓ Vous suivez ce programme</span>':`<button type="button" class="btn pv-start" data-follow="${p.g}">Suivre ce programme</button>`}
+  </section>
+  <section class="card" style="display:grid;gap:12px">
+    <h2 style="display:block">Les règles du programme</h2>
+    <ul class="incl">${p.inc.map(i=>`<li>${i}</li>`).join('')}</ul>
+  </section>
+  <section class="card" style="display:grid;gap:14px">
+    <h2 style="display:block">Votre semaine de menus</h2>
+    <div class="days pv-days">${D.map((d,i)=>`<button type="button" data-pd="${i}" aria-pressed="${i===progDay}">${d}<small class="num">${fmt(W[i].reduce((a,x)=>a+x[2],0))}</small></button>`).join('')}</div>
+    ${progDay===0?meals:`<div class="plock">${meals}</div>`}
+    <p class="msg" style="margin:0">Total du jour : <b class="num">${fmt(tot)} kcal</b> · portions pour ≈ ${fmt(PREF[p.g])} kcal par jour.</p>
+  </section>
+  <section class="card" style="display:grid;gap:12px">
+    <h2 style="display:block">Les 3 clés pour réussir</h2>
+    <div class="keys">${PTIPS[p.g].map(k=>`<div class="key"><span class="e" aria-hidden="true">${k[0]}</span><span><b>${k[1]}</b><small>${k[2]}</small></span></div>`).join('')}</div>
+  </section>
+  <section class="card pv-own">
+    <span aria-hidden="true" style="font-size:2rem">🎯</span>
+    <span style="display:grid;gap:2px"><b>Envie de portions calculées pour vous ?</b><small>Faites votre bilan : calories, menus et suivi adaptés à votre corps.</small></span>
+    <button type="button" class="btn" data-start>Faire mon bilan →</button>
+  </section>`;
+  applyLocks();
+}
+$('#progView').addEventListener('click',e=>{
+  const d=e.target.closest('[data-pd]');if(d){progDay=+d.dataset.pd;renderProgView();return}
+  const f=e.target.closest('[data-follow]');if(f){S.prog=f.dataset.follow;touch();renderProgView();renderProgs();toast('Programme ajouté ✓')}
+});
 function splitBar(sp){return `<div class="split" aria-label="Protéines ${sp[0]} %, glucides ${sp[1]} %, lipides ${sp[2]} %"><i style="width:${sp[0]}%;background:var(--tomato)"></i><i style="width:${sp[1]}%;background:var(--citrus)"></i><i style="width:${sp[2]}%;background:var(--plum)"></i></div>
  <div class="splitlg"><span style="--c:var(--tomato)">Prot. ${sp[0]} %</span><span style="--c:var(--citrus)">Gluc. ${sp[1]} %</span><span style="--c:var(--plum)">Lip. ${sp[2]} %</span></div>`}
 function renderProgs(){
-  const cur=S.quiz&&S.quiz.done&&S.quiz.goal;
-  if($('#progPreview'))$('#progPreview').innerHTML=PROGS.map(p=>`<a class="pcard" href="#programmes" data-go="programmes"><span class="e" aria-hidden="true">${p.e}</span><b>${p.n}</b><small>${p.t}</small><span class="rate num">${p.rate}</span></a>`).join('');
-  $('#progList').innerHTML=PROGS.map(p=>`<article class="card prog${cur===p.g?' sel':''}">
-    <div style="display:grid;gap:14px;min-width:0">
-      <div class="head"><span class="big" aria-hidden="true">${p.e}</span><div><span class="lbl" style="color:var(--basil)">${p.t}</span><h3>Programme ${p.n}</h3></div></div>
-      <p class="for" style="margin:0">${p.for}</p>
-      <div class="facts"><div><span class="lbl">Résultat</span><b class="num">${p.rate.replace(' / sem.','')}</b><small class="msg" style="font-size:.72rem">${p.rate.includes('sem')?'par semaine':''}</small></div><div><span class="lbl">Durée</span><b>${p.dur}</b></div><div><span class="lbl">Calories</span><b>${p.kc}</b></div></div>
-      <div style="display:grid;gap:6px"><span class="lbl">Répartition</span>${splitBar(p.sp)}</div>
-    </div>
-    <div style="display:grid;gap:14px;min-width:0">
-      <span class="lbl">Inclus</span><ul class="incl">${p.inc.map(i=>`<li>${i}</li>`).join('')}</ul>
-      <span class="lbl">Une journée type</span>
-      <div class="dayrow">${p.day.map(d=>`<div><span class="e" aria-hidden="true">${d[0]}</span><small>${d[1]}</small></div>`).join('')}</div>
-      <button class="btn" type="button" data-pick="${p.g}">${cur===p.g?'✓ Mon programme · refaire le quiz':'Choisir ce programme →'}</button>
-    </div>
-  </article>`).join('');
+  const cur=S.prog;
+  if($('#progPreview'))$('#progPreview').innerHTML=PROGS.filter(p=>p.g!=='energie').map(p=>`<a class="pcard" href="#prog" data-pick="${p.g}"><span class="e" aria-hidden="true">${p.e}</span><b>${p.n}</b><small>${p.t}</small><span class="rate num">${p.rate}</span></a>`).join('');
+  $('#progList').innerHTML=PROGS.filter(p=>p.g!=='energie').map(p=>`<button type="button" class="ptile${cur===p.g?' sel':''}" data-pick="${p.g}">
+      <span class="pt-e" aria-hidden="true">${p.e}</span><b>${p.t}</b><small>${p.for}</small>
+      <span class="pt-f"><span class="num">${p.rate}</span><span>${p.dur}</span></span>
+      <span class="pt-go">${cur===p.g?'✓ Mon programme · voir':'Voir ce programme →'}</span></button>`).join('')+
+    `<button type="button" class="ptile own" data-start><span class="pt-e" aria-hidden="true">🎯</span><b>Créer mon propre programme</b><small>16 questions sur votre corps, vos goûts et votre santé. Tout est calculé pour vous.</small><span class="pt-f"><span>Sur mesure</span><span>2 min</span></span><span class="pt-go">Faire mon bilan →</span></button>`;
 }
-$('#progList').addEventListener('click',e=>{const b=e.target.closest('[data-pick]');if(b)startQuiz(b.dataset.pick)});
+document.addEventListener('click',e=>{const b=e.target.closest('[data-pick]');if(b){e.preventDefault();openProg(b.dataset.pick)}});
 
 /* ---- Pages ---- */
-const PAGES=['accueil','programmes','plan','suivi','menu','coach'];
+const PAGES=['accueil','programmes','prog','plan','suivi','menu','coach'];
 function go(p,push){
   if(!PAGES.includes(p))p='accueil';
+  if(p==='prog'&&!$('#progView').innerHTML)renderProgView();
   PAGES.forEach(x=>{$('#p-'+x).hidden=x!==p});document.body.dataset.page=p;
   document.querySelectorAll('.nav a').forEach(a=>a.setAttribute('aria-current',a.dataset.go===p?'page':'false'));
   if(push&&location.hash!=='#'+p){try{history.pushState(null,'','#'+p)}catch(e){}}
