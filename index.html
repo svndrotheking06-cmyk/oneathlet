@@ -370,6 +370,31 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 @media (max-width:420px){.cup{width:66px;height:112px}.shk{gap:12px}}
 @media (prefers-reduced-motion:reduce){.dp-rows li{animation:none;opacity:1;transform:none}.shk{animation:none}}
 
+/* questions fréquentes */
+.faq{display:grid;gap:18px;padding-block:12px}
+.trust{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+@media (max-width:760px){.trust{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.trust span{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:12px 14px;font-weight:700;font-size:.86rem;line-height:1.25}
+.trust b{width:38px;height:38px;border-radius:12px;background:var(--basil-soft);display:grid;place-items:center;font-size:1.15rem;flex:none}
+.faq-tabs{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+.faq-tabs button{border:1.5px solid var(--line);background:var(--surface);border-radius:99px;padding:8px 14px;font-weight:700;font-size:.86rem}
+.faq-tabs button[aria-pressed="true"]{background:var(--basil);border-color:var(--basil);color:#FFFFFF}
+.faq-list{display:grid;gap:8px;max-width:820px;width:100%;margin:0 auto}
+.faq-i{background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden;transition:box-shadow .2s}
+.faq-i[open]{box-shadow:var(--shadow);border-color:var(--basil-soft)}
+.faq-i summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:12px;padding:14px 16px}
+.faq-i summary::-webkit-details-marker{display:none}
+.faq-e{width:38px;height:38px;border-radius:12px;background:var(--bg);display:grid;place-items:center;font-size:1.15rem;flex:none}
+.faq-q{flex:1;min-width:0;font-weight:800;font-size:.98rem;line-height:1.3}
+.faq-plus{position:relative;width:26px;height:26px;border-radius:50%;background:var(--basil-soft);flex:none;transition:transform .25s,background .2s}
+.faq-plus::before,.faq-plus::after{content:"";position:absolute;left:50%;top:50%;width:11px;height:2.4px;border-radius:2px;background:var(--basil);transform:translate(-50%,-50%)}
+.faq-plus::after{transform:translate(-50%,-50%) rotate(90deg)}
+.faq-i[open] .faq-plus{transform:rotate(45deg);background:var(--basil)}
+.faq-i[open] .faq-plus::before,.faq-i[open] .faq-plus::after{background:#FFFFFF}
+.faq-i p{margin:0;padding:0 16px 16px 66px;color:var(--muted);line-height:1.55;font-size:.93rem;max-width:68ch}
+@media (max-width:480px){.faq-i p{padding-left:16px}}
+.faq-more{margin:0;text-align:center;color:var(--muted);font-weight:700;display:flex;gap:10px;justify-content:center;align-items:center;flex-wrap:wrap}
+
 /* hero */
 .hero{background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:28px;padding:clamp(24px,5vw,48px);display:grid;gap:20px;position:relative;overflow:hidden;isolation:isolate}
 .bub{position:absolute;border-radius:50%;z-index:-1;background:radial-gradient(circle at 32% 28%,var(--sky),var(--basil) 70%);opacity:.9;animation:float 7s ease-in-out infinite alternate}
@@ -744,6 +769,38 @@ font[style]{background:none!important;box-shadow:none!important}
     </div>
   </section>
 
+  <!-- Questions fréquentes -->
+  <section class="faq" id="faq" aria-labelledby="h-faq">
+    <div class="dp-head"><span class="kicker4">Questions fréquentes</span><h2 id="h-faq">Vous hésitez ? C'est normal.</h2></div>
+    <div class="trust" aria-label="Nos garanties">
+      <span><b aria-hidden="true">🔒</b>Paiement sécurisé Stripe</span>
+      <span><b aria-hidden="true">🇪🇺</b>Données hébergées en Europe</span>
+      <span><b aria-hidden="true">↩️</b>Sans engagement</span>
+      <span><b aria-hidden="true">🧮</b>Méthode des diététiciens</span>
+    </div>
+    <div class="faq-tabs" id="faqTabs" role="group" aria-label="Filtrer les questions">
+      <button type="button" data-f="all" aria-pressed="true">Toutes</button>
+      <button type="button" data-f="res" aria-pressed="false">✅ Résultats</button>
+      <button type="button" data-f="pay" aria-pressed="false">💳 Paiement</button>
+      <button type="button" data-f="data" aria-pressed="false">🛡️ Confiance</button>
+    </div>
+    <div class="faq-list">
+      <details class="faq-i" data-cat="res"><summary><span class="faq-e" aria-hidden="true">✅</span><span class="faq-q">Est-ce que ça marche vraiment ?</span><span class="faq-plus" aria-hidden="true"></span></summary><p>Votre plan repose sur la formule de Mifflin-St Jeor, celle qu'utilisent les diététiciens pour calculer vos besoins. Il n'y a pas de magie : les résultats viennent de la régularité. Suivez le plan la plupart des jours, et la balance suit.</p></details>
+      <details class="faq-i" data-cat="res"><summary><span class="faq-e" aria-hidden="true">🚫</span><span class="faq-q">C'est encore un régime miracle ?</span><span class="faq-plus" aria-hidden="true"></span></summary><p>Non. Pas de pilule, pas de jeûne extrême, pas d'aliment interdit. Le site ne descend jamais sous 1 200 kcal par jour pour une femme et 1 500 pour un homme. On vise 0,3 à 0,7 kg par semaine : lent, mais durable.</p></details>
+      <details class="faq-i" data-cat="res"><summary><span class="faq-e" aria-hidden="true">⏱️</span><span class="faq-q">Quand vais-je voir des résultats ?</span><span class="faq-plus" aria-hidden="true"></span></summary><p>Souvent, l'énergie et la digestion changent dès la première semaine. Sur la balance, comptez 2 à 4 semaines pour voir une vraie tendance : le poids varie d'un jour à l'autre, c'est normal. La courbe de suivi vous montre la tendance.</p></details>
+      <details class="faq-i" data-cat="res"><summary><span class="faq-e" aria-hidden="true">🍕</span><span class="faq-q">Et si je craque un jour ?</span><span class="faq-plus" aria-hidden="true"></span></summary><p>Rien n'est perdu. Un repas ne défait pas une semaine. Notez-le, et reprenez votre plan au repas suivant. Le coach IA peut vous aider à rééquilibrer la journée.</p></details>
+      <details class="faq-i" data-cat="res"><summary><span class="faq-e" aria-hidden="true">🥗</span><span class="faq-q">Je suis vegan, halal ou intolérant : ça marche pour moi ?</span><span class="faq-plus" aria-hidden="true"></span></summary><p>Oui. Le bilan vous demande votre régime et vos intolérances. Les aliments qui ne vous conviennent pas sont masqués, les menus proposent des remplacements, et le coach n'en propose jamais.</p></details>
+      <details class="faq-i" data-cat="pay"><summary><span class="faq-e" aria-hidden="true">🆓</span><span class="faq-q">C'est vraiment gratuit pour commencer ?</span><span class="faq-plus" aria-hidden="true"></span></summary><p>Oui. Le quiz, le profil et le suivi des repas sont gratuits, sans carte bancaire. Seuls le plan détaillé, les menus et le coach IA demandent l'abonnement Premium.</p></details>
+      <details class="faq-i" data-cat="pay"><summary><span class="faq-e" aria-hidden="true">🔒</span><span class="faq-q">Mon paiement est-il sécurisé ?</span><span class="faq-plus" aria-hidden="true"></span></summary><p>Le paiement passe par Stripe, utilisé par des millions d'entreprises dans le monde. Votre numéro de carte va directement chez Stripe : OneAthlet ne le voit jamais et ne le stocke pas.</p></details>
+      <details class="faq-i" data-cat="pay"><summary><span class="faq-e" aria-hidden="true">↩️</span><span class="faq-q">Puis-je arrêter quand je veux ?</span><span class="faq-plus" aria-hidden="true"></span></summary><p>Oui, sans engagement. Mon compte → Gérer mon abonnement → Annuler : 2 clics. Vous gardez l'accès jusqu'à la fin du mois déjà payé, puis plus rien n'est prélevé.</p></details>
+      <details class="faq-i" data-cat="data"><summary><span class="faq-e" aria-hidden="true">🛡️</span><span class="faq-q">Que faites-vous de mes données ?</span><span class="faq-plus" aria-hidden="true"></span></summary><p>Vos données servent uniquement à calculer et suivre votre plan. Elles sont stockées sur des serveurs sécurisés en Europe (Irlande), seul votre compte y a accès, et elles ne sont jamais vendues. Vous pouvez demander leur suppression par le chat.</p></details>
+      <details class="faq-i" data-cat="data"><summary><span class="faq-e" aria-hidden="true">🤖</span><span class="faq-q">Le coach IA, c'est un vrai humain ?</span><span class="faq-plus" aria-hidden="true"></span></summary><p>Non, et on préfère le dire clairement : c'est une intelligence artificielle (Claude), qui connaît votre plan et répond à toute heure. Pour parler à un humain, utilisez la bulle de chat en bas à droite.</p></details>
+      <details class="faq-i" data-cat="data"><summary><span class="faq-e" aria-hidden="true">📸</span><span class="faq-q">Les calories de la photo sont-elles exactes ?</span><span class="faq-plus" aria-hidden="true"></span></summary><p>Ce sont des estimations. L'IA reconnaît les aliments et estime les portions à l'œil, comme le ferait un nutritionniste. C'est assez précis pour vous guider au quotidien, mais pas au gramme près.</p></details>
+      <details class="faq-i" data-cat="data"><summary><span class="faq-e" aria-hidden="true">🩺</span><span class="faq-q">Le site remplace-t-il un médecin ?</span><span class="faq-plus" aria-hidden="true"></span></summary><p>Non. OneAthlet donne des conseils de nutrition, pas de diagnostic. Si vous avez un problème de santé, êtes enceinte ou avez des troubles alimentaires, parlez-en d'abord à un médecin ou à un diététicien.</p></details>
+    </div>
+    <p class="faq-more">Une autre question ? <button type="button" class="st-go" id="faqChat">💬 Posez-la dans le chat</button></p>
+  </section>
+
   <!-- Dernier appel -->
   <section class="final">
     <span class="bub b1"></span><span class="bub b3"></span>
@@ -983,7 +1040,7 @@ font[style]{background:none!important;box-shadow:none!important}
   </section>
 
 </div>
-  <p class="note">Estimations basées sur la formule de Mifflin-St Jeor. Ce site ne remplace pas l'avis d'un médecin ou d'un diététicien. Vos données restent dans votre navigateur.</p>
+  <p class="note">Estimations basées sur la formule de Mifflin-St Jeor. Ce site ne remplace pas l'avis d'un médecin ou d'un diététicien. Vos données sont privées : sur votre appareil, et sur nos serveurs sécurisés en Europe si vous créez un compte.</p>
 </div>
 <div class="toast" id="toast" role="status"></div>
 
@@ -1414,6 +1471,15 @@ $('#quizBody').addEventListener('click',e=>{
 });
 $('#heroCta').addEventListener('click',()=>startQuiz());
 document.addEventListener('click',e=>{if(e.target.closest('[data-start]'))startQuiz()});
+/* ---- Questions fréquentes ---- */
+(function(){
+  const tabs=$('#faqTabs');if(!tabs)return;
+  tabs.addEventListener('click',e=>{const b=e.target.closest('[data-f]');if(!b)return;
+    tabs.querySelectorAll('[data-f]').forEach(x=>x.setAttribute('aria-pressed',x===b));
+    document.querySelectorAll('.faq-i').forEach(d=>{d.hidden=b.dataset.f!=='all'&&d.dataset.cat!==b.dataset.f});});
+  $('#faqChat').addEventListener('click',()=>{if(window.$crisp){window.$crisp.push(['do','chat:open'])}else{toast('Le chat est disponible sur oneathlet.com')}});
+})();
+
 /* ---- Langues (traduction automatique, version web) ---- */
 (function(){
   if(window.claude)return; // version Claude : français uniquement
