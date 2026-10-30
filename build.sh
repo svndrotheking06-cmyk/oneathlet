@@ -10,6 +10,9 @@ cat <<'HEAD'
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>OneAthlet</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="theme-color" content="#1E5EFF">
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
 <script>window.$crisp=[];window.CRISP_WEBSITE_ID="cd6458ad-9fbc-4c15-ac46-5e59de690163";window.CRISP_RUNTIME_CONFIG={locale:((document.cookie.match(/(?:^|; )googtrans=\/fr\/([a-z]{2})/)||[])[1]||"fr")};(function(){var d=document,s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
 </head>

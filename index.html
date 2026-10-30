@@ -3,6 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>OneAthlet</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="theme-color" content="#1E5EFF">
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
 <script>window.$crisp=[];window.CRISP_WEBSITE_ID="cd6458ad-9fbc-4c15-ac46-5e59de690163";window.CRISP_RUNTIME_CONFIG={locale:((document.cookie.match(/(?:^|; )googtrans=\/fr\/([a-z]{2})/)||[])[1]||"fr")};(function(){var d=document,s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
 </head>
@@ -556,7 +559,7 @@ font[style]{background:none!important;box-shadow:none!important}
 <div class="wrap">
   <header class="top">
     <a class="brand" href="#accueil" data-go="accueil">
-      <svg width="40" height="40" viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="20" fill="var(--basil-soft)"/><circle cx="22" cy="22" r="13" fill="none" stroke="var(--basil)" stroke-width="3"/><path d="M22 9v13l9 9" stroke="var(--citrus)" stroke-width="4" fill="none" stroke-linecap="round"/></svg>
+      <svg width="42" height="42" viewBox="0 0 44 44" aria-hidden="true"><defs><linearGradient id="oaLogo" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#38B6FF"/><stop offset="1" stop-color="#1E5EFF"/></linearGradient></defs><circle cx="22" cy="22" r="21" fill="url(#oaLogo)"/><circle cx="22" cy="10.6" r="3.7" fill="#FFFFFF"/><path d="M14.6 15.6 Q22 14 29.4 15.6 L25.6 26.4 Q22 27.6 18.4 26.4 Z" fill="#FFFFFF"/><path d="M15.6 16.4 L9.6 17.8 L10.6 10.8 M28.4 16.4 L34.4 17.8 L33.4 10.8" fill="none" stroke="#FFFFFF" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10.6" cy="10.4" r="2.1" fill="#FFFFFF"/><circle cx="33.4" cy="10.4" r="2.1" fill="#FFFFFF"/><path d="M19.6 26.6 L18.4 35.4 M24.4 26.6 L25.6 35.4" fill="none" stroke="#FFFFFF" stroke-width="3.6" stroke-linecap="round"/></svg>
       <h1 class="notranslate" translate="no">One<span>Athlet</span></h1>
     </a>
     <nav class="nav" aria-label="Pages">
@@ -1468,7 +1471,7 @@ document.addEventListener('click',e=>{if(e.target.closest('[data-start]'))startQ
   setInterval(()=>{if(!sAuto||document.hidden||$('#p-accueil').hidden)return;sh(si+1)},3800);
 })();
 
-(function(){const R=['Prendre du muscle en mangeant mieux.','Comprendre son corps.','Mincir sans se priver.','Retrouver son énergie.','Enfin prendre du poids.'];
+(function(){const R=['Prendre du muscle en mangeant mieux.','Maigrir en mangeant mieux.','Comprendre son corps.','Mincir sans se priver.','Retrouver son énergie.','Enfin prendre du poids.'];
   const el=$('#rot');if(!el||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;let i=0;
   setInterval(()=>{if(document.hidden)return;el.classList.add('out');setTimeout(()=>{i=(i+1)%R.length;el.textContent=R[i];el.classList.remove('out')},450)},3200)})();
 $('#heroGoals').addEventListener('click',e=>{const b=e.target.closest('[data-hg]');if(b)startQuiz(b.dataset.hg)});
