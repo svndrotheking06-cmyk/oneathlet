@@ -240,6 +240,34 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .final-q b{color:var(--basil)}
 @media (prefers-reduced-motion:reduce){.fc,.bubble-cta::before,.bubble-cta::after,.plate .scan,.ringdraw,.curvedraw{animation:none}}
 
+/* programme en 4 étapes */
+.steps4{display:grid;gap:22px;padding-block:12px}
+.steps4-head{display:grid;gap:6px;justify-items:center;text-align:center}
+.kicker4{font-size:.74rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--basil)}
+.steps4-head h2{font-size:clamp(1.7rem,5vw,2.6rem);font-weight:800;letter-spacing:-.03em;display:block}
+.steps4-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;position:relative}
+.steps4-list::before{content:"";position:absolute;left:12%;right:12%;top:22px;height:3px;border-radius:3px;background:linear-gradient(90deg,var(--basil),var(--sky));opacity:.35;z-index:0}
+@media (max-width:900px){.steps4-list{grid-template-columns:repeat(2,minmax(0,1fr))}.steps4-list::before{display:none}}
+@media (max-width:560px){.steps4-list{grid-template-columns:1fr}}
+.st{position:relative;z-index:1;display:grid;gap:8px;justify-items:center;text-align:center;background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:0 14px 16px;box-shadow:var(--shadow);margin-top:22px}
+.st-n{width:46px;height:46px;margin-top:-23px;border-radius:50%;display:grid;place-items:center;color:#FFFFFF;font-family:var(--display);font-weight:800;font-size:1.2rem;background:radial-gradient(circle at 32% 28%,var(--sky),var(--basil) 70%);box-shadow:0 10px 20px -10px var(--basil)}
+.st-v{width:100%;height:120px;border-radius:16px;background:var(--bg);display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:center;align-content:center;padding:10px;position:relative}
+.chipv{background:var(--surface);border:1.5px solid var(--line);border-radius:99px;padding:5px 10px;font-size:.78rem;font-weight:700}
+.chipv.on{border-color:var(--basil);background:var(--basil-soft)}
+.minibars{display:grid;gap:7px;width:60px}
+.minibars i{display:block;height:8px;border-radius:99px;background:linear-gradient(90deg,var(--c) var(--w),var(--surface) var(--w))}
+.cam{font-size:2.2rem}
+.mini-plate{width:78px;height:78px;border-radius:50%;background:var(--surface);box-shadow:inset 0 0 0 7px var(--line);display:grid;place-items:center;font-size:1.05rem;letter-spacing:-2px}
+.pill-k2{position:absolute;right:10px;top:10px;background:var(--leaf);color:#FFFFFF;border-radius:99px;padding:3px 9px;font-weight:800;font-size:.75rem}
+.st-chat{flex-direction:column;align-items:stretch;flex-wrap:nowrap}
+.st-chat .b{max-width:85%;padding:7px 11px;border-radius:13px;font-size:.8rem;font-weight:600}
+.st-chat .me{align-self:flex-end;background:var(--basil);color:#FFFFFF;border-bottom-right-radius:4px}
+.st-chat .ai{align-self:flex-start;background:var(--surface);border-bottom-left-radius:4px}
+.st b{font-family:var(--display);font-size:1.08rem;line-height:1.25;text-wrap:balance}
+.st small{color:var(--muted);font-size:.84rem;line-height:1.35}
+.st-go{border:0;background:var(--basil-soft);color:var(--basil);font-weight:800;font-size:.84rem;border-radius:99px;padding:8px 14px;margin-top:2px}
+.st-go:hover{background:var(--basil);color:#FFFFFF}
+
 /* hero */
 .hero{background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:28px;padding:clamp(24px,5vw,48px);display:grid;gap:20px;position:relative;overflow:hidden;isolation:isolate}
 .bub{position:absolute;border-radius:50%;z-index:-1;background:radial-gradient(circle at 32% 28%,var(--sky),var(--basil) 70%);opacity:.9;animation:float 7s ease-in-out infinite alternate}
@@ -504,6 +532,41 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
       <b>7 jours. Zéro prise de tête.</b>
       <small>Des menus prêts, adaptés à votre régime.</small>
     </article>
+  </section>
+
+  <!-- Programme en 4 étapes -->
+  <section class="steps4" aria-labelledby="h-steps">
+    <div class="steps4-head"><span class="kicker4">Votre programme</span><h2 id="h-steps">4 étapes. Un nouveau vous.</h2></div>
+    <ol class="steps4-list">
+      <li class="st">
+        <span class="st-n" aria-hidden="true">1</span>
+        <div class="st-v" aria-hidden="true"><span class="chipv">💪 Muscle</span><span class="chipv on">🥗 Vegan ✓</span><span class="chipv">🏃 3×/sem.</span></div>
+        <b>Dites-nous tout sur vous</b>
+        <small>Le quiz : 1 minute pour vous cerner.</small>
+        <button type="button" class="st-go" data-start>Faire le quiz →</button>
+      </li>
+      <li class="st">
+        <span class="st-n" aria-hidden="true">2</span>
+        <div class="st-v" aria-hidden="true"><svg viewBox="0 0 120 120" width="86" height="86"><circle cx="60" cy="60" r="46" fill="none" stroke="var(--surface)" stroke-width="12"/><circle cx="60" cy="60" r="46" fill="none" stroke="var(--basil)" stroke-width="12" stroke-linecap="round" stroke-dasharray="289" stroke-dashoffset="70" transform="rotate(-90 60 60)"/><text x="60" y="64" text-anchor="middle" font-size="19" font-weight="800" style="fill:var(--ink);font-family:var(--display)">1 850</text></svg><span class="minibars"><i style="--w:70%;--c:var(--tomato)"></i><i style="--w:50%;--c:var(--citrus)"></i><i style="--w:35%;--c:var(--plum)"></i></span></div>
+        <b>Vos objectifs du jour</b>
+        <small>Calories et macros, chaque jour, pour vous.</small>
+        <button type="button" class="st-go" data-go="suivi">Voir ma journée →</button>
+      </li>
+      <li class="st">
+        <span class="st-n" aria-hidden="true">3</span>
+        <div class="st-v" aria-hidden="true"><span class="cam">📸</span><span class="mini-plate">🍗🥦🍚</span><span class="pill-k2">+642 kcal</span></div>
+        <b>Photographiez, suivez</b>
+        <small>Une photo par repas. Le reste se fait tout seul.</small>
+        <button type="button" class="st-go" data-go="suivi">Ajouter un repas →</button>
+      </li>
+      <li class="st">
+        <span class="st-n" aria-hidden="true">4</span>
+        <div class="st-v st-chat" aria-hidden="true"><span class="b me">Je stagne…</span><span class="b ai">On ajuste ton plan 💪</span></div>
+        <b>Une question ? Le coach répond</b>
+        <small>Votre coach IA, jour et nuit.</small>
+        <button type="button" class="st-go" data-go="coach">Parler au coach →</button>
+      </li>
+    </ol>
   </section>
 
   <!-- Dernier appel -->
