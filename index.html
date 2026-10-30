@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+<script>window.$crisp=[];window.CRISP_WEBSITE_ID="cd6458ad-9fbc-4c15-ac46-5e59de690163";window.CRISP_RUNTIME_CONFIG={locale:"fr"};(function(){var d=document,s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
 </head>
 <body>
 <title>OneAthlet</title>
@@ -1210,6 +1211,7 @@ if(sb){
     btn.querySelector('.dot').textContent=sbUser?(sbUser.email||'?')[0].toUpperCase():'?';
     $('#acctLbl').textContent=sbUser?'Mon compte':'Se connecter';
     reviewsUI();loadPremium();
+    if(window.$crisp&&sbUser&&sbUser.email){window.$crisp.push(['set','user:email',[sbUser.email]])}
     if(sbUser&&sbUser.id!==prev){setTimeout(async()=>{
       const{data,error}=await sb.from('profils').select('state').eq('user_id',sbUser.id).maybeSingle();
       if(error){console.warn('sync',error.message);return}
