@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
-<script>window.$crisp=[];window.CRISP_WEBSITE_ID="cd6458ad-9fbc-4c15-ac46-5e59de690163";window.CRISP_RUNTIME_CONFIG={locale:"fr"};(function(){var d=document,s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
+<script>window.$crisp=[];window.CRISP_WEBSITE_ID="cd6458ad-9fbc-4c15-ac46-5e59de690163";window.CRISP_RUNTIME_CONFIG={locale:((document.cookie.match(/(?:^|; )googtrans=\/fr\/([a-z]{2})/)||[])[1]||"fr")};(function(){var d=document,s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
 </head>
 <body>
 <title>OneAthlet</title>
@@ -453,6 +453,11 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 
 /* compte */
 .acctbar{display:flex;gap:8px;justify-content:flex-end;align-items:center;flex-wrap:wrap}
+.langsel{display:inline-flex;align-items:center;gap:6px;border:1.5px solid var(--line);background:var(--surface);border-radius:99px;padding:4px 6px 4px 12px;font-weight:700;font-size:.85rem}
+.langsel select{border:0;background:none;font:inherit;font-weight:700;padding:4px 2px;cursor:pointer}
+.goog-te-banner-frame,.skiptranslate>iframe,#goog-gt-tt,.goog-te-balloon-frame{display:none!important}
+body{top:0!important}
+font[style]{background:none!important;box-shadow:none!important}
 .acctbtn{display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--line);background:var(--surface);border-radius:99px;padding:6px 14px 6px 8px;font-weight:700;font-size:.85rem}
 .acctbtn .dot{width:26px;height:26px;border-radius:50%;background:var(--basil-soft);display:grid;place-items:center;color:var(--basil);font-weight:800}
 .acctbtn.on .dot{background:var(--basil);color:#FFFFFF}
@@ -552,7 +557,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
   <header class="top">
     <a class="brand" href="#accueil" data-go="accueil">
       <svg width="40" height="40" viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="20" fill="var(--basil-soft)"/><circle cx="22" cy="22" r="13" fill="none" stroke="var(--basil)" stroke-width="3"/><path d="M22 9v13l9 9" stroke="var(--citrus)" stroke-width="4" fill="none" stroke-linecap="round"/></svg>
-      <h1>One<span>Athlet</span></h1>
+      <h1 class="notranslate" translate="no">One<span>Athlet</span></h1>
     </a>
     <nav class="nav" aria-label="Pages">
       <a href="#accueil" data-go="accueil">Accueil</a>
@@ -564,6 +569,9 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
     </nav>
   </header>
   <div class="acctbar">
+    <label class="langsel notranslate" translate="no" id="langWrap" hidden><span aria-hidden="true">🌐</span><select id="langSel" aria-label="Langue / Language">
+      <option value="fr">Français</option><option value="en">English</option><option value="es">Español</option><option value="de">Deutsch</option><option value="it">Italiano</option><option value="pt">Português</option><option value="nl">Nederlands</option><option value="ar">العربية</option><option value="tr">Türkçe</option>
+    </select></label>
     <div class="pill" id="demoPill"><span>Exemple pré-rempli</span><button id="resetAll" type="button">Tout effacer</button></div>
     <button class="acctbtn" type="button" id="acctBtn" hidden><span class="dot" aria-hidden="true">?</span><span id="acctLbl">Mon compte</span></button>
   </div>
@@ -1031,6 +1039,9 @@ function sample(){return{
 let S;
 try{S=JSON.parse(localStorage.getItem('assiette-legere'))}catch(e){}
 if(!S||typeof S!=='object')S=sample();
+const LANGS={fr:'français',en:'English',es:'español',de:'Deutsch',it:'italiano',pt:'português',nl:'Nederlands',ar:'العربية',tr:'Türkçe'};
+function curLang(){const m=document.cookie.match(/(?:^|; )googtrans=\/fr\/([a-z-]+)/);return m&&LANGS[m[1]]?m[1]:'fr'}
+const LANG=curLang();
 const SB_URL='https://dbrpduznzqynkuebulxx.supabase.co',SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRicnBkdXpuenF5bmt1ZWJ1bHh4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIxMDM4OTAsImV4cCI6MjEwNzY3OTg5MH0.8XVULvee0zcbp7qjlmHupBdhxUKb0tYz6fm1xK4eJkk';
 const sb=(!window.claude&&window.supabase&&window.supabase.createClient)?window.supabase.createClient(SB_URL,SB_KEY):null;
 let sbUser=null,pushT=null;
@@ -1392,6 +1403,23 @@ $('#quizBody').addEventListener('click',e=>{
 });
 $('#heroCta').addEventListener('click',()=>startQuiz());
 document.addEventListener('click',e=>{if(e.target.closest('[data-start]'))startQuiz()});
+/* ---- Langues (traduction automatique, version web) ---- */
+(function(){
+  if(window.claude)return; // version Claude : français uniquement
+  const wrap=$('#langWrap'),sel=$('#langSel');if(!wrap||!sel)return;
+  wrap.hidden=false;sel.value=LANG;document.documentElement.lang=LANG;
+  sel.addEventListener('change',()=>{
+    const v=sel.value,h=location.hostname,parts=h.split('.'),root=parts.length>1?'.'+parts.slice(-2).join('.'):'';
+    const set=(val,exp)=>{document.cookie='googtrans='+val+';path=/'+exp;if(root)document.cookie='googtrans='+val+';path=/;domain='+root+exp};
+    if(v==='fr')set('','; expires=Thu, 01 Jan 1970 00:00:00 GMT');else set('/fr/'+v,'; max-age=31536000');
+    location.reload();
+  });
+  if(LANG==='fr')return;
+  const d=document.createElement('div');d.id='google_translate_element';d.hidden=true;document.body.appendChild(d);
+  window.googleTranslateElementInit=function(){try{new google.translate.TranslateElement({pageLanguage:'fr',autoDisplay:false},'google_translate_element')}catch(e){}};
+  const sc=document.createElement('script');sc.src='https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';sc.async=true;document.head.appendChild(sc);
+})();
+
 /* ---- Accueil : objectifs du jour + shakers ---- */
 (function(){
   const DAYS={
@@ -1619,7 +1647,7 @@ if(sb){
 })();
 
 /* ---- Coach IA ---- */
-const COACH_RULES=`Tu es le coach nutrition de OneAthlet (perte de poids, muscle, prise de poids, équilibre, énergie). Réponds en français, en tutoyant, en 5 à 8 lignes maximum, concret et motivant. Appuie-toi sur le profil du client ci-dessous. Ne propose jamais un aliment incompatible avec son régime ou ses intolérances. Donne des quantités précises quand tu proposes un repas. Tu n'es pas médecin : pas de diagnostic ni de médicament ; si le client évoque un problème de santé, une grossesse, des troubles alimentaires ou moins de 1 200 kcal par jour, conseille-lui de consulter un médecin ou un diététicien.`;
+const COACH_RULES=`Tu es le coach nutrition de OneAthlet (perte de poids, muscle, prise de poids, équilibre, énergie). Réponds en ${LANGS[LANG]||'français'}, en tutoyant, en 5 à 8 lignes maximum, concret et motivant. Appuie-toi sur le profil du client ci-dessous. Ne propose jamais un aliment incompatible avec son régime ou ses intolérances. Donne des quantités précises quand tu proposes un repas. Tu n'es pas médecin : pas de diagnostic ni de médicament ; si le client évoque un problème de santé, une grossesse, des troubles alimentaires ou moins de 1 200 kcal par jour, conseille-lui de consulter un médecin ou un diététicien.`;
 const SUGG=['Que manger ce soir ?','Une idée de collation','Analyse ma journée','Je stagne, que faire ?','Un petit-déj rapide','Comment tenir ma motivation ?'];
 function optLabel(k,v){const st=QUIZ.find(x=>x.k===k);if(!st)return v;const o=st.o(S.quiz||{}).find(x=>x[0]===v);return o?o[2]:v}
 function coachProfile(){
@@ -1671,7 +1699,7 @@ async function askCoach(q){
       const r=await coachSampler(turns,{cache:false,signal:coachCtl.signal,onText:({text})=>{const el=$('#coachLive');if(el){el.classList.remove('wait');el.innerHTML=fmtMsg(text);const c=$('#chat');c.scrollTop=c.scrollHeight}}});
       reply=r.text;
     }else{
-      const{data,error}=await sb.functions.invoke('coach',{body:{messages:S.coach.slice(-20),profile:coachProfile()}});
+      const{data,error}=await sb.functions.invoke('coach',{body:{messages:S.coach.slice(-20),profile:coachProfile(),lang:LANG}});
       if(error){let m='';try{m=(await error.context.json()).error}catch(e){}throw{code:'sb',message:m||'Le coach n\'a pas pu répondre. Réessayez.'}}
       reply=(data&&data.reply)||'';
     }

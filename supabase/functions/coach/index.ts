@@ -10,7 +10,7 @@ const CORS = {
 };
 
 const SYSTEM = `Tu es le coach nutrition de OneAthlet, un site qui aide à perdre du poids, prendre du muscle, prendre du poids, mieux manger ou retrouver de l'énergie.
-Réponds toujours en français, en tutoyant, avec des réponses courtes (5 à 8 lignes maximum), concrètes et motivantes.
+Réponds en tutoyant, avec des réponses courtes (5 à 8 lignes maximum), concrètes et motivantes.
 Appuie-toi sur le profil du client fourni ci-dessous : objectif, calories, macros, ce qu'il a mangé aujourd'hui, régime, intolérances et aliments préférés. Ne propose jamais un aliment incompatible avec son régime ou ses intolérances.
 Donne des quantités précises (grammes, portions) quand tu proposes un repas.
 Tu n'es pas médecin : pas de diagnostic, pas de médicament. Si le client parle d'un problème de santé, de grossesse, de troubles alimentaires ou veut descendre sous 1 200 kcal par jour, conseille-lui avec bienveillance de consulter un médecin ou un diététicien.`;
@@ -38,7 +38,7 @@ Deno.serve(async (req) => {
     (!ab.current_period_end || new Date(ab.current_period_end).getTime() > Date.now() - 86_400_000);
   if (!premium) return json({ error: "Le coach IA est réservé aux membres Premium (14,99 €/mois)." }, 402);
 
-  let body: { messages?: unknown; profile?: unknown };
+  let body: { messages?: unknown; profile?: unknown; lang?: unknown };
   try { body = await req.json(); } catch { return json({ error: "Requête invalide" }, 400); }
 
   const raw = Array.isArray(body.messages) ? body.messages : [];
@@ -49,6 +49,8 @@ Deno.serve(async (req) => {
   while (messages.length && messages[0].role !== "user") messages.shift();
   if (!messages.length || messages[messages.length - 1].role !== "user") return json({ error: "Message manquant" }, 400);
   const profile = typeof body.profile === "string" ? body.profile.slice(0, 4000) : "";
+  const LANGS: Record<string, string> = { fr: "français", en: "anglais", es: "espagnol", de: "allemand", it: "italien", pt: "portugais", nl: "néerlandais", ar: "arabe", tr: "turc" };
+  const langue = LANGS[String(body.lang ?? "fr")] ?? "français";
 
   try {
     const response = await client.beta.messages.create({
@@ -57,7 +59,7 @@ Deno.serve(async (req) => {
       output_config: { effort: "low" },
       betas: ["server-side-fallback-2026-07-01"],
       fallbacks: "default",
-      system: `${SYSTEM}\n\nProfil du client :\n${profile || "(non renseigné)"}`,
+      system: `${SYSTEM}\nRéponds toujours en ${langue}.\n\nProfil du client :\n${profile || "(non renseigné)"}`,
       messages,
     } as any);
     if (response.stop_reason === "refusal") {
