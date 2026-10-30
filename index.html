@@ -1127,8 +1127,9 @@ const FOODS=[
  {id:'creatine',e:'⚡',n:'Créatine 5 g',k:0,p:0,c:0,f:0},
  {id:'laitsoja',e:'🥛',n:'Lait de soja 250 ml',k:85,p:8,c:2,f:5},
  {id:'laitamande',e:'🥛',n:'Lait d\'amande 250 ml',k:35,p:1,c:1,f:3},
+ {id:'laitcoco',e:'🥥',n:'Lait de coco 250 ml',k:50,p:0,c:6,f:3},
 ];
-const PRICES={oeuf:.3,yaourt:.35,avoine:.15,pain:.2,pomme:.4,banane:.25,poulet:1.6,saumon:3,tofu:.9,lentilles:.35,riz:.2,brocoli:.7,salade:1.8,avocat:.6,amandes:.35,choco:.3,shake:.9,cacahuete:.3,pates:.3,steak:2.2,gainer:1.2,creatine:.15,laitsoja:.4,laitamande:.55};
+const PRICES={oeuf:.3,yaourt:.35,avoine:.15,pain:.2,pomme:.4,banane:.25,poulet:1.6,saumon:3,tofu:.9,lentilles:.35,riz:.2,brocoli:.7,salade:1.8,avocat:.6,amandes:.35,choco:.3,shake:.9,cacahuete:.3,pates:.3,steak:2.2,gainer:1.2,creatine:.15,laitsoja:.4,laitamande:.55,laitcoco:.55};
 const eur=n=>n.toLocaleString('fr-FR',{style:'currency',currency:'EUR'});
 const FTAGS={oeuf:'egg',yaourt:'dairy',avoine:'gluten grain',pain:'gluten grain',pomme:'fruit',banane:'fruit',poulet:'meat',saumon:'fish',tofu:'soy legume',lentilles:'legume',riz:'grain',brocoli:'veg',salade:'veg',avocat:'veg',amandes:'nuts',choco:'sugar',shake:'dairy',gainer:'dairy',laitsoja:'soy',laitamande:'nuts',cacahuete:'peanut legume',pates:'gluten grain',steak:'meat'};
 const arr=v=>Array.isArray(v)?v:(v?[v]:[]);
@@ -1369,10 +1370,11 @@ function all(){fillForm();renderQuiz();renderProgs();renderFoods();renderPlan();
 document.querySelectorAll('[data-sex]').forEach(b=>b.addEventListener('click',()=>{S.sex=b.dataset.sex;touch();fillForm();renderPlan();renderToday()}));
 $('#foods').addEventListener('click',e=>{const b=e.target.closest('[data-f]');if(!b)return;(S.log[today]=S.log[today]||[]).push({m:S.meal,f:b.dataset.f});touch();renderToday();const f=FOODS.find(x=>x.id===b.dataset.f);const over=spentToday()-budget();toast('+ '+f.k+' kcal · '+f.n+(PRICES[f.id]!=null?' · '+eur(PRICES[f.id]):'')+(over>0.004?' · budget dépassé de '+eur(over):''))});
 function budget(){return Math.min(40,Math.max(3,+S.budget||8))}
-function spentToday(){return (S.log[today]||[]).reduce((a,it)=>a+(it.x?0:(PRICES[it.f]||0)),0)}
+function spentToday(){return Math.round((S.log[today]||[]).reduce((a,it)=>a+(it.x?0:(PRICES[it.f]||0)),0)*100)/100}
+function pricedCount(){return (S.log[today]||[]).filter(it=>!it.x&&PRICES[it.f]!=null).length}
 function renderBudget(){
   const el=$('#budRange');if(!el)return;
-  const B=budget(),sp=spentToday(),left=B-sp,r=Math.min(1,sp/B);
+  const B=budget(),sp=spentToday(),left=Math.round((B-sp)*100)/100,r=Math.min(1,sp/B),nb=pricedCount();
   if(document.activeElement!==el)el.value=B;
   el.style.setProperty('--p',((B-3)/37*100)+'%');
   $('#budVal').textContent=eur(B);$('#budWeek').textContent=eur(Math.round(B*7));$('#budMonth').textContent=eur(Math.round(B*30));
@@ -1381,7 +1383,7 @@ function renderBudget(){
   const arc=$('#budArc');arc.setAttribute('stroke-dashoffset',(301.6*(1-r)).toFixed(1));arc.setAttribute('stroke',col);
   const pill=$('#budPill');pill.textContent={ok:'Dans le budget ✓',warn:'Presque au maximum',over:'Budget dépassé'}[st];pill.style.background=col;
   $('#budLeft').textContent=left>=0?'Reste '+eur(left):'Dépassement de '+eur(-left);
-  $('#budTip').textContent=st==='over'?'Astuce : œufs, lentilles, riz et flocons d\'avoine donnent beaucoup pour peu cher.':st==='warn'?'Pour la suite de la journée, privilégiez les aliments à moins de 0,50 €.':'Les prix s\'affichent sur chaque aliment ci-dessus.';
+  $('#budTip').textContent=st==='over'?'Vos '+nb+' aliment'+(nb>1?'s':'')+' du jour coûtent '+eur(sp)+'. Retirez-en un ou augmentez le budget. Astuce : œufs, lentilles, riz et flocons d\'avoine coûtent peu.':st==='warn'?'Vos '+nb+' aliment'+(nb>1?'s':'')+' du jour coûtent '+eur(sp)+'. Pour la suite, privilégiez les aliments à moins de 0,50 €.':nb?'Vos '+nb+' aliment'+(nb>1?'s':'')+' du jour coûtent '+eur(sp)+'. Les prix s\'affichent sur chaque aliment ci-dessus.':'Ajoutez vos aliments ci-dessus : leur prix s\'additionne ici.';
   document.querySelectorAll('#foods .food').forEach(b=>{const pr=PRICES[b.dataset.f];b.classList.toggle('pricey',pr!=null&&pr>Math.max(0,left)+0.001)});
 }
 $('#budRange').addEventListener('input',e=>{S.budget=+e.target.value;save();renderBudget()});
