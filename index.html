@@ -173,6 +173,73 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .prog .btn{justify-self:start;text-decoration:none}
 .prog.sel{border-color:var(--basil);box-shadow:0 0 0 3px var(--basil-soft),var(--shadow)}
 
+/* accueil léger */
+.h2o{position:relative;overflow:hidden;isolation:isolate;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:24px;align-items:center;padding-block:clamp(28px,6vw,64px);min-height:min(78vh,640px)}
+@media (max-width:760px){.h2o{grid-template-columns:1fr;min-height:0}}
+.h2o .bub.b1{right:-60px;top:-40px}
+.h2o .kicker{font-size:.74rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--basil)}
+@media (max-width:760px){.h2o .bub.b1{width:110px;height:110px;right:-55px;top:-30px;opacity:.6}.h2o .bub.b2{display:none}}
+.h2o-txt{display:grid;gap:18px;justify-items:start}
+.h2o-title{font-size:clamp(2.2rem,7vw,4rem);font-weight:800;line-height:1.02;letter-spacing:-.035em;max-width:13ch;min-height:2.1em;display:block}
+.rot{display:inline-block;background:linear-gradient(90deg,var(--ink),var(--basil));-webkit-background-clip:text;background-clip:text;color:transparent;transition:opacity .45s,transform .45s}
+.rot.out{opacity:0;transform:translateY(12px)}
+.h2o-sub{margin:0;font-size:clamp(1.05rem,2.6vw,1.3rem);color:var(--muted);font-weight:600}
+.h2o-goals{display:flex;flex-wrap:wrap;gap:8px}
+.h2o-goals button{border:1.5px solid var(--line);background:var(--surface);border-radius:99px;padding:8px 14px;font-weight:700;font-size:.88rem;display:inline-flex;gap:6px;align-items:center;transition:border-color .15s,transform .15s}
+.h2o-goals button:hover{border-color:var(--basil);transform:translateY(-2px)}
+.bubble-cta{position:relative;width:150px;height:150px;border-radius:50%;border:0;color:#FFFFFF;font-family:var(--display);font-weight:800;font-size:1.05rem;line-height:1.2;background:radial-gradient(circle at 32% 28%,var(--sky),var(--basil) 68%);box-shadow:0 22px 40px -18px var(--basil);transition:transform .2s;margin-top:6px}
+.bubble-cta:hover{transform:scale(1.05)}
+.bubble-cta::before,.bubble-cta::after{content:"";position:absolute;inset:-10px;border-radius:50%;border:2px solid var(--basil);opacity:.35;animation:ripple 2.4s ease-out infinite}
+.bubble-cta::after{animation-delay:1.2s}
+@keyframes ripple{from{transform:scale(.92);opacity:.45}to{transform:scale(1.25);opacity:0}}
+.h2o-vis{position:relative;height:360px;max-width:100%}
+@media (max-width:760px){.h2o-vis{height:300px}}
+.fc{position:absolute;background:var(--surface);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);animation:float 6s ease-in-out infinite alternate}
+.fc-ring{left:6%;top:6%;width:190px;padding:16px;display:grid;justify-items:center;gap:4px}
+.fc-ring svg{width:130px;height:130px}
+.fc-ring div{position:absolute;top:58px;display:grid;justify-items:center}
+.fc-ring b{font-family:var(--display);font-size:1.5rem}
+.fc-ring small{color:var(--muted);font-size:.72rem}
+.ringdraw{animation:ringdraw 1.6s ease-out both}
+@keyframes ringdraw{from{stroke-dashoffset:301.6}}
+.fc-macro{right:4%;top:18%;width:150px;padding:16px;display:grid;gap:10px;animation-delay:-2s}
+.fc-macro i{display:block;height:10px;border-radius:99px;background:linear-gradient(90deg,var(--c) var(--w),var(--bg) var(--w))}
+.fc-chat{left:18%;bottom:12%;padding:12px 16px;font-weight:700;font-size:.9rem;display:flex;gap:8px;align-items:center;animation-delay:-4s}
+.fc-chat .dot{width:10px;height:10px;border-radius:50%;background:var(--leaf);flex:none}
+.fc-tag{right:10%;bottom:30%;padding:10px 14px;font-family:var(--display);font-weight:800;color:var(--leaf);animation-delay:-3s}
+@media (max-width:420px){.fc-ring{left:0;width:170px}.fc-macro{right:0;width:130px}.fc-chat{left:4%;font-size:.82rem}}
+.feats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:900px){.feats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.feats{grid-template-columns:1fr}}
+.feat{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:14px;display:grid;gap:8px;align-content:start;box-shadow:var(--shadow);transition:transform .2s}
+.feat:hover{transform:translateY(-4px)}
+.feat b{font-family:var(--display);font-size:1.12rem;line-height:1.25;padding-inline:4px;text-wrap:balance}
+.feat small{color:var(--muted);font-size:.86rem;padding:0 4px 4px}
+.fv{height:150px;border-radius:16px;background:var(--bg);display:grid;place-items:center;position:relative;overflow:hidden}
+.fv-quiz{display:flex;flex-wrap:wrap;gap:8px;align-content:center;justify-content:center;padding:14px}
+.fv-quiz span{background:var(--surface);border:1.5px solid var(--line);border-radius:99px;padding:6px 12px;font-size:.82rem;font-weight:700}
+.fv-quiz span.on{border-color:var(--basil);background:var(--basil-soft)}
+.fv-plan text{fill:var(--muted);font-family:var(--display)}
+.plate{position:relative;width:110px;height:110px;border-radius:50%;background:var(--surface);box-shadow:inset 0 0 0 10px var(--line);display:grid;grid-template-columns:1fr 1fr;place-items:center;font-size:1.7rem;padding:18px;overflow:hidden}
+.plate span:first-child{grid-column:1/-1}
+.plate .scan{position:absolute;left:0;right:0;height:3px;background:var(--citrus);box-shadow:0 0 14px var(--citrus);animation:scanline 1.8s ease-in-out infinite alternate}
+.fv-photo .pill-k{position:absolute;right:14px;top:14px;background:var(--basil);color:#FFFFFF;border-radius:99px;padding:4px 10px;font-weight:800;font-size:.8rem}
+.fv-chat{display:grid;gap:8px;padding:16px;align-content:center;justify-items:stretch}
+.fv-chat .b{max-width:80%;padding:8px 12px;border-radius:14px;font-size:.84rem;font-weight:600}
+.fv-chat .me{justify-self:end;background:var(--basil);color:#FFFFFF;border-bottom-right-radius:4px}
+.fv-chat .ai{justify-self:start;background:var(--surface);border-bottom-left-radius:4px}
+.fv-curve{padding:14px}
+.curvedraw{stroke-dasharray:240;animation:curvedraw 2s ease-out both}
+@keyframes curvedraw{from{stroke-dashoffset:240}to{stroke-dashoffset:0}}
+.fv-week{display:flex;gap:5px;justify-content:center;flex-wrap:wrap;padding:10px}
+.fv-week span{width:34px;height:34px;border-radius:50%;background:var(--surface);display:grid;place-items:center;font-size:1.15rem;box-shadow:var(--shadow)}
+.final{position:relative;overflow:hidden;isolation:isolate;display:grid;justify-items:center;gap:16px;text-align:center;padding-block:clamp(28px,6vw,56px)}
+.final .bub.b1{left:-60px;right:auto;top:-40px;width:160px;height:160px}
+.final .bub.b3{right:10%;bottom:20px}
+.final-q{margin:0;font-family:var(--display);font-size:clamp(1.4rem,4vw,2rem);font-weight:800;letter-spacing:-.02em}
+.final-q b{color:var(--basil)}
+@media (prefers-reduced-motion:reduce){.fc,.bubble-cta::before,.bubble-cta::after,.plate .scan,.ringdraw,.curvedraw{animation:none}}
+
 /* hero */
 .hero{background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:28px;padding:clamp(24px,5vw,48px);display:grid;gap:20px;position:relative;overflow:hidden;isolation:isolate}
 .bub{position:absolute;border-radius:50%;z-index:-1;background:radial-gradient(circle at 32% 28%,var(--sky),var(--basil) 70%);opacity:.9;animation:float 7s ease-in-out infinite alternate}
@@ -381,32 +448,79 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
   </div>
 
 <div class="page" id="p-accueil">
-  <!-- 0. Accroche -->
-  <section class="hero" aria-labelledby="h-hero">
+  <!-- Entrée -->
+  <section class="h2o" aria-labelledby="h-hero">
     <span class="bub b1"></span><span class="bub b2"></span><span class="bub b3"></span><span class="bub b4"></span>
-    <span class="kicker">Nutrition · Suivi · Résultats</span>
-    <h2 id="h-hero">Un plan. Un suivi. <em>Vos résultats.</em></h2>
-    <p>Maigrir, prendre du muscle, enfin réussir à grossir, mieux manger ou retrouver de l'énergie : chaque objectif a sa méthode. Ici, elle est chiffrée, suivie chaque jour, et elle avance avec vous.</p>
-    <div class="goals4" id="heroGoals">
-      <button type="button" data-hg="perte"><span class="e" aria-hidden="true">🔥</span>Perdre du poids</button>
-      <button type="button" data-hg="muscle"><span class="e" aria-hidden="true">💪</span>Prendre du muscle</button>
-      <button type="button" data-hg="prise"><span class="e" aria-hidden="true">📈</span>Prendre du poids</button>
-      <button type="button" data-hg="sain"><span class="e" aria-hidden="true">🥗</span>Manger mieux</button>
-      <button type="button" data-hg="energie"><span class="e" aria-hidden="true">⚡</span>Plus d'énergie</button>
+    <div class="h2o-txt">
+      <span class="kicker">OneAthlet</span>
+      <h2 id="h-hero" class="h2o-title"><span class="rot" id="rot">Prendre du muscle en mangeant mieux.</span></h2>
+      <p class="h2o-sub">Et si tout commençait dans votre assiette ?</p>
+      <div class="h2o-goals" id="heroGoals" aria-label="Choisir un objectif">
+        <button type="button" data-hg="perte"><span aria-hidden="true">🔥</span>Mincir</button>
+        <button type="button" data-hg="muscle"><span aria-hidden="true">💪</span>Muscle</button>
+        <button type="button" data-hg="prise"><span aria-hidden="true">📈</span>Grossir</button>
+        <button type="button" data-hg="sain"><span aria-hidden="true">🥗</span>Mieux manger</button>
+        <button type="button" data-hg="energie"><span aria-hidden="true">⚡</span>Énergie</button>
+      </div>
+      <button class="bubble-cta" type="button" id="heroCta"><span>Commencer<br>mon plan</span></button>
     </div>
-    <div class="steps3"><span><b>1</b>Quiz 1 min</span><span><b>2</b>Plan sur mesure</span><span><b>3</b>Suivi quotidien</span><span><b>+</b>Coach IA 24 h/24</span></div>
-    <button class="cta" type="button" id="heroCta">Commencer mon plan →</button>
+    <div class="h2o-vis" aria-hidden="true">
+      <div class="fc fc-ring"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="48" fill="none" stroke="var(--bg)" stroke-width="12"/><circle cx="60" cy="60" r="48" fill="none" stroke="var(--basil)" stroke-width="12" stroke-linecap="round" stroke-dasharray="301.6" stroke-dashoffset="90" transform="rotate(-90 60 60)" class="ringdraw"/></svg><div><b class="num">1 850</b><small>kcal / jour</small></div></div>
+      <div class="fc fc-macro"><i style="--w:72%;--c:var(--tomato)"></i><i style="--w:55%;--c:var(--citrus)"></i><i style="--w:40%;--c:var(--plum)"></i></div>
+      <div class="fc fc-chat"><span class="dot"></span>Ce soir : saumon, riz, brocoli 🍣</div>
+      <div class="fc fc-tag">−3,2 kg ↘</div>
+    </div>
   </section>
 
-
-  <!-- Programmes (aperçu) -->
-  <section class="card" aria-labelledby="h-progs">
-    <div style="display:flex;align-items:end;justify-content:space-between;gap:10px;flex-wrap:wrap">
-      <div style="display:grid;gap:4px"><span class="lbl" style="color:var(--basil)">Nos programmes</span><h2 id="h-progs" style="font-size:clamp(1.4rem,3.5vw,2rem)">Un programme pour chaque objectif</h2></div>
-      <a class="btn" href="#programmes" data-go="programmes" style="text-decoration:none">Tout comparer →</a>
-    </div>
-    <div class="pgrid" id="progPreview"></div>
+  <!-- Fonctionnalités -->
+  <section class="feats" aria-label="Ce que vous allez découvrir">
+    <article class="feat">
+      <div class="fv fv-quiz" aria-hidden="true"><span>💪 Muscle</span><span class="on">🥑 Cétogène ✓</span><span>🌾 Sans gluten</span><span class="on">🏃 3×/sem. ✓</span></div>
+      <b>11 questions. Un plan qui vous ressemble.</b>
+      <small>Vos goûts, votre corps, vos habitudes.</small>
+    </article>
+    <article class="feat">
+      <div class="fv fv-plan" aria-hidden="true"><svg viewBox="0 0 120 120" width="104" height="104"><circle cx="60" cy="60" r="46" fill="none" stroke="var(--surface)" stroke-width="12"/><circle cx="60" cy="60" r="46" fill="none" stroke="var(--basil)" stroke-width="12" stroke-linecap="round" stroke-dasharray="289" stroke-dashoffset="80" transform="rotate(-90 60 60)"/><text x="60" y="58" text-anchor="middle" font-size="20" font-weight="800" style="fill:var(--ink)">?</text><text x="60" y="78" text-anchor="middle" font-size="10">kcal</text></svg></div>
+      <b>Votre corps a un chiffre. Le connaissez-vous ?</b>
+      <small>Calories et macros calculées pour vous.</small>
+    </article>
+    <article class="feat">
+      <div class="fv fv-photo" aria-hidden="true"><div class="plate"><span>🍗</span><span>🥦</span><span>🍚</span><i class="scan"></i></div><span class="pill-k">642 kcal</span></div>
+      <b>Et si votre assiette parlait ?</b>
+      <small>Une photo, et les calories s'affichent.</small>
+    </article>
+    <article class="feat">
+      <div class="fv fv-chat" aria-hidden="true"><span class="b me">Je craque le soir…</span><span class="b ai">J'ai une collation pour ça 😉</span></div>
+      <b>Un coach qui ne dort jamais.</b>
+      <small>Une question ? Réponse en quelques secondes.</small>
+    </article>
+    <article class="feat">
+      <div class="fv fv-curve" aria-hidden="true"><svg viewBox="0 0 200 90" width="100%" height="90"><path d="M6 20 C 50 22, 70 45, 100 50 S 160 70, 194 72" fill="none" stroke="var(--basil)" stroke-width="4" stroke-linecap="round" class="curvedraw"/><circle cx="194" cy="72" r="6" fill="var(--citrus)"/></svg></div>
+      <b>Regardez votre corps changer.</b>
+      <small>Poids, eau, repas : tout en un coup d'œil.</small>
+    </article>
+    <article class="feat">
+      <div class="fv fv-week" aria-hidden="true"><span>🥣</span><span>🥗</span><span>🐟</span><span>🍛</span><span>🥞</span><span>🍲</span><span>🍓</span></div>
+      <b>7 jours. Zéro prise de tête.</b>
+      <small>Des menus prêts, adaptés à votre régime.</small>
+    </article>
   </section>
+
+  <!-- Dernier appel -->
+  <section class="final">
+    <span class="bub b1"></span><span class="bub b3"></span>
+    <p class="final-q">Votre premier plan est à <b>60 secondes</b>.</p>
+    <button class="bubble-cta" type="button" data-start><span>Commencer<br>mon plan</span></button>
+  </section>
+</div>
+<div class="page" id="p-programmes" hidden>
+
+  <section class="ptitle">
+    <span class="lbl" style="color:var(--basil)">Programmes</span>
+    <h2>Choisissez votre programme</h2>
+    <p>Cinq méthodes, une même exigence : un plan chiffré, des repas simples et un suivi chaque jour.</p>
+  </section>
+  <div class="plist" id="progList"></div>
 
   <!-- Offre Premium -->
   <section class="card pricing" id="offre" aria-labelledby="h-offre">
@@ -455,16 +569,6 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
     <div class="tip"><span class="ico" style="background:var(--basil-soft)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--plum)" stroke-width="2.2" stroke-linecap="round"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg></span><b>7-8 h de sommeil</b><small>Moins de fringales le lendemain</small></div>
     <div class="tip"><span class="ico" style="background:var(--basil-soft)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--sky)" stroke-width="2.2" stroke-linecap="round"><circle cx="13" cy="4" r="2"/><path d="M8 21l3-7 3 3v5M6 12l3-3h5l3 4"/></svg></span><b>8 000 pas / jour</b><small>La marche suffit pour commencer</small></div>
   </section>
-
-</div>
-<div class="page" id="p-programmes" hidden>
-
-  <section class="ptitle">
-    <span class="lbl" style="color:var(--basil)">Programmes</span>
-    <h2>Choisissez votre programme</h2>
-    <p>Cinq méthodes, une même exigence : un plan chiffré, des repas simples et un suivi chaque jour.</p>
-  </section>
-  <div class="plist" id="progList"></div>
 
 </div>
 <div class="page" id="p-plan" hidden>
@@ -1061,6 +1165,10 @@ $('#quizBody').addEventListener('click',e=>{
   } else renderQuiz();
 });
 $('#heroCta').addEventListener('click',()=>startQuiz());
+document.addEventListener('click',e=>{if(e.target.closest('[data-start]'))startQuiz()});
+(function(){const R=['Prendre du muscle en mangeant mieux.','Comprendre son corps.','Mincir sans se priver.','Retrouver son énergie.','Enfin prendre du poids.'];
+  const el=$('#rot');if(!el||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;let i=0;
+  setInterval(()=>{if(document.hidden)return;el.classList.add('out');setTimeout(()=>{i=(i+1)%R.length;el.textContent=R[i];el.classList.remove('out')},450)},3200)})();
 $('#heroGoals').addEventListener('click',e=>{const b=e.target.closest('[data-hg]');if(b)startQuiz(b.dataset.hg)});
 
 /* ---- Programmes ---- */
@@ -1085,7 +1193,7 @@ function splitBar(sp){return `<div class="split" aria-label="Protéines ${sp[0]}
  <div class="splitlg"><span style="--c:var(--tomato)">Prot. ${sp[0]} %</span><span style="--c:var(--citrus)">Gluc. ${sp[1]} %</span><span style="--c:var(--plum)">Lip. ${sp[2]} %</span></div>`}
 function renderProgs(){
   const cur=S.quiz&&S.quiz.done&&S.quiz.goal;
-  $('#progPreview').innerHTML=PROGS.map(p=>`<a class="pcard" href="#programmes" data-go="programmes"><span class="e" aria-hidden="true">${p.e}</span><b>${p.n}</b><small>${p.t}</small><span class="rate num">${p.rate}</span></a>`).join('');
+  if($('#progPreview'))$('#progPreview').innerHTML=PROGS.map(p=>`<a class="pcard" href="#programmes" data-go="programmes"><span class="e" aria-hidden="true">${p.e}</span><b>${p.n}</b><small>${p.t}</small><span class="rate num">${p.rate}</span></a>`).join('');
   $('#progList').innerHTML=PROGS.map(p=>`<article class="card prog${cur===p.g?' sel':''}">
     <div style="display:grid;gap:14px;min-width:0">
       <div class="head"><span class="big" aria-hidden="true">${p.e}</span><div><span class="lbl" style="color:var(--basil)">${p.t}</span><h3>Programme ${p.n}</h3></div></div>
