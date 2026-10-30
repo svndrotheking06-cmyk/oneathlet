@@ -479,6 +479,23 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .rvl-life{background:var(--leaf)!important;box-shadow:0 16px 30px -16px var(--leaf)!important}
 .rvl-yr{margin:0;font-weight:700;color:var(--leaf);text-align:center}
 
+/* parcours guidé */
+body.funnel #mainNav{display:none}
+body.funnel #p-plan > :not(#quiz):not(.ptitle){display:none}
+body.funnel .acctbar #demoPill{display:none}
+.qform{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+@media (max-width:640px){.qform{grid-template-columns:1fr}}
+.qf{display:grid;gap:6px;justify-items:center;text-align:center;background:var(--bg);border:2px solid var(--line);border-radius:18px;padding:16px 12px;cursor:text}
+.qf:focus-within{border-color:var(--basil);background:var(--basil-soft)}
+.qf-e{font-size:2rem;line-height:1}
+.qf-l{font-weight:800}
+.qf-in{display:flex;align-items:baseline;gap:6px;justify-content:center}
+.qf-in input{width:5.2ch;border:0;border-bottom:2.5px solid var(--line);background:none;font-family:var(--display);font-size:1.9rem;font-weight:800;text-align:center;padding:2px 0;color:var(--ink)}
+.qf-in input:focus{outline:none;border-color:var(--basil)}
+.qf-in b{color:var(--muted);font-weight:700}
+.qf-in input::-webkit-outer-spin-button,.qf-in input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.qf-in input{-moz-appearance:textfield}
+
 /* hero */
 .hero{background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:28px;padding:clamp(24px,5vw,48px);display:grid;gap:20px;position:relative;overflow:hidden;isolation:isolate}
 .bub{position:absolute;border-radius:50%;z-index:-1;background:radial-gradient(circle at 32% 28%,var(--sky),var(--basil) 70%);opacity:.9;animation:float 7s ease-in-out infinite alternate}
@@ -702,10 +719,8 @@ font[style]{background:none!important;box-shadow:none!important}
 
       <h1 class="notranslate" translate="no">One<span>Athlet</span></h1>
     </a>
-    <nav class="nav" aria-label="Pages">
-      <a href="#accueil" data-go="accueil">Accueil</a>
-      <a href="#programmes" data-go="programmes">Programmes</a>
-      <a href="#plan" data-go="plan">Mon bilan</a>
+    <nav class="nav" id="mainNav" aria-label="Mon espace">
+      <a href="#plan" data-go="plan">Mon plan</a>
       <a href="#suivi" data-go="suivi">Suivi</a>
       <a href="#menu" data-go="menu">Menus</a>
       <a href="#coach" data-go="coach">Coach IA</a>
@@ -800,21 +815,21 @@ font[style]{background:none!important;box-shadow:none!important}
         <div class="st-v" aria-hidden="true"><svg viewBox="0 0 120 120" width="86" height="86"><circle cx="60" cy="60" r="46" fill="none" stroke="var(--surface)" stroke-width="12"/><circle cx="60" cy="60" r="46" fill="none" stroke="var(--basil)" stroke-width="12" stroke-linecap="round" stroke-dasharray="289" stroke-dashoffset="70" transform="rotate(-90 60 60)"/><text x="60" y="64" text-anchor="middle" font-size="19" font-weight="800" style="fill:var(--ink);font-family:var(--display)">1 850</text></svg><span class="minibars"><i style="--w:70%;--c:var(--tomato)"></i><i style="--w:50%;--c:var(--citrus)"></i><i style="--w:35%;--c:var(--plum)"></i></span></div>
         <b>Vos objectifs du jour</b>
         <small>Calories et macros, chaque jour, pour vous.</small>
-        <button type="button" class="st-go" data-go="suivi">Voir ma journée →</button>
+        <button type="button" class="st-go" data-start>Voir ma journée →</button>
       </li>
       <li class="st">
         <span class="st-n" aria-hidden="true">3</span>
         <div class="st-v" aria-hidden="true"><span class="miniphone"><span class="mini-plate">🍗🥦🍚</span><i></i></span><span class="pill-k2">+642 kcal</span></div>
         <b>Photographiez, suivez</b>
         <small>Une photo par repas. Le reste se fait tout seul.</small>
-        <button type="button" class="st-go" data-go="suivi">Ajouter un repas →</button>
+        <button type="button" class="st-go" data-start>Ajouter un repas →</button>
       </li>
       <li class="st">
         <span class="st-n" aria-hidden="true">4</span>
         <div class="st-v st-chat" aria-hidden="true"><span class="b me">Je stagne…</span><span class="b ai">On ajuste ton plan 💪</span></div>
         <b>Une question ? Le coach répond</b>
         <small>Votre coach IA, jour et nuit.</small>
-        <button type="button" class="st-go" data-go="coach">Parler au coach →</button>
+        <button type="button" class="st-go" data-start>Parler au coach →</button>
       </li>
     </ol>
   </section>
@@ -850,7 +865,7 @@ font[style]{background:none!important;box-shadow:none!important}
         <li><span>⚡</span>Une seconde d'analyse</li>
         <li><span>📊</span>Calories et macros, ajoutées à votre journée</li>
       </ol>
-      <button type="button" class="st-go" data-go="suivi" style="justify-self:start;padding:11px 18px;font-size:.92rem">Essayer avec mon assiette →</button>
+      <button type="button" class="st-go" data-start style="justify-self:start;padding:11px 18px;font-size:.92rem">Essayer avec mon assiette →</button>
     </div>
   </section>
 
@@ -907,7 +922,7 @@ font[style]{background:none!important;box-shadow:none!important}
       <details class="faq-i" data-cat="pay"><summary><span class="faq-e" aria-hidden="true">🆓</span><span class="faq-q">C'est vraiment gratuit pour commencer ?</span><span class="faq-plus" aria-hidden="true"></span></summary><p>Oui. Le quiz, le profil et le suivi des repas sont gratuits, sans carte bancaire. Seuls le plan détaillé, les menus et le coach IA demandent l'abonnement Premium.</p></details>
       <details class="faq-i" data-cat="pay"><summary><span class="faq-e" aria-hidden="true">🔒</span><span class="faq-q">Mon paiement est-il sécurisé ?</span><span class="faq-plus" aria-hidden="true"></span></summary><p>Le paiement passe par Stripe, utilisé par des millions d'entreprises dans le monde. Votre numéro de carte va directement chez Stripe : OneAthlet ne le voit jamais et ne le stocke pas.</p></details>
       <details class="faq-i" data-cat="pay"><summary><span class="faq-e" aria-hidden="true">↩️</span><span class="faq-q">Puis-je arrêter quand je veux ?</span><span class="faq-plus" aria-hidden="true"></span></summary><p>Oui, sans engagement. Mon compte → Gérer mon abonnement → Annuler : 2 clics. Vous gardez l'accès jusqu'à la fin du mois déjà payé, puis plus rien n'est prélevé.</p></details>
-      <details class="faq-i" data-cat="pay"><summary><span class="faq-e" aria-hidden="true">♾️</span><span class="faq-q">Mensuel ou à vie : lequel choisir ?</span><span class="faq-plus" aria-hidden="true"></span></summary><p>Le mensuel (14,99 €/mois) est sans engagement : idéal pour essayer. L'accès à vie (89,99 €, payé une seule fois) vous donne tout Premium pour toujours, sans prélèvement : il est rentabilisé en 6 mois. Si vous êtes déjà abonné au mensuel, passer à vie arrête automatiquement votre abonnement.</p></details>
+      <details class="faq-i" data-cat="pay"><summary><span class="faq-e" aria-hidden="true">♾️</span><span class="faq-q">Mensuel ou à vie : lequel choisir ?</span><span class="faq-plus" aria-hidden="true"></span></summary><p>L'abonnement mensuel est sans engagement : idéal pour essayer. L'accès à vie se paie une seule fois et vous donne tout Premium pour toujours, sans prélèvement. Vous découvrez les deux tarifs à la fin de votre bilan. Si vous êtes déjà abonné au mensuel, passer à vie arrête automatiquement votre abonnement.</p></details>
       <details class="faq-i" data-cat="pay"><summary><span class="faq-e" aria-hidden="true">💶</span><span class="faq-q">Et si ça ne me plaît pas ?</span><span class="faq-plus" aria-hidden="true"></span></summary><p>Satisfait ou remboursé pendant 30 jours. Si OneAthlet Premium ne vous convient pas, écrivez-nous dans le chat : nous vous remboursons votre premier paiement en totalité (mensuel ou à vie).</p>
       <div class="faq-cond"><b>Conditions de la garantie</b><ul>
         <li>Valable <b>une seule fois par personne</b>, sur le <b>premier abonnement</b> uniquement (même e-mail ou même carte bancaire = même personne).</li>
@@ -1010,7 +1025,7 @@ font[style]{background:none!important;box-shadow:none!important}
   <section class="ptitle">
     <span class="lbl" style="color:var(--basil)">Mon bilan</span>
     <h2>Parlez-nous de vous</h2>
-    <p>Étape 1 : répondez au quiz (objectif, sport, repas, ce que vous aimez, régime, intolérances). Étape 2 : entrez votre âge, votre taille et votre poids. Votre plan se calcule en direct.</p>
+    <p>Répondez aux questions une par une. À la fin, votre programme se prépare.</p>
   </section>
   <!-- 0b. Quiz -->
   <section class="card" id="quiz" aria-labelledby="h-quiz">
@@ -1282,7 +1297,7 @@ let premium=!!window.claude; // version Claude : accès complet ; version web : 
 let premiumWait=!!(sb&&/[?&]premium=ok/.test(location.search));
 const premiumSid=(location.search.match(/[?&]sid=(cs_[A-Za-z0-9_]+)/)||[])[1]||null;
 if(premiumWait){try{history.replaceState(null,'',location.pathname+location.hash)}catch(e){}}
-const LOCKOV='<div class="lockov"><div class="lockcard"><span class="lk" aria-hidden="true">🔒</span><b>Réservé aux membres Premium</b><small>Débloquez votre programme complet, vos résultats détaillés et le coach IA. Satisfait ou remboursé 30 jours*.</small><div class="lk-btns"><button type="button" class="btn" data-buy>14,99 €/mois</button><button type="button" class="btn lk-life" data-buy-life>89,99 € à vie</button></div></div></div>';
+const LOCKOV='<div class="lockov"><div class="lockcard"><span class="lk" aria-hidden="true">🔒</span><b>Réservé aux membres Premium</b><small>Débloquez votre programme complet, vos résultats détaillés et le coach IA. Satisfait ou remboursé 30 jours*.</small><div class="lk-btns"><button type="button" class="btn" data-pricing>Découvrir l\'abonnement Premium</button></div></div></div>';
 function applyLocks(){
   document.querySelectorAll('.plock').forEach(el=>{
     if(!el.querySelector(':scope > .lockov'))el.insertAdjacentHTML('beforeend',LOCKOV);
@@ -1318,7 +1333,7 @@ async function startCheckout(portal,plan){
   if(data&&data.already){loadPremium();toast('Vous êtes déjà Premium');return}
   if(data&&data.url)location.href=data.url;
 }
-document.addEventListener('click',e=>{if(e.target.closest('[data-buy-life]'))startCheckout(false,'lifetime');else if(e.target.closest('[data-buy]'))startCheckout(false,'month');else if(e.target.closest('[data-manage]'))startCheckout(true)});
+document.addEventListener('click',e=>{if(e.target.closest('[data-pricing]')){if(!$('#acctOvl').hidden)closeAcct();showPricing();return}if(e.target.closest('[data-buy-life]'))startCheckout(false,'lifetime');else if(e.target.closest('[data-buy]'))startCheckout(false,'month');else if(e.target.closest('[data-manage]'))startCheckout(true)});
 function pushRemote(){if(!sb||!sbUser)return;clearTimeout(pushT);pushT=setTimeout(async()=>{const{error}=await sb.from('profils').upsert({user_id:sbUser.id,state:S,updated_at:new Date().toISOString()});if(error)console.warn('sync',error.message)},1200)}
 function save(){try{localStorage.setItem('assiette-legere',JSON.stringify(S))}catch(e){}pushRemote()}
 function touch(){if(S.demo){S.demo=false;}save();$('#demoPill').hidden=!S.demo}
@@ -1476,7 +1491,8 @@ function fillForm(){
   document.querySelectorAll('[data-sex]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.sex===S.sex));
   $('#demoPill').hidden=!S.demo;
 }
-function all(){fillForm();renderQuiz();renderProgs();renderFoods();renderPlan();renderToday();renderWater();renderWeight();renderMenu()}
+function updateFunnel(){document.body.classList.toggle('funnel',!(S.quiz&&S.quiz.done))}
+function all(){updateFunnel();fillForm();renderQuiz();renderProgs();renderFoods();renderPlan();renderToday();renderWater();renderWeight();renderMenu()}
 
 ['age','height','weight','goal','activity'].forEach(k=>$('#'+k).addEventListener('input',e=>{S[k]=e.target.value;touch();renderPlan();renderToday();renderWeight()}));
 document.querySelectorAll('[data-sex]').forEach(b=>b.addEventListener('click',()=>{S.sex=b.dataset.sex;touch();fillForm();renderPlan();renderToday()}));
@@ -1515,6 +1531,7 @@ const MAINT=d=>d.goal==='sain'||d.goal==='energie';
 const QUIZ=[
  {k:'goal',q:()=>'Quel est votre objectif ?',o:()=>[['perte','🔥','Perdre du poids','Affiner ma silhouette'],['muscle','💪','Prendre du muscle','Plus fort, plus dessiné'],['prise','📈','Prendre du poids','Je suis mince et je n\'arrive pas à grossir'],['sain','🥗','Manger mieux','Équilibre et suivi nutritionnel'],['energie','⚡','Plus d\'énergie','Fini les coups de fatigue']]},
  {k:'sex',q:()=>'Vous êtes…',o:()=>[['F','👩','Une femme','Calcul adapté au métabolisme féminin'],['H','👨','Un homme','Calcul adapté au métabolisme masculin']]},
+ {k:'body',form:1,q:()=>'Parlez-nous de votre corps',o:()=>[]},
  {k:'sport',q:()=>'Combien de fois faites-vous du sport ?',o:()=>[['0','🛋️','Jamais ou presque','Peu de marche'],['1','🚶','1 à 2 fois / sem.','Marche, vélo, loisir'],['3','🏃','3 à 4 fois / sem.','Salle, course, sport co'],['5','🏋️','5 fois et plus','Entraînement intense']]},
  {k:'meals',q:()=>'Combien de repas mangez-vous par jour ?',o:()=>[['2','🍽️','1 à 2 repas','Je saute souvent un repas'],['3','🍴','3 repas','Matin, midi, soir'],['4','🥪','3 repas + 1 collation','Un goûter dans la journée'],['5','🍱','5 repas et plus','Je mange souvent']]},
  {k:'amount',when:d=>!MAINT(d),q:d=>GAIN(d)?'Combien de kilos voulez-vous prendre ?':'Combien de kilos aimeriez-vous perdre ?',
@@ -1594,6 +1611,7 @@ function mealKey(Q){const g=GAIN(Q),m=Q.meals;if(!m)return null;
   if(m==='2')return ['🕒','Passez à 3 repas','Sauter un repas pousse au grignotage et ralentit les résultats.'];
   if(m==='5')return ['🕒','Des portions plus petites','5 repas, c\'est bien si chaque portion reste légère.'];
   return ['🕒','Repas à heures fixes','Votre rythme est bon : gardez les mêmes horaires chaque jour.'];}
+const BODYF=[['age','🎂','Âge',15,99,'Ex. 28','ans'],['height','📏','Taille',120,230,'Ex. 172','cm'],['weight','⚖️','Poids',35,300,'Ex. 74','kg']];
 let qStep=0,qDraft={};
 const qSteps=()=>QUIZ.filter(s=>!s.when||s.when(qDraft));
 function quizDone(){return S.quiz&&S.quiz.goal&&S.quiz.done}
@@ -1625,13 +1643,14 @@ function renderQuiz(){
   const st=qSteps(),s=st[qStep];
   body.innerHTML=`<div class="qprog" aria-label="Question ${qStep+1} sur ${st.length}">${st.map((_,i)=>`<i class="${i<=qStep?'on':''}"></i>`).join('')}</div>
     <p class="qq">${esc(s.q(qDraft))}</p>${s.multi?'<span class="qhint">Plusieurs choix possibles</span>':''}
+    ${s.form?`<div class="qform">${BODYF.map(f=>`<label class="qf"><span class="qf-e" aria-hidden="true">${f[1]}</span><span class="qf-l">${f[2]}</span><span class="qf-in"><input id="qf_${f[0]}" type="number" inputmode="decimal" min="${f[3]}" max="${f[4]}" step="${f[0]==='weight'?'0.1':'1'}" placeholder="${f[5]}" value="${qDraft[f[0]]??''}"><b>${f[6]}</b></span></label>`).join('')}</div>`:''}
     <div class="qopts">${s.o(qDraft).map(o=>`<button type="button" class="qopt" data-qv="${o[0]}" aria-pressed="${arr(qDraft[s.k]).includes(o[0])}"><span class="e" aria-hidden="true">${o[1]}</span><b>${esc(o[2])}</b>${o[3]?`<small>${esc(o[3])}</small>`:''}</button>`).join('')}</div>
-    <div class="qnav"><button type="button" id="qBack" ${qStep?'':'hidden'}>← Retour</button><span class="lbl num">${qStep+1} / ${st.length}</span>${s.multi?`<button class="btn" type="button" id="qNext" ${arr(qDraft[s.k]).length?'':'disabled'}>Continuer →</button>`:''}</div>`;
+    <div class="qnav"><button type="button" id="qBack" ${qStep?'':'hidden'}>← Retour</button><span class="lbl num">${qStep+1} / ${st.length}</span>${s.multi||s.form?`<button class="btn" type="button" id="qNext" ${s.form||arr(qDraft[s.k]).length?'':'disabled'}>Continuer →</button>`:''}</div>`;
 }
 function startQuiz(goal){
   qDraft=goal?{...(S.quiz||{}),goal}:{...(S.quiz||{})};qStep=goal?1:0;
   if(S.quiz)S.quiz={...S.quiz,done:false};
-  go('plan',true);renderQuiz();
+  updateFunnel();go('plan',true);renderQuiz();
 }
 $('#quizBody').addEventListener('click',e=>{
   if(e.target.closest('#qRedo')){startQuiz();return}
@@ -1648,9 +1667,14 @@ $('#quizBody').addEventListener('click',e=>{
       qDraft[s.k]=cur;renderQuiz();return;
     }
     qDraft[s.k]=v;
+  } else if(s.form){
+    for(const f of BODYF){const v=parseFloat(($('#qf_'+f[0]).value||'').replace(',','.'));
+      if(!(v>=f[3]&&v<=f[4])){toast(f[2]+' : entre '+f[3]+' et '+f[4]+' '+f[6]);$('#qf_'+f[0]).focus();return}
+      qDraft[f[0]]=f[0]==='weight'?Math.round(v*10)/10:Math.round(v)}
   } else if(!arr(qDraft[s.k]).length)return;
   qStep++;
   if(qStep>=qSteps().length){
+    if(qDraft.age){S.age=qDraft.age;S.height=qDraft.height;S.weight=qDraft.weight}
     const w=+S.weight||70,a=+qDraft.amount||0;
     S.goal=MAINT(qDraft)?w:GAIN(qDraft)?Math.round((w+a)*10)/10:Math.max(40,Math.round((w-a)*10)/10);
     if(MAINT(qDraft))qDraft.pace='reg';
@@ -1659,14 +1683,19 @@ $('#quizBody').addEventListener('click',e=>{
     S.quiz={...qDraft,done:true};touch();qStep=0;all();window.scrollTo({top:0});showReveal();
   } else renderQuiz();
 });
+$('#quizBody').addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.closest('.qform')){e.preventDefault();const n=$('#qNext');if(n)n.click()}});
 $('#heroCta').addEventListener('click',()=>startQuiz());
 document.addEventListener('click',e=>{if(e.target.closest('[data-start]'))startQuiz()});
 /* ---- Écran de chargement + ce que vous gagnez ---- */
 let revealT=[];
 function closeReveal(){revealT.forEach(clearTimeout);revealT=[];$('#reveal').hidden=true;document.body.style.overflow=''}
+function showPricing(){
+  if(!(S.quiz&&S.quiz.done)){startQuiz();return}
+  $('#reveal').hidden=false;document.body.style.overflow='hidden';renderGains(plan(),S.quiz);
+}
 function showReveal(){
   const Q=S.quiz||{},P=plan(),box=$('#revealIn');
-  const chosen=QUIZ.filter(st=>!st.when||st.when(Q)).flatMap(st=>st.o(Q).filter(o=>arr(Q[st.k]).includes(o[0])&&!o[4]).map(o=>o[1]+' '+o[2])).slice(0,12);
+  const chosen=QUIZ.filter(st=>!st.when||st.when(Q)).flatMap(st=>st.form?(Q.age?['🎂 '+Q.age+' ans','📏 '+Q.height+' cm','⚖️ '+fmt(Q.weight,1)+' kg']:[]):st.o(Q).filter(o=>arr(Q[st.k]).includes(o[0])&&!o[4]).map(o=>o[1]+' '+o[2])).slice(0,14);
   const steps=['Calcul de vos calories','Répartition protéines, glucides, lipides','Sélection de vos menus','Préparation de votre coach IA'];
   box.innerHTML=`<div class="rvl-load">
     <div class="rvl-orb" aria-hidden="true"><span></span></div>
@@ -1702,7 +1731,7 @@ function renderGains(P,Q){
     </div>
     <div class="rvl-verdict">💡 Dans cet exemple, votre abonnement est remboursé <b>dès la première semaine</b>.</div>
     <div class="rvl-cta">
-      ${isPrem?'<button type="button" class="btn" id="rvlSee">Voir mon plan →</button>':'<div class="rvl-plans"><button type="button" class="btn rvl-buy" data-buy>14,99 €/mois<small>sans engagement</small></button><button type="button" class="btn rvl-buy rvl-life" data-buy-life>89,99 € à vie<small>payé une fois</small></button></div><p class="rvl-yr">💰 Soit ≈ 60 € économisés par mois, ≈ 720 € par an (exemple).</p><button type="button" class="rvl-later" id="rvlSee">Voir mon plan d\'abord</button>'}
+      ${isPrem?'<button type="button" class="btn" id="rvlSee">Voir mon plan →</button>':'<div class="rvl-plans"><button type="button" class="btn rvl-buy" data-buy>14,99 €/mois<small>sans engagement</small></button><button type="button" class="btn rvl-buy rvl-life" data-buy-life>89,99 € à vie<small>payé une fois</small></button></div><p class="rvl-yr">💰 Soit ≈ 60 € économisés par mois, ≈ 720 € par an (exemple).</p><button type="button" class="rvl-later" id="rvlSee">Continuer sans Premium</button>'}
     </div>
     <p class="rvl-note">Satisfait ou remboursé 30 jours sur le premier paiement (*conditions dans la FAQ) · Mensuel sans engagement · Estimations si vous suivez votre plan : les résultats varient d'une personne à l'autre. Prix du diététicien et du fast-food : moyennes indicatives en France.</p>
   </div>`;
@@ -1890,7 +1919,7 @@ function renderAcct(msg){
     b.innerHTML=`<span class="lbl" style="color:var(--basil)">Mon compte</span><h3 id="acctTitle">Vous êtes connecté</h3>
       <p class="msg" style="margin:0">${esc(sbUser.email||'')}</p>
       <ul class="perks"><li>Profil et plan sauvegardés</li><li>Repas, eau et poids synchronisés</li><li>Retrouvez tout sur chaque appareil</li></ul>
-      ${premium?(premiumLife?'<span class="pill" style="justify-self:start">✓ Premium à vie</span><button class="ghost" type="button" data-manage>Mes factures</button>':'<span class="pill" style="justify-self:start">✓ Premium actif</span><button class="ghost" type="button" data-manage>Gérer mon abonnement</button>'):'<button class="btn" type="button" data-buy>Premium — 14,99 €/mois</button><button class="ghost" type="button" data-buy-life>Ou 89,99 € à vie</button>'}
+      ${premium?(premiumLife?'<span class="pill" style="justify-self:start">✓ Premium à vie</span><button class="ghost" type="button" data-manage>Mes factures</button>':'<span class="pill" style="justify-self:start">✓ Premium actif</span><button class="ghost" type="button" data-manage>Gérer mon abonnement</button>'):'<button class="btn" type="button" data-pricing>Abonnement Premium</button>'}
       <button class="ghost" type="button" id="acctOut">Se déconnecter</button>`;
     return;
   }
