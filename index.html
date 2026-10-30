@@ -775,7 +775,7 @@ font[style]{background:none!important;box-shadow:none!important}
     <div class="trust" aria-label="Nos garanties">
       <span><b aria-hidden="true">🔒</b>Paiement sécurisé Stripe</span>
       <span><b aria-hidden="true">🇪🇺</b>Données hébergées en Europe</span>
-      <span><b aria-hidden="true">↩️</b>Sans engagement</span>
+      <span><b aria-hidden="true">↩️</b>Satisfait ou remboursé 14 jours</span>
       <span><b aria-hidden="true">🧮</b>Méthode des diététiciens</span>
     </div>
     <div class="faq-tabs" id="faqTabs" role="group" aria-label="Filtrer les questions">
@@ -793,6 +793,7 @@ font[style]{background:none!important;box-shadow:none!important}
       <details class="faq-i" data-cat="pay"><summary><span class="faq-e" aria-hidden="true">🆓</span><span class="faq-q">C'est vraiment gratuit pour commencer ?</span><span class="faq-plus" aria-hidden="true"></span></summary><p>Oui. Le quiz, le profil et le suivi des repas sont gratuits, sans carte bancaire. Seuls le plan détaillé, les menus et le coach IA demandent l'abonnement Premium.</p></details>
       <details class="faq-i" data-cat="pay"><summary><span class="faq-e" aria-hidden="true">🔒</span><span class="faq-q">Mon paiement est-il sécurisé ?</span><span class="faq-plus" aria-hidden="true"></span></summary><p>Le paiement passe par Stripe, utilisé par des millions d'entreprises dans le monde. Votre numéro de carte va directement chez Stripe : OneAthlet ne le voit jamais et ne le stocke pas.</p></details>
       <details class="faq-i" data-cat="pay"><summary><span class="faq-e" aria-hidden="true">↩️</span><span class="faq-q">Puis-je arrêter quand je veux ?</span><span class="faq-plus" aria-hidden="true"></span></summary><p>Oui, sans engagement. Mon compte → Gérer mon abonnement → Annuler : 2 clics. Vous gardez l'accès jusqu'à la fin du mois déjà payé, puis plus rien n'est prélevé.</p></details>
+      <details class="faq-i" data-cat="pay"><summary><span class="faq-e" aria-hidden="true">💶</span><span class="faq-q">Et si ça ne me plaît pas ?</span><span class="faq-plus" aria-hidden="true"></span></summary><p>Satisfait ou remboursé pendant 14 jours. Si OneAthlet Premium ne vous convient pas, écrivez-nous dans le chat dans les 14 jours qui suivent votre premier paiement : nous vous remboursons en totalité, sans avoir à vous justifier.</p></details>
       <details class="faq-i" data-cat="data"><summary><span class="faq-e" aria-hidden="true">🛡️</span><span class="faq-q">Que faites-vous de mes données ?</span><span class="faq-plus" aria-hidden="true"></span></summary><p>Vos données servent uniquement à calculer et suivre votre plan. Elles sont stockées sur des serveurs sécurisés en Europe (Irlande), seul votre compte y a accès, et elles ne sont jamais vendues. Vous pouvez demander leur suppression par le chat.</p></details>
       <details class="faq-i" data-cat="data"><summary><span class="faq-e" aria-hidden="true">🤖</span><span class="faq-q">Le coach IA, c'est un vrai humain ?</span><span class="faq-plus" aria-hidden="true"></span></summary><p>Non, et on préfère le dire clairement : c'est une intelligence artificielle (Claude), qui connaît votre plan et répond à toute heure. Pour parler à un humain, utilisez la bulle de chat en bas à droite.</p></details>
       <details class="faq-i" data-cat="data"><summary><span class="faq-e" aria-hidden="true">📸</span><span class="faq-q">Les calories de la photo sont-elles exactes ?</span><span class="faq-plus" aria-hidden="true"></span></summary><p>Ce sont des estimations. L'IA reconnaît les aliments et estime les portions à l'œil, comme le ferait un nutritionniste. C'est assez précis pour vous guider au quotidien, mais pas au gramme près.</p></details>
@@ -823,7 +824,7 @@ font[style]{background:none!important;box-shadow:none!important}
       <span class="prem-badge">★ OneAthlet Premium</span>
       <h2 id="h-offre" style="font-size:clamp(1.5rem,4vw,2.2rem);display:block">Tout votre programme. Un coach dans la poche.</h2>
       <div class="pricetag"><b class="num">14,99 €</b><span>/ mois</span></div>
-      <p class="pfree">Sans engagement, résiliable en 2 clics. Le quiz, le profil et le suivi des repas restent gratuits.</p>
+      <p class="pfree"><b style="color:var(--leaf)">Satisfait ou remboursé 14 jours.</b> Sans engagement, résiliable en 2 clics. Le quiz, le profil et le suivi des repas restent gratuits.</p>
     </div>
     <div style="display:grid;gap:14px;min-width:0">
       <ul class="incl">
@@ -1112,7 +1113,7 @@ let premium=!!window.claude; // version Claude : accès complet ; version web : 
 let premiumWait=!!(sb&&/[?&]premium=ok/.test(location.search));
 const premiumSid=(location.search.match(/[?&]sid=(cs_[A-Za-z0-9_]+)/)||[])[1]||null;
 if(premiumWait){try{history.replaceState(null,'',location.pathname+location.hash)}catch(e){}}
-const LOCKOV='<div class="lockov"><div class="lockcard"><span class="lk" aria-hidden="true">🔒</span><b>Réservé aux membres Premium</b><small>Débloquez votre programme complet, vos résultats détaillés et le coach IA.</small><button type="button" class="btn" data-buy>Débloquer — 14,99 €/mois</button></div></div>';
+const LOCKOV='<div class="lockov"><div class="lockcard"><span class="lk" aria-hidden="true">🔒</span><b>Réservé aux membres Premium</b><small>Débloquez votre programme complet, vos résultats détaillés et le coach IA. Satisfait ou remboursé 14 jours.</small><button type="button" class="btn" data-buy>Débloquer — 14,99 €/mois</button></div></div>';
 function applyLocks(){
   document.querySelectorAll('.plock').forEach(el=>{
     if(!el.querySelector(':scope > .lockov'))el.insertAdjacentHTML('beforeend',LOCKOV);
@@ -1805,7 +1806,7 @@ function getSampler(){
   if(!samplerP)samplerP=(async()=>{try{const s=window.claude&&await window.claude.use('sample');if(!s)return null;const l=await s.limits().catch(()=>null);return l&&l.images?s:null}catch(e){return null}})();
   return samplerP;
 }
-getSampler().then(s=>{if(!s)scanIdle('L\'analyse photo fonctionne quand le site est ouvert dans Claude (claude.ai), avec votre compte connecté.')});
+getSampler().then(s=>{if(!s&&!sb)scanIdle('L\'analyse photo fonctionne quand le site est ouvert dans Claude (claude.ai), avec votre compte connecté.')});
 function pick(e){const f=e.target.files&&e.target.files[0];e.target.value='';if(!f)return;
   if(!/^image\//.test(f.type)){toast('Choisissez une image');return}
   photo=f;scanRes=null;const img=$('#shotImg');img.src=URL.createObjectURL(f);img.hidden=false;$('#shotPh').hidden=true;
@@ -1814,8 +1815,13 @@ $('#camIn').addEventListener('change',pick);$('#galIn').addEventListener('change
 const ERR={not_granted:'Analyse refusée. Autorisez Claude pour ce site pour l\'utiliser.',sampling_disabled:'Claude n\'est pas disponible sur ce compte.',rate_limited:'Trop de demandes. Réessayez dans quelques minutes.',image_rejected:'Image illisible ou trop lourde. Essayez une autre photo.',session_expired:'Reconnectez-vous à claude.ai puis réessayez.',invalid_json:'Résultat illisible. Touchez « Analyser » pour réessayer.',refused:'Cette photo n\'a pas pu être analysée. Essayez une autre photo.',images_unavailable:'L\'envoi de photos n\'est pas disponible ici.'};
 $('#scanBtn').addEventListener('click',async()=>{
   if(!photo)return;
-  const s=await getSampler();
-  if(!s){scanIdle('L\'analyse photo fonctionne quand le site est ouvert dans Claude (claude.ai), avec votre compte connecté.');return}
+  const s=await getSampler();let useSb=false;
+  if(!s){
+    if(!sb){scanIdle('L\'analyse photo fonctionne quand le site est ouvert dans Claude (claude.ai), avec votre compte connecté.');return}
+    if(!sbUser){openAcct();toast('Connectez-vous pour analyser vos repas');return}
+    if(!premium){startCheckout(false);return}
+    useSb=true;
+  }
   scanCtl=new AbortController();$('#scanBtn').disabled=true;$('#shot').classList.add('busy');
   out.innerHTML='<div class="rtotal"><b class="num" style="color:var(--line)">…</b><span class="lbl">Analyse en cours</span></div><p class="msg">Identification des aliments et des portions…</p>';
   const prompt=`Tu es un nutritionniste. Regarde la photo d'un repas. Identifie chaque aliment visible, estime sa portion en grammes d'après la taille de l'assiette, puis ses calories et macronutriments.
@@ -1823,16 +1829,31 @@ ${(()=>{const Q=S.quiz||{},d=arr(Q.diet).filter(x=>x!=='tout'),i=arr(Q.intol).fi
 {"plat":"nom court du repas en français","aliments":[{"nom":"Riz blanc","emoji":"🍚","grammes":150,"kcal":195,"proteines":4,"glucides":43,"lipides":0}],"conseil":"une phrase courte en français pour rendre ce repas plus sain ou le féliciter","note":"A|B|C|D"}
 "note" : A = très équilibré, D = à limiter. Si la photo ne montre pas de nourriture, renvoie {"plat":"","aliments":[],"conseil":"Aucun aliment détecté. Reprenez la photo de plus près.","note":""}.`;
   try{
-    const r=await s.json(prompt,{images:[photo],signal:scanCtl.signal});
+    const r=useSb?await scanViaServer(photo):await s.json(prompt,{images:[photo],signal:scanCtl.signal});
     const items=(Array.isArray(r&&r.aliments)?r.aliments:[]).slice(0,12).map(a=>({
       n:String(a.nom||'Aliment').slice(0,40),e:String(a.emoji||'🍽️').slice(0,4),g:Math.round(+a.grammes||0),
       k:Math.max(0,Math.round(+a.kcal||0)),p:Math.max(0,Math.round(+a.proteines||0)),c:Math.max(0,Math.round(+a.glucides||0)),f:Math.max(0,Math.round(+a.lipides||0))}));
     scanRes={plat:String(r&&r.plat||'').slice(0,60),items,conseil:String(r&&r.conseil||'').slice(0,200),note:String(r&&r.note||'').slice(0,1)};
     renderScan();
   }catch(e){
-    if(e&&e.code==='cancelled')scanIdle();else scanIdle(ERR[e&&e.code]||'L\'analyse a échoué. Touchez « Analyser » pour réessayer.');
+    if(e&&e.code==='cancelled')scanIdle();else if(e&&e.code==='sb')scanIdle(esc(e.message));else scanIdle(ERR[e&&e.code]||'L\'analyse a échoué. Touchez « Analyser » pour réessayer.');
   }finally{$('#shot').classList.remove('busy');$('#scanBtn').disabled=!photo}
 });
+async function toJpegB64(file){
+  let bmp=null;try{bmp=await createImageBitmap(file)}catch(e){}
+  if(!bmp){bmp=await new Promise((res,rej)=>{const im=new Image();im.onload=()=>res(im);im.onerror=rej;im.src=URL.createObjectURL(file)})}
+  const w=bmp.width,h=bmp.height,sc=Math.min(1,1280/Math.max(w,h));
+  const c=document.createElement('canvas');c.width=Math.round(w*sc);c.height=Math.round(h*sc);
+  c.getContext('2d').drawImage(bmp,0,0,c.width,c.height);
+  return c.toDataURL('image/jpeg',0.82).split(',')[1];
+}
+async function scanViaServer(file){
+  let b64;try{b64=await toJpegB64(file)}catch(e){throw{code:'sb',message:'Photo illisible. Essayez une autre photo.'}}
+  const Q=S.quiz||{};
+  const{data,error}=await sb.functions.invoke('scan',{body:{image:b64,mediaType:'image/jpeg',diet:arr(Q.diet).filter(x=>x!=='tout'),intol:arr(Q.intol).filter(x=>x!=='aucune'),lang:LANG}});
+  if(error){let m='';try{m=(await error.context.json()).error}catch(e){}throw{code:'sb',message:m||'L\'analyse a échoué. Réessayez.'}}
+  return data&&data.result;
+}
 const NOTE={A:['var(--basil)','Très équilibré'],B:['var(--basil)','Équilibré'],C:['var(--citrus)','Moyen'],D:['var(--tomato)','À limiter']};
 function renderScan(){
   const R=scanRes;if(!R)return;

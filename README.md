@@ -18,7 +18,7 @@ Le coach passe par la fonction Supabase `supabase/functions/coach` (Claude). À 
 
 Offre OneAthlet Premium à 14,99 €/mois : plan complet, résultats de la journée, menus et coach IA. Fonctions `supabase/functions/checkout` et `supabase/functions/stripe-webhook`, secrets `STRIPE_SECRET_KEY` et `STRIPE_WEBHOOK_SECRET`, table `abonnements` dans `supabase.sql`.
 
-L'analyse photo de l'assiette fonctionne uniquement dans la version publiée sur Claude.
+Analyse photo de l'assiette : fonction Supabase `supabase/functions/scan` (Premium, clé `ANTHROPIC_API_KEY`).
 
 ## Chat Crisp
 
