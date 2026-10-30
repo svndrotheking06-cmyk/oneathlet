@@ -177,13 +177,14 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .prog.sel{border-color:var(--basil);box-shadow:0 0 0 3px var(--basil-soft),var(--shadow)}
 
 /* accueil léger */
-.h2o{position:relative;overflow:hidden;isolation:isolate;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:24px;align-items:center;padding-block:clamp(28px,6vw,64px);min-height:min(78vh,640px)}
+.h2o{position:relative;overflow:hidden;isolation:isolate;display:grid;grid-template-columns:1fr;gap:24px;align-items:center;padding-block:clamp(28px,6vw,64px);min-height:min(78vh,640px)}
 @media (max-width:760px){.h2o{grid-template-columns:1fr;min-height:0}}
 .h2o .bub.b1{right:-60px;top:-40px}
 .h2o .kicker{font-size:.74rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--basil)}
 @media (max-width:760px){.h2o .bub.b1{width:110px;height:110px;right:-55px;top:-30px;opacity:.6}.h2o .bub.b2{display:none}}
 .h2o-txt{display:grid;gap:18px;justify-items:start}
-.h2o-title{font-size:clamp(2.2rem,7vw,4rem);font-weight:800;line-height:1.02;letter-spacing:-.035em;max-width:13ch;min-height:2.1em;display:block}
+.h2o-title{font-size:clamp(2.9rem,11vw,6rem);font-weight:800;line-height:1;letter-spacing:-.04em;max-width:14ch;min-height:2.05em;display:block}
+@media (max-width:760px){.h2o-title{min-height:4.05em}}
 .rot{display:inline-block;background:linear-gradient(90deg,var(--ink),var(--basil));-webkit-background-clip:text;background-clip:text;color:transparent;transition:opacity .45s,transform .45s}
 .rot.out{opacity:0;transform:translateY(12px)}
 .h2o-sub{margin:0;font-size:clamp(1.05rem,2.6vw,1.3rem);color:var(--muted);font-weight:600}
@@ -799,19 +800,13 @@ font[style]{background:none!important;box-shadow:none!important}
       </div>
       <button class="bubble-cta" type="button" id="heroCta"><span>Commencer<br>mon plan</span></button>
     </div>
-    <div class="h2o-vis" aria-hidden="true">
-      <div class="fc fc-ring"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="48" fill="none" stroke="var(--bg)" stroke-width="12"/><circle cx="60" cy="60" r="48" fill="none" stroke="var(--basil)" stroke-width="12" stroke-linecap="round" stroke-dasharray="301.6" stroke-dashoffset="90" transform="rotate(-90 60 60)" class="ringdraw"/></svg><div><b class="num">1 850</b><small>kcal / jour</small></div></div>
-      <div class="fc fc-macro"><i style="--w:72%;--c:var(--tomato)"></i><i style="--w:55%;--c:var(--citrus)"></i><i style="--w:40%;--c:var(--plum)"></i></div>
-      <div class="fc fc-chat"><span class="dot"></span>Ce soir : saumon, riz, brocoli 🍣</div>
-      <div class="fc fc-tag">−3,2 kg ↘</div>
-    </div>
   </section>
 
   <!-- Fonctionnalités -->
   <section class="feats" aria-label="Ce que vous allez découvrir">
     <article class="feat">
       <div class="fv fv-quiz" aria-hidden="true"><span>💪 Muscle</span><span class="on">🥑 Cétogène ✓</span><span>🌾 Sans gluten</span><span class="on">🏃 3×/sem. ✓</span></div>
-      <b>11 questions. Un plan qui vous ressemble.</b>
+      <b>16 questions. Un plan qui vous ressemble.</b>
       <small>Vos goûts, votre corps, vos habitudes.</small>
     </article>
     <article class="feat">
