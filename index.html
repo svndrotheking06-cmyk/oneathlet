@@ -395,6 +395,54 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 @media (max-width:480px){.faq-i p{padding-left:16px}}
 .faq-more{margin:0;text-align:center;color:var(--muted);font-weight:700;display:flex;gap:10px;justify-content:center;align-items:center;flex-wrap:wrap}
 
+/* écran de chargement + gains */
+.reveal{position:fixed;inset:0;z-index:30;background:color-mix(in srgb,var(--page) 94%,transparent);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);overflow-y:auto;padding:max(20px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(20px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.rvl-in{max-width:880px;margin:0 auto;min-height:100%;display:grid;align-items:center}
+.rvl-load{display:grid;gap:18px;justify-items:center;text-align:center;padding-block:30px}
+.rvl-load h2{font-size:clamp(1.6rem,5vw,2.4rem);font-weight:800;letter-spacing:-.03em;display:block}
+.rvl-orb{width:110px;height:110px;border-radius:50%;background:radial-gradient(circle at 32% 28%,var(--sky),var(--basil) 70%);display:grid;place-items:center;animation:float 2.4s ease-in-out infinite alternate;box-shadow:0 24px 40px -18px var(--basil)}
+.rvl-orb span{width:46px;height:46px;border-radius:50%;border:5px solid rgba(255,255,255,.35);border-top-color:#FFFFFF;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.rvl-bar{width:min(420px,100%);height:10px;border-radius:99px;background:var(--bg);overflow:hidden}
+.rvl-bar i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--sky),var(--basil));transition:width 4s cubic-bezier(.3,.6,.4,1)}
+.rvl-chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:640px}
+.rvl-chips span{background:var(--surface);border:1.5px solid var(--basil-soft);border-radius:99px;padding:6px 12px;font-weight:700;font-size:.84rem;opacity:0;animation:rowin .4s ease forwards}
+.rvl-steps{list-style:none;margin:0;padding:0;display:grid;gap:8px;text-align:left}
+.rvl-steps li{display:flex;gap:10px;align-items:center;font-weight:700;opacity:0;animation:rowin .4s ease forwards}
+.rvl-steps b{width:24px;height:24px;border-radius:50%;background:var(--leaf);color:#FFFFFF;display:grid;place-items:center;font-size:.75rem}
+.rvl-gain{position:relative;display:grid;gap:16px;background:var(--surface);border:1px solid var(--line);border-radius:28px;padding:clamp(20px,4vw,36px);box-shadow:var(--shadow);animation:shkin .5s ease}
+.rvl-gain h2{font-size:clamp(1.8rem,5vw,2.6rem);font-weight:800;letter-spacing:-.03em;display:block}
+.rvl-gain h3{font-size:1.25rem;font-weight:800;margin-top:6px}
+.rvl-x{position:absolute;top:14px;right:14px;width:38px;height:38px;border-radius:50%;border:0;background:var(--bg);font-size:1.3rem;font-weight:800}
+.rvl-time{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+@media (max-width:640px){.rvl-time{grid-template-columns:1fr}}
+.rvl-p{background:var(--bg);border-radius:20px;padding:16px;display:grid;gap:4px;align-content:start}
+.rvl-e{font-size:1.6rem}
+.rvl-p small{color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.06em;font-size:.72rem}
+.rvl-p b{font-family:var(--display);font-size:2rem;line-height:1.05;color:var(--basil)}
+.rvl-p em{font-style:normal;font-weight:700;font-size:.86rem}
+.rvl-p p{margin:6px 0 0;color:var(--muted);font-size:.84rem;line-height:1.4}
+.rvl-gbar{height:8px;border-radius:99px;background:var(--surface);overflow:hidden;margin-top:6px}
+.rvl-gbar i{display:block;height:100%;width:var(--h);border-radius:99px;background:linear-gradient(90deg,var(--sky),var(--basil));animation:grow 1.2s ease}
+@keyframes grow{from{width:0}}
+.rvl-save{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+@media (max-width:640px){.rvl-save{grid-template-columns:1fr}}
+.rvl-s{border:1.5px solid var(--line);border-radius:18px;padding:14px;display:grid;gap:4px}
+.rvl-s span{font-weight:700;font-size:.86rem}
+.rvl-s b{font-family:var(--display);font-size:1.6rem}
+.rvl-s b small{font-size:.8rem;color:var(--muted)}
+.rvl-s em{font-style:normal;color:var(--muted);font-size:.8rem;font-weight:600}
+.rvl-s.us{border-color:var(--basil);background:var(--basil-soft)}
+.rvl-s.us b{color:var(--basil)}
+.rvl-s.win b{color:var(--leaf)}
+.rvl-verdict{background:color-mix(in srgb,var(--leaf) 12%,var(--surface));border-radius:16px;padding:12px 16px;font-weight:700}
+.rvl-verdict b{color:var(--leaf)}
+.rvl-cta{display:grid;gap:8px;justify-items:center}
+.rvl-buy{width:min(460px,100%);padding:16px 20px;font-size:1.05rem;box-shadow:0 16px 30px -16px var(--basil)}
+.rvl-later{border:0;background:none;color:var(--muted);font-weight:700;text-decoration:underline;padding:6px}
+.rvl-note{margin:0;font-size:.72rem;color:var(--muted);text-align:center}
+@media (prefers-reduced-motion:reduce){.rvl-orb,.rvl-orb span,.rvl-chips span,.rvl-steps li,.rvl-gbar i{animation:none;opacity:1}}
+
 /* hero */
 .hero{background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:28px;padding:clamp(24px,5vw,48px);display:grid;gap:20px;position:relative;overflow:hidden;isolation:isolate}
 .bub{position:absolute;border-radius:50%;z-index:-1;background:radial-gradient(circle at 32% 28%,var(--sky),var(--basil) 70%);opacity:.9;animation:float 7s ease-in-out infinite alternate}
@@ -1097,6 +1145,7 @@ font[style]{background:none!important;box-shadow:none!important}
   <p class="note">Estimations basées sur la formule de Mifflin-St Jeor. Ce site ne remplace pas l'avis d'un médecin ou d'un diététicien. Vos données sont privées : sur votre appareil, et sur nos serveurs sécurisés en Europe si vous créez un compte.</p>
 </div>
 <div class="toast" id="toast" role="status"></div>
+<div class="reveal" id="reveal" hidden role="dialog" aria-modal="true" aria-label="Votre programme"><div class="rvl-in" id="revealIn"></div></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script>
@@ -1544,11 +1593,61 @@ $('#quizBody').addEventListener('click',e=>{
     if(MAINT(qDraft))qDraft.pace='reg';
     if(qDraft.sex)S.sex=qDraft.sex;
     if(qDraft.sport)S.activity={'0':'1.2','1':'1.375','3':'1.55','5':'1.725'}[qDraft.sport]||S.activity;
-    S.quiz={...qDraft,done:true};touch();qStep=0;all();toast('Votre plan est prêt');window.scrollTo({top:0,behavior:'smooth'});
+    S.quiz={...qDraft,done:true};touch();qStep=0;all();window.scrollTo({top:0});showReveal();
   } else renderQuiz();
 });
 $('#heroCta').addEventListener('click',()=>startQuiz());
 document.addEventListener('click',e=>{if(e.target.closest('[data-start]'))startQuiz()});
+/* ---- Écran de chargement + ce que vous gagnez ---- */
+let revealT=[];
+function closeReveal(){revealT.forEach(clearTimeout);revealT=[];$('#reveal').hidden=true;document.body.style.overflow=''}
+function showReveal(){
+  const Q=S.quiz||{},P=plan(),box=$('#revealIn');
+  const chosen=QUIZ.filter(st=>!st.when||st.when(Q)).flatMap(st=>st.o(Q).filter(o=>arr(Q[st.k]).includes(o[0])&&!o[4]).map(o=>o[1]+' '+o[2])).slice(0,12);
+  const steps=['Calcul de vos calories','Répartition protéines, glucides, lipides','Sélection de vos menus','Préparation de votre coach IA'];
+  box.innerHTML=`<div class="rvl-load">
+    <div class="rvl-orb" aria-hidden="true"><span></span></div>
+    <h2>On prépare votre programme…</h2>
+    <div class="rvl-bar"><i id="rvlBar"></i></div>
+    <div class="rvl-chips">${chosen.map((c,i)=>`<span style="animation-delay:${.2+i*.18}s">${esc(c)} ✓</span>`).join('')}</div>
+    <ul class="rvl-steps">${steps.map((t,i)=>`<li style="animation-delay:${.6+i*.75}s"><b>✓</b>${t}</li>`).join('')}</ul>
+  </div>`;
+  $('#reveal').hidden=false;document.body.style.overflow='hidden';
+  requestAnimationFrame(()=>{const b=$('#rvlBar');if(b)b.style.width='100%'});
+  const fast=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  revealT.push(setTimeout(()=>renderGains(P,Q),fast?600:4200));
+}
+function renderGains(P,Q){
+  const dir=P.dir,pw=P.perWeek,g=GOALN[Q.goal]||'Sur mesure';
+  const kg=w=>{const v=Math.min(P.lose||99,pw*w);return (dir<0?'−':'+')+fmt(v,v<1?2:1)+' kg'};
+  const periods=[
+    ['1 semaine',dir?kg(1):'7 jours',dir?(dir<0?'de moins, en moyenne':'en plus, en moyenne'):'de repas suivis','🗓️','Fini le « je mange quoi ce soir ? » : vos repas sont prévus.',.25],
+    ['2 semaines',dir?kg(2):'14 jours',dir?(dir<0?'de moins, en moyenne':'en plus, en moyenne'):'d\'habitudes installées','📈','Vos nouvelles habitudes s\'installent, sans y penser.',.5],
+    ['1 mois',dir?kg(4.3):'30 jours',dir?(dir<0?'de moins, en moyenne':'en plus, en moyenne'):'d\'énergie plus stable','🏆','Une vraie tendance sur votre courbe. Et vous la voyez.',1],
+  ];
+  const isPrem=premium;
+  $('#revealIn').innerHTML=`<div class="rvl-gain">
+    <button type="button" class="rvl-x" id="rvlClose" aria-label="Fermer">×</button>
+    <span class="kicker4">Votre programme ${esc(g)}</span>
+    <h2>Voici ce que vous gagnez.</h2>
+    <div class="rvl-time">${periods.map(x=>`<div class="rvl-p"><span class="rvl-e" aria-hidden="true">${x[3]}</span><small>En ${x[0]}</small><b class="num">${x[1]}</b><em>${x[2]}</em><div class="rvl-gbar"><i style="--h:${x[5]*100}%"></i></div><p>${x[4]}</p></div>`).join('')}</div>
+    <h3>Et ce que vous économisez</h3>
+    <div class="rvl-save">
+      <div class="rvl-s us"><span>⭐ OneAthlet Premium</span><b class="num">14,99 €<small>/mois</small></b><em>soit 0,50 € par jour</em></div>
+      <div class="rvl-s"><span>🩺 1 rendez-vous chez un diététicien</span><b class="num">≈ 50 €</b><em>sans suivi au quotidien</em></div>
+      <div class="rvl-s win"><span>🍔 2 repas fast-food remplacés par semaine</span><b class="num">≈ 75 €<small>/mois</small></b><em>économisés (exemple)</em></div>
+    </div>
+    <div class="rvl-verdict">💡 Dans cet exemple, votre abonnement est remboursé <b>dès la première semaine</b>.</div>
+    <div class="rvl-cta">
+      ${isPrem?'<button type="button" class="btn" id="rvlSee">Voir mon plan →</button>':'<button type="button" class="btn rvl-buy" data-buy>Débloquer mon programme — 14,99 €/mois</button><button type="button" class="rvl-later" id="rvlSee">Voir mon plan d\'abord</button>'}
+    </div>
+    <p class="rvl-note">Satisfait ou remboursé 14 jours · Sans engagement · Estimations si vous suivez votre plan : les résultats varient d'une personne à l'autre. Prix du diététicien et du fast-food : moyennes indicatives en France.</p>
+  </div>`;
+  $('#rvlClose').onclick=closeReveal;$('#rvlSee').onclick=closeReveal;
+  const buy=$('#revealIn [data-buy]');if(buy)buy.addEventListener('click',closeReveal);
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#reveal').hidden)closeReveal()});
+
 /* ---- Questions fréquentes ---- */
 (function(){
   const tabs=$('#faqTabs');if(!tabs)return;
