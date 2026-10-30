@@ -412,6 +412,26 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .rvl-steps li{display:flex;gap:10px;align-items:center;font-weight:700;opacity:0;animation:rowin .4s ease forwards}
 .rvl-steps b{width:24px;height:24px;border-radius:50%;background:var(--leaf);color:#FFFFFF;display:grid;place-items:center;font-size:.75rem}
 .rvl-gain{position:relative;display:grid;gap:16px;background:var(--surface);border:1px solid var(--line);border-radius:28px;padding:clamp(20px,4vw,36px);box-shadow:var(--shadow);animation:shkin .5s ease}
+.rc{max-width:640px;margin:0 auto;width:100%}
+.rc-grid{display:grid;gap:8px}
+.rc-row{display:grid;grid-template-columns:96px 1fr;gap:10px;align-items:start;padding:8px 0;border-bottom:1px solid var(--line)}
+.rc-row:last-child{border-bottom:0}
+.rc-row small{color:var(--muted);font-weight:800;font-size:.74rem;text-transform:uppercase;letter-spacing:.06em;padding-top:6px}
+.rc-row div{display:flex;flex-wrap:wrap;gap:6px}
+.rc-row span{display:inline-flex;gap:6px;align-items:center;background:var(--basil-soft);border-radius:99px;padding:5px 11px;font-weight:700;font-size:.86rem}
+.rc-row i{font-style:normal}
+.rc-next{display:flex;gap:12px;align-items:center;background:var(--bg);border-radius:18px;padding:14px 16px}
+.rc-next>span:first-child{font-size:1.8rem}
+.rc-next small{display:block;color:var(--muted)}
+.rc-go{padding:15px 22px;font-size:1.05rem;border-radius:14px;width:min(100%,420px)}
+.ga{justify-items:center;text-align:center}
+.ga-ic{font-size:2.6rem}
+.ga .perks{text-align:left}
+.ga-form{display:grid;gap:10px;width:min(100%,420px)}
+.ga-form input{width:100%;padding:13px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--bg);font-size:1rem}
+.ga-ok{width:96px;height:96px;border-radius:50%;background:var(--leaf);color:#FFFFFF;font-size:3rem;font-weight:800;display:grid;place-items:center;animation:shkin .5s ease}
+.rvl-sub{margin:0;color:var(--muted);font-weight:600}
+@media (max-width:520px){.rc-row{grid-template-columns:1fr;gap:4px}.rc-row small{padding-top:0}}
 .rvl-gain h2{font-size:clamp(1.8rem,5vw,2.6rem);font-weight:800;letter-spacing:-.03em;display:block}
 .rvl-gain h3{font-size:1.25rem;font-weight:800;margin-top:6px}
 .rvl-x{position:absolute;top:14px;right:14px;width:38px;height:38px;border-radius:50%;border:0;background:var(--bg);font-size:1.3rem;font-weight:800}
@@ -637,10 +657,10 @@ font[style]{background:none!important;box-shadow:none!important}
 .acct h3{font-size:1.4rem;font-weight:800;max-width:14ch}
 .acct input{width:100%;padding:12px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--bg)}
 .acct .row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.acct .ghost{border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-weight:700;border-radius:12px;padding:10px 16px}
+.rc .ghost,.acct .ghost{border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-weight:700;border-radius:12px;padding:10px 16px}
 .acct .x{position:absolute;top:12px;right:12px;width:34px;height:34px;border-radius:50%;border:0;background:rgba(255,255,255,.85);font-size:1.1rem;font-weight:800}
-.acct .perks{display:grid;gap:6px;margin:0;padding:0;list-style:none;font-size:.86rem;font-weight:600}
-.acct .perks li::before{content:"✓ ";color:var(--basil);font-weight:800}
+.ga .perks,.acct .perks{display:grid;gap:6px;margin:0;padding:0;list-style:none;font-size:.86rem;font-weight:600}
+.ga .perks li::before,.acct .perks li::before{content:"✓ ";color:var(--basil);font-weight:800}
 
 /* coach */
 .coachcard{display:grid;gap:14px}
@@ -1334,7 +1354,7 @@ let premium=!!window.claude; // version Claude : accès complet ; version web : 
 let premiumWait=!!(sb&&/[?&]premium=ok/.test(location.search));
 const premiumSid=(location.search.match(/[?&]sid=(cs_[A-Za-z0-9_]+)/)||[])[1]||null;
 if(premiumWait){try{history.replaceState(null,'',location.pathname+location.hash)}catch(e){}}
-const LOCKOV='<div class="lockov"><div class="lockcard"><span class="lk" aria-hidden="true">🔒</span><b>Réservé aux membres Premium</b><small>Débloquez votre programme complet, vos résultats détaillés et le coach IA. Satisfait ou remboursé 30 jours*.</small><div class="lk-btns"><button type="button" class="btn" data-pricing>Découvrir l\'abonnement Premium</button></div></div></div>';
+const LOCKOV='<div class="lockov"><div class="lockcard"><span class="lk" aria-hidden="true">🔒</span><b>Votre contenu est prêt</b><small>Débloquez vos menus, votre suivi et le coach IA avec l\'abonnement Premium. Satisfait ou remboursé 30 jours*.</small><div class="lk-btns"><button type="button" class="btn" data-pricing>Débloquer avec l\'abonnement Premium</button></div></div></div>';
 function applyLocks(){
   document.querySelectorAll('.plock').forEach(el=>{
     if(!el.querySelector(':scope > .lockov'))el.insertAdjacentHTML('beforeend',LOCKOV);
@@ -1787,7 +1807,9 @@ $('#heroCta').addEventListener('click',()=>startQuiz());
 document.addEventListener('click',e=>{if(e.target.closest('[data-start]'))startQuiz()});
 /* ---- Écran de chargement + ce que vous gagnez ---- */
 let revealT=[];
-function closeReveal(){revealT.forEach(clearTimeout);revealT=[];$('#reveal').hidden=true;document.body.style.overflow=''}
+let showLock=false;
+function closeReveal(){revealT.forEach(clearTimeout);revealT=[];$('#reveal').hidden=true;document.body.style.overflow='';
+  if(showLock){showLock=false;const l=$('#p-menu .plock.locked');if(l&&!$('#p-menu').hidden)setTimeout(()=>l.scrollIntoView({behavior:'smooth',block:'center'}),150)}}
 function showPricing(){
   if(!(S.quiz&&S.quiz.done)){startQuiz();return}
   $('#reveal').hidden=false;document.body.style.overflow='hidden';renderGains(plan(),S.quiz);
@@ -1806,7 +1828,77 @@ function showReveal(){
   $('#reveal').hidden=false;document.body.style.overflow='hidden';
   requestAnimationFrame(()=>{const b=$('#rvlBar');if(b)b.style.width='100%'});
   const fast=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  revealT.push(setTimeout(()=>renderGains(P,Q),fast?600:4200));
+  revealT.push(setTimeout(renderRecap,fast?600:4200));
+}
+const RECAPN={goal:'Objectif',sex:'Profil',body:'Corps',sport:'Sport',meals:'Repas',amount:'Kilos',obstacle:'Freins',sleep:'Sommeil',water:'Eau',likes:'Goûts',diet:'Alimentation',supp:'Compléments',intol:'Intolérances',health:'Santé',time:'Cuisine',pace:'Rythme'};
+function renderRecap(){
+  const Q=S.quiz||{};
+  const rows=QUIZ.filter(st=>!st.info&&(!st.when||st.when(Q))).map(st=>{
+    const v=st.form?(Q.age?[['🎂',Q.age+' ans'],['📏',Q.height+' cm'],['⚖️',fmt(Q.weight,1)+' kg']]:[]):st.o(Q).filter(o=>arr(Q[st.k]).includes(o[0])).map(o=>[o[1],o[2]]);
+    return v.length?`<div class="rc-row"><small>${RECAPN[st.k]||''}</small><div>${v.map(x=>`<span><i aria-hidden="true">${x[0]}</i>${esc(x[1])}</span>`).join('')}</div></div>`:'';
+  }).join('');
+  $('#revealIn').innerHTML=`<div class="rvl-gain rc">
+    <span class="kicker4">Votre bilan est terminé</span>
+    <h2>Voici ce que vous avez choisi.</h2>
+    <div class="rc-grid">${rows}</div>
+    <div class="rc-next"><span aria-hidden="true">✨</span><span><b>Dernière étape : générez votre contenu.</b><small>Vos menus de la semaine et votre suivi, calculés à partir de ces réponses.</small></span></div>
+    <div class="rvl-cta" style="display:grid;gap:10px;justify-items:center">
+      <button type="button" class="btn rc-go" id="rcGo">Générer mes menus et mon suivi →</button>
+      <button type="button" class="ghost" id="rcEdit">Modifier mes réponses</button>
+    </div>
+  </div>`;
+  $('#revealIn').scrollIntoView({block:'start'});$('#reveal').scrollTop=0;
+  $('#rcEdit').onclick=()=>{closeReveal();startQuiz()};
+  $('#rcGo').onclick=()=>{if(sb&&!sbUser)renderGenAcct();else runGenerate()};
+}
+let genMode='signup';
+function renderGenAcct(msg){
+  const up=genMode==='signup';
+  $('#revealIn').innerHTML=`<div class="rvl-gain rc ga">
+    <span class="ga-ic" aria-hidden="true">🔐</span>
+    <span class="kicker4">Gratuit · 30 secondes</span>
+    <h2>${up?'Créez votre compte pour générer vos menus.':'Connectez-vous pour générer vos menus.'}</h2>
+    <ul class="perks"><li>Votre programme sauvegardé</li><li>Vos menus et votre suivi sur tous vos appareils</li></ul>
+    <form id="gaForm" class="ga-form">
+      <input id="gaEmail" type="email" autocomplete="email" placeholder="Adresse e-mail" aria-label="Adresse e-mail" required>
+      <input id="gaPass" type="password" autocomplete="${up?'new-password':'current-password'}" minlength="6" placeholder="Mot de passe (6 caractères min.)" aria-label="Mot de passe" required>
+      <button class="btn rc-go" type="submit" id="gaGo">${up?'Créer mon compte et générer →':'Se connecter et générer →'}</button>
+    </form>
+    <p class="msg" id="gaMsg" style="margin:0">${msg||''}</p>
+    <button class="ghost" type="button" id="gaSw">${up?'J\'ai déjà un compte':'Pas encore de compte ? Inscription'}</button>
+  </div>`;
+  $('#reveal').scrollTop=0;
+  $('#gaSw').onclick=()=>{genMode=up?'login':'signup';renderGenAcct()};
+  $('#gaForm').onsubmit=async e=>{e.preventDefault();
+    const email=$('#gaEmail').value.trim(),password=$('#gaPass').value,go=$('#gaGo');go.disabled=true;$('#gaMsg').textContent='…';
+    S.flow='gen';save();
+    const r=up?await sb.auth.signUp({email,password,options:{emailRedirectTo:location.origin+location.pathname}}):await sb.auth.signInWithPassword({email,password});
+    go.disabled=false;
+    if(r.error){$('#gaMsg').textContent=AUTHERR[r.error.message]||r.error.message;return}
+    if(r.data.session){runGenerate();return}
+    if(up&&!r.data.session){$('#gaMsg').innerHTML='<b>Compte créé !</b> Ouvrez l\'e-mail de confirmation : vos menus seront générés dès votre retour sur le site.';return}
+  };
+}
+let genBusy=false;
+function runGenerate(){
+  if(genBusy)return;genBusy=true;setTimeout(()=>{genBusy=false},8000);
+  if(S.flow){delete S.flow;save()}
+  const P=plan();
+  const steps=['Création de vos menus de la semaine','Portions ajustées à vos calories','Préparation de votre suivi','Activation de votre coach IA'];
+  $('#reveal').hidden=false;document.body.style.overflow='hidden';
+  $('#revealIn').innerHTML=`<div class="rvl-load">
+    <div class="rvl-orb" aria-hidden="true"><span></span></div>
+    <h2>Génération de votre contenu…</h2>
+    <div class="rvl-bar"><i id="rvlBar"></i></div>
+    <ul class="rvl-steps">${steps.map((t,i)=>`<li style="animation-delay:${.4+i*.7}s"><b>✓</b>${t}</li>`).join('')}</ul>
+  </div>`;
+  requestAnimationFrame(()=>{const b=$('#rvlBar');if(b)b.style.width='100%'});
+  const fast=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  revealT.push(setTimeout(()=>{
+    $('#revealIn').innerHTML=`<div class="rvl-load"><div class="ga-ok" aria-hidden="true">✓</div><h2>Votre contenu est prêt.</h2><p class="rvl-sub">${premium?'Bon appétit !':'Il ne reste plus qu\'à le débloquer.'}</p></div>`;
+    go('menu',true);applyLocks();showLock=!premium;
+    revealT.push(setTimeout(()=>{if(premium)closeReveal();else renderGains(plan(),S.quiz)},fast?400:1400));
+  },fast?600:3600));
 }
 function renderGains(P,Q){
   const dir=P.dir,pw=P.perWeek,g=GOALN[Q.goal]||'Sur mesure';
@@ -2060,12 +2152,13 @@ if(sb){
     $('#acctLbl').textContent=sbUser?'Mon compte':'Se connecter';
     reviewsUI();loadPremium();
     if(window.$crisp&&sbUser&&sbUser.email){window.$crisp.push(['set','user:email',[sbUser.email]])}
-    if(sbUser&&sbUser.id!==prev){setTimeout(async()=>{
+    if(sbUser&&sbUser.id!==prev){const pend=S.flow==='gen'||genBusy;setTimeout(async()=>{
       const{data,error}=await sb.from('profils').select('state').eq('user_id',sbUser.id).maybeSingle();
-      if(error){console.warn('sync',error.message);return}
-      if(data&&data.state&&typeof data.state==='object'){S=data.state;try{localStorage.setItem('assiette-legere',JSON.stringify(S))}catch(e){}all();toast('Vos données sont récupérées')}
+      if(error){console.warn('sync',error.message);if(pend)runGenerate();return}
+      if(data&&data.state&&typeof data.state==='object'&&!pend){S=data.state;try{localStorage.setItem('assiette-legere',JSON.stringify(S))}catch(e){}all();toast('Vos données sont récupérées')}
       else{S.demo=false;save();toast('Compte prêt : suivi sauvegardé')}
       loadReviewsSB();
+      if(pend)runGenerate();
     },0)}
     if(!sbUser&&prev){loadReviewsSB()}
   });
