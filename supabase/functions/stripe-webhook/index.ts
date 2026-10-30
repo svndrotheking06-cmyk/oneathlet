@@ -10,6 +10,8 @@ const admin = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE
 async function save(sub: Stripe.Subscription, fallbackUserId?: string | null) {
   const userId = sub.metadata?.user_id || fallbackUserId;
   if (!userId) return;
+  const { data: cur } = await admin.from("abonnements").select("status").eq("user_id", userId).maybeSingle();
+  if (cur?.status === "lifetime") return; // l'accès à vie ne dépend plus d'un abonnement
   // current_period_end est sur l'abonnement dans les anciennes versions de l'API, sur l'article dans les nouvelles.
   const end = (sub as any).current_period_end ?? (sub.items?.data?.[0] as any)?.current_period_end;
   const { error } = await admin.from("abonnements").upsert({

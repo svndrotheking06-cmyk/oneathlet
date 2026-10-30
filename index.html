@@ -449,6 +449,36 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .faq-cond small{color:var(--muted);font-size:.76rem}
 @media (max-width:480px){.faq-cond{margin-left:16px}}
 
+/* offre : mensuel + à vie */
+.offer2{gap:18px}
+.of-head{display:grid;gap:10px}
+.of-head h2{font-size:clamp(1.5rem,4vw,2.2rem);display:block}
+.of-incl{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:640px){.of-incl{grid-template-columns:1fr}}
+.of-plans{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:640px){.of-plans{grid-template-columns:1fr}}
+.of-plan{position:relative;border:1.5px solid var(--line);border-radius:22px;padding:18px;display:grid;gap:8px;align-content:start}
+.of-plan.best{border:2px solid var(--basil);background:var(--basil-soft)}
+.of-ribbon{position:absolute;top:-12px;right:16px;background:var(--leaf);color:#FFFFFF;border-radius:99px;padding:4px 12px;font-weight:800;font-size:.74rem}
+.of-name{font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:.76rem;color:var(--muted)}
+.of-plan .pricetag b{font-size:clamp(2.2rem,6vw,2.8rem)}
+.of-tag{font-weight:700;font-size:.84rem;color:var(--muted)}
+.of-plan .btn{padding:13px 16px;margin-top:4px}
+.of-save{display:flex;gap:12px;align-items:center;background:color-mix(in srgb,var(--leaf) 12%,var(--surface));border-radius:18px;padding:14px 16px}
+.of-save-e{font-size:1.8rem;flex:none}
+.of-save b{display:block;font-size:1rem}
+.of-save small{color:var(--muted);font-size:.8rem;line-height:1.4}
+.of-on{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.lk-btns{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.lk-btns .btn{padding:10px 14px}
+.lk-life{background:var(--leaf)!important}
+.rvl-plans{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:min(520px,100%)}
+@media (max-width:480px){.rvl-plans{grid-template-columns:1fr}}
+.rvl-plans .btn{display:grid;gap:2px;width:100%}
+.rvl-plans small{font-weight:600;opacity:.85;font-size:.76rem}
+.rvl-life{background:var(--leaf)!important;box-shadow:0 16px 30px -16px var(--leaf)!important}
+.rvl-yr{margin:0;font-weight:700;color:var(--leaf);text-align:center}
+
 /* hero */
 .hero{background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:28px;padding:clamp(24px,5vw,48px);display:grid;gap:20px;position:relative;overflow:hidden;isolation:isolate}
 .bub{position:absolute;border-radius:50%;z-index:-1;background:radial-gradient(circle at 32% 28%,var(--sky),var(--basil) 70%);opacity:.9;animation:float 7s ease-in-out infinite alternate}
@@ -877,7 +907,8 @@ font[style]{background:none!important;box-shadow:none!important}
       <details class="faq-i" data-cat="pay"><summary><span class="faq-e" aria-hidden="true">🆓</span><span class="faq-q">C'est vraiment gratuit pour commencer ?</span><span class="faq-plus" aria-hidden="true"></span></summary><p>Oui. Le quiz, le profil et le suivi des repas sont gratuits, sans carte bancaire. Seuls le plan détaillé, les menus et le coach IA demandent l'abonnement Premium.</p></details>
       <details class="faq-i" data-cat="pay"><summary><span class="faq-e" aria-hidden="true">🔒</span><span class="faq-q">Mon paiement est-il sécurisé ?</span><span class="faq-plus" aria-hidden="true"></span></summary><p>Le paiement passe par Stripe, utilisé par des millions d'entreprises dans le monde. Votre numéro de carte va directement chez Stripe : OneAthlet ne le voit jamais et ne le stocke pas.</p></details>
       <details class="faq-i" data-cat="pay"><summary><span class="faq-e" aria-hidden="true">↩️</span><span class="faq-q">Puis-je arrêter quand je veux ?</span><span class="faq-plus" aria-hidden="true"></span></summary><p>Oui, sans engagement. Mon compte → Gérer mon abonnement → Annuler : 2 clics. Vous gardez l'accès jusqu'à la fin du mois déjà payé, puis plus rien n'est prélevé.</p></details>
-      <details class="faq-i" data-cat="pay"><summary><span class="faq-e" aria-hidden="true">💶</span><span class="faq-q">Et si ça ne me plaît pas ?</span><span class="faq-plus" aria-hidden="true"></span></summary><p>Satisfait ou remboursé pendant 30 jours. Si OneAthlet Premium ne vous convient pas, écrivez-nous dans le chat : nous vous remboursons votre premier mois en totalité.</p>
+      <details class="faq-i" data-cat="pay"><summary><span class="faq-e" aria-hidden="true">♾️</span><span class="faq-q">Mensuel ou à vie : lequel choisir ?</span><span class="faq-plus" aria-hidden="true"></span></summary><p>Le mensuel (14,99 €/mois) est sans engagement : idéal pour essayer. L'accès à vie (89,99 €, payé une seule fois) vous donne tout Premium pour toujours, sans prélèvement : il est rentabilisé en 6 mois. Si vous êtes déjà abonné au mensuel, passer à vie arrête automatiquement votre abonnement.</p></details>
+      <details class="faq-i" data-cat="pay"><summary><span class="faq-e" aria-hidden="true">💶</span><span class="faq-q">Et si ça ne me plaît pas ?</span><span class="faq-plus" aria-hidden="true"></span></summary><p>Satisfait ou remboursé pendant 30 jours. Si OneAthlet Premium ne vous convient pas, écrivez-nous dans le chat : nous vous remboursons votre premier paiement en totalité (mensuel ou à vie).</p>
       <div class="faq-cond"><b>Conditions de la garantie</b><ul>
         <li>Valable <b>une seule fois par personne</b>, sur le <b>premier abonnement</b> uniquement (même e-mail ou même carte bancaire = même personne).</li>
         <li>Demande à faire <b>dans les 30 jours</b> qui suivent le premier paiement, par le chat.</li>
@@ -911,23 +942,39 @@ font[style]{background:none!important;box-shadow:none!important}
   <div class="plist" id="progList"></div>
 
   <!-- Offre Premium -->
-  <section class="card pricing" id="offre" aria-labelledby="h-offre">
-    <div style="display:grid;gap:12px;min-width:0">
+  <section class="card offer2" id="offre" aria-labelledby="h-offre">
+    <div class="of-head">
       <span class="prem-badge">★ OneAthlet Premium</span>
-      <h2 id="h-offre" style="font-size:clamp(1.5rem,4vw,2.2rem);display:block">Tout votre programme. Un coach dans la poche.</h2>
-      <div class="pricetag"><b class="num">14,99 €</b><span>/ mois</span></div>
-      <p class="pfree"><b style="color:var(--leaf)">Satisfait ou remboursé 30 jours*</b> sur le premier mois. Sans engagement, résiliable en 2 clics. Le quiz, le profil et le suivi des repas restent gratuits.<br><small>*Une fois par personne, voir les conditions dans la FAQ.</small></p>
-    </div>
-    <div style="display:grid;gap:14px;min-width:0">
-      <ul class="incl">
-        <li>Votre plan complet : calories, protéines, glucides, lipides</li>
+      <h2 id="h-offre">Tout votre programme. Un coach dans la poche.</h2>
+      <ul class="incl of-incl">
+        <li>Plan complet : calories, protéines, glucides, lipides</li>
         <li>Résultats de la journée détaillés</li>
-        <li>Menus de la semaine adaptés à votre régime</li>
-        <li>Coach IA 24 h/24 qui connaît votre profil</li>
+        <li>Menus adaptés à votre régime</li>
+        <li>Photo de l'assiette et coach IA 24 h/24</li>
       </ul>
-      <button type="button" class="btn" data-buy data-prem-off style="justify-self:stretch;padding:15px 22px;font-size:1.02rem">Passer Premium — 14,99 €/mois</button>
-      <div data-prem-on hidden style="display:grid;gap:8px"><span class="pill" style="justify-self:start">✓ Vous êtes Premium</span><button type="button" class="ghost btn-ghost" data-manage style="border:1.5px solid var(--line);border-radius:12px;padding:10px 16px;font-weight:700;justify-self:start">Gérer mon abonnement</button></div>
     </div>
+    <div class="of-plans" data-prem-off>
+      <div class="of-plan">
+        <span class="of-name">Mensuel</span>
+        <div class="pricetag"><b class="num">14,99 €</b><span>/ mois</span></div>
+        <span class="of-tag">Sans engagement · résiliable en 2 clics</span>
+        <button type="button" class="btn" data-buy>Choisir le mensuel</button>
+      </div>
+      <div class="of-plan best">
+        <span class="of-ribbon">Meilleure offre</span>
+        <span class="of-name">À vie</span>
+        <div class="pricetag"><b class="num">89,99 €</b><span>une seule fois</span></div>
+        <span class="of-tag">Rentabilisé en 6 mois · à vous pour toujours</span>
+        <button type="button" class="btn" data-buy-life>Choisir l'accès à vie</button>
+      </div>
+    </div>
+    <div class="of-save" data-prem-off>
+      <span class="of-save-e" aria-hidden="true">💰</span>
+      <div><b>Vous pourriez économiser ≈ 60 € par mois, soit ≈ 720 € par an.</b>
+      <small>Exemple : 2 repas fast-food remplacés par semaine (≈ 75 €/mois), moins l'abonnement. Avec l'accès à vie : ≈ 810 € la 1re année, puis ≈ 900 € chaque année.</small></div>
+    </div>
+    <div data-prem-on hidden class="of-on"><span class="pill" id="ofStatus">✓ Vous êtes Premium</span><button type="button" class="ghost btn-ghost" data-manage id="ofManage" style="border:1.5px solid var(--line);border-radius:12px;padding:10px 16px;font-weight:700">Gérer mon abonnement</button></div>
+    <p class="pfree"><b style="color:var(--leaf)">Satisfait ou remboursé 30 jours*</b> sur le premier paiement. Le quiz, le profil et le suivi des repas restent gratuits.<br><small>*Une fois par personne, voir les conditions dans la FAQ.</small></p>
   </section>
 
   <!-- 5b. Avis -->
@@ -1230,11 +1277,12 @@ const LANG=curLang();
 const SB_URL='https://dbrpduznzqynkuebulxx.supabase.co',SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRicnBkdXpuenF5bmt1ZWJ1bHh4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIxMDM4OTAsImV4cCI6MjEwNzY3OTg5MH0.8XVULvee0zcbp7qjlmHupBdhxUKb0tYz6fm1xK4eJkk';
 const sb=(!window.claude&&window.supabase&&window.supabase.createClient)?window.supabase.createClient(SB_URL,SB_KEY):null;
 let sbUser=null,pushT=null;
+let premiumLife=false;
 let premium=!!window.claude; // version Claude : accès complet ; version web : selon l'abonnement Stripe
 let premiumWait=!!(sb&&/[?&]premium=ok/.test(location.search));
 const premiumSid=(location.search.match(/[?&]sid=(cs_[A-Za-z0-9_]+)/)||[])[1]||null;
 if(premiumWait){try{history.replaceState(null,'',location.pathname+location.hash)}catch(e){}}
-const LOCKOV='<div class="lockov"><div class="lockcard"><span class="lk" aria-hidden="true">🔒</span><b>Réservé aux membres Premium</b><small>Débloquez votre programme complet, vos résultats détaillés et le coach IA. Satisfait ou remboursé 30 jours*.</small><button type="button" class="btn" data-buy>Débloquer — 14,99 €/mois</button></div></div>';
+const LOCKOV='<div class="lockov"><div class="lockcard"><span class="lk" aria-hidden="true">🔒</span><b>Réservé aux membres Premium</b><small>Débloquez votre programme complet, vos résultats détaillés et le coach IA. Satisfait ou remboursé 30 jours*.</small><div class="lk-btns"><button type="button" class="btn" data-buy>14,99 €/mois</button><button type="button" class="btn lk-life" data-buy-life>89,99 € à vie</button></div></div></div>';
 function applyLocks(){
   document.querySelectorAll('.plock').forEach(el=>{
     if(!el.querySelector(':scope > .lockov'))el.insertAdjacentHTML('beforeend',LOCKOV);
@@ -1248,28 +1296,29 @@ async function loadPremium(tries){
   if(!sb)return;
   if(!sbUser){premium=false;applyLocks();return}
   let ok=null;
-  try{const r=await sb.functions.invoke('checkout',{body:{action:'status',sessionId:premiumSid,returnUrl:location.origin+location.pathname}});if(!r.error&&r.data&&typeof r.data.premium==='boolean')ok=r.data.premium}catch(e){}
+  try{const r=await sb.functions.invoke('checkout',{body:{action:'status',sessionId:premiumSid,returnUrl:location.origin+location.pathname}});if(!r.error&&r.data&&typeof r.data.premium==='boolean'){ok=r.data.premium;premiumLife=!!r.data.lifetime}}catch(e){}
   if(ok===null){const{data}=await sb.from('abonnements').select('status,current_period_end').eq('user_id',sbUser.id).maybeSingle();
-    ok=!!data&&['active','trialing'].includes(data.status)&&(!data.current_period_end||new Date(data.current_period_end).getTime()>Date.now()-864e5)}
+    premiumLife=!!data&&data.status==='lifetime';ok=premiumLife||(!!data&&['active','trialing'].includes(data.status)&&(!data.current_period_end||new Date(data.current_period_end).getTime()>Date.now()-864e5))}
   premium=ok;
   applyLocks();
+  if($('#ofStatus')){$('#ofStatus').textContent=premiumLife?'✓ Premium à vie':'✓ Vous êtes Premium';$('#ofManage').textContent=premiumLife?'Mes factures':'Gérer mon abonnement'}
   if(!$('#acctOvl').hidden)renderAcct();
   if(premiumWait){
-    if(premium){premiumWait=false;toast('Bienvenue dans Premium !')}
+    if(premium){premiumWait=false;toast(premiumLife?'Bienvenue ! Votre accès à vie est actif':'Bienvenue dans Premium !')}
     else if((tries||0)<8)setTimeout(()=>loadPremium((tries||0)+1),3000);
     else{premiumWait=false;toast('Paiement reçu : l\'accès s\'active dans quelques minutes')}
   }
 }
-async function startCheckout(portal){
+async function startCheckout(portal,plan){
   if(!sb){toast('Le paiement se fait sur oneathlet.vercel.app');return}
   if(!sbUser){openAcct();toast('Créez votre compte pour continuer');return}
   toast(portal?'Ouverture de votre abonnement…':'Ouverture du paiement sécurisé…');
-  const{data,error}=await sb.functions.invoke('checkout',{body:{action:portal?'portal':'checkout',returnUrl:location.origin+location.pathname}});
+  const{data,error}=await sb.functions.invoke('checkout',{body:{action:portal?'portal':'checkout',plan:plan||'month',returnUrl:location.origin+location.pathname}});
   if(error){let m='';try{m=(await error.context.json()).error}catch(e){}toast(m||'Le paiement n\'a pas pu démarrer. Réessayez.');return}
   if(data&&data.already){loadPremium();toast('Vous êtes déjà Premium');return}
   if(data&&data.url)location.href=data.url;
 }
-document.addEventListener('click',e=>{if(e.target.closest('[data-buy]'))startCheckout(false);else if(e.target.closest('[data-manage]'))startCheckout(true)});
+document.addEventListener('click',e=>{if(e.target.closest('[data-buy-life]'))startCheckout(false,'lifetime');else if(e.target.closest('[data-buy]'))startCheckout(false,'month');else if(e.target.closest('[data-manage]'))startCheckout(true)});
 function pushRemote(){if(!sb||!sbUser)return;clearTimeout(pushT);pushT=setTimeout(async()=>{const{error}=await sb.from('profils').upsert({user_id:sbUser.id,state:S,updated_at:new Date().toISOString()});if(error)console.warn('sync',error.message)},1200)}
 function save(){try{localStorage.setItem('assiette-legere',JSON.stringify(S))}catch(e){}pushRemote()}
 function touch(){if(S.demo){S.demo=false;}save();$('#demoPill').hidden=!S.demo}
@@ -1653,12 +1702,12 @@ function renderGains(P,Q){
     </div>
     <div class="rvl-verdict">💡 Dans cet exemple, votre abonnement est remboursé <b>dès la première semaine</b>.</div>
     <div class="rvl-cta">
-      ${isPrem?'<button type="button" class="btn" id="rvlSee">Voir mon plan →</button>':'<button type="button" class="btn rvl-buy" data-buy>Débloquer mon programme — 14,99 €/mois</button><button type="button" class="rvl-later" id="rvlSee">Voir mon plan d\'abord</button>'}
+      ${isPrem?'<button type="button" class="btn" id="rvlSee">Voir mon plan →</button>':'<div class="rvl-plans"><button type="button" class="btn rvl-buy" data-buy>14,99 €/mois<small>sans engagement</small></button><button type="button" class="btn rvl-buy rvl-life" data-buy-life>89,99 € à vie<small>payé une fois</small></button></div><p class="rvl-yr">💰 Soit ≈ 60 € économisés par mois, ≈ 720 € par an (exemple).</p><button type="button" class="rvl-later" id="rvlSee">Voir mon plan d\'abord</button>'}
     </div>
-    <p class="rvl-note">Satisfait ou remboursé 30 jours sur le premier mois (*conditions dans la FAQ) · Sans engagement · Estimations si vous suivez votre plan : les résultats varient d'une personne à l'autre. Prix du diététicien et du fast-food : moyennes indicatives en France.</p>
+    <p class="rvl-note">Satisfait ou remboursé 30 jours sur le premier paiement (*conditions dans la FAQ) · Mensuel sans engagement · Estimations si vous suivez votre plan : les résultats varient d'une personne à l'autre. Prix du diététicien et du fast-food : moyennes indicatives en France.</p>
   </div>`;
   $('#rvlClose').onclick=closeReveal;$('#rvlSee').onclick=closeReveal;
-  const buy=$('#revealIn [data-buy]');if(buy)buy.addEventListener('click',closeReveal);
+  $('#revealIn').querySelectorAll('[data-buy],[data-buy-life]').forEach(b=>b.addEventListener('click',closeReveal));
 }
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#reveal').hidden)closeReveal()});
 
@@ -1841,7 +1890,7 @@ function renderAcct(msg){
     b.innerHTML=`<span class="lbl" style="color:var(--basil)">Mon compte</span><h3 id="acctTitle">Vous êtes connecté</h3>
       <p class="msg" style="margin:0">${esc(sbUser.email||'')}</p>
       <ul class="perks"><li>Profil et plan sauvegardés</li><li>Repas, eau et poids synchronisés</li><li>Retrouvez tout sur chaque appareil</li></ul>
-      ${premium?'<span class="pill" style="justify-self:start">✓ Premium actif</span><button class="ghost" type="button" data-manage>Gérer mon abonnement</button>':'<button class="btn" type="button" data-buy>Passer Premium — 14,99 €/mois</button>'}
+      ${premium?(premiumLife?'<span class="pill" style="justify-self:start">✓ Premium à vie</span><button class="ghost" type="button" data-manage>Mes factures</button>':'<span class="pill" style="justify-self:start">✓ Premium actif</span><button class="ghost" type="button" data-manage>Gérer mon abonnement</button>'):'<button class="btn" type="button" data-buy>Premium — 14,99 €/mois</button><button class="ghost" type="button" data-buy-life>Ou 89,99 € à vie</button>'}
       <button class="ghost" type="button" id="acctOut">Se déconnecter</button>`;
     return;
   }

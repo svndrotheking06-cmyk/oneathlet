@@ -27,9 +27,9 @@ Deno.serve(async (req) => {
   if (!user) return json({ error: "Connectez-vous pour analyser vos repas." }, 401);
 
   const { data: ab } = await sb.from("abonnements").select("status,current_period_end").eq("user_id", user.id).maybeSingle();
-  const premium = !!ab && ["active", "trialing"].includes(ab.status) &&
-    (!ab.current_period_end || new Date(ab.current_period_end).getTime() > Date.now() - 86_400_000);
-  if (!premium) return json({ error: "L'analyse photo est réservée aux membres Premium (14,99 €/mois)." }, 402);
+  const premium = !!ab && (ab.status === "lifetime" || (["active", "trialing"].includes(ab.status) &&
+    (!ab.current_period_end || new Date(ab.current_period_end).getTime() > Date.now() - 86_400_000)));
+  if (!premium) return json({ error: "L'analyse photo est réservée aux membres Premium." }, 402);
 
   let body: { image?: unknown; mediaType?: unknown; diet?: unknown; intol?: unknown; lang?: unknown };
   try { body = await req.json(); } catch { return json({ error: "Requête invalide" }, 400); }

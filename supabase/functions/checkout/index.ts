@@ -1,4 +1,4 @@
-// Paiement OneAthlet Premium (14,99 €/mois) avec Stripe Checkout, et accès au portail client.
+// Paiement OneAthlet Premium : 14,99 €/mois ou 89,99 € à vie (Stripe Checkout), et accès au portail client.
 // Secrets requis : STRIPE_SECRET_KEY. Optionnel : STRIPE_PRICE_ID (sinon le prix est créé à la volée).
 import Stripe from "npm:stripe@17.7.0";
 import { createClient } from "npm:@supabase/supabase-js@2.45.4";
@@ -36,7 +36,7 @@ Deno.serve(async (req) => {
   const { data: { user } } = await userClient.auth.getUser();
   if (!user) return json({ error: "Connectez-vous pour continuer." }, 401);
 
-  let body: { action?: string; returnUrl?: string; sessionId?: string };
+  let body: { action?: string; plan?: string; returnUrl?: string; sessionId?: string };
   try { body = await req.json(); } catch { body = {}; }
   const back = safeReturn(body.returnUrl);
   if (!back) return json({ error: "Adresse de retour non autorisée." }, 400);
@@ -47,9 +47,25 @@ Deno.serve(async (req) => {
   try {
     // Vérifie l'abonnement directement auprès de Stripe (aucun webhook nécessaire).
     if (body.action === "status") {
+      if (row?.status === "lifetime") return json({ premium: true, lifetime: true });
       let sub: Stripe.Subscription | null = null;
       if (body.sessionId && /^cs_[A-Za-z0-9_]+$/.test(body.sessionId)) {
         const s = await stripe.checkout.sessions.retrieve(body.sessionId);
+        // Accès à vie : paiement unique confirmé.
+        if (s.client_reference_id === user.id && s.mode === "payment" && s.payment_status === "paid" && s.metadata?.plan === "lifetime") {
+          if (row?.stripe_subscription_id && ["active", "trialing"].includes(row.status)) {
+            try { await stripe.subscriptions.cancel(row.stripe_subscription_id); } catch (e) { console.error(e); }
+          }
+          await admin.from("abonnements").upsert({
+            user_id: user.id,
+            stripe_customer_id: typeof s.customer === "string" ? s.customer : s.customer?.id ?? row?.stripe_customer_id ?? null,
+            stripe_subscription_id: null,
+            status: "lifetime",
+            current_period_end: null,
+            updated_at: new Date().toISOString(),
+          });
+          return json({ premium: true, lifetime: true });
+        }
         if (s.client_reference_id === user.id && s.subscription) {
           sub = await stripe.subscriptions.retrieve(typeof s.subscription === "string" ? s.subscription : s.subscription.id);
         }
@@ -80,7 +96,32 @@ Deno.serve(async (req) => {
       return json({ url: portal.url });
     }
 
-    if (row && ["active", "trialing"].includes(row.status)) return json({ already: true });
+    if (row && ["active", "trialing", "lifetime"].includes(row.status) && !(body.plan === "lifetime" && row.status !== "lifetime")) {
+      return json({ already: true });
+    }
+
+    if (body.plan === "lifetime") {
+      const session = await stripe.checkout.sessions.create({
+        mode: "payment",
+        line_items: [{
+          quantity: 1,
+          price_data: {
+            currency: "eur",
+            unit_amount: 8999,
+            product_data: { name: "OneAthlet Premium à vie", description: "Programme nutrition complet et coach IA, payé une seule fois." },
+          },
+        }],
+        client_reference_id: user.id,
+        ...(row?.stripe_customer_id ? { customer: row.stripe_customer_id } : { customer_email: user.email, customer_creation: "always" }),
+        metadata: { user_id: user.id, plan: "lifetime" },
+        payment_intent_data: { metadata: { user_id: user.id, plan: "lifetime" } },
+        allow_promotion_codes: true,
+        locale: "fr",
+        success_url: back + "?premium=ok&sid={CHECKOUT_SESSION_ID}#plan",
+        cancel_url: back + "#plan",
+      });
+      return json({ url: session.url });
+    }
 
     const priceId = Deno.env.get("STRIPE_PRICE_ID");
     const session = await stripe.checkout.sessions.create({
