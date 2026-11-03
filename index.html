@@ -47,17 +47,16 @@ h1 em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--cor
 .sub{margin:0;font-size:clamp(1.1rem,3vw,1.5rem);font-weight:700;color:var(--muted);max-width:30ch;text-wrap:balance;margin-inline:auto}
 .sub b{color:var(--ink)}
 .show{padding:0 0 70px;overflow:hidden}
-.phones{position:relative;height:620px;width:min(100%,680px);margin:0 auto;overflow:hidden}
-@media (min-width:761px){.phones{-webkit-mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent);mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent)}}
+.phones{position:relative;height:620px;width:min(100%,500px);margin:0 auto;overflow:hidden}
 .ph{position:absolute;top:20px;left:50%;margin:0;width:280px;height:576px;border-radius:52px;background:#1C1C1F;padding:11px;box-shadow:0 40px 80px -40px rgba(43,26,20,.55),inset 0 0 0 2px #3A3A40;transition:transform .45s cubic-bezier(.2,.8,.2,1);cursor:pointer}
 .ph::before,.ph::after{content:"";position:absolute;width:4px;border-radius:3px;background:#2A2A2F}
 .ph::before{left:-4px;top:120px;height:58px}.ph::after{right:-4px;top:150px;height:84px}
 .ph-m{z-index:3;transform:translateX(-50%) scale(1.06)}
-.ph-l{z-index:2;transform:translateX(calc(-50% - 365px)) scale(.92)}
-.ph-r{z-index:2;transform:translateX(calc(-50% + 365px)) scale(.92)}
+.ph-l{z-index:2;transform:translateX(calc(-50% - 250px)) scale(.92)}
+.ph-r{z-index:2;transform:translateX(calc(-50% + 250px)) scale(.92)}
 .phones .ph-m:hover{transform:translateX(-50%) scale(1.1)}
-.phones .ph-l:hover{transform:translateX(calc(-50% - 375px)) scale(.97)}
-.phones .ph-r:hover{transform:translateX(calc(-50% + 375px)) scale(.97)}
+.phones .ph-l:hover{transform:translateX(calc(-50% - 262px)) scale(.97)}
+.phones .ph-r:hover{transform:translateX(calc(-50% + 262px)) scale(.97)}
 .scr{position:relative;height:100%;border-radius:42px;overflow:hidden;background:#FFF8F2;font-family:var(--body);color:var(--ink)}
 .island{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:86px;height:25px;border-radius:20px;background:#000;z-index:5}
 .sb{position:relative;z-index:4;display:flex;justify-content:space-between;padding:13px 24px 0;font-size:.72rem;font-weight:800}
