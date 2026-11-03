@@ -234,6 +234,26 @@ h1 em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--cor
   .prot-txt{justify-items:center}
 }
 @media (prefers-reduced-motion:reduce){.pr-arc,.pr-ok,.pr-meals li{transition:none}}
+.day{display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(24px,6vw,80px);align-items:center;max-width:1080px;margin:0 auto;padding:20px clamp(16px,6vw,80px) 100px}
+.day .prot-txt h2 em{background:linear-gradient(90deg,var(--orange),var(--coral));-webkit-background-clip:text;background-clip:text;color:transparent}
+.dy-scr{gap:9px}
+.dy-arc{transition:stroke-dashoffset 1.4s cubic-bezier(.3,.7,.3,1) .2s}
+.day.run .dy-arc{stroke-dashoffset:68}
+.dy-mac i{background:#F4DDD1!important;position:relative;overflow:hidden}
+.dy-mac i::after{content:"";position:absolute;inset:0;width:0;background:var(--c);border-radius:5px;transition:width 1.1s ease .5s}
+.day.run .dy-mac i::after{width:var(--w)}
+.dy-meals{list-style:none;margin:0;padding:0;display:grid;gap:7px}
+.dy-meals li{display:flex;align-items:center;gap:9px;background:#FFFFFF;border-radius:16px;padding:6px 10px 6px 6px;box-shadow:0 4px 12px -8px rgba(43,26,20,.3);opacity:0;transform:translateX(-14px);transition:opacity .4s var(--d),transform .4s var(--d)}
+.day.run .dy-meals li{opacity:1;transform:none}
+.dy-meals div{flex:1;min-width:0;display:grid}
+.dy-meals small{color:var(--muted);font-size:.58rem;font-weight:800}
+.dy-meals div b{font-size:.7rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dy-meals i{width:20px;height:20px;border-radius:50%;border:2px solid #F4DDD1;font-style:normal;font-size:.62rem;display:grid;place-items:center;color:#FFFFFF;font-weight:800;flex:none;transition:background .3s calc(var(--d) + .5s),border-color .3s calc(var(--d) + .5s)}
+.day.run .dy-meals .ok i{background:#22A06B;border-color:#22A06B}
+@media (max-width:760px){
+  .day{grid-template-columns:1fr;justify-items:center;text-align:center;padding-bottom:70px}
+}
+@media (prefers-reduced-motion:reduce){.dy-arc,.dy-mac i::after,.dy-meals li,.dy-meals i{transition:none}}
 .goog-te-banner-frame,.skiptranslate>iframe,#goog-gt-tt,.goog-te-balloon-frame{display:none!important}
 body{top:0!important}
 font[style]{background:none!important;box-shadow:none!important}
@@ -388,7 +408,47 @@ font[style]{background:none!important;box-shadow:none!important}
   </div>
 </section>
 
+<section class="day" id="dayDemo" aria-labelledby="dayH">
+  <div class="prot-ph">
+    <figure class="ph ph-solo" aria-label="Menus de la journée et suivi">
+      <span class="hb l act" aria-hidden="true"></span><span class="hb l vu" aria-hidden="true"></span><span class="hb l vd" aria-hidden="true"></span><span class="hb r pw" aria-hidden="true"></span><span class="hb r cam" aria-hidden="true"></span>
+      <div class="scr scr-app dy-scr">
+        <div class="sb"><span>9:41</span><span class="sb-i">▲ ◼ ▮</span></div><span class="island" aria-hidden="true"></span>
+        <div class="a-head"><div><small>Mardi</small><b>Bonjour 👋</b></div><span class="a-av">O</span></div>
+        <div class="a-ring dy-ring">
+          <svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="50" fill="none" stroke="#FFE4DA" stroke-width="12"/><circle class="dy-arc" cx="60" cy="60" r="50" fill="none" stroke="url(#rg2)" stroke-width="12" stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="314" transform="rotate(-90 60 60)"/><defs><linearGradient id="rg2" x1="0" x2="1"><stop offset="0" stop-color="#FF9A3C"/><stop offset="1" stop-color="#EF4F2B"/></linearGradient></defs></svg>
+          <div class="a-rt"><b class="num" data-to="1450">0</b><small>/ 1 850 kcal</small></div>
+        </div>
+        <div class="a-mac dy-mac"><span><i style="--w:77%;--c:#D93B4B"></i>Prot. 92 g</span><span><i style="--w:64%;--c:#F5B83D"></i>Gluc. 140 g</span><span><i style="--w:70%;--c:#7B61FF"></i>Lip. 45 g</span></div>
+        <div class="a-sec">Menu du jour</div>
+        <ul class="dy-meals">
+          <li class="ok" style="--d:0.5s"><span class="th" aria-hidden="true"><b>🍳</b><img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=160&h=160&q=80" alt="" loading="lazy" onerror="this.remove()"></span><div><small>Petit-déj · 330 kcal</small><b>Œufs et pain complet</b></div><i>✓</i></li>
+          <li class="ok" style="--d:0.75s"><span class="th" aria-hidden="true"><b>🍗</b><img src="assiette.jpg" alt="" loading="lazy" onerror="this.remove()"></span><div><small>Déjeuner · 480 kcal</small><b>Poulet, riz, légumes</b></div><i>✓</i></li>
+          <li class="ok" style="--d:.9s"><span class="th" aria-hidden="true"><b>🥣</b><img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=160&h=160&q=80" alt="" loading="lazy" onerror="this.remove()"></span><div><small>Collation · 150 kcal</small><b>Skyr et fruits</b></div><i>✓</i></li>
+          <li class="" style="--d:1.05s"><span class="th" aria-hidden="true"><b>🐟</b><img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=160&h=160&q=80" alt="" loading="lazy" onerror="this.remove()"></span><div><small>Dîner · 520 kcal</small><b>Saumon et quinoa</b></div><i>✓</i></li>
+        </ul>
+        <div class="a-row"><div class="a-mini"><small>Eau</small><b>💧 1,5 / 2 L</b></div><div class="a-mini"><small>Poids</small><b class="dn">76,4 kg ↘</b></div></div>
+      </div>
+    </figure>
+  </div>
+  <div class="prot-txt">
+    <span class="scan-k">Menus et suivi</span>
+    <h2 id="dayH">Vos menus prêts,<br><em>votre journée suivie.</em></h2>
+    <p>Chaque jour, vos repas sont prévus selon vos calories. Cochez ce que vous mangez : calories, macros, eau et poids se mettent à jour tout seuls.</p>
+  </div>
+</section>
+
 <script>
+/* Journée : anneau, macros et repas s'animent à l'arrivée sur la section */
+(function(){
+  const sec=document.getElementById('dayDemo');if(!sec)return;
+  const n=sec.querySelector('[data-to]'),still=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fmt=v=>String(v).replace(/\B(?=(\d{3})+(?!\d))/g,'\u202f');
+  new IntersectionObserver((es,o)=>es.forEach(e=>{if(!e.isIntersecting)return;o.disconnect();sec.classList.add('run');
+    const to=+n.dataset.to;if(still){n.textContent=fmt(to);return}const t0=performance.now();
+    (function f(now){const k=Math.min(1,Math.max(0,(now-t0-200)/1400));n.textContent=fmt(Math.round(to*(1-Math.pow(1-k,3))));if(k<1)requestAnimationFrame(f)})(t0);
+  }),{threshold:.35}).observe(sec);
+})();
 /* Protéines : l'anneau se remplit à l'arrivée sur la section */
 (function(){
   const sec=document.getElementById('protDemo');if(!sec)return;
