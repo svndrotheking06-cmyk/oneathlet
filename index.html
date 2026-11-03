@@ -200,6 +200,7 @@ h1 em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--cor
 @media (prefers-reduced-motion:reduce){.sheet,.sh-mac u,.sh-list li{transition:none}}
 .prot{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(24px,6vw,80px);align-items:center;max-width:1080px;margin:0 auto;padding:20px clamp(16px,6vw,80px) 100px}
 .prot-txt{display:grid;gap:16px;justify-items:start}
+.prot-txt .scan-steps{text-align:left}
 .prot-txt h2{margin:0;font-family:var(--display);font-weight:800;font-size:clamp(2.2rem,5vw,3.6rem);line-height:1.02;letter-spacing:-.04em}
 .prot-txt h2 em{font-style:normal;background:linear-gradient(90deg,#34C38F,#22A06B);-webkit-background-clip:text;background-clip:text;color:transparent}
 .prot-txt p{margin:0;color:var(--muted);font-size:1.08rem;font-weight:600;max-width:42ch;line-height:1.55}
@@ -378,6 +379,8 @@ font[style]{background:none!important;box-shadow:none!important}
     <span class="scan-k">Protéines</span>
     <h2 id="protH">Atteignez vos protéines,<br><em>jour après jour.</em></h2>
     <p>Chaque repas compte. OneAthlet additionne vos protéines au fil de la journée et vous montre quand votre objectif est atteint.</p>
+    <ol class="scan-steps"><li><svg class="ck" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>Objectif calculé selon votre poids</li><li><svg class="ck" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>Protéines suivies à chaque repas</li><li><svg class="ck" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>Une semaine verte, jour après jour</li></ol>
+    <button type="button" class="start hero-go scan-go">Commencer votre objectif →</button>
   </div>
   <div class="prot-ph">
     <figure class="ph ph-solo" aria-label="Objectif de protéines atteint">
@@ -425,6 +428,8 @@ font[style]{background:none!important;box-shadow:none!important}
     <span class="scan-k">Sport</span>
     <h2 id="dayH">Bougez plus,<br><em>progressez chaque semaine.</em></h2>
     <p>Des séances guidées, du débutant au confirmé : HIIT, musculation, mobilité. Votre programme avance avec vous, semaine après semaine.</p>
+    <ol class="scan-steps"><li><svg class="ck" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>Séances de 15 à 45 minutes</li><li><svg class="ck" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>Du débutant au confirmé</li><li><svg class="ck" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>Votre progression semaine après semaine</li></ol>
+    <button type="button" class="start hero-go scan-go">Commencer votre objectif →</button>
   </div>
 </section>
 
