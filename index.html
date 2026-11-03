@@ -313,6 +313,62 @@ h1 em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--cor
 .rvm-alt{border:0;background:none;color:var(--coral);font:inherit;font-weight:800;cursor:pointer;justify-self:center}
 .rvm-msg{min-height:1.2em;color:var(--coral)!important;font-weight:700!important}
 .rvm-msg.ok{color:#178A59!important}
+.qz{position:fixed;inset:0;z-index:60;background:var(--page);display:grid;grid-template-rows:auto 1fr;overflow:hidden}
+.qz[hidden]{display:none}
+.qz-top{display:flex;align-items:center;gap:12px;padding:max(14px,env(safe-area-inset-top)) 16px 10px;max-width:640px;width:100%;margin:0 auto}
+.qz-ic{width:40px;height:40px;border-radius:50%;border:0;background:#FFE4EC;color:var(--ink);font-size:1.15rem;font-weight:800;cursor:pointer;flex:none}
+.qz-ic[disabled]{visibility:hidden}
+.qz-bar{flex:1;height:8px;border-radius:99px;background:#FFE4EC;overflow:hidden}
+.qz-bar i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--orange),var(--coral));transition:width .4s}
+.qz-body{overflow-y:auto;padding:10px 16px max(28px,env(safe-area-inset-bottom))}
+.qz-step{max-width:560px;margin:0 auto;display:grid;gap:18px;justify-items:center;text-align:center;animation:qzin .35s ease-out}
+@keyframes qzin{from{opacity:0;transform:translateX(24px)}to{opacity:1;transform:none}}
+.qz-step h2{margin:6px 0 0;font-family:var(--display);font-weight:800;font-size:clamp(1.6rem,6vw,2.3rem);line-height:1.1;letter-spacing:-.03em}
+.qz-step h2 em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--coral));-webkit-background-clip:text;background-clip:text;color:transparent}
+.qz-step>p{margin:-6px 0 0;color:var(--muted);font-weight:600}
+.qz-sex{display:grid;grid-template-columns:1fr 1fr;gap:14px;width:100%}
+.qz-sex button{display:grid;gap:8px;justify-items:center;border:2px solid var(--line);background:var(--surface);border-radius:26px;padding:16px 10px 14px;font:inherit;font-weight:800;font-size:1.05rem;color:var(--ink);cursor:pointer;transition:transform .15s,border-color .15s}
+.qz-sex button:hover{transform:translateY(-3px);border-color:var(--coral)}
+.qz-sex button[aria-pressed="true"]{border-color:var(--coral);background:#FFF5F7}
+.qz-sex svg{width:100%;max-width:150px;height:auto}
+.qz-age{width:100%;display:grid;gap:14px;justify-items:center}
+.qz-age b{font-family:var(--display);font-size:4.4rem;line-height:1;background:linear-gradient(90deg,var(--orange),var(--coral));-webkit-background-clip:text;background-clip:text;color:transparent}
+.qz-age small{color:var(--muted);font-weight:700}
+.qz-range{width:100%;-webkit-appearance:none;appearance:none;height:10px;border-radius:99px;background:linear-gradient(90deg,var(--orange),var(--coral) var(--p,30%),#FFE4EC var(--p,30%));outline-offset:6px}
+.qz-range::-webkit-slider-thumb{-webkit-appearance:none;width:32px;height:32px;border-radius:50%;background:#FFFFFF;border:4px solid var(--coral);box-shadow:0 6px 16px -6px var(--coral);cursor:grab}
+.qz-range::-moz-range-thumb{width:26px;height:26px;border-radius:50%;background:#FFFFFF;border:4px solid var(--coral);cursor:grab}
+.qz-scale{display:flex;justify-content:space-between;width:100%;color:var(--muted);font-weight:700;font-size:.8rem}
+.qz-opts{display:grid;gap:10px;width:100%}
+.qz-opts button{display:flex;align-items:center;gap:14px;text-align:left;border:2px solid var(--line);background:var(--surface);border-radius:20px;padding:14px 16px;font:inherit;color:var(--ink);cursor:pointer;transition:border-color .15s,transform .15s}
+.qz-opts button:hover{border-color:var(--coral);transform:translateY(-2px)}
+.qz-opts button[aria-pressed="true"]{border-color:var(--coral);background:#FFF5F7}
+.qz-opts .e{width:46px;height:46px;border-radius:14px;background:#FFE4EC;display:grid;place-items:center;font-size:1.6rem;flex:none}
+.qz-opts b{display:block;font-size:1rem}
+.qz-opts small{color:var(--muted);font-weight:600;font-size:.82rem}
+.qz-next{width:min(100%,420px);border:0;border-radius:999px;padding:16px;font:inherit;font-weight:800;font-size:1.05rem;color:#FFFFFF;background:linear-gradient(135deg,var(--orange),var(--coral));box-shadow:0 16px 30px -16px var(--coral);cursor:pointer}
+.qz-chart{width:100%;background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:16px 14px 10px;display:grid;gap:8px}
+.qz-chart svg{width:100%;height:auto}
+.qz-path{stroke-dasharray:600;stroke-dashoffset:600;animation:qzdraw 1.6s ease-out .2s forwards}
+@keyframes qzdraw{to{stroke-dashoffset:0}}
+.qz-big{font-family:var(--display);font-weight:800;font-size:1.6rem;color:var(--coral)}
+.qz-note{color:var(--muted);font-size:.78rem;font-weight:600}
+.qz-miles{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;width:100%}
+.qz-miles div{background:#FFF5F7;border-radius:16px;padding:10px 8px;display:grid;gap:2px}
+.qz-miles small{color:var(--coral);font-weight:800;font-size:.72rem}
+.qz-miles span{font-weight:700;font-size:.8rem}
+.qz-plates{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%}
+.qz-plate{position:relative;aspect-ratio:3/4;border-radius:20px;overflow:hidden;background:linear-gradient(135deg,#FFE4EC,#FFCFDC);display:grid;place-items:center;font-size:2.4rem}
+.qz-plate img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.qz-plate span{position:absolute;left:6px;right:6px;bottom:6px;background:rgba(255,255,255,.95);border-radius:12px;padding:5px 6px;font-size:.66rem;font-weight:800;color:var(--ink);line-height:1.25}
+.qz-plate span b{display:block;color:var(--coral);font-size:.8rem}
+.qz-how{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%}
+.qz-how div{display:grid;gap:6px;justify-items:center;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:14px 8px}
+.qz-how i{font-style:normal;font-size:2rem}
+.qz-how b{font-size:.85rem}
+.qz-how small{color:var(--muted);font-weight:600;font-size:.74rem}
+.qz-sum{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.qz-sum span{background:#FFE4EC;color:var(--ink);font-weight:700;border-radius:999px;padding:7px 12px;font-size:.88rem}
+@media (prefers-reduced-motion:reduce){.qz-step,.qz-path{animation:none;stroke-dashoffset:0}}
 .goog-te-banner-frame,.skiptranslate>iframe,#goog-gt-tt,.goog-te-balloon-frame{display:none!important}
 body{top:0!important}
 font[style]{background:none!important;box-shadow:none!important}
@@ -533,8 +589,88 @@ font[style]{background:none!important;box-shadow:none!important}
   </div>
 </section>
 
+<div class="qz" id="qz" hidden role="dialog" aria-modal="true" aria-label="Votre bilan OneAthlet">
+  <div class="qz-top">
+    <button type="button" class="qz-ic" id="qzBack" aria-label="Retour">←</button>
+    <div class="qz-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"><i id="qzBar"></i></div>
+    <button type="button" class="qz-ic" id="qzClose" aria-label="Fermer">×</button>
+  </div>
+  <div class="qz-body" id="qzBody"></div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script>
+/* Quiz : navigation interne en plein écran, ouverte par les boutons « Commencer » */
+(function(){
+  const qz=document.getElementById('qz'),body=document.getElementById('qzBody');if(!qz)return;
+  const U=id=>'https://images.unsplash.com/'+id+'?auto=format&fit=crop&w=300&h=400&q=80';
+  const A={sex:null,age:30,goal:null,tried:null,defi:null};let step=0;
+  const MAN='<svg viewBox="0 0 160 180" aria-hidden="true"><circle cx="80" cy="80" r="74" fill="#FFE4EC"/><path d="M30 180c4-36 24-54 50-54s46 18 50 54z" fill="#E11D48"/><path d="M66 112h28v18c0 8-28 8-28 0z" fill="#F2B79F"/><ellipse cx="80" cy="78" rx="26" ry="31" fill="#F6C6AE"/><path d="M53 74c-2-22 12-34 28-34 17 0 29 11 26 33-4-10-12-15-27-15s-22 5-27 16z" fill="#3A2420"/><circle cx="70" cy="82" r="2.6" fill="#2A141A"/><circle cx="90" cy="82" r="2.6" fill="#2A141A"/><path d="M72 95c5 4 11 4 16 0" stroke="#B5524A" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>';
+  const WOMAN='<svg viewBox="0 0 160 180" aria-hidden="true"><circle cx="80" cy="80" r="74" fill="#FFE4EC"/><path d="M44 66c0-26 16-38 36-38s36 12 36 38v56c-8 8-20 10-36 10s-28-2-36-10z" fill="#5A2E22"/><path d="M34 180c4-34 22-52 46-52s42 18 46 52z" fill="#FF5C8A"/><path d="M68 112h24v16c0 8-24 8-24 0z" fill="#F2B79F"/><ellipse cx="80" cy="80" rx="24" ry="29" fill="#F6C6AE"/><path d="M56 76c2-18 12-28 26-28 13 0 22 8 23 24-8-8-22-12-36-8-5 2-9 6-13 12z" fill="#5A2E22"/><circle cx="71" cy="84" r="2.5" fill="#2A141A"/><circle cx="89" cy="84" r="2.5" fill="#2A141A"/><path d="M73 96c4 3 10 3 14 0" stroke="#C0505A" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>';
+  const GOALS=[['perte','🔥','Perdre du poids','Affiner ma silhouette'],['sante','❤️','Être en meilleure santé','Manger plus équilibré'],['physique','💪','Améliorer mon physique','Plus de muscle, plus tonique'],['energie','⚡','Avoir plus d\'énergie','Fini les coups de fatigue']];
+  const TRIED=[['souvent','🔁','Oui, plusieurs fois','Sans résultat durable'],['une','1️⃣','Oui, une fois','J\'ai arrêté en cours de route'],['jamais','🆕','Non, jamais','C\'est ma première fois']];
+  const DEFI=[['grignotage','🍪','Le grignotage','Les envies entre les repas'],['temps','⏱️','Le manque de temps','Je mange sur le pouce'],['motivation','📉','La motivation','Je commence puis j\'arrête'],['idees','🤔','Je ne sais pas quoi manger','Manque d\'idées de repas'],['sucre','🍰','Le sucre','Desserts, sodas, viennoiseries'],['fastfood','🍔','Fast-food et restaurants','Les repas à l\'extérieur']];
+  const esc=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const opts=(k,list)=>`<div class="qz-opts">${list.map(o=>`<button type="button" data-k="${k}" data-v="${o[0]}" aria-pressed="${A[k]===o[0]}"><span class="e" aria-hidden="true">${o[1]}</span><span><b>${esc(o[2])}</b><small>${esc(o[3])}</small></span></button>`).join('')}</div>`;
+  function proj(){
+    const h=A.sex==='H',g=A.goal,age=A.age,who=(h?'un homme':'une femme')+' de '+age+' ans';
+    const slow=age>=50?0.8:1;
+    let big,unit,pts,miles;
+    if(g==='perte'){const kg=Math.round(4*slow*(h?1:.85)*2)/2;big='≈ −'+String(kg).replace('.',',')+' kg';pts=[10,25,45,62,78,90,100,108,114];miles=['Moins de ballonnements','Premiers kilos en moins','Silhouette affinée']}
+    else if(g==='physique'){const kg=Math.round((h?1.5:1)*slow*2)/2;big='≈ +'+String(kg).replace('.',',')+' kg de muscle';pts=[114,108,98,86,72,58,44,32,22];miles=['Plus de force','Muscles plus fermes','Physique plus dessiné']}
+    else if(g==='energie'){big='Énergie plus stable';pts=[110,100,86,70,56,44,34,26,20];miles=['Fini le coup de barre','Meilleur sommeil','Énergie toute la journée']}
+    else{big='Assiettes équilibrées';pts=[110,98,84,70,58,46,36,28,22];miles=['Repas plus variés','Moins de produits sucrés','Habitudes installées']}
+    const d=pts.map((y,i)=>(i?'L':'M')+(14+i*34)+' '+y).join(' ');
+    const fill=d+' L'+(14+8*34)+' 130 L14 130 Z';
+    return `<h2>Votre progression<br><em>en environ 2 mois</em></h2><p>Estimation pour ${who} qui suit son programme OneAthlet.</p>
+      <div class="qz-chart"><span class="qz-big">${big}</span>
+      <svg viewBox="0 0 300 140" role="img" aria-label="Courbe de progression sur 8 semaines"><defs><linearGradient id="qzg" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#FF5C8A" stop-opacity=".28"/><stop offset="1" stop-color="#FF5C8A" stop-opacity="0"/></linearGradient></defs>
+      <path d="${fill}" fill="url(#qzg)"/><path class="qz-path" d="${d}" fill="none" stroke="#E11D48" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="${14+8*34}" cy="${pts[8]}" r="6" fill="#E11D48" stroke="#FFFFFF" stroke-width="3"/>
+      <text x="14" y="138" font-size="10" font-weight="700" fill="#7A5F67">Aujourd'hui</text><text x="286" y="138" text-anchor="end" font-size="10" font-weight="700" fill="#7A5F67">Semaine 8</text></svg></div>
+      <div class="qz-miles">${miles.map((m,i)=>`<div><small>Semaine ${[2,4,8][i]}</small><span>${m}</span></div>`).join('')}</div>
+      <span class="qz-note">Estimation indicative : les résultats varient d'une personne à l'autre.</span>`;
+  }
+  const STEPS=[
+    ()=>`<h2>Vous êtes…</h2><div class="qz-sex"><button type="button" data-k="sex" data-v="H" aria-pressed="${A.sex==='H'}">${MAN}Un homme</button><button type="button" data-k="sex" data-v="F" aria-pressed="${A.sex==='F'}">${WOMAN}Une femme</button></div>`,
+    ()=>`<h2>Quel âge avez-vous ?</h2><div class="qz-age"><b id="qzAgeV">${A.age}</b><small>ans</small><input class="qz-range" id="qzAge" type="range" min="16" max="80" value="${A.age}" aria-label="Âge"><div class="qz-scale"><span>16</span><span>80</span></div></div><button type="button" class="qz-next" data-next>Continuer →</button>`,
+    ()=>`<h2>Quel est votre <em>objectif</em> ?</h2>${opts('goal',GOALS)}`,
+    ()=>proj()+`<button type="button" class="qz-next" data-next>Continuer →</button>`,
+    ()=>`<h2>Avez-vous déjà essayé d'améliorer vos habitudes alimentaires ?</h2>${opts('tried',TRIED)}`,
+    ()=>`<h2>Quel est votre <em>plus grand défi</em> ?</h2>${opts('defi',DEFI)}`,
+    ()=>`<h2>Voici à quoi ressemblent<br><em>vos assiettes analysées</em></h2><p>Chaque plat photographié est décomposé en calories et en macros.</p>
+      <div class="qz-plates">
+        <div class="qz-plate">🍳<img src="${U('photo-1525351484163-7529414344d8')}" alt="" loading="lazy" onerror="this.remove()"><span>Petit-déjeuner<b>330 kcal</b>P 22 g · G 28 g</span></div>
+        <div class="qz-plate">🍗<img src="assiette.jpg" alt="" loading="lazy" onerror="this.remove()"><span>Déjeuner<b>480 kcal</b>P 44 g · G 46 g</span></div>
+        <div class="qz-plate">🐟<img src="${U('photo-1467003909585-2f8a72700288')}" alt="" loading="lazy" onerror="this.remove()"><span>Dîner<b>520 kcal</b>P 42 g · G 40 g</span></div>
+      </div><button type="button" class="qz-next" data-next>Continuer →</button>`,
+    ()=>`<h2>C'est <em>aussi simple</em> que ça.</h2><p>Pas de pesée, pas de calcul : prenez juste vos plats en photo.</p>
+      <div class="qz-how"><div><i>📸</i><b>Photographiez</b><small>votre assiette</small></div><div><i>🔍</i><b>On analyse</b><small>chaque aliment</small></div><div><i>✅</i><b>C'est ajouté</b><small>à votre journée</small></div></div>
+      <button type="button" class="qz-next" data-next>Voir mon profil →</button>`,
+    ()=>{const g=GOALS.find(x=>x[0]===A.goal)||GOALS[0],d=DEFI.find(x=>x[0]===A.defi)||DEFI[0];
+      return `<h2>Votre profil est <em>prêt</em>.</h2><p>Voici ce que nous avons retenu.</p><div class="qz-sum"><span>${A.sex==='H'?'👨 Homme':'👩 Femme'}</span><span>🎂 ${A.age} ans</span><span>${g[1]} ${esc(g[2])}</span><span>${d[1]} ${esc(d[2])}</span></div><button type="button" class="qz-next" data-done>Terminer</button>`}
+  ];
+  function render(){
+    body.innerHTML=`<div class="qz-step">${STEPS[step]()}</div>`;body.scrollTop=0;
+    document.getElementById('qzBar').style.width=Math.round((step+1)/STEPS.length*100)+'%';
+    document.getElementById('qzBack').disabled=step===0;
+    const rg=document.getElementById('qzAge');
+    if(rg){const set=()=>{A.age=+rg.value;document.getElementById('qzAgeV').textContent=A.age;rg.style.setProperty('--p',((A.age-16)/64*100)+'%')};set();rg.addEventListener('input',set)}
+  }
+  function go(n){step=Math.max(0,Math.min(STEPS.length-1,n));render()}
+  function open(){step=0;qz.hidden=false;document.body.style.overflow='hidden';render();try{history.pushState({qz:1},'','#bilan')}catch(e){}}
+  function close(fromHistory){qz.hidden=true;document.body.style.overflow='';if(!fromHistory&&location.hash==='#bilan'){try{history.back()}catch(e){}}}
+  body.addEventListener('click',e=>{
+    const o=e.target.closest('[data-k]');
+    if(o){A[o.dataset.k]=o.dataset.v;o.parentNode.querySelectorAll('[data-k]').forEach(x=>x.setAttribute('aria-pressed',x===o));setTimeout(()=>go(step+1),220);return}
+    if(e.target.closest('[data-next]')){go(step+1);return}
+    if(e.target.closest('[data-done]')){try{localStorage.setItem('oneathlet-bilan',JSON.stringify(A))}catch(err){}close()}
+  });
+  document.getElementById('qzBack').onclick=()=>go(step-1);
+  document.getElementById('qzClose').onclick=()=>close();
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!qz.hidden)close()});
+  window.addEventListener('popstate',()=>{if(!qz.hidden&&location.hash!=='#bilan')close(true)});
+  document.addEventListener('click',e=>{const b=e.target.closest('.start');if(b&&b.id!=='rvsOpen'){e.preventDefault();open()}});
+})();
 /* Avis réels (Supabase) : défilement vers la gauche + formulaire « Laisser un avis » (compte requis) */
 (function(){
   const sec=document.getElementById('rvsSec');if(!sec)return;
