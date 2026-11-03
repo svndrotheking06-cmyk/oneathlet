@@ -252,11 +252,12 @@ h1 em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--cor
 .steps3{display:grid;justify-items:center;gap:34px;max-width:1080px;margin:0 auto;padding:30px clamp(16px,6vw,80px) 110px;text-align:center}
 .steps3 h2{margin:0;font-family:var(--display);font-weight:800;font-size:clamp(2.4rem,6vw,4rem);line-height:1.02;letter-spacing:-.04em}
 .steps3 h2 em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--coral));-webkit-background-clip:text;background-clip:text;color:transparent}
-.st3{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;width:100%;counter-reset:none}
-.st3 li{position:relative;display:grid;gap:10px;justify-items:start;align-content:start;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:28px;padding:22px;box-shadow:0 22px 40px -32px rgba(43,26,20,.45);opacity:0;transform:translateY(18px);transition:opacity .5s var(--d),transform .5s var(--d)}
+.st3{position:relative;list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;width:100%}
+@media (min-width:861px){.st3::before{content:"";position:absolute;left:16%;right:16%;top:34px;border-top:2.5px dashed #F6B9A6;z-index:0}}
+.st3 b,.st3 p{justify-self:stretch;text-align:center}
+.st3 li{position:relative;display:grid;gap:10px;justify-items:start;align-content:start;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:28px;padding:22px;margin-top:34px;box-shadow:0 22px 40px -32px rgba(43,26,20,.45);opacity:0;transform:translateY(18px);transition:opacity .5s var(--d),transform .5s var(--d)}
 .steps3.run .st3 li{opacity:1;transform:none}
-.st3-v{order:-1}
-.st3-n{font-family:var(--display);font-weight:800;font-size:2.8rem;line-height:1;margin-top:6px;background:linear-gradient(180deg,var(--orange),var(--coral));-webkit-background-clip:text;background-clip:text;color:transparent;opacity:.9}
+.st3-n{position:relative;z-index:2;justify-self:center;margin:-52px 0 4px;width:64px;height:64px;border-radius:22px;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:2rem;line-height:1;color:#FFFFFF;background:linear-gradient(135deg,var(--orange),var(--coral));box-shadow:0 14px 28px -12px var(--coral);transform:rotate(-6deg)}
 .st3 b{font-family:var(--display);font-size:1.25rem}
 .st3 p{margin:0;color:var(--muted);font-weight:600;line-height:1.5;font-size:.95rem}
 .st3-v{width:100%;height:170px;border-radius:20px;background:var(--page);display:grid;place-content:center;gap:7px;padding:14px;overflow:hidden;position:relative}
@@ -460,7 +461,7 @@ font[style]{background:none!important;box-shadow:none!important}
 </section>
 
 <section class="steps3" id="steps3" aria-labelledby="st3H">
-  <h2 id="st3H">Votre programme<br><em>en 3 étapes.</em></h2>
+  <h2 id="st3H">Votre programme<br>en <em>trois étapes.</em></h2>
   <ol class="st3">
     <li style="--d:0s">
       <span class="st3-n">1</span>
