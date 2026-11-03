@@ -275,6 +275,24 @@ h1 em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--cor
 .v-ok{right:12px;bottom:12px;background:#22A06B;color:#FFFFFF}
 @media (max-width:860px){.st3{grid-template-columns:1fr;max-width:420px}}
 @media (prefers-reduced-motion:reduce){.st3 li{transition:none}}
+.rvs{display:grid;justify-items:center;gap:14px;padding:20px 0 110px;text-align:center;overflow:hidden}
+.rvs[hidden]{display:none}
+.rvs h2{margin:0;padding:0 16px;font-family:var(--display);font-weight:800;font-size:clamp(2.2rem,5.5vw,3.8rem);line-height:1.02;letter-spacing:-.04em}
+.rvs h2 em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--coral));-webkit-background-clip:text;background-clip:text;color:transparent}
+.rvs-sub{margin:0 0 18px;padding:0 16px;color:var(--muted);font-weight:600;font-size:1.05rem}
+.rvs-band{width:100%;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.rvs-track{display:flex;gap:18px;width:max-content;padding:10px 0 24px;animation:rvsMove var(--dur,40s) linear infinite}
+.rvs-band:hover .rvs-track{animation-play-state:paused}
+@keyframes rvsMove{to{transform:translateX(calc(-50% - 9px))}}
+.rvc{width:300px;flex:none;display:grid;gap:10px;align-content:start;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:20px;box-shadow:0 18px 36px -28px rgba(42,20,26,.45)}
+.rvc-top{display:flex;align-items:center;gap:10px}
+.rvc-av{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;color:#FFFFFF;font-weight:800;background:linear-gradient(135deg,var(--orange),var(--coral));flex:none}
+.rvc-top b{display:block;font-size:.95rem}
+.rvc-top small{color:var(--muted);font-weight:600;font-size:.78rem}
+.rvc-kg{margin-left:auto;background:#E3F4EC;color:#178A59;font-weight:800;font-size:.78rem;border-radius:999px;padding:4px 10px}
+.rvc-st{color:#F5B83D;letter-spacing:2px}
+.rvc p{margin:0;color:var(--ink);font-weight:500;line-height:1.5;font-size:.95rem}
+@media (prefers-reduced-motion:reduce){.rvs-track{animation:none}.rvs-band{overflow-x:auto}}
 .goog-te-banner-frame,.skiptranslate>iframe,#goog-gt-tt,.goog-te-balloon-frame{display:none!important}
 body{top:0!important}
 font[style]{background:none!important;box-shadow:none!important}
@@ -480,7 +498,29 @@ font[style]{background:none!important;box-shadow:none!important}
   </ol>
 </section>
 
+<section class="rvs" id="rvsSec" aria-labelledby="rvsH" hidden>
+  <h2 id="rvsH">Des histoires,<br><em>pas des promesses.</em></h2>
+  <p class="rvs-sub">Ce que nos membres racontent, avec leurs mots.</p>
+  <div class="rvs-band"><div class="rvs-track" id="rvsTrack"></div></div>
+</section>
+
 <script>
+/* Avis réels (Supabase) : défilement vers la gauche ; la section reste cachée tant qu'il n'y a pas d'avis */
+(function(){
+  const sec=document.getElementById('rvsSec'),tr=document.getElementById('rvsTrack');if(!sec||!tr)return;
+  const URL='https://dbrpduznzqynkuebulxx.supabase.co',KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRicnBkdXpuenF5bmt1ZWJ1bHh4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIxMDM4OTAsImV4cCI6MjEwNzY3OTg5MH0.8XVULvee0zcbp7qjlmHupBdhxUKb0tYz6fm1xK4eJkk';
+  const esc=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  fetch(URL+'/rest/v1/avis?select=prenom,texte,note,kilos,created_at&order=created_at.desc&limit=24',{headers:{apikey:KEY,Authorization:'Bearer '+KEY}})
+    .then(r=>r.ok?r.json():[]).then(list=>{
+      list=(list||[]).filter(a=>a&&a.texte&&String(a.texte).trim());if(!list.length)return;
+      const card=a=>{const n=Math.max(1,Math.min(5,Math.round(+a.note||5))),nm=String(a.prenom||'Membre').slice(0,24),kg=+a.kilos,
+        d=a.created_at?new Date(a.created_at).toLocaleDateString('fr-FR',{month:'long',year:'numeric'}):'';
+        return `<article class="rvc"><div class="rvc-top"><span class="rvc-av">${esc(nm[0].toUpperCase())}</span><span><b>${esc(nm)}</b><small>${esc(d)}</small></span>${kg>0?`<span class="rvc-kg">−${String(Math.round(kg*10)/10).replace('.',',')} kg</span>`:''}</div><span class="rvc-st" aria-label="${n} sur 5">${'★'.repeat(n)}${'☆'.repeat(5-n)}</span><p>${esc(String(a.texte).slice(0,280))}</p></article>`};
+      let base=list.slice();while(base.length<6)base=base.concat(list);
+      const html=base.map(card).join('');tr.innerHTML=html+html.replace(/<article class="rvc"/g,'<article class="rvc" aria-hidden="true"');
+      tr.style.setProperty('--dur',(base.length*6)+'s');sec.hidden=false;
+    }).catch(()=>{});
+})();
 /* 3 étapes : les cartes apparaissent à l'arrivée sur la section */
 (function(){
   const sec=document.getElementById('steps3');if(!sec)return;
