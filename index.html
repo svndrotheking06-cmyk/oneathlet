@@ -21,7 +21,7 @@
   color-scheme:light;
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--page);color:var(--ink);font-family:var(--body);min-height:100vh;min-height:100dvh;display:grid;grid-template-rows:auto 1fr}
+body{margin:0;background:var(--page);color:var(--ink);font-family:var(--body);min-height:100vh;min-height:100dvh;display:grid;grid-template-rows:auto auto auto;overflow-x:hidden}
 .top{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:max(14px,env(safe-area-inset-top)) clamp(16px,4vw,40px) 14px}
 .brand{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--ink);font-family:var(--display);font-weight:800;font-size:1.05rem;letter-spacing:-.02em}
 .brand b{font-weight:800}.brand span{color:var(--coral)}
@@ -40,12 +40,99 @@ body{margin:0;background:var(--page);color:var(--ink);font-family:var(--body);mi
 .lang-pop button[aria-current="true"]::after{content:" ✓"}
 @keyframes pop{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.lang-pop{animation:none}}
-.hero{display:grid;align-content:center;justify-items:center;text-align:center;gap:18px;padding:24px clamp(16px,6vw,80px) 64px;max-width:1080px;width:100%;margin:0 auto}
+.hero{display:grid;align-content:center;justify-items:center;text-align:center;gap:18px;padding:24px clamp(16px,6vw,80px) 40px;min-height:min(72vh,680px);max-width:1080px;width:100%;margin:0 auto}
 .kick{background:var(--coral-soft);color:var(--coral);font-weight:800;font-size:.76rem;text-transform:uppercase;letter-spacing:.1em;padding:6px 12px;border-radius:999px}
 h1{margin:0;font-family:var(--display);font-weight:800;font-size:clamp(2.8rem,10vw,6rem);line-height:1;letter-spacing:-.045em;max-width:12ch;text-wrap:balance;margin-inline:auto}
 h1 em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--coral));-webkit-background-clip:text;background-clip:text;color:transparent}
 .sub{margin:0;font-size:clamp(1.1rem,3vw,1.5rem);font-weight:700;color:var(--muted);max-width:30ch;text-wrap:balance;margin-inline:auto}
 .sub b{color:var(--ink)}
+.show{padding:0 0 70px;overflow:hidden}
+.phones{position:relative;height:620px;width:min(100%,680px);margin:0 auto;overflow:hidden}
+@media (min-width:761px){.phones{-webkit-mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent);mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent)}}
+.ph{position:absolute;top:20px;left:50%;margin:0;width:280px;height:576px;border-radius:52px;background:#1C1C1F;padding:11px;box-shadow:0 40px 80px -40px rgba(43,26,20,.55),inset 0 0 0 2px #3A3A40;transition:transform .45s cubic-bezier(.2,.8,.2,1);cursor:pointer}
+.ph::before,.ph::after{content:"";position:absolute;width:4px;border-radius:3px;background:#2A2A2F}
+.ph::before{left:-4px;top:120px;height:58px}.ph::after{right:-4px;top:150px;height:84px}
+.ph-m{z-index:3;transform:translateX(-50%)}
+.ph-l{z-index:2;transform:translateX(calc(-50% - 340px)) scale(.92)}
+.ph-r{z-index:2;transform:translateX(calc(-50% + 340px)) scale(.92)}
+.phones:hover .ph-l{transform:translateX(calc(-50% - 365px)) scale(.92)}
+.phones:hover .ph-r{transform:translateX(calc(-50% + 365px)) scale(.92)}
+.phones .ph-m:hover{transform:translateX(-50%) scale(1.06)}
+.phones .ph-l:hover{transform:translateX(calc(-50% - 380px)) scale(1)}
+.phones .ph-r:hover{transform:translateX(calc(-50% + 380px)) scale(1)}
+.scr{position:relative;height:100%;border-radius:42px;overflow:hidden;background:#FFF8F2;font-family:var(--body);color:var(--ink)}
+.island{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:86px;height:25px;border-radius:20px;background:#000;z-index:5}
+.sb{position:relative;z-index:4;display:flex;justify-content:space-between;padding:13px 24px 0;font-size:.72rem;font-weight:800}
+.sb-i{letter-spacing:2px;font-size:.5rem;padding-top:3px}
+/* écran photo */
+.scr-cam{background:#2B1A14;color:#FFFFFF}
+.cam-img,.cam-fallback{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cam-img{z-index:1}
+.cam-fallback{display:grid;grid-template-columns:1fr 1fr;place-content:center;gap:6px;font-size:3.2rem;background:radial-gradient(circle at 50% 50%,#FFFFFF 0 34%,#EADBC8 35% 37%,#6B4F3F 38%)}
+.cam-fallback span{text-align:center}
+.scr-cam .sb{color:#FFFFFF;text-shadow:0 1px 3px rgba(0,0,0,.5)}
+.cam-top{position:relative;z-index:4;margin:14px auto 0;width:max-content;background:rgba(0,0,0,.45);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-radius:999px;padding:6px 14px;font-size:.74rem;font-weight:800}
+.vf{position:absolute;z-index:3;left:28px;right:28px;top:110px;height:250px}
+.vf i{position:absolute;width:30px;height:30px;border:3px solid #FFFFFF;border-radius:6px}
+.vf i:nth-child(1){left:0;top:0;border-right:0;border-bottom:0}.vf i:nth-child(2){right:0;top:0;border-left:0;border-bottom:0}
+.vf i:nth-child(3){left:0;bottom:0;border-right:0;border-top:0}.vf i:nth-child(4){right:0;bottom:0;border-left:0;border-top:0}
+.scanl{position:absolute;left:6px;right:6px;height:3px;border-radius:3px;background:#FF9A3C;box-shadow:0 0 14px 2px #FF9A3C;animation:scan 2.4s ease-in-out infinite alternate}
+@keyframes scan{from{top:8%}to{top:90%}}
+.tag{position:absolute;z-index:4;background:#FFFFFF;color:var(--ink);font-size:.66rem;font-weight:800;border-radius:999px;padding:5px 9px;box-shadow:0 6px 16px -6px rgba(0,0,0,.5);white-space:nowrap}
+.t1{left:22px;top:150px}.t2{right:18px;top:230px}.t3{left:40px;top:300px}
+.cam-res{position:absolute;z-index:4;left:14px;right:14px;bottom:92px;background:rgba(255,255,255,.95);color:var(--ink);border-radius:20px;padding:10px 14px;display:grid;gap:6px}
+.cam-res small{display:block;color:var(--muted);font-weight:700;font-size:.66rem}
+.cam-res b{font-family:var(--display);font-size:1.3rem;color:var(--coral)}
+.mac{display:flex;gap:6px}.mac span{background:var(--coral-soft);border-radius:999px;padding:3px 8px;font-size:.64rem;font-weight:800}
+.shutter{position:absolute;z-index:4;left:50%;bottom:22px;transform:translateX(-50%);width:58px;height:58px;border-radius:50%;background:#FFFFFF;box-shadow:0 0 0 5px rgba(255,255,255,.45)}
+/* écrans appli */
+.scr-app{padding:0 16px;display:grid;align-content:start;gap:10px}
+.scr-app .sb{padding-left:8px;padding-right:8px}
+.a-head{display:flex;justify-content:space-between;align-items:center;margin-top:16px}
+.a-head small{display:block;color:var(--muted);font-weight:700;font-size:.66rem}
+.a-head b{font-family:var(--display);font-size:1.05rem}
+.a-av{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#FF9A3C,#EF4F2B);color:#FFFFFF;display:grid;place-items:center;font-weight:800;font-size:.8rem}
+.a-ring{position:relative;width:120px;height:120px;margin:2px auto 0}
+.a-ring svg{width:100%;height:100%}
+.a-rt{position:absolute;inset:0;display:grid;place-content:center;text-align:center}
+.a-rt b{font-family:var(--display);font-size:1.25rem}
+.a-rt small{color:var(--muted);font-size:.6rem;font-weight:700}
+.a-mac{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.a-mac span{display:grid;gap:3px;font-size:.6rem;font-weight:800;color:var(--muted)}
+.a-mac i{display:block;height:5px;border-radius:5px;background:linear-gradient(90deg,var(--c) var(--w),#F4DDD1 var(--w))}
+.a-sec{font-weight:800;font-size:.76rem;margin-top:2px}
+.a-meals,.s-list{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.a-meals li,.s-list li{display:flex;align-items:center;gap:8px;background:#FFFFFF;border-radius:14px;padding:7px 9px;box-shadow:0 4px 12px -8px rgba(43,26,20,.3)}
+.a-meals li>span,.s-list li>span{font-size:1.15rem}
+.a-meals div,.s-list div{flex:1;min-width:0;display:grid}
+.a-meals b,.s-list b{font-size:.72rem}
+.a-meals small,.s-list small{color:var(--muted);font-size:.6rem;font-weight:700}
+.a-meals i{width:18px;height:18px;border-radius:50%;border:2px solid #F4DDD1;font-style:normal;font-size:.6rem;display:grid;place-items:center;color:#FFFFFF;font-weight:800}
+.a-meals .ok i{background:#22A06B;border-color:#22A06B}
+.a-row{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.a-mini{background:#FFFFFF;border-radius:14px;padding:7px 9px;box-shadow:0 4px 12px -8px rgba(43,26,20,.3)}
+.a-mini small{display:block;color:var(--muted);font-size:.58rem;font-weight:700}
+.a-mini b{font-size:.74rem}.a-mini .dn{color:#22A06B}
+.s-week{background:#FFFFFF;border-radius:16px;padding:10px 12px;display:grid;gap:7px;box-shadow:0 4px 12px -8px rgba(43,26,20,.3)}
+.s-week small{display:block;color:var(--muted);font-size:.62rem;font-weight:700}
+.s-week b{font-size:.8rem}
+.s-bar{height:7px;border-radius:7px;background:#FFE4DA;overflow:hidden}.s-bar i{display:block;height:100%;background:linear-gradient(90deg,#FF9A3C,#EF4F2B)}
+.s-today{display:grid;gap:3px;background:linear-gradient(140deg,#FF9A3C,#EF4F2B);color:#FFFFFF;border-radius:20px;padding:14px}
+.s-today small{font-size:.62rem;font-weight:700;opacity:.9}
+.s-today b{font-family:var(--display);font-size:1.05rem}
+.s-today span{font-size:.66rem;font-weight:700;opacity:.9}
+.s-today em{font-style:normal;justify-self:start;margin-top:6px;background:#FFFFFF;color:#EF4F2B;font-weight:800;font-size:.7rem;border-radius:999px;padding:6px 12px}
+@media (max-width:760px){
+  .phones{height:520px}
+  .ph{transform-origin:50% 0}
+  .ph-m{transform:translateX(-50%) scale(.84)}
+  .ph-l{transform:translateX(calc(-50% - 50vw)) scale(.74)}
+  .ph-r{transform:translateX(calc(-50% + 50vw)) scale(.74)}
+  .phones:hover .ph-l,.phones .ph-l:hover{transform:translateX(calc(-50% - 50vw - 14px)) scale(.78)}
+  .phones:hover .ph-r,.phones .ph-r:hover{transform:translateX(calc(-50% + 50vw + 14px)) scale(.78)}
+  .phones .ph-m:hover{transform:translateX(-50%) scale(.88)}
+}
+@media (prefers-reduced-motion:reduce){.ph{transition:none}.scanl{animation:none;top:50%}}
 .goog-te-banner-frame,.skiptranslate>iframe,#goog-gt-tt,.goog-te-balloon-frame{display:none!important}
 body{top:0!important}
 font[style]{background:none!important;box-shadow:none!important}
@@ -73,6 +160,60 @@ font[style]{background:none!important;box-shadow:none!important}
   <p class="sub">Perdez du poids en mangeant <b>mieux</b>, pas en mangeant <b>moins</b>.</p>
   <button type="button" class="start hero-go" id="heroGo">Commencer votre objectif →</button>
 </main>
+
+<section class="show" aria-label="Aperçu de l'appli OneAthlet">
+  <div class="phones">
+    <figure class="ph ph-l" aria-label="Photo de l'assiette : calcul des calories">
+      <div class="scr scr-cam">
+        <img class="cam-img" src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=700&q=80" alt="Assiette de légumes, avocat et poulet prise en photo" loading="lazy" onerror="this.remove()">
+        <div class="cam-fallback" aria-hidden="true"><span>🥗</span><span>🍗</span><span>🥑</span><span>🍅</span></div>
+        <div class="sb"><span>9:41</span><span class="sb-i">▲ ◼ ▮</span></div><span class="island" aria-hidden="true"></span>
+        <div class="cam-top">Photo du repas</div>
+        <div class="vf" aria-hidden="true"><i></i><i></i><i></i><i></i><b class="scanl"></b></div>
+        <span class="tag t1">🥗 Salade · 90 kcal</span>
+        <span class="tag t2">🍗 Poulet · 210 kcal</span>
+        <span class="tag t3">🥑 Avocat · 160 kcal</span>
+        <div class="cam-res"><div><small>Total estimé</small><b>642 kcal</b></div><div class="mac"><span>P 38 g</span><span>G 52 g</span><span>L 24 g</span></div></div>
+        <span class="shutter" aria-hidden="true"></span>
+      </div>
+    </figure>
+
+    <figure class="ph ph-m" aria-label="Menus préparés et suivi du jour">
+      <div class="scr scr-app">
+        <div class="sb"><span>9:41</span><span class="sb-i">▲ ◼ ▮</span></div><span class="island" aria-hidden="true"></span>
+        <div class="a-head"><div><small>Mardi</small><b>Bonjour 👋</b></div><span class="a-av">O</span></div>
+        <div class="a-ring">
+          <svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="50" fill="none" stroke="#FFE4DA" stroke-width="12"/><circle cx="60" cy="60" r="50" fill="none" stroke="url(#rg)" stroke-width="12" stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="68" transform="rotate(-90 60 60)"/><defs><linearGradient id="rg" x1="0" x2="1"><stop offset="0" stop-color="#FF9A3C"/><stop offset="1" stop-color="#EF4F2B"/></linearGradient></defs></svg>
+          <div class="a-rt"><b>1 450</b><small>/ 1 850 kcal</small></div>
+        </div>
+        <div class="a-mac"><span><i style="--w:77%;--c:#D93B4B"></i>Prot. 92 g</span><span><i style="--w:64%;--c:#F5B83D"></i>Gluc. 140 g</span><span><i style="--w:70%;--c:#7B61FF"></i>Lip. 45 g</span></div>
+        <div class="a-sec">Menu du jour</div>
+        <ul class="a-meals">
+          <li class="ok"><span>🥣</span><div><b>Porridge avoine</b><small>Petit-déj · 330 kcal</small></div><i>✓</i></li>
+          <li class="ok"><span>🥗</span><div><b>Bowl poulet quinoa</b><small>Déjeuner · 480 kcal</small></div><i>✓</i></li>
+          <li class="ok"><span>🍓</span><div><b>Skyr fruits rouges</b><small>Collation · 150 kcal</small></div><i>✓</i></li>
+          <li><span>🐟</span><div><b>Saumon, riz, brocoli</b><small>Dîner · 520 kcal</small></div><i></i></li>
+        </ul>
+        <div class="a-row"><div class="a-mini"><small>Eau</small><b>💧 1,5 / 2 L</b></div><div class="a-mini"><small>Poids</small><b class="dn">76,4 kg ↘</b></div></div>
+      </div>
+    </figure>
+
+    <figure class="ph ph-r" aria-label="Programmes de sport">
+      <div class="scr scr-app">
+        <div class="sb"><span>9:41</span><span class="sb-i">▲ ◼ ▮</span></div><span class="island" aria-hidden="true"></span>
+        <div class="a-head"><div><small>Programmes</small><b>Sport 🏋️</b></div><span class="a-av">O</span></div>
+        <div class="s-week"><div><small>Semaine 2 sur 8</small><b>4 séances sur 12</b></div><span class="s-bar"><i style="width:33%"></i></span></div>
+        <div class="s-today"><small>Séance du jour</small><b>Full body débutant</b><span>30 min · 6 exercices</span><em>Commencer ▶</em></div>
+        <ul class="s-list">
+          <li><span>🔥</span><div><b>HIIT brûle-graisses</b><small>20 min · intense</small></div></li>
+          <li><span>💪</span><div><b>Haut du corps</b><small>45 min · musculation</small></div></li>
+          <li><span>🦵</span><div><b>Jambes et fessiers</b><small>40 min · musculation</small></div></li>
+          <li><span>🧘</span><div><b>Mobilité et étirements</b><small>15 min · récupération</small></div></li>
+        </ul>
+      </div>
+    </figure>
+  </div>
+</section>
 
 <script>
 /* Langue : traduction automatique (Google Traduction) mémorisée dans un cookie */
