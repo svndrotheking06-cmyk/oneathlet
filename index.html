@@ -293,6 +293,26 @@ h1 em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--cor
 .rvc-st{color:#F5B83D;letter-spacing:2px}
 .rvc p{margin:0;color:var(--ink);font-weight:500;line-height:1.5;font-size:.95rem}
 @media (prefers-reduced-motion:reduce){.rvs-track{animation:none}.rvs-band{overflow-x:auto}}
+.rvs-empty{margin:4px 0 6px;padding:0 16px;color:var(--muted);font-weight:700}
+.rvs-go{margin-top:6px}
+.rvm{position:fixed;inset:0;z-index:50;background:rgba(42,20,26,.45);display:grid;place-items:center;padding:16px}
+.rvm[hidden]{display:none}
+.rvm-box{position:relative;width:min(100%,420px);max-height:calc(100dvh - 32px);overflow:auto;background:var(--surface);border-radius:28px;padding:26px 22px 22px;text-align:left;display:grid;gap:12px;box-shadow:0 30px 60px -20px rgba(42,20,26,.5)}
+.rvm-x{position:absolute;top:12px;right:12px;width:36px;height:36px;border-radius:50%;border:0;background:#FFE4EC;color:var(--ink);font-size:1.3rem;font-weight:800;cursor:pointer}
+.rvm-box h3{margin:0;font-family:var(--display);font-size:1.4rem;font-weight:800;padding-right:36px}
+.rvm-box p{margin:0;color:var(--muted);font-weight:600;font-size:.92rem}
+.rvm-box form{display:grid;gap:10px}
+.rvm-box input,.rvm-box textarea{width:100%;font:inherit;font-size:1rem;padding:12px 14px;border-radius:14px;border:1.5px solid var(--line);background:#FFF5F7;color:var(--ink)}
+.rvm-box textarea{min-height:110px;resize:vertical}
+.rvm-box label{display:grid;gap:5px;font-weight:700;font-size:.85rem}
+.rvm-stars{display:flex;gap:4px}
+.rvm-stars button{border:0;background:none;font-size:1.8rem;line-height:1;color:#EBD3DA;cursor:pointer;padding:0 2px}
+.rvm-stars button.on{color:#F5B83D}
+.rvm-go{width:100%;border:0;border-radius:999px;padding:14px;font:inherit;font-weight:800;color:#FFFFFF;background:linear-gradient(135deg,var(--orange),var(--coral));cursor:pointer}
+.rvm-go:disabled{opacity:.6}
+.rvm-alt{border:0;background:none;color:var(--coral);font:inherit;font-weight:800;cursor:pointer;justify-self:center}
+.rvm-msg{min-height:1.2em;color:var(--coral)!important;font-weight:700!important}
+.rvm-msg.ok{color:#178A59!important}
 .goog-te-banner-frame,.skiptranslate>iframe,#goog-gt-tt,.goog-te-balloon-frame{display:none!important}
 body{top:0!important}
 font[style]{background:none!important;box-shadow:none!important}
@@ -498,28 +518,89 @@ font[style]{background:none!important;box-shadow:none!important}
   </ol>
 </section>
 
-<section class="rvs" id="rvsSec" aria-labelledby="rvsH" hidden>
+<span id="avis"></span>
+<section class="rvs" id="rvsSec" aria-labelledby="rvsH">
   <h2 id="rvsH">Des histoires,<br><em>pas des promesses.</em></h2>
   <p class="rvs-sub">Ce que nos membres racontent, avec leurs mots.</p>
-  <div class="rvs-band"><div class="rvs-track" id="rvsTrack"></div></div>
+  <div class="rvs-band" id="rvsBand" hidden><div class="rvs-track" id="rvsTrack"></div></div>
+  <p class="rvs-empty" id="rvsEmpty">Soyez le premier à partager votre histoire ✍️</p>
+  <button type="button" class="start rvs-go" id="rvsOpen">Laisser un avis</button>
+  <div class="rvm" id="rvm" hidden>
+    <div class="rvm-box" role="dialog" aria-modal="true" aria-labelledby="rvmT">
+      <button type="button" class="rvm-x" id="rvmX" aria-label="Fermer">×</button>
+      <div id="rvmBody"></div>
+    </div>
+  </div>
 </section>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script>
-/* Avis réels (Supabase) : défilement vers la gauche ; la section reste cachée tant qu'il n'y a pas d'avis */
+/* Avis réels (Supabase) : défilement vers la gauche + formulaire « Laisser un avis » (compte requis) */
 (function(){
-  const sec=document.getElementById('rvsSec'),tr=document.getElementById('rvsTrack');if(!sec||!tr)return;
+  const sec=document.getElementById('rvsSec');if(!sec)return;
   const URL='https://dbrpduznzqynkuebulxx.supabase.co',KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRicnBkdXpuenF5bmt1ZWJ1bHh4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIxMDM4OTAsImV4cCI6MjEwNzY3OTg5MH0.8XVULvee0zcbp7qjlmHupBdhxUKb0tYz6fm1xK4eJkk';
+  const $=id=>document.getElementById(id);
   const esc=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  fetch(URL+'/rest/v1/avis?select=prenom,texte,note,kilos,created_at&order=created_at.desc&limit=24',{headers:{apikey:KEY,Authorization:'Bearer '+KEY}})
-    .then(r=>r.ok?r.json():[]).then(list=>{
-      list=(list||[]).filter(a=>a&&a.texte&&String(a.texte).trim());if(!list.length)return;
-      const card=a=>{const n=Math.max(1,Math.min(5,Math.round(+a.note||5))),nm=String(a.prenom||'Membre').slice(0,24),kg=+a.kilos,
-        d=a.created_at?new Date(a.created_at).toLocaleDateString('fr-FR',{month:'long',year:'numeric'}):'';
-        return `<article class="rvc"><div class="rvc-top"><span class="rvc-av">${esc(nm[0].toUpperCase())}</span><span><b>${esc(nm)}</b><small>${esc(d)}</small></span>${kg>0?`<span class="rvc-kg">−${String(Math.round(kg*10)/10).replace('.',',')} kg</span>`:''}</div><span class="rvc-st" aria-label="${n} sur 5">${'★'.repeat(n)}${'☆'.repeat(5-n)}</span><p>${esc(String(a.texte).slice(0,280))}</p></article>`};
-      let base=list.slice();while(base.length<6)base=base.concat(list);
-      const html=base.map(card).join('');tr.innerHTML=html+html.replace(/<article class="rvc"/g,'<article class="rvc" aria-hidden="true"');
-      tr.style.setProperty('--dur',(base.length*6)+'s');sec.hidden=false;
-    }).catch(()=>{});
+  const sb=window.supabase&&window.supabase.createClient?window.supabase.createClient(URL,KEY):null;
+  let user=null,stars=5,mode='signup';
+  function load(){
+    fetch(URL+'/rest/v1/avis?select=prenom,texte,note,kilos,created_at&order=created_at.desc&limit=24',{headers:{apikey:KEY,Authorization:'Bearer '+KEY}})
+      .then(r=>r.ok?r.json():[]).then(list=>{
+        list=(list||[]).filter(a=>a&&a.texte&&String(a.texte).trim());
+        $('rvsBand').hidden=!list.length;$('rvsEmpty').hidden=!!list.length;
+        if(!list.length)return;
+        const card=a=>{const n=Math.max(1,Math.min(5,Math.round(+a.note||5))),nm=String(a.prenom||'Membre').slice(0,24),kg=+a.kilos,
+          d=a.created_at?new Date(a.created_at).toLocaleDateString('fr-FR',{month:'long',year:'numeric'}):'';
+          return `<article class="rvc"><div class="rvc-top"><span class="rvc-av">${esc(nm[0].toUpperCase())}</span><span><b>${esc(nm)}</b><small>${esc(d)}</small></span>${kg>0?`<span class="rvc-kg">−${String(Math.round(kg*10)/10).replace('.',',')} kg</span>`:''}</div><span class="rvc-st" aria-label="${n} sur 5">${'★'.repeat(n)}${'☆'.repeat(5-n)}</span><p>${esc(String(a.texte).slice(0,280))}</p></article>`};
+        let base=list.slice();while(base.length<6)base=base.concat(list);
+        const html=base.map(card).join('');$('rvsTrack').innerHTML=html+html.replace(/<article class="rvc"/g,'<article class="rvc" aria-hidden="true"');
+        $('rvsTrack').style.setProperty('--dur',(base.length*6)+'s');
+      }).catch(()=>{});
+  }
+  const ERR={'Invalid login credentials':'E-mail ou mot de passe incorrect.','Email not confirmed':'Confirmez votre adresse : ouvrez l\'e-mail reçu, puis reconnectez-vous.','User already registered':'Ce compte existe déjà : connectez-vous.'};
+  function render(msg,ok){
+    const b=$('rvmBody');
+    if(!sb){b.innerHTML='<h3 id="rvmT">Laisser un avis</h3><p>Le service est momentanément indisponible. Réessayez plus tard.</p>';return}
+    if(!user){
+      const up=mode==='signup';
+      b.innerHTML=`<h3 id="rvmT">${up?'Créez votre compte':'Connectez-vous'}</h3><p>Un compte permet de publier un seul avis, que vous pourrez modifier.</p>
+        <form id="rvmAuth"><input id="rvmE" type="email" autocomplete="email" placeholder="Adresse e-mail" aria-label="Adresse e-mail" required>
+        <input id="rvmP" type="password" autocomplete="${up?'new-password':'current-password'}" minlength="6" placeholder="Mot de passe (6 caractères min.)" aria-label="Mot de passe" required>
+        <button class="rvm-go" type="submit">${up?'Créer mon compte':'Se connecter'}</button></form>
+        <p class="rvm-msg ${ok?'ok':''}">${msg||''}</p><button type="button" class="rvm-alt" id="rvmSw">${up?'J\'ai déjà un compte':'Pas encore de compte ? Inscription'}</button>`;
+      $('rvmSw').onclick=()=>{mode=up?'login':'signup';render()};
+      $('rvmAuth').onsubmit=async e=>{e.preventDefault();const btn=e.target.querySelector('button');btn.disabled=true;
+        const email=$('rvmE').value.trim(),password=$('rvmP').value;
+        const res=up?await sb.auth.signUp({email,password,options:{emailRedirectTo:location.origin+location.pathname+'#avis'}}):await sb.auth.signInWithPassword({email,password});
+        btn.disabled=false;
+        if(res.error){render(ERR[res.error.message]||res.error.message);return}
+        if(up&&!res.data.session){mode='login';render('Compte créé ! Ouvrez l\'e-mail de confirmation, puis connectez-vous ici.',true);return}
+        user=res.data.user||(res.data.session&&res.data.session.user);render();};
+      return;
+    }
+    b.innerHTML=`<h3 id="rvmT">Votre histoire</h3><p>Racontez votre expérience avec OneAthlet, avec vos mots.</p>
+      <form id="rvmForm"><label>Prénom<input id="rvmN" maxlength="24" required></label>
+      <label>Note<span class="rvm-stars" id="rvmS">${[1,2,3,4,5].map(i=>`<button type="button" data-s="${i}" aria-label="${i} étoile${i>1?'s':''}">★</button>`).join('')}</span></label>
+      <label>Kilos perdus (facultatif)<input id="rvmK" type="number" inputmode="decimal" min="0" max="150" step="0.1" placeholder="Ex. 4"></label>
+      <label>Votre avis<textarea id="rvmTx" maxlength="280" required placeholder="280 caractères maximum"></textarea></label>
+      <button class="rvm-go" type="submit">Publier mon avis</button></form><p class="rvm-msg ${ok?'ok':''}">${msg||''}</p>`;
+    const paint=()=>$('rvmS').querySelectorAll('[data-s]').forEach(x=>x.classList.toggle('on',+x.dataset.s<=stars));paint();
+    $('rvmS').onclick=e=>{const x=e.target.closest('[data-s]');if(x){stars=+x.dataset.s;paint()}};
+    sb.from('avis').select('prenom,texte,note,kilos').eq('user_id',user.id).maybeSingle().then(({data})=>{if(data){$('rvmN').value=data.prenom||'';$('rvmTx').value=data.texte||'';$('rvmK').value=+data.kilos||'';stars=+data.note||5;paint()}});
+    $('rvmForm').onsubmit=async e=>{e.preventDefault();const btn=e.target.querySelector('button[type=submit]');btn.disabled=true;
+      const {error}=await sb.from('avis').upsert({user_id:user.id,prenom:$('rvmN').value.trim().slice(0,24),texte:$('rvmTx').value.trim().slice(0,280),note:stars,kilos:Math.min(150,Math.max(0,+String($('rvmK').value).replace(',','.')||0))},{onConflict:'user_id'});
+      btn.disabled=false;
+      if(error){render('L\'avis n\'a pas pu être publié. Réessayez.');return}
+      render('Merci ! Votre avis est publié.',true);load();};
+  }
+  const open=()=>{render();$('rvm').hidden=false;document.body.style.overflow='hidden'};
+  const close=()=>{$('rvm').hidden=true;document.body.style.overflow=''};
+  $('rvsOpen').onclick=open;$('rvmX').onclick=close;
+  $('rvm').addEventListener('click',e=>{if(e.target.id==='rvm')close()});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('rvm').hidden)close()});
+  if(sb){sb.auth.getSession().then(({data})=>{user=data.session?data.session.user:null;if(location.hash==='#avis'&&user)open()});
+    sb.auth.onAuthStateChange((ev,session)=>{user=session?session.user:null})}
+  load();
 })();
 /* 3 étapes : les cartes apparaissent à l'arrivée sur la section */
 (function(){
