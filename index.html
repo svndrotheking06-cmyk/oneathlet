@@ -167,7 +167,7 @@ h1 em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--cor
 .scan-steps{list-style:none;margin:4px 0 0;padding:0;display:grid;gap:10px}
 .scan-steps li{display:flex;gap:12px;align-items:center;font-weight:700}
 .start.scan-go{margin-top:8px}
-.scan-steps b{width:24px;color:#22A06B;font-size:1.35rem;font-weight:900;line-height:1;text-align:center;flex:none}
+.scan-steps .ck{width:22px;height:22px;flex:none;fill:none;stroke:#22A06B;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .sheet{position:absolute;z-index:7;left:0;right:0;bottom:0;background:#FFFFFF;color:var(--ink);border-radius:28px 28px 0 0;padding:10px 16px 22px;display:grid;gap:10px;box-shadow:0 -14px 30px -12px rgba(0,0,0,.35);transform:translateY(102%);transition:transform .7s cubic-bezier(.2,.9,.25,1)}
 .scan.run .sheet{transform:none}
 .grab{justify-self:center;width:38px;height:5px;border-radius:5px;background:#E4D6CE}
@@ -318,7 +318,7 @@ font[style]{background:none!important;box-shadow:none!important}
     <span class="scan-k">Photo de l'assiette</span>
     <h2 id="scanH">Une photo.<br><em>Tout est calculé.</em></h2>
     <p>Prenez votre repas en photo : OneAthlet reconnaît chaque aliment, estime les portions et calcule vos protéines, glucides, lipides et calories en quelques secondes.</p>
-    <ol class="scan-steps"><li><b aria-hidden="true">✓</b>Photographiez votre assiette</li><li><b aria-hidden="true">✓</b>Chaque aliment est reconnu</li><li><b aria-hidden="true">✓</b>Vos macros s'ajoutent à votre journée</li></ol>
+    <ol class="scan-steps"><li><svg class="ck" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>Photographiez votre assiette</li><li><svg class="ck" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>Chaque aliment est reconnu</li><li><svg class="ck" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg>Vos macros s'ajoutent à votre journée</li></ol>
     <button type="button" class="start hero-go scan-go">Commencer votre objectif →</button>
   </div>
 </section>
