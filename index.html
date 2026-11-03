@@ -10,17 +10,76 @@
 <script>window.$crisp=[];window.CRISP_WEBSITE_ID="cd6458ad-9fbc-4c15-ac46-5e59de690163";window.CRISP_RUNTIME_CONFIG={locale:((document.cookie.match(/(?:^|; )googtrans=\/fr\/([a-z]{2})/)||[])[1]||"fr")};(function(){var d=document,s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
 </head>
 <body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Manrope:wght@400;600;700&display=swap">
 <style>
-:root{--page:#FFF8F2;--ink:#2B1A14;--basil:#EF4F2B;--display:"Sora",system-ui,-apple-system,"Segoe UI",sans-serif}
-body{background:var(--page);color:var(--ink);font-family:var(--display);min-height:100vh;min-height:100dvh;display:grid;place-items:center;margin:0}
-.oa{display:grid;justify-items:center;gap:14px;padding:16px}
-.oa h1{margin:0;font-size:clamp(2.2rem,8vw,3.4rem);font-weight:800;letter-spacing:-.03em}
-.oa h1 span{color:var(--basil)}
+:root{
+  --page:#FFF8F2; --surface:#FFFFFF; --ink:#2B1A14; --muted:#7D655A; --line:#F4DDD1;
+  --coral:#EF4F2B; --orange:#FF9A3C; --coral-soft:#FFE4DA;
+  --display:"Sora",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --body:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--page);color:var(--ink);font-family:var(--body);min-height:100vh;min-height:100dvh;display:grid;grid-template-rows:auto 1fr}
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:max(14px,env(safe-area-inset-top)) clamp(16px,4vw,40px) 14px}
+.brand{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--ink);font-family:var(--display);font-weight:800;font-size:1.05rem;letter-spacing:-.02em}
+.brand b{font-weight:800}.brand span{color:var(--coral)}
+.brand svg{width:28px;height:28px;flex:none}
+.right{display:flex;align-items:center;gap:8px}
+.start{border:0;border-radius:999px;padding:10px 18px;font:inherit;font-weight:800;font-size:.92rem;color:#FFFFFF;background:linear-gradient(135deg,var(--orange),var(--coral));box-shadow:0 12px 24px -14px var(--coral);cursor:pointer;transition:transform .15s}
+.start:hover{transform:translateY(-1px)}
+.langsel{display:inline-flex;align-items:center;gap:4px;border:1.5px solid var(--line);background:var(--page);border-radius:999px;padding:4px 6px 4px 10px;font-weight:700;font-size:.85rem}
+.langsel select{border:0;background:none;font:inherit;font-weight:700;color:var(--ink);padding:5px 2px;cursor:pointer}
+.hero{display:grid;align-content:center;justify-items:start;gap:18px;padding:24px clamp(16px,6vw,80px) 64px;max-width:1080px;width:100%;margin:0 auto}
+.kick{background:var(--coral-soft);color:var(--coral);font-weight:800;font-size:.76rem;text-transform:uppercase;letter-spacing:.1em;padding:6px 12px;border-radius:999px}
+h1{margin:0;font-family:var(--display);font-weight:800;font-size:clamp(2.8rem,10vw,6rem);line-height:1;letter-spacing:-.045em;max-width:12ch;text-wrap:balance}
+h1 em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--coral));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{margin:0;font-size:clamp(1.1rem,3vw,1.5rem);font-weight:700;color:var(--muted);max-width:30ch;text-wrap:balance}
+.sub b{color:var(--ink)}
+.goog-te-banner-frame,.skiptranslate>iframe,#goog-gt-tt,.goog-te-balloon-frame{display:none!important}
+body{top:0!important}
+font[style]{background:none!important;box-shadow:none!important}
+@media (max-width:420px){.start{padding:9px 14px;font-size:.86rem}.brand{font-size:.95rem}.brand svg{width:24px;height:24px}}
 </style>
-<main class="oa">
-  <svg width="120" height="120" aria-hidden="true" viewBox="0 0 100 100"><defs><linearGradient id="oaLogo" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FF9A3C"/><stop offset="1" stop-color="#EF4F2B"/></linearGradient></defs><circle cx="50" cy="50" r="49" fill="url(#oaLogo)"/><path d="M44 19 L56 19 L57 24.5 Q68.5 26 78.5 30.5 Q85.5 34.5 84.5 43 L82 52.5 Q78 55.5 74 52 L72.4 47.5 Q70.5 57 66.5 64 Q63.5 72 61.5 87 L38.5 87 Q36.5 72 33.5 64 Q29.5 57 27.6 47.5 L26 52 Q22 55.5 18 52.5 L15.5 43 Q14.5 34.5 21.5 30.5 Q31.5 26 43 24.5 Z" fill="#FFFFFF"/><g fill="#FFC9B3"><path d="M30.5 33.5 Q39.5 29.6 49 31.6 L49 43 Q41 47.4 33 42.4 Q29.6 38.6 30.5 33.5 Z"/><path d="M69.5 33.5 Q60.5 29.6 51 31.6 L51 43 Q59 47.4 67 42.4 Q70.4 38.6 69.5 33.5 Z"/><rect x="42" y="46.4" width="7" height="7.6" rx="2.6"/><rect x="51" y="46.4" width="7" height="7.6" rx="2.6"/><rect x="42.4" y="55.6" width="6.6" height="7.6" rx="2.6"/><rect x="51" y="55.6" width="6.6" height="7.6" rx="2.6"/><rect x="42.9" y="64.8" width="6.1" height="7.6" rx="2.6"/><rect x="51" y="64.8" width="6.1" height="7.6" rx="2.6"/><path d="M43.4 74.2 L49 74.2 L49 85 Q45.2 80.4 43.4 74.2 Z"/><path d="M56.6 74.2 L51 74.2 L51 85 Q54.8 80.4 56.6 74.2 Z"/></g><g fill="none" stroke="#FFC9B3" stroke-width="1.8" stroke-linecap="round"><path d="M36.2 49 Q38.6 57.5 40.4 63.5 M63.8 49 Q61.4 57.5 59.6 63.5"/><path d="M26.6 32.6 Q30.4 39 29.4 46.4 M73.4 32.6 Q69.6 39 70.6 46.4"/></g></svg>
-  <h1 class="notranslate" translate="no">One<span>Athlet</span></h1>
+
+<header class="top">
+  <a class="brand notranslate" translate="no" href="/">
+    <svg aria-hidden="true" viewBox="0 0 100 100"><defs><linearGradient id="oaLogo" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FF9A3C"/><stop offset="1" stop-color="#EF4F2B"/></linearGradient></defs><circle cx="50" cy="50" r="49" fill="url(#oaLogo)"/><path d="M44 19 L56 19 L57 24.5 Q68.5 26 78.5 30.5 Q85.5 34.5 84.5 43 L82 52.5 Q78 55.5 74 52 L72.4 47.5 Q70.5 57 66.5 64 Q63.5 72 61.5 87 L38.5 87 Q36.5 72 33.5 64 Q29.5 57 27.6 47.5 L26 52 Q22 55.5 18 52.5 L15.5 43 Q14.5 34.5 21.5 30.5 Q31.5 26 43 24.5 Z" fill="#FFFFFF"/><g fill="#FFC9B3"><path d="M30.5 33.5 Q39.5 29.6 49 31.6 L49 43 Q41 47.4 33 42.4 Q29.6 38.6 30.5 33.5 Z"/><path d="M69.5 33.5 Q60.5 29.6 51 31.6 L51 43 Q59 47.4 67 42.4 Q70.4 38.6 69.5 33.5 Z"/><rect x="42" y="46.4" width="7" height="7.6" rx="2.6"/><rect x="51" y="46.4" width="7" height="7.6" rx="2.6"/><rect x="42.4" y="55.6" width="6.6" height="7.6" rx="2.6"/><rect x="51" y="55.6" width="6.6" height="7.6" rx="2.6"/><rect x="42.9" y="64.8" width="6.1" height="7.6" rx="2.6"/><rect x="51" y="64.8" width="6.1" height="7.6" rx="2.6"/><path d="M43.4 74.2 L49 74.2 L49 85 Q45.2 80.4 43.4 74.2 Z"/><path d="M56.6 74.2 L51 74.2 L51 85 Q54.8 80.4 56.6 74.2 Z"/></g><g fill="none" stroke="#FFC9B3" stroke-width="1.8" stroke-linecap="round"><path d="M36.2 49 Q38.6 57.5 40.4 63.5 M63.8 49 Q61.4 57.5 59.6 63.5"/><path d="M26.6 32.6 Q30.4 39 29.4 46.4 M73.4 32.6 Q69.6 39 70.6 46.4"/></g></svg>
+    <b class="bn">One<span>Athlet</span></b>
+  </a>
+  <div class="right">
+    <button type="button" class="start" id="startBtn">Commencer</button>
+    <label class="langsel notranslate" translate="no"><span aria-hidden="true">🌐</span><select id="langSel" aria-label="Langue / Language">
+      <option value="fr">FR</option><option value="en">EN</option><option value="es">ES</option><option value="de">DE</option><option value="it">IT</option><option value="pt">PT</option><option value="nl">NL</option><option value="ar">AR</option><option value="tr">TR</option>
+    </select></label>
+  </div>
+</header>
+
+<main class="hero">
+  <span class="kick">Nutrition sur mesure</span>
+  <h1>Votre objectif <em>en un clic.</em></h1>
+  <p class="sub">Perdez du poids en mangeant <b>mieux</b>, pas en mangeant <b>moins</b>.</p>
 </main>
+
+<script>
+/* Langue : traduction automatique (Google Traduction) mémorisée dans un cookie */
+(function(){
+  const sel=document.getElementById('langSel'),codes=[...sel.options].map(o=>o.value);
+  const m=document.cookie.match(/(?:^|; )googtrans=\/fr\/([a-z-]+)/),LANG=m&&codes.includes(m[1])?m[1]:'fr';
+  sel.value=LANG;document.documentElement.lang=LANG;
+  sel.addEventListener('change',()=>{
+    const v=sel.value,parts=location.hostname.split('.'),root=parts.length>1?'.'+parts.slice(-2).join('.'):'';
+    const set=(val,exp)=>{document.cookie='googtrans='+val+';path=/'+exp;if(root)document.cookie='googtrans='+val+';path=/;domain='+root+exp};
+    if(v==='fr')set('','; expires=Thu, 01 Jan 1970 00:00:00 GMT');else set('/fr/'+v,'; max-age=31536000');
+    location.reload();
+  });
+  if(LANG==='fr'||window.claude)return;
+  const d=document.createElement('div');d.id='google_translate_element';d.hidden=true;document.body.appendChild(d);
+  window.googleTranslateElementInit=function(){try{new google.translate.TranslateElement({pageLanguage:'fr',autoDisplay:false},'google_translate_element')}catch(e){}};
+  const sc=document.createElement('script');sc.src='https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';sc.async=true;document.head.appendChild(sc);
+})();
+</script>
 
 </body>
 </html>
