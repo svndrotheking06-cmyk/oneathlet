@@ -876,6 +876,56 @@ font[style]{background:none!important;box-shadow:none!important}
 .toast.on{opacity:1;transform:translate(-50%,0)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 
+/* Page d'accueil */
+.lp-strip{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 22px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:12px 20px;font-weight:800;font-size:.86rem;color:var(--ink);box-shadow:var(--shadow)}
+.lp-sec{display:grid;gap:16px;padding-block:clamp(18px,4vw,40px)}
+.lp-k{justify-self:start;background:var(--basil-soft);color:var(--basil);font-weight:800;font-size:.76rem;text-transform:uppercase;letter-spacing:.1em;padding:5px 12px;border-radius:999px}
+.lp-h{font-family:var(--display);font-size:clamp(1.9rem,5vw,3rem);font-weight:800;letter-spacing:-.035em;line-height:1.05;display:block;margin:0;max-width:18ch}
+.lp-how{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:14px}
+.lp-step{position:relative;display:grid;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:26px;padding:22px;box-shadow:var(--shadow)}
+.lp-n{position:absolute;top:16px;right:18px;font-family:var(--display);font-weight:800;font-size:2.4rem;color:var(--basil-soft)}
+.lp-ic{width:56px;height:56px;border-radius:18px;background:linear-gradient(135deg,var(--sky),var(--basil));display:grid;place-items:center;font-size:1.8rem}
+.lp-step b,.lp-card b{font-family:var(--display);font-size:1.15rem}
+.lp-step small,.lp-card small{color:var(--muted);line-height:1.45}
+.lp-bento{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:14px}
+.lp-card{display:grid;gap:8px;align-content:start;background:var(--surface);border:1px solid var(--line);border-radius:26px;padding:20px;box-shadow:var(--shadow)}
+.lp-card.hot{background:linear-gradient(150deg,var(--sky),var(--basil));color:#FFFFFF;border:0}
+.lp-card.hot small{color:#FFFFFF;opacity:.9}
+@media (min-width:761px){.lp-card.big{grid-row:span 2}}
+.lp-vis{min-height:110px;border-radius:20px;background:var(--bg);display:grid;place-items:center;padding:12px;margin-bottom:4px}
+.lp-card.hot .lp-vis{background:rgba(255,255,255,.18);min-height:180px;position:relative}
+.lp-plate{position:relative;width:130px;height:130px;border-radius:50%;background:#FFFFFF;display:grid;grid-template-columns:1fr 1fr;place-items:center;font-size:2rem;padding:16px;overflow:hidden;box-shadow:0 14px 30px -14px rgba(43,26,20,.45)}
+.lp-plate i{position:absolute;left:0;right:0;height:3px;background:var(--leaf);box-shadow:0 0 12px var(--leaf);animation:lpscan 2.2s ease-in-out infinite alternate}
+@keyframes lpscan{from{top:10%}to{top:88%}}
+.lp-kc{position:absolute;right:14px;bottom:14px;background:#FFFFFF;color:var(--basil);font-weight:800;border-radius:999px;padding:5px 12px;font-size:.9rem}
+.lp-chat{display:grid;gap:6px;justify-items:start;place-items:stretch}
+.lp-chat span{background:#FFFFFF;border-radius:16px 16px 16px 4px;padding:8px 12px;font-size:.84rem;font-weight:600;max-width:90%}
+.lp-chat .me{justify-self:end;background:var(--basil);color:#FFFFFF;border-radius:16px 16px 4px 16px}
+.lp-week{display:flex;gap:6px}
+.lp-week span{width:30px;height:42px;border-radius:12px;background:#FFFFFF;display:grid;place-items:center;font-weight:800;font-size:.85rem;color:var(--muted)}
+.lp-week .on{background:var(--basil);color:#FFFFFF}
+.lp-curve svg{width:100%;height:auto}
+.lp-water{display:flex;gap:4px;font-size:1.6rem}
+.lp-water .off{opacity:.25;filter:grayscale(1)}
+.lp-progs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,170px),1fr));gap:12px}
+.lp-progs button{display:grid;gap:4px;justify-items:start;text-align:left;border:2px solid var(--line);background:var(--surface);border-radius:24px;padding:18px;font:inherit;color:var(--ink);transition:transform .15s,border-color .15s}
+.lp-progs button:hover{transform:translateY(-3px);border-color:var(--basil)}
+.lp-progs span{font-size:2rem}
+.lp-progs b{font-size:1.02rem}
+.lp-progs small{color:var(--basil);font-weight:800;font-size:.78rem}
+.lp-progs .own{background:linear-gradient(135deg,var(--sky),var(--basil));border-color:transparent;color:#FFFFFF}
+.lp-progs .own small{color:#FFFFFF}
+.lp-rvs{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px}
+.lp-rvs .rv{flex:0 0 min(300px,85%);scroll-snap-align:start}
+.lp-guard{display:flex;gap:18px;align-items:center;background:color-mix(in srgb,var(--leaf) 12%,var(--surface));border-radius:28px;padding:clamp(20px,4vw,34px)}
+.lp-shield{font-size:3.4rem}
+.lp-guard h2{font-family:var(--display);font-size:clamp(1.3rem,3.5vw,1.8rem);font-weight:800;display:block;margin:0 0 4px}
+.lp-guard p{margin:0;color:var(--muted)}
+.lp-final{display:grid;gap:12px;justify-items:center;text-align:center;background:linear-gradient(150deg,var(--sky),var(--basil));color:#FFFFFF;border-radius:32px;padding:clamp(28px,6vw,56px) 20px}
+.lp-final h2{font-family:var(--display);font-size:clamp(1.8rem,5vw,2.8rem);font-weight:800;letter-spacing:-.03em;display:block;margin:0;max-width:16ch}
+.lp-final p{margin:0;opacity:.9;font-weight:600}
+.lp-go{background:#FFFFFF!important;color:var(--basil)!important;padding:16px 26px;font-size:1.05rem;box-shadow:0 16px 30px -14px rgba(43,26,20,.5)!important}
+@media (prefers-reduced-motion:reduce){.lp-plate i{animation:none;top:50%}}
 /* Corail énergique : boutons en pilule */
 .btn,.btn-main{background:linear-gradient(135deg,var(--sky),var(--basil));border-radius:999px!important;box-shadow:0 12px 24px -14px var(--basil)}
 #qNext,.rc-go,.rvl-buy,.pv-start,.st-go,.lk-btns .btn{border-radius:999px!important}
@@ -931,6 +981,76 @@ font[style]{background:none!important;box-shadow:none!important}
       <a href="#programmes" data-go="programmes" class="h2o-alt">ou choisir un programme prêt →</a>
       <button class="bubble-cta" type="button" id="heroCta" hidden><span>Commencer<br>mon plan</span></button>
     </div>
+  </section>
+
+  <!-- Bandeau confiance -->
+  <div class="lp-strip" aria-label="Nos engagements">
+    <span>🛡️ Satisfait ou remboursé 30 jours</span><span>🔓 Sans engagement</span><span>🌍 9 langues</span><span>🤖 Coach IA 24 h/24</span>
+  </div>
+
+  <!-- Comment ça marche -->
+  <section class="lp-sec" aria-labelledby="lp-how">
+    <span class="lp-k">Comment ça marche</span>
+    <h2 id="lp-how" class="lp-h">Votre plan en 3 étapes.</h2>
+    <div class="lp-how">
+      <div class="lp-step"><span class="lp-n">1</span><span class="lp-ic" aria-hidden="true">📝</span><b>Votre bilan</b><small>16 questions, 2 minutes : votre corps, vos goûts, votre santé.</small></div>
+      <div class="lp-step"><span class="lp-n">2</span><span class="lp-ic" aria-hidden="true">🍽️</span><b>Votre plan</b><small>Calories, macros et menus de la semaine, calculés pour vous.</small></div>
+      <div class="lp-step"><span class="lp-n">3</span><span class="lp-ic" aria-hidden="true">📈</span><b>Vos résultats</b><small>Suivez repas, eau et poids. Le coach IA vous guide chaque jour.</small></div>
+    </div>
+  </section>
+
+  <!-- Fonctions -->
+  <section class="lp-sec" aria-labelledby="lp-feat">
+    <span class="lp-k">Tout dans une appli</span>
+    <h2 id="lp-feat" class="lp-h">Tout ce qu'il faut pour réussir.</h2>
+    <div class="lp-bento">
+      <article class="lp-card big hot">
+        <div class="lp-vis lp-scan" aria-hidden="true"><div class="lp-plate"><span>🍗</span><span>🥦</span><span>🍚</span><i></i></div><span class="lp-kc">642 kcal</span></div>
+        <b>Une photo, les calories s'affichent.</b><small>Prenez votre assiette en photo : aliments, portions et macros en quelques secondes.</small>
+      </article>
+      <article class="lp-card">
+        <div class="lp-vis lp-chat" aria-hidden="true"><span class="me">Je mange quoi ce soir ?</span><span>Saumon, riz et brocoli : 520 kcal, 38 g de protéines 💪</span></div>
+        <b>Un coach IA dans la poche.</b><small>Une question, une réponse adaptée à votre plan.</small>
+      </article>
+      <article class="lp-card">
+        <div class="lp-vis lp-week" aria-hidden="true"><span>L</span><span>M</span><span class="on">M</span><span>J</span><span>V</span><span>S</span><span>D</span></div>
+        <b>Vos menus de la semaine.</b><small>Des repas simples, adaptés à votre régime et à vos intolérances.</small>
+      </article>
+      <article class="lp-card">
+        <div class="lp-vis lp-curve" aria-hidden="true"><svg viewBox="0 0 200 70"><path d="M5 15 C60 18 90 45 195 55" fill="none" stroke="var(--basil)" stroke-width="5" stroke-linecap="round"/><circle cx="195" cy="55" r="6" fill="var(--leaf)"/></svg></div>
+        <b>Votre courbe de poids.</b><small>Voyez vos progrès semaine après semaine.</small>
+      </article>
+      <article class="lp-card">
+        <div class="lp-vis lp-water" aria-hidden="true"><span>💧</span><span>💧</span><span>💧</span><span>💧</span><span class="off">💧</span><span class="off">💧</span></div>
+        <b>Eau et budget courses.</b><small>Vos verres d'eau et ce que vous dépensez, jour après jour.</small>
+      </article>
+    </div>
+  </section>
+
+  <!-- Programmes -->
+  <section class="lp-sec" aria-labelledby="lp-prog">
+    <span class="lp-k">Programmes</span>
+    <h2 id="lp-prog" class="lp-h">Un objectif, un programme.</h2>
+    <div class="lp-progs">
+      <button type="button" data-pick="perte"><span aria-hidden="true">🔥</span><b>Perdre du poids</b><small>−0,3 à −0,7 kg / sem.</small></button>
+      <button type="button" data-pick="muscle"><span aria-hidden="true">💪</span><b>Prendre du muscle</b><small>+0,2 à +0,5 kg / sem.</small></button>
+      <button type="button" data-pick="prise"><span aria-hidden="true">📈</span><b>Prendre du poids</b><small>+0,2 à +0,5 kg / sem.</small></button>
+      <button type="button" data-pick="sain"><span aria-hidden="true">🥗</span><b>Mieux manger</b><small>Poids stable, plus d'énergie</small></button>
+      <button type="button" class="own" data-start><span aria-hidden="true">🎯</span><b>Sur mesure</b><small>Faire mon bilan</small></button>
+    </div>
+  </section>
+
+  <!-- Avis réels -->
+  <section class="lp-sec" id="homeRvSec" aria-labelledby="lp-rv" hidden>
+    <span class="lp-k">Avis</span>
+    <h2 id="lp-rv" class="lp-h">Ils ont commencé avant vous.</h2>
+    <div class="lp-rvs" id="homeRv"></div>
+  </section>
+
+  <!-- Garantie -->
+  <section class="lp-guard" aria-labelledby="lp-g">
+    <span class="lp-shield" aria-hidden="true">🛡️</span>
+    <div><h2 id="lp-g">Satisfait ou remboursé 30 jours.</h2><p>Essayez OneAthlet Premium. Si ça ne vous convient pas, on vous rembourse le premier paiement (conditions dans la FAQ).</p></div>
   </section>
 
   <!-- Fonctionnalités -->
@@ -1106,6 +1226,13 @@ font[style]{background:none!important;box-shadow:none!important}
       <details class="faq-i" data-cat="data"><summary><span class="faq-e" aria-hidden="true">🩺</span><span class="faq-q">Le site remplace-t-il un médecin ?</span><span class="faq-plus" aria-hidden="true"></span></summary><p>Non. OneAthlet donne des conseils de nutrition, pas de diagnostic. Si vous avez un problème de santé, êtes enceinte ou avez des troubles alimentaires, parlez-en d'abord à un médecin ou à un diététicien.</p></details>
     </div>
     <p class="faq-more">Une autre question ? <button type="button" class="st-go" id="faqChat">💬 Posez-la dans le chat</button></p>
+  </section>
+
+  <!-- Appel final -->
+  <section class="lp-final" aria-labelledby="lp-end">
+    <h2 id="lp-end">Votre nouveau départ commence aujourd'hui.</h2>
+    <p>2 minutes de bilan. Un plan fait pour vous.</p>
+    <button type="button" class="btn lp-go" data-start>Commencer mon bilan →</button>
   </section>
 
   <!-- Dernier appel -->
@@ -2324,6 +2451,7 @@ function renderReviews(){
     <span class="stars" aria-label="${n} sur 5">${stars(n)}</span>${kg>0?`<span class="kg num">−${fmt(kg,1)} kg</span>`:''}<p>${esc(String(r.texte||'').slice(0,280))}</p></article>`});
   const ex=EXAMPLES.map(e=>`<article class="rv ex"><span class="exb">Exemple</span><div class="who"><span class="av" style="background:var(--line)">?</span><span><b>${e[0]}</b></span></div><span class="stars" style="opacity:.4">${stars(e[2])}</span><p class="msg">${e[1]}</p></article>`);
   $('#rvTrack').innerHTML=real.join('')+(real.length?'':ex.join(''));
+  if($('#homeRv')){$('#homeRv').innerHTML=real.slice(0,6).join('');$('#homeRvSec').hidden=!real.length}
 }
 $('#rvPrev').addEventListener('click',()=>$('#rvTrack').scrollBy({left:-300,behavior:'smooth'}));
 $('#rvNext').addEventListener('click',()=>$('#rvTrack').scrollBy({left:300,behavior:'smooth'}));
