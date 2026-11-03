@@ -137,6 +137,18 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .nav a{flex:none;text-decoration:none;color:var(--muted);font-weight:700;font-size:.88rem;padding:8px 14px;border-radius:10px;transition:background .15s,color .15s}
 .nav a:hover{color:var(--ink)}
 .nav a[aria-current="page"]{background:var(--basil);color:#FFFFFF}
+.nav a i{font-style:normal;margin-right:6px}
+@media (max-width:760px){
+  .top{flex-direction:row!important;align-items:center!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;background:var(--page)!important}
+  #mainNav{position:fixed;left:8px;right:8px;bottom:max(8px,env(safe-area-inset-bottom));z-index:15;justify-content:space-around!important;border-radius:22px;background:color-mix(in srgb,var(--surface) 94%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:0 12px 34px -12px rgba(11,27,51,.35);padding:6px}
+  #mainNav a{display:grid;justify-items:center;gap:2px;padding:6px 4px!important;font-size:.66rem!important;flex:1;border-radius:14px}
+  #mainNav a i{margin:0;font-size:1.25rem;line-height:1}
+  #mainNav .nv-home{display:none}
+  body:not(.funnel) .wrap{padding-bottom:84px}
+  body:not(.funnel) #crisp-chatbox [data-id="chat_closed"]{bottom:96px!important}
+  .acctbar{justify-content:space-between}
+}
+@keyframes pagein{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 @media (max-width:640px){.top{flex-direction:column;align-items:stretch}.nav{justify-content:space-between}.nav a{padding:8px 10px;font-size:.82rem}}
 .page{display:grid;gap:18px;animation:pagein .3s ease}
 @keyframes pagein{from{opacity:.4;transform:translateY(6px)}to{opacity:1;transform:none}}
@@ -223,7 +235,20 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .rot{display:inline-block;background:linear-gradient(90deg,var(--ink),var(--basil));-webkit-background-clip:text;background-clip:text;color:transparent;transition:opacity .45s,transform .45s}
 .rot.out{opacity:0;transform:translateY(12px)}
 .h2o-sub{margin:0;font-size:clamp(1.05rem,2.6vw,1.3rem);color:var(--muted);font-weight:600}
-.h2o-goals{display:flex;flex-wrap:wrap;gap:8px}
+.h2o-goals{display:grid;gap:10px;width:min(100%,520px)}
+.h2o-goals button{border:2px solid var(--line)!important;background:var(--surface)!important;border-radius:20px!important;padding:14px 16px!important;display:flex!important;gap:14px!important;align-items:center;text-align:left;width:100%;box-shadow:var(--shadow)}
+.h2o-goals button>span:nth-child(2){flex:1;display:grid;gap:1px}
+.h2o-goals button b{font-size:1.02rem}
+.h2o-goals button small{color:var(--muted);font-weight:600;font-size:.8rem}
+.h2o-goals button i{font-style:normal;font-size:1.6rem;color:var(--basil);font-weight:800}
+.hg-e{width:48px;height:48px;border-radius:14px;background:var(--bg);display:grid;place-items:center;font-size:1.7rem;flex:none}
+.h2o-ask{margin:6px 0 0;font-family:var(--display);font-weight:800;font-size:1.25rem}
+.h2o-trust{display:flex;flex-wrap:wrap;gap:6px 14px;color:var(--muted);font-weight:700;font-size:.82rem}
+.h2o-alt{font-weight:800;color:var(--basil);text-decoration:none}
+#p-accueil .feats,#p-accueil .steps4,#p-accueil .snap,#p-accueil .dayplan,#p-accueil .final{display:none}
+.h2o{min-height:0!important;padding-block:clamp(10px,4vw,40px)!important}
+.h2o-txt{max-width:640px}
+@media (min-width:761px){.h2o-title{font-size:clamp(2.6rem,6vw,4.4rem)!important;min-height:2.05em}}
 .h2o-goals button{border:1.5px solid var(--line);background:var(--surface);border-radius:99px;padding:8px 14px;font-weight:700;font-size:.88rem;display:inline-flex;gap:6px;align-items:center;transition:border-color .15s,transform .15s}
 .h2o-goals button:hover{border-color:var(--basil);transform:translateY(-2px)}
 .bubble-cta{position:relative;width:150px;height:150px;border-radius:50%;border:0;color:#FFFFFF;font-family:var(--display);font-weight:800;font-size:1.05rem;line-height:1.2;background:radial-gradient(circle at 32% 28%,var(--sky),var(--basil) 68%);box-shadow:0 22px 40px -18px var(--basil);transition:transform .2s;margin-top:6px}
@@ -496,6 +521,25 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .rvl-cta{display:grid;gap:8px;justify-items:center}
 .rvl-buy{width:min(460px,100%);padding:16px 20px;font-size:1.05rem;box-shadow:0 16px 30px -16px var(--basil)}
 .rvl-later{border:0;background:none;color:var(--muted);font-weight:700;text-decoration:underline;padding:6px}
+.pay-plans{display:grid;gap:12px;width:100%}
+.pay-plan{position:relative;display:flex;align-items:center;gap:12px;text-align:left;border:2px solid var(--line);background:var(--surface);border-radius:20px;padding:18px 16px;font:inherit;color:var(--ink);transition:border-color .15s,background .15s}
+.pay-plan[aria-checked="true"]{border-color:var(--basil);background:var(--basil-soft)}
+.pay-badge{position:absolute;top:-11px;left:16px;background:var(--leaf);color:#FFFFFF;font-weight:800;font-size:.72rem;padding:3px 10px;border-radius:99px}
+.pay-rd{width:22px;height:22px;border-radius:50%;border:2px solid var(--line);flex:none;background:var(--surface)}
+.pay-plan[aria-checked="true"] .pay-rd{border:7px solid var(--basil)}
+.pay-t{flex:1;display:grid;gap:2px;min-width:0}
+.pay-t b{font-size:1.05rem}
+.pay-t small,.pay-p small{color:var(--muted);font-size:.78rem;font-weight:600}
+.pay-p{display:grid;justify-items:end}
+.pay-p b{font-family:var(--display);font-size:1.3rem}
+.pay-guard{display:flex;gap:12px;align-items:center;width:100%;background:color-mix(in srgb,var(--leaf) 12%,var(--surface));border-radius:18px;padding:12px 16px}
+.pay-guard>span:first-child{font-size:1.8rem}
+.pay-guard small{display:block;color:var(--muted)}
+.pay-incl{list-style:none;margin:0;padding:0;display:grid;gap:8px;width:100%}
+.pay-incl li::before{content:"✓";display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--basil);color:#FFFFFF;font-size:.7rem;font-weight:800;margin-right:10px}
+.pay-incl li{font-weight:600}
+.pay-bar{position:sticky;bottom:0;width:100%;display:grid;gap:6px;justify-items:center;padding:12px 0 4px;background:linear-gradient(transparent,var(--surface) 25%)}
+.pay-bar .rvl-buy{width:100%}
 .rvl-note{margin:0;font-size:.72rem;color:var(--muted);text-align:center}
 @media (prefers-reduced-motion:reduce){.rvl-orb,.rvl-orb span,.rvl-chips span,.rvl-steps li,.rvl-gbar i{animation:none;opacity:1}}
 
@@ -536,7 +580,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .rvl-yr{margin:0;font-weight:700;color:var(--leaf);text-align:center}
 
 /* parcours guidé */
-body.funnel[data-page="plan"] #mainNav{display:none}
+body.funnel #mainNav{display:none}
 body.funnel[data-page="plan"]{overflow:hidden}
 body.funnel[data-page="plan"] #quiz{position:fixed;inset:0;z-index:25;border-radius:0;border:0;box-shadow:none;overflow-y:auto;background:var(--page);padding:max(14px,env(safe-area-inset-top)) max(16px,calc((100vw - 560px)/2)) max(24px,env(safe-area-inset-bottom))}
 body.funnel[data-page="plan"] #quiz > h2{display:none}
@@ -564,6 +608,31 @@ body.funnel[data-page="plan"] .qopt[aria-pressed="true"]::after{top:50%;transfor
 body.funnel[data-page="plan"] .qnav{position:sticky;bottom:0;padding-top:10px;background:linear-gradient(transparent,var(--page) 30%)}
 body.funnel[data-page="plan"] .qnav #qNext{flex:1;max-width:320px;margin-left:auto;padding:14px 18px;font-size:1rem}
 .qi{display:grid;gap:14px;justify-items:start;align-content:start}
+.qi-hero{font-size:4.2rem;line-height:1;width:110px;height:110px;border-radius:32px;background:var(--basil-soft);display:grid;place-items:center;animation:shkin .5s ease}
+.qi-steps{display:flex;gap:8px;flex-wrap:wrap}
+.qi-steps span{display:flex;gap:6px;align-items:center;font-weight:700;font-size:.85rem;color:var(--muted)}
+.qi-steps b{width:24px;height:24px;border-radius:50%;background:var(--basil);color:#FFFFFF;display:grid;place-items:center;font-size:.75rem}
+.burn{width:100%;display:grid;gap:8px}
+.burn-bar{display:flex;height:22px;border-radius:99px;overflow:hidden;background:var(--bg)}
+.burn-bar i:first-child{background:var(--basil)}.burn-bar i:last-child{background:var(--citrus)}
+.burn-l{display:flex;flex-wrap:wrap;gap:6px 16px;font-weight:700;font-size:.85rem}
+.burn-l i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px}
+.glasses{display:flex;flex-wrap:wrap;gap:6px}
+.glasses span{font-size:1.7rem;opacity:.25;filter:grayscale(1)}
+.glasses span.on{opacity:1;filter:none}
+.qrvs{display:grid;gap:10px;width:100%}
+.qrv{background:var(--bg);border-radius:18px;padding:14px;display:grid;gap:6px}
+.qrv div{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.qrv .stars{color:var(--citrus)}
+.qrv em{font-style:normal;font-weight:800;color:var(--leaf);font-size:.85rem}
+.qrv p{margin:0;color:var(--muted);font-size:.92rem}
+.bodies{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;background:var(--bg);border-radius:22px;padding:16px 8px}
+.bodyf{margin:0;display:grid;justify-items:center;gap:6px}
+.bodyf svg{width:110px;height:auto}
+.bodyf figcaption{display:grid;justify-items:center}
+.bodyf small{color:var(--muted);font-weight:700}
+.bodyf b{font-family:var(--display);font-size:1.2rem}
+.bodies-arrow{font-size:2rem;color:var(--basil);font-weight:800}
 .qi-tag{background:var(--basil-soft);color:var(--basil);font-weight:800;font-size:.78rem;padding:5px 12px;border-radius:99px}
 .qi-card{display:grid;gap:4px;background:var(--bg);border-radius:18px;padding:16px;width:100%}
 .qi-card.big{justify-items:center;text-align:center;padding:22px 16px}
@@ -816,12 +885,12 @@ font[style]{background:none!important;box-shadow:none!important}
       <h1 class="notranslate" translate="no">One<span>Athlet</span></h1>
     </a>
     <nav class="nav" id="mainNav" aria-label="Pages">
-      <a href="#accueil" data-go="accueil">Accueil</a>
-      <a href="#programmes" data-go="programmes">Programmes</a>
-      <a href="#plan" data-go="plan">Mon bilan</a>
-      <a href="#suivi" data-go="suivi">Suivi</a>
-      <a href="#menu" data-go="menu">Menus</a>
-      <a href="#coach" data-go="coach">Coach IA</a>
+      <a href="#accueil" data-go="accueil" class="nv-home"><i aria-hidden="true">🏠</i>Accueil</a>
+      <a href="#programmes" data-go="programmes"><i aria-hidden="true">📚</i>Programmes</a>
+      <a href="#plan" data-go="plan"><i aria-hidden="true">🎯</i>Mon bilan</a>
+      <a href="#suivi" data-go="suivi"><i aria-hidden="true">📊</i>Suivi</a>
+      <a href="#menu" data-go="menu"><i aria-hidden="true">🍽️</i>Menus</a>
+      <a href="#coach" data-go="coach"><i aria-hidden="true">💬</i>Coach IA</a>
     </nav>
   </header>
   <div class="acctbar">
@@ -845,14 +914,17 @@ font[style]{background:none!important;box-shadow:none!important}
       <span class="kicker">OneAthlet</span>
       <h2 id="h-hero" class="h2o-title"><span class="rot" id="rot">Prendre du muscle en mangeant mieux.</span></h2>
       <p class="h2o-sub">Un objectif basé sur vous.</p>
+      <p class="h2o-ask">Quel est votre objectif ?</p>
       <div class="h2o-goals" id="heroGoals" aria-label="Choisir un objectif">
-        <button type="button" data-hg="perte"><span aria-hidden="true">🔥</span>Mincir</button>
-        <button type="button" data-hg="muscle"><span aria-hidden="true">💪</span>Muscle</button>
-        <button type="button" data-hg="prise"><span aria-hidden="true">📈</span>Grossir</button>
-        <button type="button" data-hg="sain"><span aria-hidden="true">🥗</span>Mieux manger</button>
-        <button type="button" data-hg="energie"><span aria-hidden="true">⚡</span>Énergie</button>
+        <button type="button" data-hg="perte"><span class="hg-e" aria-hidden="true">🔥</span><span><b>Perdre du poids</b><small>Affiner ma silhouette</small></span><i aria-hidden="true">›</i></button>
+        <button type="button" data-hg="muscle"><span class="hg-e" aria-hidden="true">💪</span><span><b>Prendre du muscle</b><small>Plus fort, plus dessiné</small></span><i aria-hidden="true">›</i></button>
+        <button type="button" data-hg="prise"><span class="hg-e" aria-hidden="true">📈</span><span><b>Prendre du poids</b><small>Enfin grossir</small></span><i aria-hidden="true">›</i></button>
+        <button type="button" data-hg="sain"><span class="hg-e" aria-hidden="true">🥗</span><span><b>Manger mieux</b><small>Équilibre et suivi</small></span><i aria-hidden="true">›</i></button>
+        <button type="button" data-hg="energie"><span class="hg-e" aria-hidden="true">⚡</span><span><b>Plus d'énergie</b><small>Fini les coups de fatigue</small></span><i aria-hidden="true">›</i></button>
       </div>
-      <button class="bubble-cta" type="button" id="heroCta"><span>Commencer<br>mon plan</span></button>
+      <div class="h2o-trust"><span>⏱️ 2 minutes</span><span>🛡️ Satisfait ou remboursé 30 jours</span><span>🔓 Sans engagement</span></div>
+      <a href="#programmes" data-go="programmes" class="h2o-alt">ou choisir un programme prêt →</a>
+      <button class="bubble-cta" type="button" id="heroCta" hidden><span>Commencer<br>mon plan</span></button>
     </div>
   </section>
 
@@ -1627,10 +1699,12 @@ const GAIN=d=>d.goal==='muscle'||d.goal==='prise';
 const MAINT=d=>d.goal==='sain'||d.goal==='energie';
 const QUIZ=[
  {k:'goal',q:()=>'Quel est votre objectif ?',o:()=>[['perte','🔥','Perdre du poids','Affiner ma silhouette'],['muscle','💪','Prendre du muscle','Plus fort, plus dessiné'],['prise','📈','Prendre du poids','Je suis mince et je n\'arrive pas à grossir'],['sain','🥗','Manger mieux','Équilibre et suivi nutritionnel'],['energie','⚡','Plus d\'énergie','Fini les coups de fatigue']]},
+ {k:'i_goal',info:d=>infoGoal(d),o:()=>[]},
  {k:'sex',q:()=>'Vous êtes…',o:()=>[['F','👩','Une femme','Calcul adapté au métabolisme féminin'],['H','👨','Un homme','Calcul adapté au métabolisme masculin']]},
  {k:'body',form:1,q:()=>'Parlez-nous de votre corps',o:()=>[]},
  {k:'i_bmi',info:d=>infoBmi(d),o:()=>[]},
  {k:'sport',q:()=>'Combien de fois faites-vous du sport ?',o:()=>[['0','🛋️','Jamais ou presque','Peu de marche'],['1','🚶','1 à 2 fois / sem.','Marche, vélo, loisir'],['3','🏃','3 à 4 fois / sem.','Salle, course, sport co'],['5','🏋️','5 fois et plus','Entraînement intense']]},
+ {k:'i_burn',info:d=>infoBurn(d),o:()=>[]},
  {k:'meals',q:()=>'Combien de repas mangez-vous par jour ?',o:()=>[['2','🍽️','1 à 2 repas','Je saute souvent un repas'],['3','🍴','3 repas','Matin, midi, soir'],['4','🥪','3 repas + 1 collation','Un goûter dans la journée'],['5','🍱','5 repas et plus','Je mange souvent']]},
  {k:'amount',when:d=>!MAINT(d),q:d=>GAIN(d)?'Combien de kilos voulez-vous prendre ?':'Combien de kilos aimeriez-vous perdre ?',
   o:d=>GAIN(d)?[['2.5','🌱','2 à 3 kg','Un premier palier'],['4','🌿','3 à 5 kg','Un vrai changement'],['7','🌳','5 à 10 kg','Une transformation'],['12','🏔️','Plus de 10 kg','Un grand défi']]
@@ -1643,6 +1717,8 @@ const QUIZ=[
  {k:'i_obst',info:d=>infoObst(d),o:()=>[]},
  {k:'sleep',q:()=>'Combien d\'heures dormez-vous par nuit ?',o:()=>[['5','😵','Moins de 6 h','Souvent fatigué'],['6','😐','6 à 7 h','Ça dépend des jours'],['8','😴','7 à 8 h','Je dors bien'],['9','🛌','Plus de 8 h','Gros dormeur']]},
  {k:'water',q:()=>'Combien d\'eau buvez-vous par jour ?',o:()=>[['1','☕','Surtout café ou thé','Très peu d\'eau'],['2','🥤','Moins de 1 L','2 à 4 verres'],['3','💧','1 à 2 L','5 à 8 verres'],['4','🌊','Plus de 2 L','Je bois beaucoup']]},
+ {k:'i_water',info:d=>infoWater(d),o:()=>[]},
+ {k:'i_avis',when:()=>realReviews().length>0,info:()=>infoAvis(),o:()=>[]},
  {k:'likes',multi:true,q:()=>'Qu\'aimeriez-vous manger ?',o:()=>[['legumes','🥦','Légumes',''],['fruits','🍓','Fruits',''],['viande','🍗','Viande',''],['poisson','🐟','Poisson',''],['oeufs','🥚','Œufs',''],['laitiers','🧀','Produits laitiers',''],['feculents','🍝','Pâtes, riz, pain',''],['legumineuses','🫘','Légumineuses','Lentilles, pois chiches'],['noix','🥜','Fruits secs',''],['monde','🌶️','Cuisine du monde','Épicé, curry, wok'],['soupes','🍲','Soupes et mijotés',''],['sucre','🍫','Douceurs','En version saine']]},
  {k:'diet',multi:true,q:()=>'Comment mangez-vous ?',o:()=>[['tout','🍽️','De tout','Sans restriction',1],['vege','🥕','Végétarien','Ni viande ni poisson'],['vegan','🌱','Vegan','100 % végétal'],['pesce','🐟','Pescétarien','Poisson, pas de viande'],['paleo','🥩','Paléo','Sans céréales ni laitiers'],['keto','🥑','Cétogène','Très peu de glucides'],['hp','💪','Riche en protéines','Priorité aux protéines'],['medit','🫒','Méditerranéen','Huile d\'olive, poisson, légumes'],['halal','🌙','Halal','Viandes halal']]},
  {k:'supp',multi:true,q:()=>'Prenez-vous des compléments ?',o:()=>[['prot','💪','Protéines','Whey, protéine végétale'],['crea','⚡','Créatine','Force et puissance'],['gainer','🥤','Mass gainer','Pour prendre du poids'],['conseil','🧭','Je veux des conseils','Lesquels choisir ?'],['aucun','🚫','Aucun','',1]]},
@@ -1653,8 +1729,45 @@ const QUIZ=[
  {k:'pace',when:d=>!MAINT(d),q:()=>'À quel rythme voulez-vous avancer ?',
   o:d=>GAIN(d)?[['doux','🐢','Progressif','≈ +0,2 kg / semaine'],['reg','🚶','Régulier','≈ +0,35 kg / semaine'],['amb','🚀','Ambitieux','≈ +0,5 kg / semaine']]
    :[['doux','🐢','En douceur','≈ 0,3 kg / semaine'],['reg','🚶','Régulier','≈ 0,5 kg / semaine'],['amb','🚀','Ambitieux','≈ 0,7 kg / semaine']]},
+ {k:'i_body',when:d=>!MAINT(d),info:d=>infoBody(d),o:()=>[]},
  {k:'i_proj',info:d=>infoProj(d),o:()=>[]},
 ];
+const GOALI={
+ perte:['🔥','Perdre du poids sans se priver','Pas de régime miracle : un léger déficit, des repas qui rassasient et un suivi chaque jour.'],
+ muscle:['💪','Le muscle se construit aussi dans l\'assiette','Assez de protéines et de calories, au bon moment : vos séances paient enfin.'],
+ prise:['📈','Grossir, c\'est une méthode','Des calories faciles à manger, réparties sur la journée : les kilos arrivent.'],
+ sain:['🥗','Mieux manger, sans compter chaque miette','Des repas équilibrés et simples, et vous voyez ce que contient votre assiette.'],
+ energie:['⚡','L\'énergie commence au petit-déjeuner','Des sucres lents et des protéines à chaque repas : fini le coup de barre.'],
+};
+function infoGoal(d){const g=GOALI[d.goal]||GOALI.perte;
+  return `<div class="qi"><span class="qi-tag">Excellent choix</span><div class="qi-hero" aria-hidden="true">${g[0]}</div><p class="qq">${g[1]}</p>
+    <div class="qi-card"><span>${g[2]}</span></div>
+    <div class="qi-steps"><span><b>1</b>Votre bilan</span><span><b>2</b>Votre plan</span><span><b>3</b>Vos résultats</span></div></div>`}
+function bmrOf(d){const w=+d.weight||70,h=+d.height||170,a=+d.age||30;return 10*w+6.25*h-5*a+(d.sex==='H'?5:-161)}
+function infoBurn(d){
+  const b=Math.round(bmrOf(d)/10)*10,f=+({'0':1.2,'1':1.375,'3':1.55,'5':1.725}[d.sport]||1.375),t=Math.round(b*f/10)*10,act=t-b;
+  return `<div class="qi"><span class="qi-tag">Votre corps en chiffres</span><p class="qq">Votre corps dépense environ <b class="num" style="color:var(--basil)">${fmt(t)} kcal</b> par jour.</p>
+    <div class="burn"><div class="burn-bar"><i style="width:${b/t*100}%"></i><i style="width:${act/t*100}%"></i></div>
+    <div class="burn-l"><span><i style="background:var(--basil)"></i>Au repos : ${fmt(b)} kcal</span><span><i style="background:var(--citrus)"></i>Activité : ${fmt(act)} kcal</span></div></div>
+    <div class="qi-card"><b>Ce chiffre est la base de votre plan.</b><span>${GAIN(d)?'On ajoute un peu plus pour vous faire prendre.':MAINT(d)?'On le respecte pour garder votre poids stable.':'On retire un peu, sans jamais vous affamer.'}</span></div>
+    <small class="qi-note">Estimation (formule de Mifflin-St Jeor).</small></div>`}
+function infoWater(d){
+  const L=Math.round((+d.weight||70)*0.033*2)/2,g=Math.round(L*4),cur={'1':1,'2':3,'3':6,'4':9}[d.water]||3;
+  return `<div class="qi"><span class="qi-tag">Hydratation</span><p class="qq">Votre objectif : <b class="num" style="color:var(--sky)">${fmt(L,1)} L</b> d'eau par jour.</p>
+    <div class="glasses" aria-label="${g} verres par jour">${Array.from({length:g},(_,i)=>`<span class="${i<cur?'on':''}" aria-hidden="true">💧</span>`).join('')}</div>
+    <div class="qi-card"><b>Soit ${g} verres de 25 cl.</b><span>Bien boire aide à moins grignoter et à garder de l'énergie. On vous le rappelle dans votre suivi.</span></div></div>`}
+function realReviews(){try{return (reviews||[]).filter(r=>r&&r.texte).slice(0,3)}catch(e){return []}}
+function reviewCards(){return realReviews().map(r=>{const n=Math.max(1,Math.min(5,Math.round(+r.note||5))),nm=String(r.prenom||'Anonyme').slice(0,24),kg=+r.kilos;
+  return `<div class="qrv"><div><b>${esc(nm)}</b><span class="stars">${'★'.repeat(n)}</span>${kg>0?`<em class="num">−${fmt(kg,1)} kg</em>`:''}</div><p>${esc(String(r.texte).slice(0,180))}</p></div>`}).join('')}
+function infoAvis(){return `<div class="qi"><span class="qi-tag">Ils l'ont fait</span><p class="qq">Ce que disent nos membres.</p><div class="qrvs">${reviewCards()}</div></div>`}
+function bodySvg(wf,col,label,kg){const tw=34*wf,hw=tw*1.05,lw=tw*.42;
+  return `<figure class="bodyf"><svg viewBox="0 0 120 200" aria-hidden="true"><circle cx="60" cy="24" r="15" fill="${col}"/><rect x="${60-tw/2}" y="44" width="${tw}" height="70" rx="${tw/3}" fill="${col}"/><rect x="${60-tw/2-11}" y="48" width="10" height="60" rx="5" fill="${col}"/><rect x="${60+tw/2+1}" y="48" width="10" height="60" rx="5" fill="${col}"/><rect x="${60-hw/2}" y="104" width="${lw}" height="84" rx="${lw/2.5}" fill="${col}"/><rect x="${60+hw/2-lw}" y="104" width="${lw}" height="84" rx="${lw/2.5}" fill="${col}"/></svg><figcaption><small>${label}</small><b class="num">${kg}</b></figcaption></figure>`}
+function infoBody(d){
+  const w=+d.weight||70,h=+d.height||170,gn=GAIN(d),a=+d.amount||0,g=gn?w+a:Math.max(40,w-a);
+  const f=x=>Math.max(.75,Math.min(1.55,(x/((h/100)**2))/22));
+  return `<div class="qi"><span class="qi-tag">Votre transformation</span><p class="qq">Voici où vous allez.</p>
+    <div class="bodies">${bodySvg(f(w),'var(--line)','Aujourd\'hui',fmt(w,1)+' kg')}<span class="bodies-arrow" aria-hidden="true">→</span>${bodySvg(f(g),'var(--basil)','Objectif',fmt(g,1)+' kg')}</div>
+    <small class="qi-note">Illustration simplifiée, pour visualiser votre objectif.</small></div>`}
 function infoBmi(d){
   const w=+d.weight||70,h=+d.height||170,b=w/((h/100)**2),pos=Math.max(2,Math.min(98,(b-15)/(40-15)*100));
   const z=b<18.5?['Poids insuffisant','var(--sky)','Votre plan vous aidera à prendre du poids sainement.']:b<25?['Poids normal','var(--leaf)','Belle base : votre plan va vous aider à garder ce cap.']:b<30?['Surpoids','var(--citrus)','Bonne nouvelle : c\'est là que les premiers kilos partent le plus vite.']:['Obésité','var(--tomato)','Chaque kilo perdu compte pour votre santé. On avance pas à pas.'];
@@ -1961,12 +2074,27 @@ function renderGains(P,Q){
     </div>
     <div class="rvl-verdict">💡 Dans cet exemple, votre abonnement est remboursé <b>dès la première semaine</b>.</div>
     <div class="rvl-cta">
-      ${isPrem?'<button type="button" class="btn" id="rvlSee">Voir mon plan →</button>':'<div class="rvl-plans"><button type="button" class="btn rvl-buy" data-buy>14,99 €/mois<small>sans engagement</small></button><button type="button" class="btn rvl-buy rvl-life" data-buy-life>89,99 € à vie<small>payé une fois</small></button></div><p class="rvl-yr">💰 Soit ≈ 60 € économisés par mois, ≈ 720 € par an (exemple).</p><button type="button" class="rvl-later" id="rvlSee">Continuer sans Premium</button>'}
+      ${isPrem?'<button type="button" class="btn" id="rvlSee">Voir mon plan →</button>':`
+      <h3 style="justify-self:start">Choisissez votre formule</h3>
+      <div class="pay-plans" role="radiogroup" aria-label="Formule">
+        <button type="button" class="pay-plan" role="radio" aria-checked="true" data-plan="life"><span class="pay-badge">⭐ Meilleure offre</span><span class="pay-rd" aria-hidden="true"></span><span class="pay-t"><b>Accès à vie</b><small>Payé une seule fois · rentabilisé en 6 mois</small></span><span class="pay-p"><b class="num">89,99 €</b><small>une fois</small></span></button>
+        <button type="button" class="pay-plan" role="radio" aria-checked="false" data-plan="month"><span class="pay-rd" aria-hidden="true"></span><span class="pay-t"><b>Mensuel</b><small>Sans engagement · résiliable en 2 clics</small></span><span class="pay-p"><b class="num">14,99 €</b><small>par mois</small></span></button>
+      </div>
+      <div class="pay-guard"><span aria-hidden="true">🛡️</span><span><b>Satisfait ou remboursé 30 jours</b><small>Sur le premier paiement. Conditions dans la FAQ.</small></span></div>
+      <ul class="pay-incl"><li>Votre plan complet : calories et macros</li><li>Vos menus de la semaine, adaptés à votre régime</li><li>Votre suivi : repas, eau, poids, photo de l'assiette</li><li>Le coach IA, 24 h/24</li></ul>
+      ${realReviews().length?`<div class="qrvs">${reviewCards()}</div>`:''}
+      <div class="pay-bar"><button type="button" class="btn rvl-buy" id="payGo" data-buy-life>Continuer avec l'accès à vie →</button><button type="button" class="rvl-later" id="rvlSee">Continuer sans Premium</button></div>`}
     </div>
     <p class="rvl-note">Satisfait ou remboursé 30 jours sur le premier paiement (*conditions dans la FAQ) · Mensuel sans engagement · Estimations si vous suivez votre plan : les résultats varient d'une personne à l'autre. Prix du diététicien et du fast-food : moyennes indicatives en France.</p>
   </div>`;
   $('#rvlClose').onclick=closeReveal;$('#rvlSee').onclick=closeReveal;
   $('#revealIn').querySelectorAll('[data-buy],[data-buy-life]').forEach(b=>b.addEventListener('click',closeReveal));
+  $('#revealIn').querySelectorAll('[data-plan]').forEach(b=>b.addEventListener('click',()=>{
+    $('#revealIn').querySelectorAll('[data-plan]').forEach(x=>x.setAttribute('aria-checked',x===b));
+    const go=$('#payGo'),life=b.dataset.plan==='life';
+    go.toggleAttribute('data-buy-life',life);go.toggleAttribute('data-buy',!life);
+    go.textContent=life?'Continuer avec l\'accès à vie →':'Continuer avec le mensuel →';
+  }));
 }
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#reveal').hidden)closeReveal()});
 
