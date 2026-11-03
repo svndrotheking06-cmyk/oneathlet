@@ -144,7 +144,6 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
   #mainNav a{display:grid;justify-items:center;gap:2px;padding:6px 4px!important;font-size:.66rem!important;flex:1;border-radius:14px}
   #mainNav a i{margin:0;font-size:1.25rem;line-height:1}
   #mainNav .nv-home{display:none}
-  body:not(.funnel) .wrap{padding-bottom:84px}
   body:not(.funnel) #crisp-chatbox [data-id="chat_closed"]{bottom:96px!important}
   .acctbar{justify-content:space-between}
 }
@@ -942,8 +941,7 @@ font[style]{background:none!important;box-shadow:none!important}
 
       <h1 class="notranslate" translate="no">One<span>Athlet</span></h1>
     </a>
-    <nav class="nav" id="mainNav" aria-label="Pages">
-      <a href="#coach" data-go="coach"><i aria-hidden="true">💬</i>Coach IA</a>
+    <nav class="nav" id="mainNav" aria-label="Pages" hidden>
     </nav>
   </header>
   <div class="acctbar">
