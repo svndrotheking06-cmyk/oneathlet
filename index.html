@@ -29,8 +29,16 @@ body{margin:0;background:var(--page);color:var(--ink);font-family:var(--body);mi
 .right{display:flex;align-items:center;gap:8px}
 .start{border:0;border-radius:999px;padding:10px 18px;font:inherit;font-weight:800;font-size:.92rem;color:#FFFFFF;background:linear-gradient(135deg,var(--orange),var(--coral));box-shadow:0 12px 24px -14px var(--coral);cursor:pointer;transition:transform .15s}
 .start:hover{transform:translateY(-1px)}
-.langsel{display:inline-flex;align-items:center;font-weight:700;font-size:.9rem}
-.langsel select{border:0;background:none;font:inherit;font-weight:700;color:var(--ink);padding:5px 2px;cursor:pointer}
+.lang{position:relative}
+.lang-btn{border:0;background:none;font:inherit;font-weight:700;font-size:.9rem;color:var(--muted);padding:8px 6px;cursor:pointer}
+.lang-btn:hover,.lang-btn[aria-expanded="true"]{color:var(--ink)}
+.lang-pop{position:absolute;right:0;top:calc(100% + 8px);z-index:20;min-width:170px;display:grid;gap:2px;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:6px;box-shadow:0 18px 40px -18px rgba(43,26,20,.35);animation:pop .15s ease-out}
+.lang-pop button{border:0;background:none;font:inherit;font-weight:700;font-size:.92rem;color:var(--ink);text-align:left;padding:10px 12px;border-radius:12px;cursor:pointer}
+.lang-pop button:hover{background:var(--coral-soft)}
+.lang-pop button[aria-current="true"]{color:var(--coral)}
+.lang-pop button[aria-current="true"]::after{content:" ✓"}
+@keyframes pop{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.lang-pop{animation:none}}
 .hero{display:grid;align-content:center;justify-items:center;text-align:center;gap:18px;padding:24px clamp(16px,6vw,80px) 64px;max-width:1080px;width:100%;margin:0 auto}
 .kick{background:var(--coral-soft);color:var(--coral);font-weight:800;font-size:.76rem;text-transform:uppercase;letter-spacing:.1em;padding:6px 12px;border-radius:999px}
 h1{margin:0;font-family:var(--display);font-weight:800;font-size:clamp(2.8rem,10vw,6rem);line-height:1;letter-spacing:-.045em;max-width:12ch;text-wrap:balance;margin-inline:auto}
@@ -50,9 +58,12 @@ font[style]{background:none!important;box-shadow:none!important}
   </a>
   <div class="right">
     <button type="button" class="start" id="startBtn">Commencer</button>
-    <label class="langsel notranslate" translate="no"><select id="langSel" aria-label="Langue / Language">
-      <option value="fr">FR</option><option value="en">EN</option><option value="es">ES</option><option value="de">DE</option><option value="it">IT</option><option value="pt">PT</option><option value="nl">NL</option><option value="ar">AR</option><option value="tr">TR</option>
-    </select></label>
+    <div class="lang notranslate" translate="no">
+      <button type="button" class="lang-btn" id="langBtn" aria-haspopup="true" aria-expanded="false" aria-label="Langue / Language">FR</button>
+      <div class="lang-pop" id="langPop" hidden>
+        <button type="button" data-l="fr">Français</button><button type="button" data-l="en">English</button><button type="button" data-l="es">Español</button><button type="button" data-l="de">Deutsch</button><button type="button" data-l="it">Italiano</button><button type="button" data-l="pt">Português</button><button type="button" data-l="nl">Nederlands</button><button type="button" data-l="ar">العربية</button><button type="button" data-l="tr">Türkçe</button>
+      </div>
+    </div>
   </div>
 </header>
 
@@ -64,11 +75,18 @@ font[style]{background:none!important;box-shadow:none!important}
 <script>
 /* Langue : traduction automatique (Google Traduction) mémorisée dans un cookie */
 (function(){
-  const sel=document.getElementById('langSel'),codes=[...sel.options].map(o=>o.value);
+  const btn=document.getElementById('langBtn'),pop=document.getElementById('langPop'),items=[...pop.querySelectorAll('[data-l]')],codes=items.map(b=>b.dataset.l);
   const m=document.cookie.match(/(?:^|; )googtrans=\/fr\/([a-z-]+)/),LANG=m&&codes.includes(m[1])?m[1]:'fr';
-  sel.value=LANG;document.documentElement.lang=LANG;
-  sel.addEventListener('change',()=>{
-    const v=sel.value,parts=location.hostname.split('.'),root=parts.length>1?'.'+parts.slice(-2).join('.'):'';
+  btn.textContent=LANG.toUpperCase();document.documentElement.lang=LANG;
+  items.forEach(b=>b.setAttribute('aria-current',b.dataset.l===LANG));
+  const open=o=>{pop.hidden=!o;btn.setAttribute('aria-expanded',o)};
+  btn.addEventListener('click',e=>{e.stopPropagation();open(pop.hidden)});
+  document.addEventListener('click',e=>{if(!pop.hidden&&!pop.contains(e.target))open(false)});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')open(false)});
+  pop.addEventListener('click',e=>{
+    const b=e.target.closest('[data-l]');if(!b)return;
+    const v=b.dataset.l;if(v===LANG){open(false);return}
+    const parts=location.hostname.split('.'),root=parts.length>1?'.'+parts.slice(-2).join('.'):'';
     const set=(val,exp)=>{document.cookie='googtrans='+val+';path=/'+exp;if(root)document.cookie='googtrans='+val+';path=/;domain='+root+exp};
     if(v==='fr')set('','; expires=Thu, 01 Jan 1970 00:00:00 GMT');else set('/fr/'+v,'; max-age=31536000');
     location.reload();
