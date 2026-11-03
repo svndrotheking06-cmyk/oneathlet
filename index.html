@@ -249,6 +249,32 @@ h1 em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--cor
   .day{grid-template-columns:1fr;justify-items:center;text-align:center;padding-bottom:70px}
 }
 @media (prefers-reduced-motion:reduce){.sp-bar,.day .s-today,.sp-list li{transition:none}}
+.steps3{display:grid;justify-items:center;gap:34px;max-width:1080px;margin:0 auto;padding:30px clamp(16px,6vw,80px) 110px;text-align:center}
+.steps3 h2{margin:0;font-family:var(--display);font-weight:800;font-size:clamp(2.4rem,6vw,4rem);line-height:1.02;letter-spacing:-.04em}
+.steps3 h2 em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--coral));-webkit-background-clip:text;background-clip:text;color:transparent}
+.st3{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;width:100%;counter-reset:none}
+.st3 li{position:relative;display:grid;gap:10px;justify-items:start;align-content:start;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:28px;padding:22px;box-shadow:0 22px 40px -32px rgba(43,26,20,.45);opacity:0;transform:translateY(18px);transition:opacity .5s var(--d),transform .5s var(--d)}
+.steps3.run .st3 li{opacity:1;transform:none}
+.st3-v{order:-1}
+.st3-n{font-family:var(--display);font-weight:800;font-size:2.8rem;line-height:1;margin-top:6px;background:linear-gradient(180deg,var(--orange),var(--coral));-webkit-background-clip:text;background-clip:text;color:transparent;opacity:.9}
+.st3 b{font-family:var(--display);font-size:1.25rem}
+.st3 p{margin:0;color:var(--muted);font-weight:600;line-height:1.5;font-size:.95rem}
+.st3-v{width:100%;height:170px;border-radius:20px;background:var(--page);display:grid;place-content:center;gap:7px;padding:14px;overflow:hidden;position:relative}
+.v-quiz small{font-weight:800;font-size:.78rem;color:var(--ink)}
+.v-quiz span{background:#FFFFFF;border:1.5px solid var(--line);border-radius:999px;padding:6px 14px;font-weight:700;font-size:.78rem;text-align:left}
+.v-quiz span.on{border-color:var(--coral);background:var(--coral-soft);color:var(--coral)}
+.v-goal{grid-template-columns:auto auto;align-items:center;gap:14px}
+.v-goal svg{width:110px;height:110px}
+.v-mac{display:grid;gap:6px;text-align:left}
+.v-mac span{font-size:.72rem;font-weight:800;display:flex;align-items:center;gap:6px}
+.v-mac span::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--c)}
+.v-photo{padding:0;place-content:stretch}
+.v-photo img{width:100%;height:100%;object-fit:cover}
+.v-kc,.v-ok{position:absolute;border-radius:999px;font-weight:800;font-size:.72rem;padding:5px 11px;box-shadow:0 6px 16px -6px rgba(0,0,0,.45)}
+.v-kc{left:12px;top:12px;background:#FFFFFF;color:var(--ink)}
+.v-ok{right:12px;bottom:12px;background:#22A06B;color:#FFFFFF}
+@media (max-width:860px){.st3{grid-template-columns:1fr;max-width:420px}}
+@media (prefers-reduced-motion:reduce){.st3 li{transition:none}}
 .goog-te-banner-frame,.skiptranslate>iframe,#goog-gt-tt,.goog-te-balloon-frame{display:none!important}
 body{top:0!important}
 font[style]{background:none!important;box-shadow:none!important}
@@ -433,7 +459,46 @@ font[style]{background:none!important;box-shadow:none!important}
   </div>
 </section>
 
+<section class="steps3" id="steps3" aria-labelledby="st3H">
+  <h2 id="st3H">Votre programme<br><em>en 3 étapes.</em></h2>
+  <ol class="st3">
+    <li style="--d:0s">
+      <span class="st3-n">1</span>
+      <div class="st3-v v-quiz" aria-hidden="true">
+        <small>Quel est votre objectif ?</small>
+        <span>🔥 Perdre du poids</span><span class="on">💪 Prendre du muscle ✓</span><span>🥗 Mieux manger</span>
+      </div>
+      <b>Faites le quiz</b>
+      <p>Quelques questions sur votre corps, vos goûts et vos habitudes. 2 minutes, pas plus.</p>
+    </li>
+    <li style="--d:.15s">
+      <span class="st3-n">2</span>
+      <div class="st3-v v-goal" aria-hidden="true">
+        <svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="48" fill="none" stroke="#FFE4DA" stroke-width="12"/><circle cx="60" cy="60" r="48" fill="none" stroke="url(#rg3)" stroke-width="12" stroke-linecap="round" stroke-dasharray="302" stroke-dashoffset="70" transform="rotate(-90 60 60)"/><defs><linearGradient id="rg3" x1="0" x2="1"><stop offset="0" stop-color="#FF9A3C"/><stop offset="1" stop-color="#EF4F2B"/></linearGradient></defs><text x="60" y="58" text-anchor="middle" font-size="20" font-weight="800" fill="#2B1A14">1 850</text><text x="60" y="76" text-anchor="middle" font-size="10" font-weight="700" fill="#7D655A">kcal / jour</text></svg>
+        <div class="v-mac"><span style="--c:#D93B4B">Prot. 130 g</span><span style="--c:#F5B83D">Gluc. 190 g</span><span style="--c:#7B61FF">Lip. 60 g</span></div>
+      </div>
+      <b>Recevez votre objectif</b>
+      <p>Vos calories, protéines, glucides et lipides, calculés pour vous, avec vos menus de la semaine.</p>
+    </li>
+    <li style="--d:.3s">
+      <span class="st3-n">3</span>
+      <div class="st3-v v-photo" aria-hidden="true">
+        <img src="assiette.jpg" alt="" loading="lazy">
+        <span class="v-kc">🍗 480 kcal · P 44 g</span>
+        <span class="v-ok">✓ Ajouté au suivi</span>
+      </div>
+      <b>Photographiez et suivez</b>
+      <p>Une photo de votre assiette, et tout s'ajoute à votre journée. Vous voyez vos progrès chaque jour.</p>
+    </li>
+  </ol>
+</section>
+
 <script>
+/* 3 étapes : les cartes apparaissent à l'arrivée sur la section */
+(function(){
+  const sec=document.getElementById('steps3');if(!sec)return;
+  new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){o.disconnect();sec.classList.add('run')}}),{threshold:.2}).observe(sec);
+})();
 /* Sport : la séance et la liste apparaissent à l'arrivée sur la section */
 (function(){
   const sec=document.getElementById('dayDemo');if(!sec)return;
