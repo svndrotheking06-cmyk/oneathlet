@@ -47,16 +47,29 @@ h1 em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--cor
 .sub{margin:0;font-size:clamp(1.1rem,3vw,1.5rem);font-weight:700;color:var(--muted);max-width:30ch;text-wrap:balance;margin-inline:auto}
 .sub b{color:var(--ink)}
 .show{padding:0 0 70px;overflow:hidden}
-.phones{position:relative;height:620px;width:min(100%,500px);margin:0 auto;overflow:hidden}
-.ph{position:absolute;top:20px;left:50%;margin:0;width:280px;height:576px;border-radius:52px;background:#1C1C1F;padding:11px;box-shadow:0 40px 80px -40px rgba(43,26,20,.55),inset 0 0 0 2px #3A3A40;transition:transform .45s cubic-bezier(.2,.8,.2,1);cursor:pointer}
-.ph::before,.ph::after{content:"";position:absolute;width:4px;border-radius:3px;background:#2A2A2F}
-.ph::before{left:-4px;top:120px;height:58px}.ph::after{right:-4px;top:150px;height:84px}
+.phones{position:relative;height:640px;width:min(100%,960px);margin:0 auto}
+.ph{position:absolute;top:20px;left:50%;margin:0;width:280px;height:576px;border-radius:54px;background:#0B0B0D;padding:12px;box-shadow:0 0 0 2.5px #9EA3AB,0 0 0 4px #5E636B,inset 0 0 0 2px #26262A,0 40px 80px -40px rgba(43,26,20,.6);transition:transform .45s cubic-bezier(.2,.8,.2,1);cursor:pointer}
+.hb{position:absolute;width:4px;border-radius:2px;background:linear-gradient(90deg,#6E737B,#B8BCC3 45%,#7C8189);z-index:-1}
+.hb.l{left:-7px;border-radius:2px 0 0 2px}.hb.r{right:-7px;border-radius:0 2px 2px 0}
+.hb.act{top:104px;height:30px}.hb.vu{top:150px;height:54px}.hb.vd{top:214px;height:54px}
+.hb.pw{top:170px;height:86px}.hb.cam{top:340px;height:48px;width:3px;background:linear-gradient(90deg,#4A4E55,#8E939B)}
+.ph .scr::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;box-shadow:inset 0 0 0 1px rgba(0,0,0,.25);z-index:6}
 .ph-m{z-index:3;transform:translateX(-50%) scale(1.06)}
-.ph-l{z-index:2;transform:translateX(calc(-50% - 250px)) scale(.92)}
-.ph-r{z-index:2;transform:translateX(calc(-50% + 250px)) scale(.92)}
+.ph-l{z-index:2;transform:translateX(calc(-50% - 315px)) scale(.92)}
+.ph-r{z-index:2;transform:translateX(calc(-50% + 315px)) scale(.92)}
 .phones .ph-m:hover{transform:translateX(-50%) scale(1.1)}
-.phones .ph-l:hover{transform:translateX(calc(-50% - 262px)) scale(.97)}
-.phones .ph-r:hover{transform:translateX(calc(-50% + 262px)) scale(.97)}
+.phones .ph-l:hover{transform:translateX(calc(-50% - 325px)) scale(.97)}
+.phones .ph-r:hover{transform:translateX(calc(-50% + 325px)) scale(.97)}
+@media (min-width:761px) and (max-width:1000px){
+  .ph{transform-origin:50% 0}
+  .phones{height:560px}
+  .ph-m{transform:translateX(-50%) scale(.9)}
+  .ph-l{transform:translateX(calc(-50% - 262px)) scale(.8)}
+  .ph-r{transform:translateX(calc(-50% + 262px)) scale(.8)}
+  .phones .ph-m:hover{transform:translateX(-50%) scale(.94)}
+  .phones .ph-l:hover{transform:translateX(calc(-50% - 268px)) scale(.84)}
+  .phones .ph-r:hover{transform:translateX(calc(-50% + 268px)) scale(.84)}
+}
 .scr{position:relative;height:100%;border-radius:42px;overflow:hidden;background:#FFF8F2;font-family:var(--body);color:var(--ink)}
 .island{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:86px;height:25px;border-radius:20px;background:#000;z-index:5}
 .sb{position:relative;z-index:4;display:flex;justify-content:space-between;padding:13px 24px 0;font-size:.72rem;font-weight:800}
@@ -77,11 +90,7 @@ h1 em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--cor
 @keyframes scan{from{top:8%}to{top:90%}}
 .tag{position:absolute;z-index:4;background:#FFFFFF;color:var(--ink);font-size:.66rem;font-weight:800;border-radius:999px;padding:5px 9px;box-shadow:0 6px 16px -6px rgba(0,0,0,.5);white-space:nowrap}
 .cam-img{object-position:50% 50%}
-.t1,.t2,.t3,.t4{right:12px}.t1{top:150px}.t2{top:192px}.t3{top:234px}.t4{top:276px}
-.ph-l .cam-top{margin-right:14px}
-.ph-l .cam-res{left:auto;width:96px;padding:8px 10px}.ph-l .cam-res b{font-size:1.05rem}.ph-l .mac{display:none}
-.ph-l .mac{flex-wrap:wrap;gap:4px}
-.ph-l .vf{left:auto;width:120px;right:14px}
+.t1{left:16px;top:130px}.t2{right:14px;top:175px}.t3{left:14px;top:250px}.t4{right:12px;top:300px}
 .cam-res{position:absolute;z-index:4;left:14px;right:14px;bottom:92px;background:rgba(255,255,255,.95);color:var(--ink);border-radius:20px;padding:10px 14px;display:grid;gap:6px}
 .cam-res small{display:block;color:var(--muted);font-weight:700;font-size:.66rem}
 .cam-res b{font-family:var(--display);font-size:1.3rem;color:var(--coral)}
@@ -132,14 +141,15 @@ h1 em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--cor
 .s-today span{font-size:.66rem;font-weight:700;opacity:.9}
 .s-today em{font-style:normal;justify-self:start;margin-top:6px;background:#FFFFFF;color:#EF4F2B;font-weight:800;font-size:.7rem;border-radius:999px;padding:6px 12px}
 @media (max-width:760px){
-  .phones{height:520px}
-  .ph{transform-origin:50% 0}
-  .ph-m{transform:translateX(-50%) scale(.88)}
-  .ph-l{transform:translateX(calc(-50% - 50vw - 14px)) scale(.78)}
-  .ph-r{transform:translateX(calc(-50% + 50vw + 14px)) scale(.78)}
-  .phones:hover .ph-l,.phones .ph-l:hover{transform:translateX(calc(-50% - 50vw - 14px)) scale(.78)}
-  .phones:hover .ph-r,.phones .ph-r:hover{transform:translateX(calc(-50% + 50vw + 14px)) scale(.78)}
-  .phones .ph-m:hover{transform:translateX(-50%) scale(.88)}
+  .show{padding-bottom:28px}
+  .phones{height:calc(576px * .44 + 30px)}
+  .ph{transform-origin:50% 0;top:14px}
+  .ph-m{transform:translateX(-50%) scale(.44)}
+  .ph-l{transform:translateX(calc(-50% - 32vw)) scale(.38)}
+  .ph-r{transform:translateX(calc(-50% + 32vw)) scale(.38)}
+  .phones .ph-l:hover{transform:translateX(calc(-50% - 32vw)) scale(.38)}
+  .phones .ph-r:hover{transform:translateX(calc(-50% + 32vw)) scale(.38)}
+  .phones .ph-m:hover{transform:translateX(-50%) scale(.44)}
 }
 @media (prefers-reduced-motion:reduce){.ph{transition:none}.scanl{animation:none;top:50%}}
 .goog-te-banner-frame,.skiptranslate>iframe,#goog-gt-tt,.goog-te-balloon-frame{display:none!important}
@@ -173,22 +183,24 @@ font[style]{background:none!important;box-shadow:none!important}
 <section class="show" aria-label="Aperçu de l'appli OneAthlet">
   <div class="phones">
     <figure class="ph ph-l" aria-label="Photo de l'assiette : calcul des calories">
+      <span class="hb l act" aria-hidden="true"></span><span class="hb l vu" aria-hidden="true"></span><span class="hb l vd" aria-hidden="true"></span><span class="hb r pw" aria-hidden="true"></span><span class="hb r cam" aria-hidden="true"></span>
       <div class="scr scr-cam">
         <img class="cam-img" src="assiette.jpg" alt="Assiette de poulet grillé, riz complet, brocoli et crudités prise en photo" onerror="this.remove()">
         <div class="cam-fallback" aria-hidden="true"><span>🥗</span><span>🍗</span><span>🥑</span><span>🍅</span></div>
         <div class="sb"><span>9:41</span><span class="sb-i">▲ ◼ ▮</span></div><span class="island" aria-hidden="true"></span>
-        <div class="cam-top" style="margin-left:auto">📸 Photo</div>
+        <div class="cam-top">📸 Photo du repas</div>
         <div class="vf" aria-hidden="true"><i></i><i></i><i></i><i></i><b class="scanl"></b></div>
-        <span class="tag t1" title="Brocoli">🥦 30 kcal</span>
-        <span class="tag t2" title="Crudités">🍅 40 kcal</span>
-        <span class="tag t3" title="Riz complet">🍚 180 kcal</span>
-        <span class="tag t4" title="Poulet grillé">🍗 230 kcal</span>
+        <span class="tag t1">🥦 Brocoli · 30 kcal</span>
+        <span class="tag t2">🍅 Crudités · 40 kcal</span>
+        <span class="tag t3">🍚 Riz complet · 180 kcal</span>
+        <span class="tag t4">🍗 Poulet grillé · 230 kcal</span>
         <div class="cam-res"><div><small>Total estimé</small><b>480 kcal</b></div><div class="mac"><span>P 44 g</span><span>G 46 g</span><span>L 10 g</span></div></div>
         <span class="shutter" aria-hidden="true"></span>
       </div>
     </figure>
 
     <figure class="ph ph-m" aria-label="Menus préparés et suivi du jour">
+      <span class="hb l act" aria-hidden="true"></span><span class="hb l vu" aria-hidden="true"></span><span class="hb l vd" aria-hidden="true"></span><span class="hb r pw" aria-hidden="true"></span><span class="hb r cam" aria-hidden="true"></span>
       <div class="scr scr-app">
         <div class="sb"><span>9:41</span><span class="sb-i">▲ ◼ ▮</span></div><span class="island" aria-hidden="true"></span>
         <div class="a-head"><div><small>Mardi</small><b>Bonjour 👋</b></div><span class="a-av">O</span></div>
@@ -209,6 +221,7 @@ font[style]{background:none!important;box-shadow:none!important}
     </figure>
 
     <figure class="ph ph-r" aria-label="Programmes de sport">
+      <span class="hb l act" aria-hidden="true"></span><span class="hb l vu" aria-hidden="true"></span><span class="hb l vd" aria-hidden="true"></span><span class="hb r pw" aria-hidden="true"></span><span class="hb r cam" aria-hidden="true"></span>
       <div class="scr scr-app">
         <div class="sb"><span>9:41</span><span class="sb-i">▲ ◼ ▮</span></div><span class="island" aria-hidden="true"></span>
         <div class="a-head"><div><small>Programmes</small><b>Sport 🏋️</b></div><span class="a-av">O</span></div>
