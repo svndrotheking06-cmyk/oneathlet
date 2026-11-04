@@ -972,7 +972,7 @@ font[style]{background:none!important;box-shadow:none!important}
   const TRIED=[['debut','🌱','Je commence tout juste','C\'est ma première fois'],['echec','🔁','J\'ai essayé, mais sans résultat','Rien n\'a vraiment duré'],['encours','💪','J\'y travaille déjà','Je veux aller plus loin']];
   const DEFI2=[['complique','🧩','C\'était trop compliqué','Trop de règles à suivre'],['temps2','⏱️','Je n\'avais pas assez de temps','Difficile à caser dans ma journée'],['resultats','📉','Je ne voyais pas de résultats','Beaucoup d\'efforts pour rien'],['stress','😣','C\'était stressant ou accablant','Trop de pression'],['motivation2','🔋','J\'ai perdu ma motivation','J\'ai abandonné en route']];
   const SAVOIR=[['debutant','🌱','Débutant','Je découvre les bases'],['inter','📘','Intermédiaire','Je connais les calories et les macros'],['pro','🏆','Pro','Je maîtrise déjà le sujet']];
-  const PRO=[['oui','🩺','Oui','Un professionnel m\'a recommandé OneAthlet'],['non','🙋','Non','Je l\'ai découvert par moi-même']];
+  const PRO=[['oui','✅','Oui','Un professionnel m\'a recommandé OneAthlet'],['non','❌','Non','Je l\'ai découvert par moi-même']];
   const CHANGE=[['sucre','🍰','Moins de sucre'],['malbouffe','🍔','Manger moins de malbouffe'],['boulimie','🫶','Arrêter les crises de boulimie'],['legumes','🥦','Manger plus de légumes'],['stress','😮‍💨','Arrêter de manger sous le stress'],['maison','🍳','Cuisiner plus souvent à la maison'],['sel','🧂','Manger moins de sel']];
   const REGIME=[['equilibre','🥗','Équilibré','Un peu de tout, sans excès'],['vege','🥕','Végétarien','Ni viande ni poisson'],['vegan','🌱','Vegan','100 % végétal'],['paleo','🥩','Paléo','Sans céréales ni produits laitiers'],['keto','🥑','Cétogène','Très peu de glucides, plus de lipides'],['hp','💪','Riche en protéines','Une protéine à chaque repas'],['lowcarb','🍞','Faible en glucides','Moins de pain, pâtes et riz']];
   const INTOL=[['lactose','🥛','Lactose'],['crustaces','🦐','Crustacés'],['miel','🍯','Miel'],['arachides','🥜','Arachides'],['poisson','🐟','Poisson'],['ble','🌾','Blé'],['mollusques','🦪','Mollusques'],['gluten','🍞','Gluten'],['lait','🍼','Lait'],['oeufs','🥚','Œufs'],['coque','🌰','Fruits à coque'],['soja','🫘','Soja'],['agrumes','🍊','Agrumes']];
@@ -1065,7 +1065,7 @@ font[style]{background:none!important;box-shadow:none!important}
         <div class="qz-dots" id="qzDots"><button type="button" aria-label="Photo 1" aria-current="true"></button><button type="button" aria-label="Photo 2"></button><button type="button" aria-label="Photo 3"></button></div>
       </div><button type="button" class="qz-next" data-next>Continuer →</button>`,
     ()=>`<h2>Que savez-vous sur <em>l'alimentation saine</em> ?</h2>${opts('savoir',SAVOIR)}`,
-    ()=>`<h2>Avez-vous été orienté vers OneAthlet par un <em>professionnel</em> de thérapie nutritionnelle ou comportementale ?</h2>${opts('pro',PRO)}`,
+    ()=>`<h2 class="qz-intro">Avez-vous été orienté vers OneAthlet par un professionnel de <em>thérapie nutritionnelle ou comportementale</em> ?</h2>${opts('pro',PRO)}`,
     ()=>`<div class="qz-sci-ic" aria-hidden="true">🔬</div><h2>Une approche <em>scientifique</em></h2>
       <p>Notre plan nutritionnel s'appuie sur les recherches et les recommandations des principales organisations de santé :</p>
       <div class="qz-orgs">
