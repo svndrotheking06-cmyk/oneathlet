@@ -665,7 +665,7 @@ font[style]{background:none!important;box-shadow:none!important}
 (function(){
   const qz=document.getElementById('qz'),body=document.getElementById('qzBody');if(!qz)return;
   const U=id=>'https://images.unsplash.com/'+id+'?auto=format&fit=crop&w=300&h=400&q=80';
-  const A={taille:null,poids:null,intol:[],change:[],meals:3,sex:null,age:30,goal:null,tried:null,defi:null};let step=0;
+  const A={cible:null,pas:null,taille:null,poids:null,intol:[],change:[],meals:3,sex:null,age:30,goal:null,tried:null,defi:null};let step=0;
   const MAN='<svg viewBox="0 0 160 180" aria-hidden="true"><circle cx="80" cy="80" r="74" fill="#FFE4EC"/><path d="M30 180c4-36 24-54 50-54s46 18 50 54z" fill="#E11D48"/><path d="M66 112h28v18c0 8-28 8-28 0z" fill="#F2B79F"/><ellipse cx="80" cy="78" rx="26" ry="31" fill="#F6C6AE"/><path d="M53 74c-2-22 12-34 28-34 17 0 29 11 26 33-4-10-12-15-27-15s-22 5-27 16z" fill="#3A2420"/><circle cx="70" cy="82" r="2.6" fill="#2A141A"/><circle cx="90" cy="82" r="2.6" fill="#2A141A"/><path d="M72 95c5 4 11 4 16 0" stroke="#B5524A" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>';
   const WOMAN='<svg viewBox="0 0 160 180" aria-hidden="true"><circle cx="80" cy="80" r="74" fill="#FFE4EC"/><path d="M44 66c0-26 16-38 36-38s36 12 36 38v56c-8 8-20 10-36 10s-28-2-36-10z" fill="#5A2E22"/><path d="M34 180c4-34 22-52 46-52s42 18 46 52z" fill="#FF5C8A"/><path d="M68 112h24v16c0 8-24 8-24 0z" fill="#F2B79F"/><ellipse cx="80" cy="80" rx="24" ry="29" fill="#F6C6AE"/><path d="M56 76c2-18 12-28 26-28 13 0 22 8 23 24-8-8-22-12-36-8-5 2-9 6-13 12z" fill="#5A2E22"/><circle cx="71" cy="84" r="2.5" fill="#2A141A"/><circle cx="89" cy="84" r="2.5" fill="#2A141A"/><path d="M73 96c4 3 10 3 14 0" stroke="#C0505A" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>';
   const GOALS=[['perte','🔥','Perdre du poids','Affiner ma silhouette'],['sante','❤️','Être en meilleure santé','Manger plus équilibré'],['physique','💪','Améliorer mon physique','Plus de muscle, plus tonique'],['energie','⚡','Avoir plus d\'énergie','Fini les coups de fatigue']];
@@ -719,7 +719,7 @@ font[style]{background:none!important;box-shadow:none!important}
       <div class="qz-how"><div><i>📸</i><b>Photographiez</b><small>votre assiette</small></div><div><i>🔍</i><b>On analyse</b><small>chaque aliment</small></div><div><i>✅</i><b>C'est ajouté</b><small>à votre journée</small></div></div>
       <button type="button" class="qz-next" data-next>Voir mon profil →</button>`,
     ()=>{const g=GOALS.find(x=>x[0]===A.goal)||GOALS[0],d=DEFI.concat(DEFI2).find(x=>x[0]===A.defi)||(past()?DEFI2:DEFI)[0];
-      return `<h2>Votre profil est <em>prêt</em>.</h2><p>Voici ce que nous avons retenu.</p><div class="qz-sum"><span>${A.sex==='H'?'👨 Homme':'👩 Femme'}</span><span>🎂 ${A.age} ans</span>${A.taille?`<span>📏 ${A.taille} cm</span>`:''}${A.poids?`<span>⚖️ ${String(A.poids).replace('.',',')} kg</span>`:''}<span>🍽️ ${A.meals===6?'6 repas et +':A.meals+' repas'} / jour</span>${(()=>{const ac=ACTIV.find(x=>x[0]===A.activite);return ac?`<span>${ac[1]} ${esc(ac[2])}</span>`:''})()}${(()=>{const mr=MARCHE.find(x=>x[0]===A.marche);return mr?`<span>🚶 ${esc(mr[2])} de marche</span>`:''})()}${(()=>{const rg=REGIME.find(x=>x[0]===A.regime);return rg?`<span>${rg[1]} ${esc(rg[2])}</span>`:''})()}${A.intol.length?`<span>🚫 Sans ${INTOL.filter(o=>A.intol.includes(o[0])).map(o=>o[2].toLowerCase()).join(', ')}</span>`:(A.regime?'<span>🍽️ Mange de tout</span>':'')}<span>${g[1]} ${esc(g[2])}</span><span>${d[1]} ${esc(d[2])}</span></div><button type="button" class="qz-next" data-done>Terminer</button>`},
+      return `<h2>Votre profil est <em>prêt</em>.</h2><p>Voici ce que nous avons retenu.</p><div class="qz-sum"><span>${A.sex==='H'?'👨 Homme':'👩 Femme'}</span><span>🎂 ${A.age} ans</span>${A.taille?`<span>📏 ${A.taille} cm</span>`:''}${A.poids?`<span>⚖️ ${String(A.poids).replace('.',',')} kg</span>`:''}${A.cible?`<span>🎯 Objectif ${String(A.cible).replace('.',',')} kg</span>`:''}${A.pas?`<span>👟 ${A.pas.toLocaleString('fr-FR')} pas / jour</span>`:''}<span>🍽️ ${A.meals===6?'6 repas et +':A.meals+' repas'} / jour</span>${(()=>{const ac=ACTIV.find(x=>x[0]===A.activite);return ac?`<span>${ac[1]} ${esc(ac[2])}</span>`:''})()}${(()=>{const mr=MARCHE.find(x=>x[0]===A.marche);return mr?`<span>🚶 ${esc(mr[2])} de marche</span>`:''})()}${(()=>{const rg=REGIME.find(x=>x[0]===A.regime);return rg?`<span>${rg[1]} ${esc(rg[2])}</span>`:''})()}${A.intol.length?`<span>🚫 Sans ${INTOL.filter(o=>A.intol.includes(o[0])).map(o=>o[2].toLowerCase()).join(', ')}</span>`:(A.regime?'<span>🍽️ Mange de tout</span>':'')}<span>${g[1]} ${esc(g[2])}</span><span>${d[1]} ${esc(d[2])}</span></div><button type="button" class="qz-next" data-done>Terminer</button>`},
     ()=>`<div class="qz-tour" id="qzTour">
         <div class="qz-slides" id="qzSlides">
           <figure class="qz-sl"><div class="qz-ph"><img src="${U('photo-1467003909585-2f8a72700288')}" alt="Dîner : saumon, quinoa et légumes" onerror="this.onerror=null;this.src='assiette.jpg'">
@@ -779,9 +779,22 @@ font[style]{background:none!important;box-shadow:none!important}
       return `<h2>Quel est votre <em>poids actuel</em> ?</h2><div class="qz-age"><b><span id="qzMV">${String(A.poids).replace('.',',')}</span></b><small>kg</small>
       <div class="qz-meas"><button type="button" class="qz-pm" data-pm="-1" aria-label="Moins">−</button><input class="qz-range" id="qzM" data-key="poids" data-step="0.5" type="range" min="35" max="200" step="0.5" value="${A.poids}" aria-label="Poids en kilos"><button type="button" class="qz-pm" data-pm="1" aria-label="Plus">+</button></div>
       <div class="qz-scale"><span>35 kg</span><span>200 kg</span></div></div>
-      <div class="qz-bmi" id="qzBmi"></div><button type="button" class="qz-next" data-next>Continuer →</button>`}
+      <div class="qz-bmi" id="qzBmi"></div><button type="button" class="qz-next" data-next>Continuer →</button>`},
+    ()=>{if(A.pas==null)A.pas={inactif:5000,peu:7000,actif:9000,tres:11000}[A.activite]||7000;
+      return `<div class="qz-sci-ic" aria-hidden="true">👟</div><h2>Fixons votre <em>objectif de pas</em></h2><p>Par jour. Vous pourrez le changer à tout moment.</p>
+      <div class="qz-age"><b><span id="qzMV">${A.pas}</span></b><small>pas / jour</small>
+      <div class="qz-meas"><button type="button" class="qz-pm" data-pm="-1" aria-label="Moins">−</button><input class="qz-range" id="qzM" data-key="pas" data-step="500" data-fmt="pas" type="range" min="1000" max="20000" step="500" value="${A.pas}" aria-label="Objectif de pas par jour"><button type="button" class="qz-pm" data-pm="1" aria-label="Plus">+</button></div>
+      <div class="qz-scale"><span>1 000</span><span>20 000</span></div></div>
+      <div class="qz-bmi" id="qzPasInfo"></div><button type="button" class="qz-next" data-next>Valider mon objectif →</button>`},
+    ()=>{const p0=A.poids||(A.sex==='F'?65:80);if(A.cible==null)A.cible=Math.round((A.goal==='perte'?p0*0.92:A.goal==='physique'?p0+3:p0)*2)/2;
+      return `<h2>Quel est votre <em>poids cible</em> ?</h2><p>Votre poids actuel : ${String(p0).replace('.',',')} kg</p>
+      <div class="qz-age"><b><span id="qzMV">${String(A.cible).replace('.',',')}</span></b><small>kg</small>
+      <div class="qz-meas"><button type="button" class="qz-pm" data-pm="-1" aria-label="Moins">−</button><input class="qz-range" id="qzM" data-key="cible" data-step="0.5" type="range" min="35" max="200" step="0.5" value="${A.cible}" aria-label="Poids cible en kilos"><button type="button" class="qz-pm" data-pm="1" aria-label="Plus">+</button></div>
+      <div class="qz-scale"><span>35 kg</span><span>200 kg</span></div></div>
+      <div class="qz-bmi" id="qzCible"></div><div class="qz-care" id="qzCibleWarn" hidden></div>
+      <button type="button" class="qz-next" data-next>Continuer →</button>`}
   ];
-  const flow=()=>A.tried==='encours'?[0,1,2,3,4,9,10,11,12,13,14,15,16,17,18,19,20,21,22,5,8]:[0,1,2,3,4,5,11,12,13,14,15,16,17,18,19,20,21,22,6,7,8];
+  const flow=()=>A.tried==='encours'?[0,1,2,3,4,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,5,8]:[0,1,2,3,4,5,11,12,13,14,15,16,17,18,19,20,21,22,23,24,6,7,8];
   let tourT=null;
   function render(){
     clearInterval(tourT);const F=flow();
@@ -789,7 +802,14 @@ font[style]{background:none!important;box-shadow:none!important}
     document.getElementById('qzBar').style.width=Math.round((step+1)/F.length*100)+'%';
     const mr=document.getElementById('qzM');
     if(mr){const k=mr.dataset.key,st=+mr.dataset.step,mn=+mr.min,mx=+mr.max;
-      const set=v=>{v=Math.round(Math.max(mn,Math.min(mx,v))/st)*st;A[k]=v;mr.value=v;document.getElementById('qzMV').textContent=String(v).replace('.',',');mr.style.setProperty('--p',((v-mn)/(mx-mn)*100)+'%');
+      const set=v=>{v=Math.round(Math.max(mn,Math.min(mx,v))/st)*st;A[k]=v;mr.value=v;document.getElementById('qzMV').textContent=mr.dataset.fmt==='pas'?v.toLocaleString('fr-FR'):String(v).replace('.',',');
+        const ci=document.getElementById('qzCible');if(ci&&k==='cible'){const p0=A.poids||v,d=Math.round((v-p0)*10)/10,pc=p0?Math.round(Math.abs(d)/p0*1000)/10:0;
+          ci.innerHTML=d===0?'Garder votre poids actuel':`<b>${d>0?'+':'−'}${String(Math.abs(d)).replace('.',',')} kg</b> (${d>0?'+':'−'}${String(pc).replace('.',',')} %)`;
+          const w=document.getElementById('qzCibleWarn'),h=(A.taille||170)/100,bm=v/(h*h);
+          if(bm<18.5){w.hidden=false;w.innerHTML='⚠️ <span><b>Cet objectif est sous un poids de santé</b> pour votre taille (IMC '+bm.toFixed(1).replace('.',',')+'). Nous vous conseillons de viser au moins '+String(Math.ceil(18.5*h*h*2)/2).replace('.',',')+' kg, ou d\'en parler à un médecin.</span>'}
+          else if(p0&&d<0&&pc>20){w.hidden=false;w.innerHTML='💡 <span><b>Objectif ambitieux.</b> Nous le découperons en étapes, à un rythme sain d\'environ 0,5 kg par semaine.</span>'}
+          else w.hidden=true;}
+        const pi=document.getElementById('qzPasInfo');if(pi){const km=v*0.75/1000;pi.innerHTML=`≈ <b>${km.toFixed(1).replace('.',',')} km</b> de marche par jour`}mr.style.setProperty('--p',((v-mn)/(mx-mn)*100)+'%');
         const bm=document.getElementById('qzBmi');if(bm&&A.taille){const i=A.poids/((A.taille/100)**2);bm.innerHTML=`IMC estimé : <b>${i.toFixed(1).replace('.',',')}</b>`}};
       set(+mr.value);mr.addEventListener('input',()=>set(+mr.value));
       body.querySelectorAll('[data-pm]').forEach(b=>b.onclick=()=>set(A[k]+(+b.dataset.pm)*st));}
