@@ -629,8 +629,10 @@ h1 em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--cor
 .qz-hd{display:grid;grid-template-columns:44px 1fr 44px;align-items:center}
 .qz-brand{justify-self:center;font-size:1.15rem}
 .qz-lang{justify-self:end}
-.qz-step h2.qz-intro{font-family:"Inter Tight",system-ui,-apple-system,"Segoe UI",sans-serif;font-weight:700;font-size:clamp(1.8rem,7vw,2.5rem);line-height:1.12;letter-spacing:-.03em;color:#111111;margin-top:8px}
+.qz-step h2.qz-intro{font-family:"Inter Tight",system-ui,-apple-system,"Segoe UI",sans-serif;font-weight:600;font-size:clamp(1.8rem,7vw,2.5rem);line-height:1.12;letter-spacing:-.03em;color:#111111;margin-top:8px}
 .qz-step h2.qz-intro em{background:none;-webkit-text-fill-color:var(--btn1);color:var(--btn1)}
+#qz .qz-step h2{font-family:"Inter Tight",system-ui,-apple-system,"Segoe UI",sans-serif;font-weight:600;letter-spacing:-.03em;color:#111111}
+#qz .qz-step h2 em{background:none;-webkit-text-fill-color:var(--btn1);color:var(--btn1)}
 .qz-step .qz-tag{margin:-4px 0 0;font-weight:700;color:#111111;font-size:1.02rem}
 .qz-step .qz-hint{margin:2px 0 4px;color:#8A8A8F;font-weight:500;font-size:.95rem}
 .qz-pic{position:relative;display:block;width:100%;aspect-ratio:3/4;max-width:170px;border-radius:18px;overflow:hidden}
@@ -1174,7 +1176,7 @@ font[style]{background:none!important;box-shadow:none!important}
       </ol>
       <button type="button" class="qz-next" data-next>Continuer →</button>`},
     ()=>{const P=planOf(),goalTxt=Math.abs(P.diff)<0.5?'garder mon poids':'atteindre '+fr(P.c)+' kg';
-      return `<h2>Choisissez <em>votre plan</em></h2><p>Pour ${Math.abs(P.diff)<0.5?'garder votre poids et installer vos habitudes':'passer de '+fr(P.w)+' kg à <b>'+fr(P.c)+' kg</b>'}.</p>
+      return `<p>Pour ${Math.abs(P.diff)<0.5?'garder votre poids et installer vos habitudes':'passer de '+fr(P.w)+' kg à <b>'+fr(P.c)+' kg</b>'}.</p>
       <div class="qz-offres" role="radiogroup" aria-label="Formule">${OFFRES.map(o=>`<button type="button" class="qz-of" role="radio" data-of="${o[0]}" aria-checked="${A.offre===o[0]}">${o[3]?`<span class="qz-of-b">${o[3]}</span>`:''}<span class="qz-of-r" aria-hidden="true"></span><span class="qz-of-t"><b>${o[1]} semaines</b><small>${fr(o[2]/o[1],2)} € / semaine</small></span><span class="qz-of-p"><b>${fr(o[2],2)} €</b><small>toutes les ${o[1]} sem.</small></span></button>`).join('')}</div>
       <ul class="qz-inc"><li>Votre plan alimentaire personnalisé, ${P.kcal.toLocaleString('fr-FR')} kcal par jour</li><li>Vos menus adaptés à votre régime et vos intolérances</li><li>L'analyse de vos repas en photo</li><li>Votre suivi : poids, pas, eau et points d'étape</li></ul>
       <p class="qz-err" id="qzPayErr" role="alert"></p>
