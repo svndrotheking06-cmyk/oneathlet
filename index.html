@@ -43,9 +43,11 @@ body{margin:0;background:var(--page);color:var(--ink);font-family:var(--body);mi
 .hero{display:grid;align-content:center;justify-items:center;text-align:center;gap:0;padding:40px clamp(20px,6vw,80px) 64px;min-height:min(82vh,760px);max-width:1080px;width:100%;margin:0 auto}
 .kick{background:var(--coral-soft);color:var(--coral);font-weight:800;font-size:.76rem;text-transform:uppercase;letter-spacing:.1em;padding:6px 12px;border-radius:999px}
 h1{margin:0;font-family:var(--display);font-weight:800;font-size:clamp(2.8rem,10vw,6rem);line-height:1;letter-spacing:-.045em;max-width:12ch;text-wrap:balance;margin-inline:auto}
-h1.hero-t{font-family:"Inter Tight",system-ui,-apple-system,"Segoe UI",sans-serif;font-weight:600;font-size:clamp(2.4rem,6.4vw,4.6rem);line-height:1.08;letter-spacing:-.032em;max-width:22ch}
-h1.hero-t em{display:block}
-@media (max-width:520px){h1.hero-t{font-size:2.35rem;line-height:1.1;max-width:none}h1.hero-t em{display:inline}}
+h1.hero-t{font-family:"Inter Tight",system-ui,-apple-system,"Segoe UI",sans-serif;font-weight:600;font-size:clamp(2.4rem,6.4vw,4.6rem);line-height:1.08;letter-spacing:-.032em;max-width:none}
+h1.hero-t span{display:block}
+h1.hero-t span{font-size:1em}
+@media (min-width:521px){.hero{max-width:1280px;padding-left:40px;padding-right:40px}h1.hero-t{font-size:min(4.6rem,calc((100vw - 96px) / 20.5))}h1.hero-t .l1{white-space:nowrap}}
+@media (max-width:520px){h1.hero-t{font-size:2.35rem;line-height:1.1;max-width:none}}
 h1.hero-t,h1.hero-t em{color:#111111;-webkit-text-fill-color:#111111;background:none}
 h1.hero-t em{font-style:normal;font-weight:600}
 h1 em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--coral));-webkit-background-clip:text;background-clip:text;color:transparent}
@@ -603,7 +605,7 @@ font[style]{background:none!important;box-shadow:none!important}
 </header>
 
 <main class="hero">
-  <h1 class="hero-t">Mangez mieux, transformez votre corps, <em>sans sacrifier votre plaisir.</em></h1>
+  <h1 class="hero-t"><span class="l1">Transformez votre corps en mangeant</span> <span class="l2">mieux,</span> <span class="l3">sans sacrifier votre plaisir.</span></h1>
   <p class="sub"><span>Obtenez un objectif calorique conçu pour vous, puis enregistrez vos repas en prenant une photo.</span> <span>OneAthlet compte pour vous, et vous gardez les aliments que vous aimez.</span></p>
   <button type="button" class="start hero-go" id="heroGo">Commencer votre objectif →</button>
 </main>
