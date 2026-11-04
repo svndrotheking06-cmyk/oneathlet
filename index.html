@@ -355,7 +355,7 @@ h1 em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--cor
 .qz-opts button{display:flex;align-items:center;gap:14px;text-align:left;border:2px solid var(--line);background:var(--surface);border-radius:20px;padding:14px 16px;font:inherit;color:var(--ink);cursor:pointer;transition:border-color .15s,transform .15s}
 .qz-opts button:hover{border-color:var(--coral);transform:translateY(-2px)}
 .qz-opts button[aria-pressed="true"]{border-color:var(--coral);background:#FFF5F7}
-.qz-opts .e{width:46px;height:46px;border-radius:14px;background:#FFE4EC;display:grid;place-items:center;font-size:1.6rem;flex:none}
+.qz-opts .e{width:auto;min-width:34px;height:auto;border-radius:0;background:none;display:grid;place-items:center;font-size:1.6rem;flex:none}
 .qz-nobox,.qz-gray{width:100%}
 .qz-small{gap:7px}.qz-small button{padding:9px 44px 9px 12px;gap:10px;border-radius:14px}
 .qz-small .e{width:auto;height:auto;background:none;border-radius:0;font-size:1.35rem}
@@ -422,7 +422,7 @@ h1 em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--cor
 .qz-dots{display:flex;justify-content:center;gap:8px}
 .qz-dots button{width:9px;height:9px;border-radius:99px;border:0;background:#F5DCE3;padding:0;cursor:pointer;transition:width .3s,background .3s}
 .qz-dots button[aria-current="true"]{width:26px;background:var(--coral)}
-.qz-sci-ic{width:84px;height:84px;border-radius:50%;display:grid;place-items:center;font-size:2.4rem;background:radial-gradient(circle,#FFE4EC 0%,#FFE4EC 50%,rgba(255,228,236,0) 72%)}
+.qz-sci-ic{width:84px;height:84px;border-radius:50%;display:grid;place-items:center;font-size:2.4rem;background:none}
 .qz-orgs{display:grid;gap:10px;width:100%}
 .qz-orgs div{display:flex;align-items:center;justify-content:space-between;gap:12px;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px 16px;font-weight:600;font-size:.95rem;color:#111111;line-height:1.3}
 .qz-orgs b{font-weight:800}
@@ -464,7 +464,7 @@ h1 em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--cor
 .qz-check .qz-big::first-letter{text-transform:uppercase}
 .qz-check span:last-child{color:var(--muted);font-weight:600}
 .qz-check b{color:var(--ink)}
-.qz-hug{width:120px;height:120px;border-radius:50%;display:grid;place-items:center;font-size:3.4rem;margin-top:24px;background:radial-gradient(circle,#FFE4EC 0%,#FFE4EC 52%,rgba(255,228,236,0) 72%);animation:qzpop .6s ease-out}
+.qz-hug{width:120px;height:120px;border-radius:50%;display:grid;place-items:center;font-size:3.4rem;margin-top:24px;background:none;animation:qzpop .6s ease-out}
 @keyframes qzpop{from{transform:scale(.6);opacity:0}to{transform:none;opacity:1}}
 .qz-step .qz-lead{margin:-4px 0 10px;font-size:1.15rem;color:var(--muted);font-weight:700}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -1146,22 +1146,22 @@ font[style]{background:none!important;box-shadow:none!important}
       <p class="qz-tag">Simple. Basé sur la science. Adapté à vous.</p>
       <p class="qz-hint">Choisissez votre sexe pour commencer</p>
       <div class="qz-sex"><button type="button" data-k="sex" data-v="H" aria-pressed="${A.sex==='H'}"><span class="qz-pic"><img src="homme.jpg" alt=""></span>Homme</button><button type="button" data-k="sex" data-v="F" aria-pressed="${A.sex==='F'}"><span class="qz-pic"><img src="femme.jpg" alt=""></span>Femme</button></div>`,
-    ()=>`<h2>Quel âge avez-vous&nbsp;?</h2><div class="qz-age"><b id="qzAgeV">${A.age}</b><small>ans</small><input class="qz-range" id="qzAge" type="range" min="16" max="80" value="${A.age}" aria-label="Âge"><div class="qz-scale"><span>16</span><span>80</span></div></div><button type="button" class="qz-next" data-next>Continuer →</button>`,
+    ()=>`<h2>Quel âge avez-vous&nbsp;?</h2><div class="qz-age"><b id="qzAgeV">${A.age}</b><small>ans</small><input class="qz-range" id="qzAge" type="range" min="16" max="80" value="${A.age}" aria-label="Âge"><div class="qz-scale"><span>16</span><span>80</span></div></div><button type="button" class="qz-next" data-next>Continuer</button>`,
     ()=>`<h2 class="qz-intro">Quel est votre objectif&nbsp;?</h2><p class="qz-hint">Aidez-nous à comprendre votre motivation</p><div class="qz-nobox">${opts('goal',GOALS)}</div>`,
-    ()=>proj()+`<button type="button" class="qz-next" data-next>Continuer →</button>`,
+    ()=>proj()+`<button type="button" class="qz-next" data-next>Continuer</button>`,
     ()=>`<h2>Avez-vous déjà essayé de <em>changer votre corps</em>&nbsp;?</h2>${opts('tried',TRIED)}`,
     ()=>`<h2 class="qz-intro">${past()?"Quel a été votre <em>plus grand défi</em> jusqu'ici&nbsp;?":"Quel est votre <em>plus grand défi</em>&nbsp;?"}</h2>
       <div class="qz-opts qz-multi qz-round">${(past()?DEFI2:DEFI).map(o=>`<button type="button" data-mk="defi" data-m="${o[0]}" aria-pressed="${A.defi.includes(o[0])}"><span class="e" aria-hidden="true">${o[1]}</span><span><b>${esc(o[2])}</b><small>${esc(o[3])}</small></span><i class="qz-ck" aria-hidden="true"></i></button>`).join('')}</div>
-      <button type="button" class="qz-next" data-next ${A.defi.length?'':'disabled'}>Continuer →</button>`,
+      <button type="button" class="qz-next" data-next ${A.defi.length?'':'disabled'}>Continuer</button>`,
     ()=>`<h2>Voici à quoi ressemblent<br><em>vos assiettes analysées</em></h2><p>Chaque plat photographié est décomposé en calories et en macros.</p>
       <div class="qz-plates">
         <div class="qz-plate">🍳<img src="${U('photo-1525351484163-7529414344d8')}" alt="" loading="lazy" onerror="this.remove()"><span>Petit-déjeuner<b>330 kcal</b>P 22 g · G 28 g</span></div>
         <div class="qz-plate">🍗<img src="assiette.jpg" alt="" loading="lazy" onerror="this.remove()"><span>Déjeuner<b>480 kcal</b>P 44 g · G 46 g</span></div>
         <div class="qz-plate">🐟<img src="${U('photo-1467003909585-2f8a72700288')}" alt="" loading="lazy" onerror="this.remove()"><span>Dîner<b>520 kcal</b>P 42 g · G 40 g</span></div>
-      </div><button type="button" class="qz-next" data-next>Continuer →</button>`,
+      </div><button type="button" class="qz-next" data-next>Continuer</button>`,
     ()=>`<h2>C'est <em>aussi simple</em> que ça.</h2><p>Pas de pesée, pas de calcul : prenez juste vos plats en photo.</p>
       <div class="qz-how"><div><i>📸</i><b>Photographiez</b><small>votre assiette</small></div><div><i>🔍</i><b>On analyse</b><small>chaque aliment</small></div><div><i>✅</i><b>C'est ajouté</b><small>à votre journée</small></div></div>
-      <button type="button" class="qz-next" data-next>Voir mon profil →</button>`,
+      <button type="button" class="qz-next" data-next>Voir mon profil</button>`,
     ()=>{const g=GOALS.find(x=>x[0]===A.goal)||GOALS[0],ds=DEFI.concat(DEFI2).filter(x=>A.defi.includes(x[0]));
       return `<h2>Votre profil est <em>prêt</em>.</h2><p>Voici ce que nous avons retenu.</p><div class="qz-sum"><span>${A.sex==='H'?'👨 Homme':'👩 Femme'}</span><span>🎂 ${A.age} ans</span>${A.taille?`<span>📏 ${A.taille} cm</span>`:''}${A.poids?`<span>⚖️ ${String(A.poids).replace('.',',')} kg</span>`:''}${A.cible?`<span>🎯 Objectif ${String(A.cible).replace('.',',')} kg</span>`:''}<span>📅 ${A.rythme.toFixed(1).replace('.',',')} kg / semaine</span><span>🗓️ Premier point à ${A.suivi} jours</span>${A.burn?`<span>🔥 Calories brûlées ${A.burn==='oui'?'ajoutées':'non ajoutées'} à l'objectif</span>`:''}${A.sante.length?`<span>⚕️ ${SANTE.filter(o=>A.sante.includes(o[0])).map(o=>o[2]).join(', ')}</span>`:''}${A.pas?`<span>👟 ${A.pas.toLocaleString('fr-FR')} pas / jour</span>`:''}<span>🍽️ ${A.meals===6?'6 repas et +':A.meals+' repas'} / jour</span>${(()=>{const ac=ACTIV.find(x=>x[0]===A.activite);return ac?`<span>${ac[1]} ${esc(ac[2])}</span>`:''})()}${(()=>{const mr=MARCHE.find(x=>x[0]===A.marche);return mr?`<span>🚶 ${esc(mr[2])} de marche</span>`:''})()}${(()=>{const rg=REGIME.find(x=>x[0]===A.regime);return rg?`<span>${rg[1]} ${esc(rg[2])}</span>`:''})()}${A.intol.length?`<span>🚫 Sans ${INTOL.filter(o=>A.intol.includes(o[0])).map(o=>o[2].toLowerCase()).join(', ')}</span>`:(A.regime?'<span>🍽️ Mange de tout</span>':'')}<span>${g[1]} ${esc(g[2])}</span>${ds.map(d=>`<span>${d[1]} ${esc(d[2])}</span>`).join('')}</div><button type="button" class="qz-next" data-done>Terminer</button>`},
     ()=>`<div class="qz-tour" id="qzTour">
@@ -1179,7 +1179,7 @@ font[style]{background:none!important;box-shadow:none!important}
             <figcaption>Vos repas, vos progrès : <em>tout en photo</em>.</figcaption></figure>
         </div>
         <div class="qz-dots" id="qzDots"><button type="button" aria-label="Photo 1" aria-current="true"></button><button type="button" aria-label="Photo 2"></button><button type="button" aria-label="Photo 3"></button></div>
-      </div><button type="button" class="qz-next" data-next>Continuer →</button>`,
+      </div><button type="button" class="qz-next" data-next>Continuer</button>`,
     ()=>`<h2 class="qz-intro">Que savez-vous sur l'<em>alimentation saine</em>&nbsp;?</h2><div class="qz-gray">${opts('savoir',SAVOIR)}</div>`,
     ()=>`<h2 class="qz-intro">Avez-vous été orienté vers OneAthlet par un professionnel de <em>thérapie nutritionnelle ou comportementale</em>&nbsp;?</h2>${opts('pro',PRO)}`,
     ()=>`<div class="qz-sci-ic" aria-hidden="true">🔬</div><h2 class="qz-intro">Une approche scientifique</h2>
@@ -1190,64 +1190,64 @@ font[style]{background:none!important;box-shadow:none!important}
         <div><span>Instituts américains de la santé <b>(NIH)</b></span></div>
         <div><span>Autorité européenne de sécurité des aliments <b>(EFSA)</b></span></div>
       </div>
-      <button type="button" class="qz-next" data-next>Continuer →</button>`,
+      <button type="button" class="qz-next" data-next>Continuer</button>`,
     ()=>`<h2 class="qz-intro"><em>Combien de repas</em> <span style="white-space:nowrap">prenez-vous</span> par jour&nbsp;?</h2>
       ${wheel('meals',[1,2,3,4,5,6],n=>n===6?'6 repas et +':n+' repas','Nombre de repas par jour')}
-      <button type="button" class="qz-next" data-next>Continuer →</button>`,
+      <button type="button" class="qz-next" data-next>Continuer</button>`,
     ()=>`<h2 class="qz-intro">Que souhaitez-vous changer dans vos <em>habitudes alimentaires</em>&nbsp;?</h2>
       <div class="qz-opts qz-multi qz-small">${CHANGE.map(o=>`<button type="button" data-m="${o[0]}" aria-pressed="${A.change.includes(o[0])}"><span class="e" aria-hidden="true">${o[1]}</span><span><b>${esc(o[2])}</b></span><i class="qz-ck" aria-hidden="true"></i></button>`).join('')}</div>
-      <button type="button" class="qz-next" data-next ${A.change.length?'':'disabled'}>Continuer →</button>`,
+      <button type="button" class="qz-next" data-next ${A.change.length?'':'disabled'}>Continuer</button>`,
     ()=>{const ch=CHANGE.filter(o=>A.change.includes(o[0]));
       return `<div class="qz-sci-ic" aria-hidden="true">🧭</div><h2>Vous avez <em>le contrôle</em>.</h2>
       <p>Pas de régime strict, pas d'interdits : vous choisissez vos objectifs, et OneAthlet vous aide à les tenir, un repas à la fois.</p>
       ${ch.length?`<div class="qz-sum">${ch.map(o=>`<span>${o[1]} ${esc(o[2])}</span>`).join('')}</div>`:''}
       ${A.change.includes('boulimie')?`<div class="qz-care">🫶 <span><b>Vous n'êtes pas seul·e.</b> Les crises de boulimie sont un trouble fréquent qui se soigne. En plus de OneAthlet, parlez-en à votre médecin ou à un professionnel spécialisé : un accompagnement fait vraiment la différence.</span></div>`:''}
-      <button type="button" class="qz-next" data-next>Continuer →</button>`},
+      <button type="button" class="qz-next" data-next>Continuer</button>`},
     ()=>`<h2 class="qz-intro">Quel régime <span style="white-space:nowrap">préférez-vous&nbsp;?</span></h2>${opts('regime',REGIME)}`,
     ()=>`<h2 class="qz-intro">Avez-vous des <em>intolérances alimentaires</em>&nbsp;?</h2>
       <div class="qz-chips">${INTOL.map(o=>`<button type="button" data-mk="intol" data-m="${o[0]}" aria-pressed="${A.intol.includes(o[0])}"><span aria-hidden="true">${o[1]}</span>${esc(o[2])}</button>`).join('')}</div>
-      <button type="button" class="qz-next" data-all data-empty="Je mange de tout">${A.intol.length?'Continuer →':'Je mange de tout'}</button>`,
+      <button type="button" class="qz-next" data-all data-empty="Je mange de tout">${A.intol.length?'Continuer':'Je mange de tout'}</button>`,
     ()=>`<h2 class="qz-intro">Quel est votre <em>niveau d'activité</em>&nbsp;?</h2><p class="qz-hint">Cela nous aide à calculer vos besoins quotidiens</p>${opts('activite',ACTIV)}`,
     ()=>`<h2 class="qz-intro">Combien de temps <em>marchez-vous</em> lors d'une journée type&nbsp;?</h2>${opts('marche',MARCHE)}`,
     ()=>`<h2 class="qz-intro">Êtes-vous <em>essoufflé</em> après avoir monté des escaliers&nbsp;?</h2>${opts('escaliers',ESCAL)}`,
     ()=>{if(A.taille==null)A.taille=A.sex==='F'?164:177;
       return `<h2 class="qz-intro">Quelle est votre taille&nbsp;?</h2><p class="qz-hint">Votre taille nous aide à estimer vos proportions corporelles plus précisément</p>
       ${wheel('taille',range(120,220,1),v=>v+' cm','Taille en centimètres')}
-      <button type="button" class="qz-next" data-next>Continuer →</button>`},
+      <button type="button" class="qz-next" data-next>Continuer</button>`},
     ()=>{if(A.poids==null)A.poids=A.sex==='F'?65:80;
       return `<h2 class="qz-intro">Veuillez saisir votre poids actuel</h2><p class="qz-hint">C'est ici que commence votre parcours</p>
       ${wheel('poids',range(35,200,0.5),v=>String(v).replace('.',',')+' kg','Poids en kilos')}
-      <div class="qz-bmi" id="qzBmi"></div><button type="button" class="qz-next" data-next>Continuer →</button>`},
+      <div class="qz-bmi" id="qzBmi"></div><button type="button" class="qz-next" data-next>Continuer</button>`},
     ()=>{if(A.pas==null)A.pas={inactif:5000,peu:7000,actif:9000,tres:11000}[A.activite]||7000;
       return `<div class="qz-sci-ic" aria-hidden="true">👟</div><h2>Fixons votre <em>objectif de pas</em></h2><p>Par jour. Vous pourrez le changer à tout moment.</p>
       <div class="qz-age"><b><span id="qzMV">${A.pas}</span></b><small>pas / jour</small>
       <div class="qz-meas"><button type="button" class="qz-pm" data-pm="-1" aria-label="Moins">−</button><input class="qz-range" id="qzM" data-key="pas" data-step="500" data-fmt="pas" type="range" min="1000" max="20000" step="500" value="${A.pas}" aria-label="Objectif de pas par jour"><button type="button" class="qz-pm" data-pm="1" aria-label="Plus">+</button></div>
       <div class="qz-scale"><span>1 000</span><span>20 000</span></div></div>
-      <div class="qz-bmi" id="qzPasInfo"></div><button type="button" class="qz-next" data-next>Valider mon objectif →</button>`},
+      <div class="qz-bmi" id="qzPasInfo"></div><button type="button" class="qz-next" data-next>Valider mon objectif</button>`},
     ()=>{const p0=A.poids||(A.sex==='F'?65:80);if(A.cible==null)A.cible=Math.round((A.goal==='perte'?p0*0.92:A.goal==='physique'?p0+3:p0)*2)/2;
       return `<h2 class="qz-intro">Quel est votre poids cible&nbsp;?</h2>
       <div class="qz-age"><div class="qz-cmp"><span class="qz-from" title="Poids actuel">${String(p0).replace('.',',')}<small>kg</small></span><span class="qz-arr" aria-label="vers">»</span><span class="qz-to"><b><span id="qzMV">${String(A.cible).replace('.',',')}</span></b><small>kg</small></span></div>
       <div class="qz-meas"><button type="button" class="qz-pm" data-pm="-1" aria-label="Moins">−</button><input class="qz-range" id="qzM" data-key="cible" data-step="0.5" type="range" min="35" max="200" step="0.5" value="${A.cible}" aria-label="Poids cible en kilos"><button type="button" class="qz-pm" data-pm="1" aria-label="Plus">+</button></div>
       <div class="qz-scale"><span>35 kg</span><span>200 kg</span></div></div>
       <div class="qz-bmi" id="qzCible"></div><div class="qz-care" id="qzCibleWarn" hidden></div>
-      <button type="button" class="qz-next" data-next>Continuer →</button>`},
+      <button type="button" class="qz-next" data-next>Continuer</button>`},
     ()=>`<h2 class="qz-intro">Choisissez un rythme qui vous convient</h2><p>Progression attendue par semaine.</p>
       <div class="qz-age"><b><span id="qzMV">${String(A.rythme).replace('.',',')}</span></b><small>kg / semaine</small>
       <div class="qz-meas qz-meas-r"><input class="qz-range" id="qzM" data-key="rythme" data-step="0.1" type="range" min="0.4" max="1.2" step="0.1" value="${A.rythme}" aria-label="Progression par semaine en kilos"></div>
       <div class="qz-pace"><span data-z="0">🐢 Souple</span><span data-z="1">⚖️ Équilibré</span><span data-z="2">🔥 Strict</span></div></div>
       <div class="qz-bmi" id="qzEta"></div><div class="qz-care" id="qzPaceWarn" hidden>⚠️ <span><b>Rythme exigeant.</b> Au-delà de 1 kg par semaine, avancez avec prudence et écoutez votre corps.</span></div>
-      <button type="button" class="qz-next" data-next>Continuer →</button>`,
-    ()=>`<div class="qz-sci-ic" aria-hidden="true">⏰</div><h2 class="qz-intro">Planifiez votre premier point de suivi</h2><p class="qz-hint">Nous suivons vos progrès à partir de votre pesée et ajustons le plan si nécessaire</p>
+      <button type="button" class="qz-next" data-next>Continuer</button>`,
+    ()=>`<h2 class="qz-intro">Planifiez votre premier point de suivi</h2><p class="qz-hint">Nous suivons vos progrès à partir de votre pesée et ajustons le plan si nécessaire</p>
       <div class="qz-w3">${wheel('suivi',range(3,30,1),n=>n+' jours','Jours avant le premier point de suivi')}</div>
       <div class="qz-chart qz-check" id="qzSuivi"></div><div class="qz-care" id="qzSuiviTip" hidden></div>
-      <button type="button" class="qz-next" data-next>Continuer →</button>`,
+      <button type="button" class="qz-next" data-next>Continuer</button>`,
     ()=>`<h2 class="qz-intro">Que devons-nous prendre en compte&nbsp;?</h2><p class="qz-hint">Nous gardons vos besoins de santé à l'esprit</p>
       <div class="qz-opts qz-multi">${SANTE.map(o=>`<button type="button" data-mk="sante" data-m="${o[0]}" aria-pressed="${A.sante.includes(o[0])}"><span class="e" aria-hidden="true">${o[1]}</span><span><b>${esc(o[2])}</b></span><i class="qz-ck" aria-hidden="true"></i></button>`).join('')}</div>
       <div class="qz-care" id="qzSanteNote" hidden></div>
-      <button type="button" class="qz-next" data-all data-empty="Aucun problème de santé">${A.sante.length?'Continuer →':'Aucun problème de santé'}</button>`,
+      <button type="button" class="qz-next" data-all data-empty="Aucun problème de santé">${A.sante.length?'Continuer':'Aucun problème de santé'}</button>`,
     ()=>`<div class="qz-hug" aria-hidden="true">🤝</div><h2 class="qz-intro">Vous n'êtes pas seul dans cette aventure.</h2>
       <p class="qz-lead">Nous serons avec vous à chaque étape.</p>
-      <button type="button" class="qz-next" data-next>Continuer →</button>`,
+      <button type="button" class="qz-next" data-next>Continuer</button>`,
     ()=>`<h2>Nous personnalisons <em>votre programme</em></h2>
       <ul class="qz-load" id="qzLoad">${['🧑 Analyse de votre profil','🔥 Calcul de votre métabolisme','🥗 Élaboration de votre plan alimentaire','❤️ Bilan de santé'].map(t=>`<li><span>${t}</span><em>✓</em><i><u></u></i></li>`).join('')}</ul>`,
     ()=>`<div class="qz-hug" aria-hidden="true">📩</div><h2>Recevez votre <em>plan personnalisé</em></h2>
@@ -1270,7 +1270,7 @@ font[style]{background:none!important;box-shadow:none!important}
         </div>
       </div>
       <span class="qz-note">Estimations indicatives, basées sur la formule de Mifflin-St Jeor. Elles ne remplacent pas un avis médical.</span>
-      <button type="button" class="qz-next" data-next>Continuer →</button>`},
+      <button type="button" class="qz-next" data-next>Continuer</button>`},
     ()=>{const P=planOf(),d1=new Date();d1.setDate(d1.getDate()+A.suivi);const d2=new Date();d2.setDate(d2.getDate()+60);
       const f=d=>d.toLocaleDateString('fr-FR',{day:'numeric',month:'long'}),dir=P.diff<0?'−':'+',kg=n=>fr(Math.abs(P.at(n)-P.w));
       const st=Math.abs(P.diff)<0.5;
@@ -1280,7 +1280,7 @@ font[style]{background:none!important;box-shadow:none!important}
         <li><span class="qz-tl-d"></span><div><small>Dans ${A.suivi} jours · ${f(d1)}</small><b>${st?'Habitudes installées':'≈ '+fr(P.at(A.suivi))+' kg ('+dir+kg(A.suivi)+' kg)'}</b><span>Votre premier point de suivi : on regarde vos progrès et on ajuste si besoin.</span></div></li>
         <li><span class="qz-tl-d"></span><div><small>Dans 2 mois · ${f(d2)}</small><b>${st?'Énergie et équilibre':'≈ '+fr(P.at(60))+' kg ('+dir+kg(60)+' kg)'}</b><span>De nouvelles habitudes bien ancrées et des résultats visibles.</span></div></li>
       </ol>
-      <button type="button" class="qz-next" data-next>Continuer →</button>`},
+      <button type="button" class="qz-next" data-next>Continuer</button>`},
     ()=>{const P=planOf(),st=Math.abs(P.diff)<0.5,goalTxt=st?'garder mon poids':'atteindre '+fr(P.c)+' kg';
       const endD=st?(()=>{const d=new Date();d.setDate(d.getDate()+60);return d})():P.end,mois=d=>d.toLocaleDateString('fr-FR',{month:'long',year:'numeric'});
       const N=24,y0=34,y1=st?34:(P.diff<0?118:34),ya=st?34:(P.diff<0?34:118),yb=st?34:(P.diff<0?118:34);
@@ -1303,7 +1303,7 @@ font[style]{background:none!important;box-shadow:none!important}
       <div class="qz-gar"><div class="qz-gar-ic" aria-hidden="true">🛡️</div><b>Satisfait ou remboursé</b><p>Nous sommes convaincus que notre plan peut vous aider à atteindre vos objectifs et que vous verrez vos premiers progrès visibles en 4 semaines. Si vous suivez le plan comme prévu sans obtenir de résultats, nous vous rembourserons votre achat.</p></div>
       <div class="qz-paybar" id="qzPayFix"><button type="button" class="qz-next qz-pay" tabindex="-1">Obtenir mon plan pour ${goalTxt}</button></div>`}
   ];
-  const flow=()=>A.tried==='encours'?[0,1,2,3,4,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33]:[0,1,2,3,4,5,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,6,7,29,30,31,32,33];
+  const flow=()=>A.tried==='encours'?[0,1,2,3,4,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33]:[0,1,2,3,4,5,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33];
   let tourT=null,loadT=[];
   function sheetOff(){loadT.forEach(clearTimeout);loadT=[];const sh=document.getElementById('qzSheet');if(sh)sh.remove()}
   function render(){
@@ -1401,7 +1401,7 @@ font[style]{background:none!important;box-shadow:none!important}
     const o=e.target.closest('[data-k]');
     if(o){A[o.dataset.k]=o.dataset.v;o.parentNode.querySelectorAll('[data-k]').forEach(x=>x.setAttribute('aria-pressed',x===o));setTimeout(()=>go(step+1),220);return}
     const mb=e.target.closest('[data-m]');
-    if(mb){const k=mb.dataset.mk||'change',v=mb.dataset.m;A[k]=A[k].includes(v)?A[k].filter(x=>x!==v):A[k].concat(v);mb.setAttribute('aria-pressed',A[k].includes(v));const nx=body.querySelector('[data-next]');if(nx)nx.disabled=!A[k].length;if(k==='sante')santeNote();const ab=body.querySelector('[data-all][data-empty]');if(ab)ab.textContent=A[k].length?'Continuer →':ab.dataset.empty;return}
+    if(mb){const k=mb.dataset.mk||'change',v=mb.dataset.m;A[k]=A[k].includes(v)?A[k].filter(x=>x!==v):A[k].concat(v);mb.setAttribute('aria-pressed',A[k].includes(v));const nx=body.querySelector('[data-next]');if(nx)nx.disabled=!A[k].length;if(k==='sante')santeNote();const ab=body.querySelector('[data-all][data-empty]');if(ab)ab.textContent=A[k].length?'Continuer':ab.dataset.empty;return}
     const nb=e.target.closest('[data-none]');if(nb){A[nb.dataset.none]=[];go(step+1);return}
     if(e.target.closest('[data-all]')){go(step+1);return}
     if(e.target.closest('[data-next]')){go(step+1);return}
