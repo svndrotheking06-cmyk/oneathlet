@@ -406,13 +406,14 @@ h1 em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--cor
 .qz-orgs div{display:grid;gap:4px;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:16px 10px}
 .qz-orgs b{font-family:var(--display);font-size:1.4rem;font-weight:800;color:var(--ink);letter-spacing:.02em}
 .qz-orgs small{color:var(--muted);font-weight:600;font-size:.74rem;line-height:1.3}
-.qz-wheel{position:relative;width:min(100%,300px);height:280px;border-radius:26px;background:var(--surface);border:1px solid var(--line);overflow:hidden}
-.qz-wsel{position:absolute;left:12px;right:12px;top:50%;height:56px;transform:translateY(-50%);border-radius:16px;background:#FFE4EC;pointer-events:none}
-.qz-wl{position:relative;height:100%;overflow-y:auto;scroll-snap-type:y mandatory;scrollbar-width:none;-webkit-mask-image:linear-gradient(180deg,transparent,#000 30%,#000 70%,transparent);mask-image:linear-gradient(180deg,transparent,#000 30%,#000 70%,transparent);outline:none}
+.qz-wheel{position:relative;width:min(100%,320px);height:300px;margin:6px 0}
+.qz-wsel{position:absolute;left:4%;right:4%;top:50%;height:64px;transform:translateY(-50%);border-radius:16px;background:#F2F2F5;pointer-events:none}
+.qz-wl{position:relative;height:100%;overflow-y:auto;scroll-snap-type:y mandatory;scrollbar-width:none;-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 22%,#000 78%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0,#000 22%,#000 78%,transparent 100%);outline:none}
 .qz-wl::-webkit-scrollbar{display:none}
-.qz-wpad{display:block;height:112px}
-.qz-wi{height:56px;display:grid;place-items:center;scroll-snap-align:center;font-family:var(--display);font-weight:800;font-size:1.3rem;color:var(--muted);cursor:pointer;transform:scale(calc(1 - min(var(--d,1),2) * .12));opacity:calc(1 - min(var(--d,1),2) * .3);transition:color .15s}
-.qz-wi[aria-selected="true"]{color:var(--coral);font-size:1.5rem}
+.qz-wpad{display:block;height:118px}
+.qz-wi{--a:max(calc(var(--d,3) * 1),calc(var(--d,3) * -1));height:64px;display:grid;place-items:center;scroll-snap-align:center;cursor:pointer;perspective:600px}
+.qz-wi span{display:block;font-family:var(--display);font-weight:600;font-size:1.45rem;letter-spacing:-.01em;color:#111111;transform-origin:50% 50% -110px;transform:rotateX(calc(var(--d,3) * -18deg));opacity:max(0,calc(1 - var(--a) * .3));backface-visibility:hidden;white-space:nowrap}
+.qz-wi[aria-selected="true"] span{font-weight:800;font-size:1.9rem;letter-spacing:-.03em}
 .qz-multi button{position:relative;padding-right:48px}
 .qz-ck{position:absolute;right:16px;top:50%;transform:translateY(-50%);width:22px;height:22px;border-radius:7px;border:2px solid var(--line);background:#FFFFFF}
 .qz-multi button[aria-pressed="true"] .qz-ck{border-color:var(--coral);background:var(--coral) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 12.5l4.2 4.2L19 7' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/16px no-repeat}
@@ -923,6 +924,12 @@ font[style]{background:none!important;box-shadow:none!important}
     return {w,h,c,diff,kcal,prot,fat,carb,bmi,bmiTxt,weeks,end,at,eau:Math.round(w*0.033*2)/2};
   }
   const OFFRES=[['w4',4,9.99,''],['w12',12,19.99,'⭐ Recommandé'],['w52',52,39.99,'💰 Meilleur prix']];
+  // Roue verticale façon cadran de montre : la valeur au centre est sélectionnée
+  const wheel=(key,vals,lab,aria)=>`<div class="qz-wheel"><div class="qz-wsel" aria-hidden="true"></div>
+      <div class="qz-wl" data-wheel="${key}" role="listbox" aria-label="${aria}" tabindex="0">
+        <span class="qz-wpad"></span>${vals.map(v=>`<div class="qz-wi" role="option" data-v="${v}" aria-selected="${A[key]===v}"><span>${lab(v)}</span></div>`).join('')}<span class="qz-wpad"></span>
+      </div></div>`;
+  const range=(a,b,st)=>{const o=[];for(let v=a;v<=b+1e-9;v+=st)o.push(Math.round(v*10)/10);return o};
   const past=()=>A.tried==='debut'||A.tried==='echec';
   const DEFI=[['grignotage','🍪','Le grignotage','Les envies entre les repas'],['temps','⏱️','Le manque de temps','Je mange sur le pouce'],['motivation','📉','La motivation','Je commence puis j\'arrête'],['idees','🤔','Je ne sais pas quoi manger','Manque d\'idées de repas'],['sucre','🍰','Le sucre','Desserts, sodas, viennoiseries'],['fastfood','🍔','Fast-food et restaurants','Les repas à l\'extérieur']];
   const esc=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -993,10 +1000,7 @@ font[style]{background:none!important;box-shadow:none!important}
       <span class="qz-note">OneAthlet n'est pas affilié à ces organisations : nous nous appuyons sur leurs recommandations publiques.</span>
       <button type="button" class="qz-next" data-next>Continuer →</button>`,
     ()=>`<h2>Combien de <em>repas</em> prenez-vous par jour ?</h2><p>Faites défiler pour choisir.</p>
-      <div class="qz-wheel"><div class="qz-wsel" aria-hidden="true"></div>
-        <div class="qz-wl" id="qzWheel" role="listbox" aria-label="Nombre de repas par jour" tabindex="0">
-          <span class="qz-wpad"></span>${[1,2,3,4,5,6].map(n=>`<div class="qz-wi" role="option" data-n="${n}" aria-selected="${A.meals===n}">${n===6?'6 repas et +':n+' repas'}</div>`).join('')}<span class="qz-wpad"></span>
-        </div></div>
+      ${wheel('meals',[1,2,3,4,5,6],n=>n===6?'6 repas et +':n+' repas','Nombre de repas par jour')}
       <button type="button" class="qz-next" data-next>Continuer →</button>`,
     ()=>`<h2>Que souhaitez-vous <em>changer</em> dans vos habitudes alimentaires ?</h2><p>Plusieurs choix possibles.</p>
       <div class="qz-opts qz-multi">${CHANGE.map(o=>`<button type="button" data-m="${o[0]}" aria-pressed="${A.change.includes(o[0])}"><span class="e" aria-hidden="true">${o[1]}</span><span><b>${esc(o[2])}</b></span><i class="qz-ck" aria-hidden="true"></i></button>`).join('')}</div>
@@ -1016,13 +1020,12 @@ font[style]{background:none!important;box-shadow:none!important}
     ()=>`<h2>Combien de temps <em>marchez-vous</em> lors d'une journée type ?</h2>${opts('marche',MARCHE)}`,
     ()=>`<h2>Êtes-vous <em>essoufflé</em> après avoir monté des escaliers ?</h2>${opts('escaliers',ESCAL)}`,
     ()=>{if(A.taille==null)A.taille=A.sex==='F'?164:177;
-      return `<h2>Quelle est votre <em>taille</em> ?</h2><div class="qz-age"><b><span id="qzMV">${A.taille}</span></b><small>cm</small>
-      <div class="qz-meas"><button type="button" class="qz-pm" data-pm="-1" aria-label="Moins">−</button><input class="qz-range" id="qzM" data-key="taille" data-step="1" type="range" min="120" max="220" step="1" value="${A.taille}" aria-label="Taille en centimètres"><button type="button" class="qz-pm" data-pm="1" aria-label="Plus">+</button></div>
-      <div class="qz-scale"><span>120 cm</span><span>220 cm</span></div></div><button type="button" class="qz-next" data-next>Continuer →</button>`},
+      return `<h2>Quelle est votre <em>taille</em> ?</h2><p>Faites défiler pour choisir.</p>
+      ${wheel('taille',range(120,220,1),v=>v+' cm','Taille en centimètres')}
+      <button type="button" class="qz-next" data-next>Continuer →</button>`},
     ()=>{if(A.poids==null)A.poids=A.sex==='F'?65:80;
-      return `<h2>Quel est votre <em>poids actuel</em> ?</h2><div class="qz-age"><b><span id="qzMV">${String(A.poids).replace('.',',')}</span></b><small>kg</small>
-      <div class="qz-meas"><button type="button" class="qz-pm" data-pm="-1" aria-label="Moins">−</button><input class="qz-range" id="qzM" data-key="poids" data-step="0.5" type="range" min="35" max="200" step="0.5" value="${A.poids}" aria-label="Poids en kilos"><button type="button" class="qz-pm" data-pm="1" aria-label="Plus">+</button></div>
-      <div class="qz-scale"><span>35 kg</span><span>200 kg</span></div></div>
+      return `<h2>Quel est votre <em>poids actuel</em> ?</h2><p>Faites défiler pour choisir.</p>
+      ${wheel('poids',range(35,200,0.5),v=>String(v).replace('.',',')+' kg','Poids en kilos')}
       <div class="qz-bmi" id="qzBmi"></div><button type="button" class="qz-next" data-next>Continuer →</button>`},
     ()=>{if(A.pas==null)A.pas={inactif:5000,peu:7000,actif:9000,tres:11000}[A.activite]||7000;
       return `<div class="qz-sci-ic" aria-hidden="true">👟</div><h2>Fixons votre <em>objectif de pas</em></h2><p>Par jour. Vous pourrez le changer à tout moment.</p>
@@ -1161,14 +1164,20 @@ font[style]{background:none!important;box-shadow:none!important}
         const bm=document.getElementById('qzBmi');if(bm&&A.taille){const i=A.poids/((A.taille/100)**2);bm.innerHTML=`IMC estimé : <b>${i.toFixed(1).replace('.',',')}</b>`}};
       set(+mr.value);mr.addEventListener('input',()=>set(+mr.value));
       body.querySelectorAll('[data-pm]').forEach(b=>b.onclick=()=>set(A[k]+(+b.dataset.pm)*st));}
-    const wh=document.getElementById('qzWheel');
-    if(wh){const items=[...wh.querySelectorAll('.qz-wi')],H=56;
-      let ready=false;const want=A.meals;
-      const mark=()=>{if(!ready)return;const k=Math.max(0,Math.min(items.length-1,Math.round(wh.scrollTop/H)));A.meals=k+1;items.forEach((x,j)=>{x.setAttribute('aria-selected',j===k);x.style.setProperty('--d',Math.abs(j-wh.scrollTop/H))})};
-      const init=()=>{wh.scrollTop=(want-1)*H;if(Math.abs(wh.scrollTop-(want-1)*H)>1&&init.n++<20){setTimeout(init,30);return}ready=true;mark()};init.n=0;setTimeout(init,0);
-      wh.addEventListener('scroll',mark,{passive:true});
+    body.querySelectorAll('[data-wheel]').forEach(wh=>{const key=wh.dataset.wheel,items=[...wh.querySelectorAll('.qz-wi')],vals=items.map(x=>+x.dataset.v),H=64;
+      let ready=false;const want=Math.max(0,vals.indexOf(A[key]));
+      const bmi=()=>{const bm=document.getElementById('qzBmi');if(bm&&A.taille&&A.poids){const i=A.poids/((A.taille/100)**2);bm.innerHTML=`IMC estimé : <b>${i.toFixed(1).replace('.',',')}</b>`}};
+      const mark=()=>{if(!ready)return;const pos=wh.scrollTop/H,k=Math.max(0,Math.min(items.length-1,Math.round(pos)));A[key]=vals[k];
+        const lo=Math.max(0,k-4),hi=Math.min(items.length-1,k+4);
+        for(let j=lo;j<=hi;j++){const x=items[j];x.setAttribute('aria-selected',j===k);x.style.setProperty('--d',(j-pos).toFixed(3))}
+        if(mark.lo!=null)for(let j=mark.lo;j<=mark.hi;j++)if(j<lo||j>hi){items[j].setAttribute('aria-selected','false');items[j].style.setProperty('--d',4)}
+        mark.lo=lo;mark.hi=hi;bmi()};
+      items.forEach(x=>x.style.setProperty('--d',4));
+      const init=()=>{if(!wh.isConnected)return;wh.scrollTop=want*H;if(Math.abs(wh.scrollTop-want*H)>H/3){if(init.n++<80)setTimeout(init,40);return}ready=true;mark()};init.n=0;requestAnimationFrame(init);
+      wh.addEventListener('scroll',()=>requestAnimationFrame(mark),{passive:true});
+      wh.addEventListener('pointerdown',()=>{if(!ready){ready=true}},{once:true});
       items.forEach((x,j)=>x.onclick=()=>wh.scrollTo({top:j*H,behavior:'smooth'}));
-      wh.addEventListener('keydown',e=>{if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();wh.scrollTo({top:(A.meals-1+(e.key==='ArrowDown'?1:-1))*H,behavior:'smooth'})}});}
+      wh.addEventListener('keydown',e=>{if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();const k=vals.indexOf(A[key])+(e.key==='ArrowDown'?1:-1);wh.scrollTo({top:Math.max(0,k)*H,behavior:'smooth'})}});});
     const sl=document.getElementById('qzSlides');
     if(sl){const dots=[...document.querySelectorAll('#qzDots button')];let i=0;
       const show=n=>{i=(n+3)%3;sl.scrollTo({left:sl.clientWidth*i,behavior:'smooth'})};
