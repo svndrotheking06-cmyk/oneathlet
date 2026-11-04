@@ -22,7 +22,8 @@
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--page);color:var(--ink);font-family:var(--body);min-height:100vh;min-height:100dvh;display:grid;grid-template-rows:auto auto auto;overflow-x:hidden}
-.top{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:max(14px,env(safe-area-inset-top)) clamp(16px,4vw,40px) 14px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:max(14px,env(safe-area-inset-top)) clamp(16px,4vw,40px) 14px;position:sticky;top:0;z-index:40;background:rgba(255,255,255,.88);-webkit-backdrop-filter:saturate(180%) blur(14px);backdrop-filter:saturate(180%) blur(14px);transition:box-shadow .2s}
+.top.scrolled{box-shadow:0 1px 0 rgba(17,17,17,.06),0 10px 24px -18px rgba(17,17,17,.25)}
 .brand{text-decoration:none;color:#111111;font-family:"Inter Tight",system-ui,-apple-system,"Segoe UI",sans-serif;font-weight:700;font-size:1.3rem;letter-spacing:-.02em;line-height:1}
 .brand span{color:var(--btn1)}
 @media (min-width:761px){.top>.brand{margin-left:2.3cm}.top>.right{margin-right:2.3cm}}
@@ -813,6 +814,8 @@ font[style]{background:none!important;box-shadow:none!important}
 <div class="paybar" id="payBar" hidden role="status"></div>
 <div class="mp" id="mp" hidden role="dialog" aria-modal="true" aria-label="Mon plan OneAthlet"><div class="mp-in" id="mpIn"></div></div>
 <script>
+/* En-tête fixe : légère ombre dès qu'on fait défiler */
+(function(){const t=document.querySelector('.top');if(!t)return;const f=()=>t.classList.toggle('scrolled',scrollY>4);addEventListener('scroll',f,{passive:true});f()})();
 /* Retour du paiement Stripe + espace « Mon plan » (accès par la session Stripe) */
 (function(){
   const URL_='https://dbrpduznzqynkuebulxx.supabase.co',KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRicnBkdXpuenF5bmt1ZWJ1bHh4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIxMDM4OTAsImV4cCI6MjEwNzY3OTg5MH0.8XVULvee0zcbp7qjlmHupBdhxUKb0tYz6fm1xK4eJkk',H={apikey:KEY,Authorization:'Bearer '+KEY,'Content-Type':'application/json'};
