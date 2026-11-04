@@ -1,6 +1,8 @@
 // Analyse photo de l'assiette (OneAthlet Premium) : reconnaît les aliments et estime calories et macros avec Claude.
-// Secret requis : ANTHROPIC_API_KEY.
+// Accès : membre Premium connecté, ou client ayant payé une formule du quiz (identifié par sa session Stripe).
+// Secrets requis : ANTHROPIC_API_KEY, STRIPE_SECRET.
 import Anthropic from "npm:@anthropic-ai/sdk";
+import Stripe from "npm:stripe@17.7.0";
 import { createClient } from "npm:@supabase/supabase-js@2.45.4";
 
 const CORS = {
@@ -12,6 +14,21 @@ const json = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), { status, headers: { ...CORS, "Content-Type": "application/json" } });
 
 const client = new Anthropic({ apiKey: Deno.env.get("ANTHROPIC_API_KEY") ?? Deno.env.get("anthropic_api_key") });
+const stripe = new Stripe(Deno.env.get("STRIPE_SECRET") ?? Deno.env.get("SECRET_STRIPE") ?? Deno.env.get("STRIPE_SECRET_KEY") ?? Deno.env.get("stripe_secret_key") ?? "", { httpClient: Stripe.createFetchHttpClient() });
+
+// Vrai si la session Stripe correspond à une formule du quiz payée et toujours active.
+async function quizPaid(sid: string): Promise<boolean> {
+  if (!/^cs_[A-Za-z0-9_]+$/.test(sid)) return false;
+  try {
+    const s = await stripe.checkout.sessions.retrieve(sid);
+    if (s.status !== "complete" || !["w4", "w12", "w52"].includes(String(s.metadata?.plan)) || !s.subscription) return false;
+    const sub = await stripe.subscriptions.retrieve(typeof s.subscription === "string" ? s.subscription : s.subscription.id);
+    return ["active", "trialing"].includes(sub.status);
+  } catch (e) {
+    console.error(e);
+    return false;
+  }
+}
 const LANGS: Record<string, string> = { fr: "français", en: "anglais", es: "espagnol", de: "allemand", it: "italien", pt: "portugais", nl: "néerlandais", ar: "arabe", tr: "turc" };
 const TYPES = ["image/jpeg", "image/png", "image/webp"];
 const clean = (v: unknown) => (Array.isArray(v) ? v : []).map((x) => String(x).replace(/[^a-zà-ÿ_-]/gi, "").slice(0, 20)).filter(Boolean).slice(0, 10);
@@ -20,19 +37,22 @@ Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: CORS });
   if (req.method !== "POST") return json({ error: "Méthode non autorisée" }, 405);
 
-  const sb = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_ANON_KEY")!, {
-    global: { headers: { Authorization: req.headers.get("Authorization") ?? "" } },
-  });
-  const { data: { user } } = await sb.auth.getUser();
-  if (!user) return json({ error: "Connectez-vous pour analyser vos repas." }, 401);
-
-  const { data: ab } = await sb.from("abonnements").select("status,current_period_end").eq("user_id", user.id).maybeSingle();
-  const premium = !!ab && (ab.status === "lifetime" || (["active", "trialing"].includes(ab.status) &&
-    (!ab.current_period_end || new Date(ab.current_period_end).getTime() > Date.now() - 86_400_000)));
-  if (!premium) return json({ error: "L'analyse photo est réservée aux membres Premium." }, 402);
-
-  let body: { image?: unknown; mediaType?: unknown; diet?: unknown; intol?: unknown; lang?: unknown };
+  let body: { image?: unknown; mediaType?: unknown; diet?: unknown; intol?: unknown; lang?: unknown; sid?: unknown };
   try { body = await req.json(); } catch { return json({ error: "Requête invalide" }, 400); }
+
+  if (typeof body.sid === "string") {
+    if (!(await quizPaid(body.sid))) return json({ error: "Votre abonnement n'est pas actif." }, 402);
+  } else {
+    const sb = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_ANON_KEY")!, {
+      global: { headers: { Authorization: req.headers.get("Authorization") ?? "" } },
+    });
+    const { data: { user } } = await sb.auth.getUser();
+    if (!user) return json({ error: "Connectez-vous pour analyser vos repas." }, 401);
+    const { data: ab } = await sb.from("abonnements").select("status,current_period_end").eq("user_id", user.id).maybeSingle();
+    const premium = !!ab && (ab.status === "lifetime" || (["active", "trialing"].includes(ab.status) &&
+      (!ab.current_period_end || new Date(ab.current_period_end).getTime() > Date.now() - 86_400_000)));
+    if (!premium) return json({ error: "L'analyse photo est réservée aux membres Premium." }, 402);
+  }
   const image = typeof body.image === "string" ? body.image : "";
   const mediaType = TYPES.includes(String(body.mediaType)) ? String(body.mediaType) : "image/jpeg";
   if (!image || image.length > 7_000_000 || !/^[A-Za-z0-9+/=]+$/.test(image)) return json({ error: "Photo illisible ou trop lourde." }, 400);

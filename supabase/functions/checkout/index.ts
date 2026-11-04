@@ -1,6 +1,7 @@
 // Paiement OneAthlet Premium (Stripe Checkout) : formules du quiz sur 4, 12 ou 52 semaines (sans compte),
 // anciennes formules 14,99 €/mois et 89,99 € à vie (compte requis), et accès au portail client.
-// Secrets requis : STRIPE_SECRET_KEY. Optionnel : STRIPE_PRICE_ID (sinon le prix est créé à la volée).
+// Secrets requis : STRIPE_SECRET_KEY. Optionnels : STRIPE_PRICE_ID (sinon le prix est créé à la volée),
+// RESEND_API_KEY et RESEND_FROM (envoi de l'e-mail « Votre plan est prêt » aux clients du quiz).
 import Stripe from "npm:stripe@17.7.0";
 import { createClient } from "npm:@supabase/supabase-js@2.45.4";
 
@@ -38,7 +39,7 @@ Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: CORS });
   if (req.method !== "POST") return json({ error: "Méthode non autorisée" }, 405);
 
-  let body: { action?: string; plan?: string; returnUrl?: string; sessionId?: string; email?: string; cible?: number };
+  let body: { action?: string; plan?: string; returnUrl?: string; sessionId?: string; email?: string; cible?: number; sid?: string };
   try { body = await req.json(); } catch { body = {}; }
 
   // Paiement depuis le quiz, sans compte : l'e-mail saisi sert d'identifiant client.
@@ -74,6 +75,55 @@ Deno.serve(async (req) => {
     } catch (err) {
       console.error(err);
       return json({ error: "Le paiement n'a pas pu démarrer. Réessayez." }, 502);
+    }
+  }
+
+  // Espace « Mon plan » des clients du quiz : la session Stripe sert de clé d'accès.
+  if (body.action === "monplan" || body.action === "monportail") {
+    const sid = String(body.sid ?? "");
+    if (!/^cs_[A-Za-z0-9_]+$/.test(sid)) return json({ error: "Lien invalide." }, 400);
+    try {
+      const s = await stripe.checkout.sessions.retrieve(sid);
+      if (s.status !== "complete" || !PLANS[String(s.metadata?.plan)] || !s.subscription) return json({ error: "Paiement introuvable ou non finalisé." }, 402);
+      const sub = await stripe.subscriptions.retrieve(typeof s.subscription === "string" ? s.subscription : s.subscription.id);
+      const customer = typeof s.customer === "string" ? s.customer : s.customer?.id;
+      if (body.action === "monportail") {
+        const back = safeReturn(body.returnUrl);
+        if (!back || !customer) return json({ error: "Gestion de l'abonnement indisponible." }, 400);
+        const portal = await stripe.billingPortal.sessions.create({ customer, return_url: back + "?plan=" + sid });
+        return json({ url: portal.url });
+      }
+      const active = ["active", "trialing"].includes(sub.status);
+      const email = String(s.customer_details?.email ?? s.metadata?.email ?? "");
+      const admin = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
+      let { data: lead } = await admin.from("leads").select("id,reponses,plan_envoye_at").eq("stripe_session", sid).maybeSingle();
+      if (!lead && email) {
+        const { data: found } = await admin.from("leads").select("id,reponses,plan_envoye_at").ilike("email", email).order("created_at", { ascending: false }).limit(1).maybeSingle();
+        if (found) { lead = found; await admin.from("leads").update({ stripe_session: sid }).eq("id", found.id); }
+      }
+      // E-mail « Votre plan est prêt », envoyé une seule fois.
+      const resend = Deno.env.get("RESEND_API_KEY");
+      const back = safeReturn(body.returnUrl) ?? "https://oneathlet.com/";
+      if (active && resend && email && lead && !lead.plan_envoye_at) {
+        const link = back + "?plan=" + sid;
+        const r = await fetch("https://api.resend.com/emails", {
+          method: "POST",
+          headers: { Authorization: `Bearer ${resend}`, "Content-Type": "application/json" },
+          body: JSON.stringify({
+            from: Deno.env.get("RESEND_FROM") ?? "OneAthlet <plan@oneathlet.com>",
+            to: [email],
+            subject: "Votre plan OneAthlet est prêt 🎉",
+            html: `<div style="font-family:Arial,sans-serif;max-width:520px;margin:auto;color:#2A141A"><h1 style="color:#E11D48">Votre plan est prêt</h1><p>Merci pour votre confiance ! Votre programme a été calculé à partir de vos réponses au quiz : calories, macros, menus adaptés à votre régime et analyse de vos repas en photo.</p><p style="text-align:center;margin:28px 0"><a href="${link}" style="background:#E11D48;color:#fff;text-decoration:none;font-weight:bold;padding:14px 26px;border-radius:999px;display:inline-block">Ouvrir mon plan</a></p><p style="font-size:13px;color:#7A5F67">Gardez cet e-mail : ce lien est votre accès personnel. Vous pouvez gérer ou résilier votre abonnement depuis votre plan.</p></div>`,
+          }),
+        });
+        if (r.ok) await admin.from("leads").update({ plan_envoye_at: new Date().toISOString() }).eq("id", lead.id);
+        else console.error("resend", r.status, await r.text());
+      }
+      const end = (sub as any).current_period_end ?? (sub.items?.data?.[0] as any)?.current_period_end;
+      return json({ active, email, plan: s.metadata?.plan, reponses: lead?.reponses ?? null, renouvellement: end ? new Date(end * 1000).toISOString() : null, annule: !!sub.cancel_at_period_end });
+    } catch (err) {
+      console.error(err);
+      return json({ error: "Impossible de vérifier votre accès. Réessayez." }, 502);
     }
   }
 

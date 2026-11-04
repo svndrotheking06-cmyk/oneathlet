@@ -494,7 +494,7 @@ h1 em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--cor
 .qz-tl div{display:grid;gap:3px;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:12px 14px;flex:1}
 .qz-tl small{color:var(--coral);font-weight:800;font-size:.76rem}
 .qz-tl b{font-family:var(--display);font-size:1.1rem}
-.qz-tl span{color:var(--muted);font-weight:600;font-size:.85rem}
+.qz-tl div span{color:var(--muted);font-weight:600;font-size:.85rem}
 .qz-offres{display:grid;gap:12px;width:100%}
 .qz-of{position:relative;display:flex;align-items:center;gap:12px;text-align:left;border:2px solid var(--line);background:var(--surface);border-radius:22px;padding:18px 16px;font:inherit;color:var(--ink);cursor:pointer;transition:border-color .15s,background .15s}
 .qz-of[aria-checked="true"]{border-color:var(--coral);background:#FFF5F7}
@@ -510,11 +510,56 @@ h1 em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--cor
 .qz-inc li{display:flex;gap:10px;align-items:flex-start;font-weight:600;font-size:.92rem}
 .qz-inc li::before{content:"";width:20px;height:20px;flex:none;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 12.5l4.2 4.2L19 7' fill='none' stroke='%2322A06B' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/20px no-repeat}
 .qz-pay{position:sticky;bottom:10px}
-.paybar{position:fixed;left:50%;top:14px;transform:translateX(-50%);z-index:70;width:min(calc(100% - 24px),520px);display:flex;gap:10px;align-items:center;border-radius:18px;padding:14px 16px;font-weight:600;box-shadow:0 18px 40px -16px rgba(42,20,26,.4)}
+.paybar{position:fixed;left:50%;bottom:max(14px,env(safe-area-inset-bottom));transform:translateX(-50%);z-index:70;width:min(calc(100% - 24px),520px);display:flex;gap:10px;align-items:center;border-radius:18px;padding:14px 16px;font-weight:600;box-shadow:0 18px 40px -16px rgba(42,20,26,.4)}
 .paybar.ok{background:#E3F4EC;color:#14532D}
 .paybar.ko{background:#FFF5F7;color:var(--ink)}
 .paybar span{flex:1}
 .paybar button{border:0;background:none;font-size:1.3rem;font-weight:800;cursor:pointer;color:inherit}
+.mp-open{border:0;background:#FFE4EC;color:var(--coral);font:inherit;font-weight:800;font-size:.85rem;border-radius:999px;padding:9px 14px;cursor:pointer}
+.mp{position:fixed;inset:0;z-index:65;background:var(--page);overflow-y:auto}
+.mp[hidden]{display:none}
+.mp-in{max-width:620px;margin:0 auto;padding:max(14px,env(safe-area-inset-top)) 16px 40px;display:grid;gap:16px}
+.mp-top{display:flex;justify-content:space-between;align-items:center}
+.mp-logo{font-family:var(--display);font-weight:800;font-size:1.1rem}.mp-logo b{color:var(--coral)}
+.mp-x{width:40px;height:40px;border-radius:50%;border:0;background:#FFE4EC;font-size:1.3rem;font-weight:800;cursor:pointer;color:var(--ink)}
+.mp h1{margin:6px 0 0;font-family:var(--display);font-size:clamp(1.9rem,7vw,2.6rem);font-weight:800;letter-spacing:-.03em;line-height:1.05}
+.mp h1 em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--coral));-webkit-background-clip:text;background-clip:text;color:transparent}
+.mp-sub{margin:-6px 0 0;color:var(--muted);font-weight:600}
+.mp-sub b{color:var(--ink)}
+.mp-card{border-radius:24px;padding:18px;display:grid;gap:6px}
+.mp-kcal{background:linear-gradient(135deg,var(--orange),var(--coral));color:#FFFFFF}
+.mp-kcal small{font-weight:800;opacity:.9}.mp-kcal>b{font-family:var(--display);font-size:2.4rem;line-height:1.05}.mp-kcal>span{font-weight:700;opacity:.9}
+.mp-mac{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:6px}
+.mp-mac span{display:grid;gap:2px;justify-items:center;background:rgba(255,255,255,.95);color:var(--muted);border-radius:16px;padding:10px 6px;font-weight:700;font-size:.78rem}
+.mp-mac i{width:10px;height:10px;border-radius:50%}
+.mp-mac b{font-family:var(--display);font-size:1.15rem;color:var(--ink)}
+.mp-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mp-grid div{display:grid;gap:2px;background:#FFF5F7;border-radius:18px;padding:12px}
+.mp-grid small{color:var(--muted);font-weight:800;font-size:.72rem}.mp-grid b{font-family:var(--display);font-size:1.35rem}.mp-grid b.sm{font-size:1rem}.mp-grid span{color:var(--muted);font-weight:600;font-size:.76rem}
+.mp-sec{display:grid;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:16px}
+.mp-sec h2{margin:0;font-family:var(--display);font-size:1.2rem;font-weight:800}
+.mp-h{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.mp-link{border:0;background:none;color:var(--coral);font:inherit;font-weight:800;cursor:pointer;padding:6px 0}
+.mp-menu{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.mp-menu li{display:flex;align-items:center;gap:10px;background:#FFF5F7;border-radius:16px;padding:10px}
+.mp-e{width:42px;height:42px;border-radius:12px;background:#FFFFFF;display:grid;place-items:center;font-size:1.4rem;flex:none}
+.mp-menu div{flex:1;display:grid;gap:1px;min-width:0}.mp-menu small{color:var(--muted);font-weight:800;font-size:.72rem}.mp-menu b{font-size:.92rem}
+.mp-menu em{font-style:normal;color:#22A06B;font-weight:800;font-size:.78rem;white-space:nowrap}
+.mp-note{margin:0;color:var(--muted);font-size:.8rem;font-weight:600}
+.mp-photo{display:block;text-align:center;border-radius:999px;padding:15px;font-weight:800;color:#FFFFFF;background:linear-gradient(135deg,var(--orange),var(--coral));cursor:pointer;box-shadow:0 16px 30px -16px var(--coral)}
+.mp-wait{display:grid;gap:12px;justify-items:center;text-align:center;color:var(--muted);font-weight:700;padding:16px}
+.mp-wait.big{padding:80px 16px}
+.mp-spin{width:34px;height:34px;border-radius:50%;border:4px solid #FFE4EC;border-top-color:var(--coral);animation:spin 1s linear infinite}
+.mp-res{display:grid;gap:10px}
+.mp-res img{width:100%;max-height:260px;object-fit:cover;border-radius:18px}
+.mp-res-h{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.mp-kc{font-family:var(--display);font-weight:800;font-size:1.4rem;color:var(--coral)}
+.mp-res .mp-mac span{background:#FFF5F7}
+.mp-res ul{list-style:none;margin:0;padding:0;display:grid;gap:5px}
+.mp-res li{display:flex;gap:6px;font-weight:600;font-size:.88rem}.mp-res li em{margin-left:auto;font-style:normal;color:var(--muted)}
+.mp-tip{margin:0;background:#E3F4EC;border-radius:14px;padding:10px 12px;font-weight:600;font-size:.88rem}
+.mp-acc{justify-items:start}
+.mp-acc small{color:var(--muted);font-weight:600}
 .goog-te-banner-frame,.skiptranslate>iframe,#goog-gt-tt,.goog-te-balloon-frame{display:none!important}
 body{top:0!important}
 font[style]{background:none!important;box-shadow:none!important}
@@ -527,6 +572,7 @@ font[style]{background:none!important;box-shadow:none!important}
     <b class="bn">One<span>Athlet</span></b>
   </a>
   <div class="right">
+    <button type="button" class="mp-open" id="mpOpen" hidden>📋 Mon plan</button>
     <button type="button" class="start" id="startBtn">Commencer</button>
     <div class="lang notranslate" translate="no">
       <button type="button" class="lang-btn" id="langBtn" aria-haspopup="true" aria-expanded="false" aria-label="Langue / Language">FR</button>
@@ -745,13 +791,102 @@ font[style]{background:none!important;box-shadow:none!important}
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <div class="paybar" id="payBar" hidden role="status"></div>
+<div class="mp" id="mp" hidden role="dialog" aria-modal="true" aria-label="Mon plan OneAthlet"><div class="mp-in" id="mpIn"></div></div>
 <script>
-/* Retour du paiement Stripe */
+/* Retour du paiement Stripe + espace « Mon plan » (accès par la session Stripe) */
 (function(){
-  const q=new URLSearchParams(location.search),st=q.get('paiement'),bar=document.getElementById('payBar');if(!st||!bar)return;
-  bar.innerHTML=st==='ok'?'🎉 <span><b>Merci, votre paiement est confirmé !</b> Votre plan personnalisé arrive par e-mail.</span><button type="button" aria-label="Fermer">×</button>':'<span>Paiement annulé : vous pouvez reprendre quand vous voulez.</span><button type="button" aria-label="Fermer">×</button>';
-  bar.className='paybar '+(st==='ok'?'ok':'ko');bar.hidden=false;bar.querySelector('button').onclick=()=>bar.hidden=true;
-  try{history.replaceState(null,'',location.pathname)}catch(e){}
+  const URL_='https://dbrpduznzqynkuebulxx.supabase.co',KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRicnBkdXpuenF5bmt1ZWJ1bHh4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIxMDM4OTAsImV4cCI6MjEwNzY3OTg5MH0.8XVULvee0zcbp7qjlmHupBdhxUKb0tYz6fm1xK4eJkk',H={apikey:KEY,Authorization:'Bearer '+KEY,'Content-Type':'application/json'};
+  const $=id=>document.getElementById(id),mp=$('mp'),box=$('mpIn'),bar=$('payBar');
+  const esc=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const fr=(v,d=1)=>Number(v).toFixed(d).replace('.',',');
+  const back=location.origin+location.pathname;
+  const q=new URLSearchParams(location.search);let sid=q.get('plan')||(q.get('paiement')==='ok'?q.get('sid'):null);
+  if(q.get('paiement')==='annule'&&bar){bar.className='paybar ko';bar.innerHTML='<span>Paiement annulé : vous pouvez reprendre quand vous voulez.</span><button type="button" aria-label="Fermer">×</button>';bar.hidden=false;bar.querySelector('button').onclick=()=>bar.hidden=true}
+  if(q.has('plan')||q.has('paiement')){try{history.replaceState(null,'',location.pathname)}catch(e){}}
+  if(sid&&!/^cs_[A-Za-z0-9_]+$/.test(sid))sid=null;
+  if(sid){try{localStorage.setItem('oneathlet-plan',sid)}catch(e){}}
+  if(!sid){try{sid=localStorage.getItem('oneathlet-plan')}catch(e){}}
+  if(sid)$('mpOpen').hidden=false;
+
+  // Plan calculé à partir des réponses du quiz (même méthode que dans le quiz)
+  function planOf(R){
+    const w=+R.poids||(R.sex==='F'?65:80),h=+R.taille||(R.sex==='F'?164:177),age=+R.age||30,c=R.cible==null?w:+R.cible,diff=c-w,ry=+R.rythme||0.8;
+    const bmr=10*w+6.25*h-5*age+(R.sex==='F'?-161:5),tdee=bmr*({inactif:1.2,peu:1.375,actif:1.55,tres:1.725}[R.activite]||1.375);
+    let kcal=Math.abs(diff)<0.5?tdee:diff<0?Math.max(R.sex==='F'?1200:1500,tdee-Math.min(ry*7700/7,tdee*0.25)):tdee+Math.min(ry*7700/7,500);
+    kcal=Math.round(kcal/10)*10;
+    const prot=Math.round((R.goal==='physique'||diff<0?2:1.6)*Math.min(w,Math.max(c,w*0.85))),fat=Math.round(kcal*0.3/9),carb=Math.max(0,Math.round((kcal-prot*4-fat*9)/4));
+    const weeks=Math.abs(diff)<0.5?0:Math.ceil(Math.abs(diff)/ry),end=new Date();end.setDate(end.getDate()+weeks*7);
+    const at=n=>Math.round((w+Math.sign(diff)*Math.min(Math.abs(diff),ry*n/7))*10)/10;
+    return {w,c,diff,kcal,prot,fat,carb,weeks,end,at,ry,eau:Math.round(w*0.033*2)/2,pas:+R.pas||7000,suivi:+R.suivi||7};
+  }
+  // Menus : on écarte les plats incompatibles avec le régime et les intolérances
+  const MEALS={
+    pdj:[['🍳','Omelette 3 œufs, épinards, pain complet',['oeufs','gluten','ble','cereale']],['🥣','Porridge d\'avoine, lait d\'amande, fruits rouges',['gluten','coque','cereale']],['🥛','Skyr, myrtilles et graines de chia',['lait','lactose','laitier']],['🌱','Tofu brouillé, avocat et tomates',['soja']],['🥑','Œufs brouillés, avocat et saumon fumé',['oeufs','poisson']],['🍌','Smoothie banane, lait de coco et graines',['sucre']]],
+    dej:[['🍗','Poulet grillé, riz complet et brocoli',['viande','cereale']],['🥗','Bowl quinoa, pois chiches et légumes rôtis',['legsec']],['🐟','Saumon, patate douce et haricots verts',['poisson']],['🥩','Salade de bœuf, avocat et noix',['viande','coque']],['🍛','Dahl de lentilles corail, riz basmati',['legsec','cereale']],['🥬','Salade de thon, œuf, légumes croquants',['poisson','oeufs']]],
+    col:[['🍎','Pomme et amandes',['coque']],['🍯','Yaourt grec et miel',['lait','lactose','laitier','miel']],['🥕','Houmous et bâtonnets de carottes',['legsec']],['🥚','2 œufs durs et tomates cerises',['oeufs']],['🥤','Shake protéiné végétal et banane',['soja']],['🫐','Myrtilles et graines de courge',[]]],
+    din:[['🐟','Cabillaud, quinoa et courgettes',['poisson']],['🥢','Wok de tofu, légumes et nouilles de riz',['soja','cereale']],['🦃','Dinde, purée de patate douce et salade',['viande']],['🥩','Steak, légumes verts et beurre aux herbes',['viande','lait','lactose','laitier']],['🍲','Curry de pois chiches au lait de coco, riz',['legsec','cereale']],['🍤','Crevettes sautées, légumes et riz',['crustaces','cereale']]]
+  };
+  const NOT={vege:['viande','poisson','crustaces','mollusques'],vegan:['viande','poisson','crustaces','mollusques','oeufs','lait','lactose','laitier','miel'],paleo:['cereale','laitier','lait','lactose','legsec','soja'],keto:['cereale','sucre','legsec'],lowcarb:['cereale','sucre'],hp:[],equilibre:[]};
+  const SLOTS=[['pdj','Petit-déjeuner',0.25],['dej','Déjeuner',0.35],['col','Collation',0.10],['din','Dîner',0.30]];
+  let R={},P=null,offset=0;
+  function okMeal(m){const bad=(NOT[R.regime]||[]).concat(R.intol||[]).concat((R.intol||[]).includes('gluten')||(R.intol||[]).includes('ble')?['gluten','ble']:[]);return !m[2].some(t=>bad.includes(t))}
+  function menu(){return SLOTS.map(([k,n,sh],i)=>{const ok=MEALS[k].filter(okMeal),list=ok.length?ok:MEALS[k];const m=list[(new Date().getDate()+offset+i)%list.length];return {k,n,m,kcal:Math.round(P.kcal*sh/10)*10,prot:Math.round(P.prot*sh)}})}
+  const REG={equilibre:'Équilibré',vege:'Végétarien',vegan:'Vegan',paleo:'Paléo',keto:'Cétogène',hp:'Riche en protéines',lowcarb:'Faible en glucides'};
+  function render(info){
+    P=planOf(R);const d1=new Date();d1.setDate(d1.getDate()+P.suivi);const d2=new Date();d2.setDate(d2.getDate()+60);
+    const f=d=>d.toLocaleDateString('fr-FR',{day:'numeric',month:'long'}),st=Math.abs(P.diff)<0.5;
+    box.innerHTML=`<div class="mp-top"><span class="mp-logo">One<b>Athlet</b></span><button type="button" class="mp-x" id="mpX" aria-label="Fermer">×</button></div>
+    <h1>Mon plan <em>personnalisé</em></h1>
+    <p class="mp-sub">${st?'Garder votre poids et installer de bonnes habitudes.':'De '+fr(P.w)+' kg à <b>'+fr(P.c)+' kg</b>, à '+fr(P.ry)+' kg par semaine'+(P.weeks?' · objectif vers le '+P.end.toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'}):'')+'.'}</p>
+    ${info&&info.annule?'<div class="qz-care">ℹ️ <span>Votre abonnement est résilié : votre accès reste ouvert jusqu\'au '+new Date(info.renouvellement).toLocaleDateString('fr-FR',{day:'numeric',month:'long'})+'.</span></div>':''}
+    <section class="mp-card mp-kcal"><small>Votre objectif du jour</small><b>${P.kcal.toLocaleString('fr-FR')} kcal</b>${R.burn==='oui'?'<span>+ les calories brûlées par vos activités</span>':''}
+      <div class="mp-mac"><span><i style="background:#D93B4B"></i>Protéines<b>${P.prot} g</b></span><span><i style="background:#F5B83D"></i>Glucides<b>${P.carb} g</b></span><span><i style="background:#7B61FF"></i>Lipides<b>${P.fat} g</b></span></div></section>
+    <div class="mp-grid"><div><small>Eau</small><b>${fr(P.eau)} L</b><span>par jour</span></div><div><small>Pas</small><b>${P.pas.toLocaleString('fr-FR')}</b><span>par jour</span></div><div><small>Repas</small><b>${R.meals||3}</b><span>par jour</span></div><div><small>Régime</small><b class="sm">${REG[R.regime]||'Équilibré'}</b><span>${(R.intol||[]).length?'sans '+R.intol.length+' allergène'+(R.intol.length>1?'s':''):'je mange de tout'}</span></div></div>
+    <section class="mp-sec"><div class="mp-h"><h2>Mes menus du jour</h2><button type="button" class="mp-link" id="mpSwap">🔄 Autres idées</button></div>
+      <ul class="mp-menu">${menu().map(x=>`<li><span class="mp-e">${x.m[0]}</span><div><small>${x.n} · ${x.kcal} kcal</small><b>${esc(x.m[1])}</b></div><em>${x.prot} g prot.</em></li>`).join('')}</ul>
+      <p class="mp-note">Menus choisis selon votre régime${(R.intol||[]).length?' et vos intolérances':''}. Portions ajustées à vos calories.</p></section>
+    <section class="mp-sec"><h2>Analyser mon repas en photo</h2><p class="mp-note">Prenez votre assiette en photo : calories et macros en quelques secondes.</p>
+      <label class="mp-photo"><input type="file" accept="image/*" capture="environment" id="mpFile" hidden>📸 Prendre ou choisir une photo</label>
+      <div id="mpScan"></div></section>
+    <section class="mp-sec"><h2>Mes points d'étape</h2><ol class="qz-tl">
+      <li><span class="qz-tl-d">1</span><div><small>Aujourd'hui</small><b>Départ : ${fr(P.w)} kg</b><span>Suivez votre objectif de ${P.kcal.toLocaleString('fr-FR')} kcal et photographiez vos repas.</span></div></li>
+      <li><span class="qz-tl-d">2</span><div><small>${f(d1)}</small><b>${st?'Habitudes installées':'≈ '+fr(P.at(P.suivi))+' kg'}</b><span>Premier point de suivi : pesez-vous le matin, à jeun.</span></div></li>
+      <li><span class="qz-tl-d">3</span><div><small>${f(d2)}</small><b>${st?'Énergie et équilibre':'≈ '+fr(P.at(60))+' kg'}</b><span>Deux mois de nouvelles habitudes.</span></div></li></ol></section>
+    ${(R.sante||[]).length?'<div class="qz-care">⚕️ <span>Vous nous avez signalé un problème de santé : parlez de ce plan à votre médecin, surtout si vous suivez un traitement.</span></div>':''}
+    <section class="mp-sec mp-acc"><small>${info&&info.email?'Compte : '+esc(info.email):''}${info&&info.renouvellement&&!info.annule?' · renouvellement le '+new Date(info.renouvellement).toLocaleDateString('fr-FR',{day:'numeric',month:'long'}):''}</small>
+      <button type="button" class="mp-link" id="mpPortal">Gérer ou résilier mon abonnement</button></section>
+    <p class="mp-note">Estimations indicatives (formule de Mifflin-St Jeor). OneAthlet ne remplace pas un avis médical.</p>`;
+    $('mpX').onclick=close;$('mpSwap').onclick=()=>{offset++;render(info)};
+    $('mpPortal').onclick=async e=>{const b=e.target;b.disabled=true;b.textContent='Ouverture…';try{const r=await fetch(URL_+'/functions/v1/checkout',{method:'POST',headers:H,body:JSON.stringify({action:'monportail',sid,returnUrl:back})});const d=await r.json();if(d.url){location.href=d.url;return}b.textContent=d.error||'Indisponible pour le moment'}catch(err){b.textContent='Connexion impossible'}b.disabled=false};
+    $('mpFile').onchange=e=>{const fl=e.target.files&&e.target.files[0];if(fl)scan(fl);e.target.value=''};
+  }
+  function toJpeg(file){return new Promise((res,rej)=>{const img=new Image(),u=URL.createObjectURL(file);img.onload=()=>{const k=Math.min(1,1280/Math.max(img.width,img.height)),c=document.createElement('canvas');c.width=Math.round(img.width*k);c.height=Math.round(img.height*k);c.getContext('2d').drawImage(img,0,0,c.width,c.height);URL.revokeObjectURL(u);res(c.toDataURL('image/jpeg',0.85))};img.onerror=()=>{URL.revokeObjectURL(u);rej()};img.src=u})}
+  async function scan(file){
+    const out=$('mpScan');out.innerHTML='<div class="mp-wait"><span class="mp-spin"></span>Analyse de votre repas…</div>';
+    try{const data=await toJpeg(file);
+      const r=await fetch(URL_+'/functions/v1/scan',{method:'POST',headers:H,body:JSON.stringify({sid,image:data.split(',')[1],mediaType:'image/jpeg',diet:[R.regime].filter(Boolean),intol:R.intol||[],lang:'fr'})});
+      const d=await r.json();if(!d.result){out.innerHTML='<p class="qz-err">'+esc(d.error||'L\'analyse a échoué. Réessayez.')+'</p>';return}
+      const x=d.result,al=x.aliments||[],t=al.reduce((a,v)=>({k:a.k+(+v.kcal||0),p:a.p+(+v.proteines||0),g:a.g+(+v.glucides||0),l:a.l+(+v.lipides||0)}),{k:0,p:0,g:0,l:0});
+      out.innerHTML=`<div class="mp-res"><img src="${data}" alt="Votre repas"><div class="mp-res-h"><b>${esc(x.plat||'Votre repas')}</b><span class="mp-kc">${Math.round(t.k)} kcal</span></div>
+        <div class="mp-mac"><span><i style="background:#D93B4B"></i>Protéines<b>${Math.round(t.p)} g</b></span><span><i style="background:#F5B83D"></i>Glucides<b>${Math.round(t.g)} g</b></span><span><i style="background:#7B61FF"></i>Lipides<b>${Math.round(t.l)} g</b></span></div>
+        <ul>${al.map(a=>`<li>${esc(a.emoji||'🍽️')} ${esc(a.nom||'')} · ${Math.round(+a.grammes||0)} g<em>${Math.round(+a.kcal||0)} kcal</em></li>`).join('')}</ul>
+        ${x.conseil?`<p class="mp-tip">💡 ${esc(x.conseil)}</p>`:''}<p class="mp-note">Soit ${Math.round(t.k/P.kcal*100)} % de votre objectif du jour.</p></div>`;
+    }catch(err){out.innerHTML='<p class="qz-err">Connexion impossible. Réessayez.</p>'}
+  }
+  async function open(){
+    mp.hidden=false;document.body.style.overflow='hidden';box.innerHTML='<div class="mp-wait big"><span class="mp-spin"></span>Ouverture de votre plan…</div>';
+    try{R=JSON.parse(localStorage.getItem('oneathlet-bilan')||'{}')||{}}catch(e){R={}}
+    try{const r=await fetch(URL_+'/functions/v1/checkout',{method:'POST',headers:H,body:JSON.stringify({action:'monplan',sid,returnUrl:back})});const d=await r.json();
+      if(!r.ok||!d.active){box.innerHTML=`<div class="mp-top"><span class="mp-logo">One<b>Athlet</b></span><button type="button" class="mp-x" id="mpX" aria-label="Fermer">×</button></div><div class="mp-wait big">${esc(d.error||'Votre abonnement n\'est plus actif.')}<button type="button" class="qz-next" id="mpRe">Reprendre un plan</button></div>`;$('mpX').onclick=close;$('mpRe').onclick=()=>{close();const b=document.querySelector('.start');if(b)b.click()};return}
+      if(d.reponses&&typeof d.reponses==='object')R=Object.assign({},d.reponses,R.email?R:{});
+      render(d);
+      if(q.get('paiement')==='ok'&&bar){bar.className='paybar ok';bar.innerHTML='🎉 <span><b>Paiement confirmé, bienvenue !</b> Voici votre plan.</span><button type="button" aria-label="Fermer">×</button>';bar.hidden=false;bar.querySelector('button').onclick=()=>bar.hidden=true;setTimeout(()=>bar.hidden=true,6000)}
+    }catch(err){box.innerHTML='<div class="mp-wait big">Connexion impossible. Vérifiez votre réseau et réessayez.<button type="button" class="qz-next" id="mpRe">Réessayer</button></div>';$('mpRe').onclick=open}
+  }
+  function close(){mp.hidden=true;document.body.style.overflow=''}
+  $('mpOpen').onclick=open;
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!mp.hidden)close()});
+  if(sid&&(q.has('plan')||q.get('paiement')==='ok'))open();
 })();
 /* Quiz : navigation interne en plein écran, ouverte par les boutons « Commencer » */
 (function(){
