@@ -1088,10 +1088,9 @@ font[style]{background:none!important;box-shadow:none!important}
       ${A.change.includes('boulimie')?`<div class="qz-care">🫶 <span><b>Vous n'êtes pas seul·e.</b> Les crises de boulimie sont un trouble fréquent qui se soigne. En plus de OneAthlet, parlez-en à votre médecin ou à un professionnel spécialisé : un accompagnement fait vraiment la différence.</span></div>`:''}
       <button type="button" class="qz-next" data-next>Continuer →</button>`},
     ()=>`<h2 class="qz-intro">Quel régime <span style="white-space:nowrap">préférez-vous&nbsp;?</span></h2>${opts('regime',REGIME)}`,
-    ()=>`<h2>Avez-vous des <em>intolérances</em> alimentaires&nbsp;?</h2><p>Sélectionnez tout ce qui s'applique.</p>
+    ()=>`<h2 class="qz-intro">Avez-vous des <em>intolérances alimentaires</em>&nbsp;?</h2>
       <div class="qz-chips">${INTOL.map(o=>`<button type="button" data-mk="intol" data-m="${o[0]}" aria-pressed="${A.intol.includes(o[0])}"><span aria-hidden="true">${o[1]}</span>${esc(o[2])}</button>`).join('')}</div>
-      <button type="button" class="qz-next" data-next ${A.intol.length?'':'disabled'}>Continuer →</button>
-      <button type="button" class="qz-all" data-all>🍽️ Je mange de tout</button>`,
+      <button type="button" class="qz-next" data-all>${A.intol.length?'Continuer →':'Je mange de tout'}</button>`,
     ()=>`<h2 class="qz-intro">Quel est votre <em>niveau d'activité</em>&nbsp;?</h2><p class="qz-hint">Cela nous aide à calculer vos besoins quotidiens</p>${opts('activite',ACTIV)}`,
     ()=>`<h2 class="qz-intro">Combien de temps <em>marchez-vous</em> lors d'une journée type&nbsp;?</h2>${opts('marche',MARCHE)}`,
     ()=>`<h2 class="qz-intro">Êtes-vous <em>essoufflé</em> après avoir monté des escaliers&nbsp;?</h2>${opts('escaliers',ESCAL)}`,
@@ -1274,9 +1273,9 @@ font[style]{background:none!important;box-shadow:none!important}
     const o=e.target.closest('[data-k]');
     if(o){A[o.dataset.k]=o.dataset.v;o.parentNode.querySelectorAll('[data-k]').forEach(x=>x.setAttribute('aria-pressed',x===o));setTimeout(()=>go(step+1),220);return}
     const mb=e.target.closest('[data-m]');
-    if(mb){const k=mb.dataset.mk||'change',v=mb.dataset.m;A[k]=A[k].includes(v)?A[k].filter(x=>x!==v):A[k].concat(v);mb.setAttribute('aria-pressed',A[k].includes(v));const nx=body.querySelector('[data-next]');if(nx)nx.disabled=!A[k].length;if(k==='sante')santeNote();return}
+    if(mb){const k=mb.dataset.mk||'change',v=mb.dataset.m;A[k]=A[k].includes(v)?A[k].filter(x=>x!==v):A[k].concat(v);mb.setAttribute('aria-pressed',A[k].includes(v));const nx=body.querySelector('[data-next]');if(nx)nx.disabled=!A[k].length;if(k==='sante')santeNote();if(k==='intol'){const ab=body.querySelector('[data-all]');if(ab)ab.textContent=A.intol.length?'Continuer →':'Je mange de tout'}return}
     const nb=e.target.closest('[data-none]');if(nb){A[nb.dataset.none]=[];go(step+1);return}
-    if(e.target.closest('[data-all]')){A.intol=[];go(step+1);return}
+    if(e.target.closest('[data-all]')){go(step+1);return}
     if(e.target.closest('[data-next]')){go(step+1);return}
     if(e.target.closest('[data-done]')){try{localStorage.setItem('oneathlet-bilan',JSON.stringify(A))}catch(err){}close()}
   });
