@@ -406,6 +406,13 @@ h1 em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--cor
 .qz-orgs div{display:grid;gap:4px;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:16px 10px}
 .qz-orgs b{font-family:var(--display);font-size:1.4rem;font-weight:800;color:var(--ink);letter-spacing:.02em}
 .qz-orgs small{color:var(--muted);font-weight:600;font-size:.74rem;line-height:1.3}
+.qz-wheel{position:relative;width:min(100%,300px);height:280px;border-radius:26px;background:var(--surface);border:1px solid var(--line);overflow:hidden}
+.qz-wsel{position:absolute;left:12px;right:12px;top:50%;height:56px;transform:translateY(-50%);border-radius:16px;background:#FFE4EC;pointer-events:none}
+.qz-wl{position:relative;height:100%;overflow-y:auto;scroll-snap-type:y mandatory;scrollbar-width:none;-webkit-mask-image:linear-gradient(180deg,transparent,#000 30%,#000 70%,transparent);mask-image:linear-gradient(180deg,transparent,#000 30%,#000 70%,transparent);outline:none}
+.qz-wl::-webkit-scrollbar{display:none}
+.qz-wpad{display:block;height:112px}
+.qz-wi{height:56px;display:grid;place-items:center;scroll-snap-align:center;font-family:var(--display);font-weight:800;font-size:1.3rem;color:var(--muted);cursor:pointer;transform:scale(calc(1 - min(var(--d,1),2) * .12));opacity:calc(1 - min(var(--d,1),2) * .3);transition:color .15s}
+.qz-wi[aria-selected="true"]{color:var(--coral);font-size:1.5rem}
 .goog-te-banner-frame,.skiptranslate>iframe,#goog-gt-tt,.goog-te-balloon-frame{display:none!important}
 body{top:0!important}
 font[style]{background:none!important;box-shadow:none!important}
@@ -640,7 +647,7 @@ font[style]{background:none!important;box-shadow:none!important}
 (function(){
   const qz=document.getElementById('qz'),body=document.getElementById('qzBody');if(!qz)return;
   const U=id=>'https://images.unsplash.com/'+id+'?auto=format&fit=crop&w=300&h=400&q=80';
-  const A={sex:null,age:30,goal:null,tried:null,defi:null};let step=0;
+  const A={meals:3,sex:null,age:30,goal:null,tried:null,defi:null};let step=0;
   const MAN='<svg viewBox="0 0 160 180" aria-hidden="true"><circle cx="80" cy="80" r="74" fill="#FFE4EC"/><path d="M30 180c4-36 24-54 50-54s46 18 50 54z" fill="#E11D48"/><path d="M66 112h28v18c0 8-28 8-28 0z" fill="#F2B79F"/><ellipse cx="80" cy="78" rx="26" ry="31" fill="#F6C6AE"/><path d="M53 74c-2-22 12-34 28-34 17 0 29 11 26 33-4-10-12-15-27-15s-22 5-27 16z" fill="#3A2420"/><circle cx="70" cy="82" r="2.6" fill="#2A141A"/><circle cx="90" cy="82" r="2.6" fill="#2A141A"/><path d="M72 95c5 4 11 4 16 0" stroke="#B5524A" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>';
   const WOMAN='<svg viewBox="0 0 160 180" aria-hidden="true"><circle cx="80" cy="80" r="74" fill="#FFE4EC"/><path d="M44 66c0-26 16-38 36-38s36 12 36 38v56c-8 8-20 10-36 10s-28-2-36-10z" fill="#5A2E22"/><path d="M34 180c4-34 22-52 46-52s42 18 46 52z" fill="#FF5C8A"/><path d="M68 112h24v16c0 8-24 8-24 0z" fill="#F2B79F"/><ellipse cx="80" cy="80" rx="24" ry="29" fill="#F6C6AE"/><path d="M56 76c2-18 12-28 26-28 13 0 22 8 23 24-8-8-22-12-36-8-5 2-9 6-13 12z" fill="#5A2E22"/><circle cx="71" cy="84" r="2.5" fill="#2A141A"/><circle cx="89" cy="84" r="2.5" fill="#2A141A"/><path d="M73 96c4 3 10 3 14 0" stroke="#C0505A" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>';
   const GOALS=[['perte','🔥','Perdre du poids','Affiner ma silhouette'],['sante','❤️','Être en meilleure santé','Manger plus équilibré'],['physique','💪','Améliorer mon physique','Plus de muscle, plus tonique'],['energie','⚡','Avoir plus d\'énergie','Fini les coups de fatigue']];
@@ -688,7 +695,7 @@ font[style]{background:none!important;box-shadow:none!important}
       <div class="qz-how"><div><i>📸</i><b>Photographiez</b><small>votre assiette</small></div><div><i>🔍</i><b>On analyse</b><small>chaque aliment</small></div><div><i>✅</i><b>C'est ajouté</b><small>à votre journée</small></div></div>
       <button type="button" class="qz-next" data-next>Voir mon profil →</button>`,
     ()=>{const g=GOALS.find(x=>x[0]===A.goal)||GOALS[0],d=DEFI.concat(DEFI2).find(x=>x[0]===A.defi)||(past()?DEFI2:DEFI)[0];
-      return `<h2>Votre profil est <em>prêt</em>.</h2><p>Voici ce que nous avons retenu.</p><div class="qz-sum"><span>${A.sex==='H'?'👨 Homme':'👩 Femme'}</span><span>🎂 ${A.age} ans</span><span>${g[1]} ${esc(g[2])}</span><span>${d[1]} ${esc(d[2])}</span></div><button type="button" class="qz-next" data-done>Terminer</button>`},
+      return `<h2>Votre profil est <em>prêt</em>.</h2><p>Voici ce que nous avons retenu.</p><div class="qz-sum"><span>${A.sex==='H'?'👨 Homme':'👩 Femme'}</span><span>🎂 ${A.age} ans</span><span>🍽️ ${A.meals===6?'6 repas et +':A.meals+' repas'} / jour</span><span>${g[1]} ${esc(g[2])}</span><span>${d[1]} ${esc(d[2])}</span></div><button type="button" class="qz-next" data-done>Terminer</button>`},
     ()=>`<div class="qz-tour" id="qzTour">
         <div class="qz-slides" id="qzSlides">
           <figure class="qz-sl"><div class="qz-ph"><img src="${U('photo-1467003909585-2f8a72700288')}" alt="Dîner : saumon, quinoa et légumes" onerror="this.onerror=null;this.src='assiette.jpg'">
@@ -716,14 +723,28 @@ font[style]{background:none!important;box-shadow:none!important}
         <div><b>EFSA</b><small>Autorité européenne de sécurité des aliments</small></div>
       </div>
       <span class="qz-note">OneAthlet n'est pas affilié à ces organisations : nous nous appuyons sur leurs recommandations publiques.</span>
+      <button type="button" class="qz-next" data-next>Continuer →</button>`,
+    ()=>`<h2>Combien de <em>repas</em> prenez-vous par jour ?</h2><p>Faites défiler pour choisir.</p>
+      <div class="qz-wheel"><div class="qz-wsel" aria-hidden="true"></div>
+        <div class="qz-wl" id="qzWheel" role="listbox" aria-label="Nombre de repas par jour" tabindex="0">
+          <span class="qz-wpad"></span>${[1,2,3,4,5,6].map(n=>`<div class="qz-wi" role="option" data-n="${n}" aria-selected="${A.meals===n}">${n===6?'6 repas et +':n+' repas'}</div>`).join('')}<span class="qz-wpad"></span>
+        </div></div>
       <button type="button" class="qz-next" data-next>Continuer →</button>`
   ];
-  const flow=()=>A.tried==='encours'?[0,1,2,3,4,9,10,11,12,5,8]:[0,1,2,3,4,5,11,12,6,7,8];
+  const flow=()=>A.tried==='encours'?[0,1,2,3,4,9,10,11,12,13,5,8]:[0,1,2,3,4,5,11,12,13,6,7,8];
   let tourT=null;
   function render(){
     clearInterval(tourT);const F=flow();
     body.innerHTML=`<div class="qz-step">${STEPS[F[step]]()}</div>`;body.scrollTop=0;
     document.getElementById('qzBar').style.width=Math.round((step+1)/F.length*100)+'%';
+    const wh=document.getElementById('qzWheel');
+    if(wh){const items=[...wh.querySelectorAll('.qz-wi')],H=56;
+      let ready=false;const want=A.meals;
+      const mark=()=>{if(!ready)return;const k=Math.max(0,Math.min(items.length-1,Math.round(wh.scrollTop/H)));A.meals=k+1;items.forEach((x,j)=>{x.setAttribute('aria-selected',j===k);x.style.setProperty('--d',Math.abs(j-wh.scrollTop/H))})};
+      const init=()=>{wh.scrollTop=(want-1)*H;if(Math.abs(wh.scrollTop-(want-1)*H)>1&&init.n++<20){setTimeout(init,30);return}ready=true;mark()};init.n=0;setTimeout(init,0);
+      wh.addEventListener('scroll',mark,{passive:true});
+      items.forEach((x,j)=>x.onclick=()=>wh.scrollTo({top:j*H,behavior:'smooth'}));
+      wh.addEventListener('keydown',e=>{if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();wh.scrollTo({top:(A.meals-1+(e.key==='ArrowDown'?1:-1))*H,behavior:'smooth'})}});}
     const sl=document.getElementById('qzSlides');
     if(sl){const dots=[...document.querySelectorAll('#qzDots button')];let i=0;
       const show=n=>{i=(n+3)%3;sl.scrollTo({left:sl.clientWidth*i,behavior:'smooth'})};
