@@ -1,4 +1,5 @@
-// Paiement OneAthlet Premium : 14,99 €/mois ou 89,99 € à vie (Stripe Checkout), et accès au portail client.
+// Paiement OneAthlet Premium (Stripe Checkout) : formules du quiz sur 4, 12 ou 52 semaines (sans compte),
+// anciennes formules 14,99 €/mois et 89,99 € à vie (compte requis), et accès au portail client.
 // Secrets requis : STRIPE_SECRET_KEY. Optionnel : STRIPE_PRICE_ID (sinon le prix est créé à la volée).
 import Stripe from "npm:stripe@17.7.0";
 import { createClient } from "npm:@supabase/supabase-js@2.45.4";
@@ -26,9 +27,55 @@ function safeReturn(url: unknown): string | null {
   }
 }
 
+// Formules du quiz : abonnement renouvelé toutes les 4, 12 ou 52 semaines.
+const PLANS: Record<string, { weeks: number; cents: number; name: string }> = {
+  w4: { weeks: 4, cents: 999, name: "OneAthlet · plan 4 semaines" },
+  w12: { weeks: 12, cents: 1999, name: "OneAthlet · plan 12 semaines" },
+  w52: { weeks: 52, cents: 3999, name: "OneAthlet · plan 52 semaines" },
+};
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: CORS });
   if (req.method !== "POST") return json({ error: "Méthode non autorisée" }, 405);
+
+  let body: { action?: string; plan?: string; returnUrl?: string; sessionId?: string; email?: string; cible?: number };
+  try { body = await req.json(); } catch { body = {}; }
+
+  // Paiement depuis le quiz, sans compte : l'e-mail saisi sert d'identifiant client.
+  if (body.action === "quiz") {
+    const plan = PLANS[String(body.plan)];
+    const email = String(body.email ?? "").trim().slice(0, 254);
+    const back = safeReturn(body.returnUrl);
+    if (!plan) return json({ error: "Formule inconnue." }, 400);
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return json({ error: "Adresse e-mail invalide." }, 400);
+    if (!back) return json({ error: "Adresse de retour non autorisée." }, 400);
+    const cible = Number(body.cible);
+    try {
+      const session = await stripe.checkout.sessions.create({
+        mode: "subscription",
+        line_items: [{
+          quantity: 1,
+          price_data: {
+            currency: "eur",
+            unit_amount: plan.cents,
+            recurring: { interval: "week", interval_count: plan.weeks },
+            product_data: { name: plan.name, description: `Programme nutrition personnalisé${cible > 0 && cible < 300 ? ` pour atteindre ${cible} kg` : ""}, renouvelé toutes les ${plan.weeks} semaines.` },
+          },
+        }],
+        customer_email: email,
+        subscription_data: { metadata: { email, plan: String(body.plan) } },
+        metadata: { email, plan: String(body.plan) },
+        allow_promotion_codes: true,
+        locale: "fr",
+        success_url: back + "?paiement=ok&sid={CHECKOUT_SESSION_ID}",
+        cancel_url: back + "?paiement=annule",
+      });
+      return json({ url: session.url });
+    } catch (err) {
+      console.error(err);
+      return json({ error: "Le paiement n'a pas pu démarrer. Réessayez." }, 502);
+    }
+  }
 
   const userClient = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_ANON_KEY")!, {
     global: { headers: { Authorization: req.headers.get("Authorization") ?? "" } },
@@ -36,8 +83,6 @@ Deno.serve(async (req) => {
   const { data: { user } } = await userClient.auth.getUser();
   if (!user) return json({ error: "Connectez-vous pour continuer." }, 401);
 
-  let body: { action?: string; plan?: string; returnUrl?: string; sessionId?: string };
-  try { body = await req.json(); } catch { body = {}; }
   const back = safeReturn(body.returnUrl);
   if (!back) return json({ error: "Adresse de retour non autorisée." }, 400);
 
