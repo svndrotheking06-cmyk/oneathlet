@@ -23,9 +23,9 @@
 *{box-sizing:border-box}
 body{margin:0;background:var(--page);color:var(--ink);font-family:var(--body);min-height:100vh;min-height:100dvh;display:grid;grid-template-rows:auto auto auto;overflow-x:hidden}
 .top{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:max(14px,env(safe-area-inset-top)) clamp(16px,4vw,40px) 14px}
-.brand{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--ink);font-family:var(--display);font-weight:800;font-size:1.05rem;letter-spacing:-.02em}
-.brand b{font-weight:800}.brand span{color:var(--coral)}
-.brand svg{width:28px;height:28px;flex:none}
+.brand{text-decoration:none;color:#111111;font-family:"Inter Tight",system-ui,-apple-system,"Segoe UI",sans-serif;font-weight:700;font-size:1.3rem;letter-spacing:-.02em;line-height:1}
+.brand span{color:var(--btn1)}
+@media (min-width:761px){.top>.brand{margin-left:2.3cm}.top>.right{margin-right:2.3cm}}
 .right{display:flex;align-items:center;gap:8px}
 .start{border:0;border-radius:999px;padding:10px 18px;font:inherit;font-weight:800;font-size:.92rem;color:#FFFFFF;background:linear-gradient(135deg,var(--orange),var(--coral));box-shadow:0 12px 24px -14px var(--coral);cursor:pointer;transition:transform .15s}
 .start:hover{transform:translateY(-1px)}
@@ -594,10 +594,7 @@ font[style]{background:none!important;box-shadow:none!important}
 </style>
 
 <header class="top">
-  <a class="brand notranslate" translate="no" href="/">
-    <svg aria-hidden="true" viewBox="0 0 100 100"><defs><linearGradient id="oaLogo" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FF5C8A"/><stop offset="1" stop-color="#E11D48"/></linearGradient></defs><circle cx="50" cy="50" r="49" fill="url(#oaLogo)"/><path d="M44 19 L56 19 L57 24.5 Q68.5 26 78.5 30.5 Q85.5 34.5 84.5 43 L82 52.5 Q78 55.5 74 52 L72.4 47.5 Q70.5 57 66.5 64 Q63.5 72 61.5 87 L38.5 87 Q36.5 72 33.5 64 Q29.5 57 27.6 47.5 L26 52 Q22 55.5 18 52.5 L15.5 43 Q14.5 34.5 21.5 30.5 Q31.5 26 43 24.5 Z" fill="#FFFFFF"/><g fill="#FFC2D4"><path d="M30.5 33.5 Q39.5 29.6 49 31.6 L49 43 Q41 47.4 33 42.4 Q29.6 38.6 30.5 33.5 Z"/><path d="M69.5 33.5 Q60.5 29.6 51 31.6 L51 43 Q59 47.4 67 42.4 Q70.4 38.6 69.5 33.5 Z"/><rect x="42" y="46.4" width="7" height="7.6" rx="2.6"/><rect x="51" y="46.4" width="7" height="7.6" rx="2.6"/><rect x="42.4" y="55.6" width="6.6" height="7.6" rx="2.6"/><rect x="51" y="55.6" width="6.6" height="7.6" rx="2.6"/><rect x="42.9" y="64.8" width="6.1" height="7.6" rx="2.6"/><rect x="51" y="64.8" width="6.1" height="7.6" rx="2.6"/><path d="M43.4 74.2 L49 74.2 L49 85 Q45.2 80.4 43.4 74.2 Z"/><path d="M56.6 74.2 L51 74.2 L51 85 Q54.8 80.4 56.6 74.2 Z"/></g><g fill="none" stroke="#FFC2D4" stroke-width="1.8" stroke-linecap="round"><path d="M36.2 49 Q38.6 57.5 40.4 63.5 M63.8 49 Q61.4 57.5 59.6 63.5"/><path d="M26.6 32.6 Q30.4 39 29.4 46.4 M73.4 32.6 Q69.6 39 70.6 46.4"/></g></svg>
-    <b class="bn">One<span>Athlet</span></b>
-  </a>
+  <a class="brand notranslate" translate="no" href="/" aria-label="OneAthlet, accueil">One<span>athlet</span></a>
   <div class="right">
     <button type="button" class="mp-open" id="mpOpen" hidden>📋 Mon plan</button>
     <button type="button" class="start" id="startBtn">Commencer</button>
