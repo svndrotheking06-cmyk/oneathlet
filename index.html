@@ -370,9 +370,12 @@ h1 em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--cor
 .qz-sum span{background:#FFE4EC;color:var(--ink);font-weight:700;border-radius:999px;padding:7px 12px;font-size:.88rem}
 @media (prefers-reduced-motion:reduce){.qz-step,.qz-path{animation:none;stroke-dashoffset:0}}
 .qz-tour{width:100%;display:grid;gap:12px}
-.qz-slides{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;border-radius:26px}
+.qz-slides{display:flex;overflow:hidden;border-radius:26px;touch-action:pan-y;--i:0}
 .qz-slides::-webkit-scrollbar{display:none}
-.qz-sl{flex:0 0 100%;scroll-snap-align:center;margin:0;display:grid;gap:14px}
+.qz-sl{flex:0 0 100%;margin:0;display:flex;flex-direction:column;gap:14px;transform:translateX(calc(var(--i) * -100%));transition:transform .55s cubic-bezier(.3,.8,.3,1)}
+.qz-sl figcaption{order:-1;min-height:2.3em;display:block}
+.qz-sl .qz-ph{user-select:none;-webkit-user-select:none}
+.qz-sl img{-webkit-user-drag:none;pointer-events:none}
 .qz-sl figcaption{font-family:var(--display);font-weight:800;font-size:clamp(1.25rem,5vw,1.6rem);line-height:1.15;letter-spacing:-.02em;padding:0 6px}
 .qz-sl figcaption em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--coral));-webkit-background-clip:text;background-clip:text;color:transparent}
 .qz-ph{position:relative;height:min(52vh,380px);border-radius:26px;overflow:hidden;background:linear-gradient(135deg,#FFE4EC,#FFCFDC)}
@@ -1179,12 +1182,15 @@ font[style]{background:none!important;box-shadow:none!important}
       items.forEach((x,j)=>x.onclick=()=>wh.scrollTo({top:j*H,behavior:'smooth'}));
       wh.addEventListener('keydown',e=>{if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();const k=vals.indexOf(A[key])+(e.key==='ArrowDown'?1:-1);wh.scrollTo({top:Math.max(0,k)*H,behavior:'smooth'})}});});
     const sl=document.getElementById('qzSlides');
-    if(sl){const dots=[...document.querySelectorAll('#qzDots button')];let i=0;
-      const show=n=>{i=(n+3)%3;sl.scrollTo({left:sl.clientWidth*i,behavior:'smooth'})};
-      sl.addEventListener('scroll',()=>{const k=Math.round(sl.scrollLeft/sl.clientWidth);i=k;dots.forEach((d,j)=>d.setAttribute('aria-current',j===k))},{passive:true});
-      dots.forEach((d,j)=>d.onclick=()=>{show(j);clearInterval(tourT)});
-      if(!matchMedia('(prefers-reduced-motion: reduce)').matches)tourT=setInterval(()=>show(i+1),3500);
-      sl.addEventListener('pointerdown',()=>clearInterval(tourT),{once:true});}
+    if(sl){const dots=[...document.querySelectorAll('#qzDots button')];let i=0,x0=null;
+      const show=n=>{i=(n+3)%3;sl.style.setProperty('--i',i);dots.forEach((d,j)=>d.setAttribute('aria-current',j===i))};
+      const auto=()=>{clearInterval(tourT);tourT=setInterval(()=>show(i+1),3500)};
+      dots.forEach((d,j)=>d.onclick=()=>{show(j);auto()});
+      // glisser au doigt (ou à la souris) pour changer de photo, puis le défilé reprend
+      sl.addEventListener('pointerdown',e=>{x0=e.clientX},{passive:true});
+      sl.addEventListener('pointerup',e=>{if(x0==null)return;const dx=e.clientX-x0;x0=null;if(Math.abs(dx)>40){show(i+(dx<0?1:-1));auto()}});
+      sl.addEventListener('pointercancel',()=>{x0=null});
+      show(0);auto();}
     document.getElementById('qzBack').disabled=step===0;
     const rg=document.getElementById('qzAge');
     if(rg){const set=()=>{A.age=+rg.value;document.getElementById('qzAgeV').textContent=A.age;rg.style.setProperty('--p',((A.age-16)/64*100)+'%')};set();rg.addEventListener('input',set)}
