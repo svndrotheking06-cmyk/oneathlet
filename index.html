@@ -11,7 +11,7 @@
 </head>
 <body>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Manrope:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter+Tight:wght@600;700;800&family=Manrope:wght@400;600;700&display=swap">
 <style>
 :root{
   --page:#FFFFFF; --surface:#FFFFFF; --ink:#2A141A; --muted:#7A5F67; --line:#F5DCE3;
@@ -43,6 +43,8 @@ body{margin:0;background:var(--page);color:var(--ink);font-family:var(--body);mi
 .hero{display:grid;align-content:center;justify-items:center;text-align:center;gap:18px;padding:24px clamp(16px,6vw,80px) 40px;min-height:min(72vh,680px);max-width:1080px;width:100%;margin:0 auto}
 .kick{background:var(--coral-soft);color:var(--coral);font-weight:800;font-size:.76rem;text-transform:uppercase;letter-spacing:.1em;padding:6px 12px;border-radius:999px}
 h1{margin:0;font-family:var(--display);font-weight:800;font-size:clamp(2.8rem,10vw,6rem);line-height:1;letter-spacing:-.045em;max-width:12ch;text-wrap:balance;margin-inline:auto}
+h1.hero-t{font-family:"Inter Tight",system-ui,-apple-system,"Segoe UI",sans-serif;font-weight:700;font-size:clamp(2.3rem,7.2vw,4.6rem);line-height:1.04;letter-spacing:-.035em;max-width:17ch}
+h1.hero-t em{font-weight:800}
 h1 em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--coral));-webkit-background-clip:text;background-clip:text;color:transparent}
 .sub{margin:0;font-size:clamp(1.1rem,3vw,1.5rem);font-weight:700;color:var(--muted);max-width:30ch;text-wrap:balance;margin-inline:auto}
 .sub b{color:var(--ink)}
@@ -596,7 +598,7 @@ font[style]{background:none!important;box-shadow:none!important}
 </header>
 
 <main class="hero">
-  <h1>Votre objectif <em>en un clic.</em></h1>
+  <h1 class="hero-t">Mangez mieux, transformez votre corps, <em>sans sacrifier votre plaisir.</em></h1>
   <p class="sub">Perdez du poids en mangeant <b>mieux</b>, pas en mangeant <b>moins</b>.</p>
   <button type="button" class="start hero-go" id="heroGo">Commencer votre objectif →</button>
 </main>
