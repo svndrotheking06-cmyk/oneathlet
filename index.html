@@ -1030,11 +1030,11 @@ font[style]{background:none!important;box-shadow:none!important}
       <p class="qz-tag">Simple. Basé sur la science. Adapté à vous.</p>
       <p class="qz-hint">Choisissez votre sexe pour commencer</p>
       <div class="qz-sex"><button type="button" data-k="sex" data-v="H" aria-pressed="${A.sex==='H'}"><span class="qz-pic"><img src="homme.jpg" alt=""></span>Homme</button><button type="button" data-k="sex" data-v="F" aria-pressed="${A.sex==='F'}"><span class="qz-pic"><img src="femme.jpg" alt=""></span>Femme</button></div>`,
-    ()=>`<h2>Quel âge avez-vous ?</h2><div class="qz-age"><b id="qzAgeV">${A.age}</b><small>ans</small><input class="qz-range" id="qzAge" type="range" min="16" max="80" value="${A.age}" aria-label="Âge"><div class="qz-scale"><span>16</span><span>80</span></div></div><button type="button" class="qz-next" data-next>Continuer →</button>`,
-    ()=>`<h2 class="qz-intro">Quel est votre objectif ?</h2><p class="qz-hint">Aidez-nous à comprendre votre motivation</p><div class="qz-nobox">${opts('goal',GOALS)}</div>`,
+    ()=>`<h2>Quel âge avez-vous&nbsp;?</h2><div class="qz-age"><b id="qzAgeV">${A.age}</b><small>ans</small><input class="qz-range" id="qzAge" type="range" min="16" max="80" value="${A.age}" aria-label="Âge"><div class="qz-scale"><span>16</span><span>80</span></div></div><button type="button" class="qz-next" data-next>Continuer →</button>`,
+    ()=>`<h2 class="qz-intro">Quel est votre objectif&nbsp;?</h2><p class="qz-hint">Aidez-nous à comprendre votre motivation</p><div class="qz-nobox">${opts('goal',GOALS)}</div>`,
     ()=>proj()+`<button type="button" class="qz-next" data-next>Continuer →</button>`,
-    ()=>`<h2>Avez-vous déjà essayé de <em>changer votre corps</em> ?</h2>${opts('tried',TRIED)}`,
-    ()=>`<h2 class="qz-intro">${past()?"Quel a été votre <em>plus grand défi</em> jusqu'ici ?":"Quel est votre <em>plus grand défi</em> ?"}</h2>
+    ()=>`<h2>Avez-vous déjà essayé de <em>changer votre corps</em>&nbsp;?</h2>${opts('tried',TRIED)}`,
+    ()=>`<h2 class="qz-intro">${past()?"Quel a été votre <em>plus grand défi</em> jusqu'ici&nbsp;?":"Quel est votre <em>plus grand défi</em>&nbsp;?"}</h2>
       <div class="qz-opts qz-multi qz-round">${(past()?DEFI2:DEFI).map(o=>`<button type="button" data-mk="defi" data-m="${o[0]}" aria-pressed="${A.defi.includes(o[0])}"><span class="e" aria-hidden="true">${o[1]}</span><span><b>${esc(o[2])}</b><small>${esc(o[3])}</small></span><i class="qz-ck" aria-hidden="true"></i></button>`).join('')}</div>
       <button type="button" class="qz-next" data-next ${A.defi.length?'':'disabled'}>Continuer →</button>`,
     ()=>`<h2>Voici à quoi ressemblent<br><em>vos assiettes analysées</em></h2><p>Chaque plat photographié est décomposé en calories et en macros.</p>
@@ -1064,8 +1064,8 @@ font[style]{background:none!important;box-shadow:none!important}
         </div>
         <div class="qz-dots" id="qzDots"><button type="button" aria-label="Photo 1" aria-current="true"></button><button type="button" aria-label="Photo 2"></button><button type="button" aria-label="Photo 3"></button></div>
       </div><button type="button" class="qz-next" data-next>Continuer →</button>`,
-    ()=>`<h2 class="qz-intro">Que savez-vous sur l'<em>alimentation saine</em> ?</h2><div class="qz-gray">${opts('savoir',SAVOIR)}</div>`,
-    ()=>`<h2 class="qz-intro">Avez-vous été orienté vers OneAthlet par un professionnel de <em>thérapie nutritionnelle ou comportementale</em> ?</h2>${opts('pro',PRO)}`,
+    ()=>`<h2 class="qz-intro">Que savez-vous sur l'<em>alimentation saine</em>&nbsp;?</h2><div class="qz-gray">${opts('savoir',SAVOIR)}</div>`,
+    ()=>`<h2 class="qz-intro">Avez-vous été orienté vers OneAthlet par un professionnel de <em>thérapie nutritionnelle ou comportementale</em>&nbsp;?</h2>${opts('pro',PRO)}`,
     ()=>`<div class="qz-sci-ic" aria-hidden="true">🔬</div><h2 class="qz-intro">Une approche scientifique</h2>
       <p>Notre plan nutritionnel s'appuie sur les recherches et les recommandations des principales organisations de santé :</p>
       <div class="qz-orgs">
@@ -1075,10 +1075,10 @@ font[style]{background:none!important;box-shadow:none!important}
         <div><span>Autorité européenne de sécurité des aliments <b>(EFSA)</b></span></div>
       </div>
       <button type="button" class="qz-next" data-next>Continuer →</button>`,
-    ()=>`<h2>Combien de <em>repas</em> prenez-vous par jour ?</h2><p>Faites défiler pour choisir.</p>
+    ()=>`<h2 class="qz-intro"><em>Combien de repas</em> <span style="white-space:nowrap">prenez-vous</span> par jour&nbsp;?</h2>
       ${wheel('meals',[1,2,3,4,5,6],n=>n===6?'6 repas et +':n+' repas','Nombre de repas par jour')}
       <button type="button" class="qz-next" data-next>Continuer →</button>`,
-    ()=>`<h2>Que souhaitez-vous <em>changer</em> dans vos habitudes alimentaires ?</h2><p>Plusieurs choix possibles.</p>
+    ()=>`<h2 class="qz-intro">Que souhaitez-vous changer dans vos <em>habitudes alimentaires</em>&nbsp;?</h2>
       <div class="qz-opts qz-multi">${CHANGE.map(o=>`<button type="button" data-m="${o[0]}" aria-pressed="${A.change.includes(o[0])}"><span class="e" aria-hidden="true">${o[1]}</span><span><b>${esc(o[2])}</b></span><i class="qz-ck" aria-hidden="true"></i></button>`).join('')}</div>
       <button type="button" class="qz-next" data-next ${A.change.length?'':'disabled'}>Continuer →</button>`,
     ()=>{const ch=CHANGE.filter(o=>A.change.includes(o[0]));
@@ -1087,20 +1087,20 @@ font[style]{background:none!important;box-shadow:none!important}
       ${ch.length?`<div class="qz-sum">${ch.map(o=>`<span>${o[1]} ${esc(o[2])}</span>`).join('')}</div>`:''}
       ${A.change.includes('boulimie')?`<div class="qz-care">🫶 <span><b>Vous n'êtes pas seul·e.</b> Les crises de boulimie sont un trouble fréquent qui se soigne. En plus de OneAthlet, parlez-en à votre médecin ou à un professionnel spécialisé : un accompagnement fait vraiment la différence.</span></div>`:''}
       <button type="button" class="qz-next" data-next>Continuer →</button>`},
-    ()=>`<h2>Quel <em>régime</em> préférez-vous ?</h2>${opts('regime',REGIME)}`,
-    ()=>`<h2>Avez-vous des <em>intolérances</em> alimentaires ?</h2><p>Sélectionnez tout ce qui s'applique.</p>
+    ()=>`<h2 class="qz-intro">Quel régime <span style="white-space:nowrap">préférez-vous&nbsp;?</span></h2>${opts('regime',REGIME)}`,
+    ()=>`<h2>Avez-vous des <em>intolérances</em> alimentaires&nbsp;?</h2><p>Sélectionnez tout ce qui s'applique.</p>
       <div class="qz-chips">${INTOL.map(o=>`<button type="button" data-mk="intol" data-m="${o[0]}" aria-pressed="${A.intol.includes(o[0])}"><span aria-hidden="true">${o[1]}</span>${esc(o[2])}</button>`).join('')}</div>
       <button type="button" class="qz-next" data-next ${A.intol.length?'':'disabled'}>Continuer →</button>
       <button type="button" class="qz-all" data-all>🍽️ Je mange de tout</button>`,
-    ()=>`<h2>Quel est votre <em>niveau d'activité</em> ?</h2>${opts('activite',ACTIV)}`,
-    ()=>`<h2>Combien de temps <em>marchez-vous</em> lors d'une journée type ?</h2>${opts('marche',MARCHE)}`,
-    ()=>`<h2>Êtes-vous <em>essoufflé</em> après avoir monté des escaliers ?</h2>${opts('escaliers',ESCAL)}`,
+    ()=>`<h2 class="qz-intro">Quel est votre <em>niveau d'activité</em>&nbsp;?</h2><p class="qz-hint">Cela nous aide à calculer vos besoins quotidiens</p>${opts('activite',ACTIV)}`,
+    ()=>`<h2 class="qz-intro">Combien de temps <em>marchez-vous</em> lors d'une journée type&nbsp;?</h2>${opts('marche',MARCHE)}`,
+    ()=>`<h2 class="qz-intro">Êtes-vous <em>essoufflé</em> après avoir monté des escaliers&nbsp;?</h2>${opts('escaliers',ESCAL)}`,
     ()=>{if(A.taille==null)A.taille=A.sex==='F'?164:177;
-      return `<h2>Quelle est votre <em>taille</em> ?</h2><p>Faites défiler pour choisir.</p>
+      return `<h2 class="qz-intro">Quelle est votre taille&nbsp;?</h2><p class="qz-hint">Votre taille nous aide à estimer vos proportions corporelles plus précisément</p>
       ${wheel('taille',range(120,220,1),v=>v+' cm','Taille en centimètres')}
       <button type="button" class="qz-next" data-next>Continuer →</button>`},
     ()=>{if(A.poids==null)A.poids=A.sex==='F'?65:80;
-      return `<h2>Quel est votre <em>poids actuel</em> ?</h2><p>Faites défiler pour choisir.</p>
+      return `<h2>Quel est votre <em>poids actuel</em>&nbsp;?</h2><p>Faites défiler pour choisir.</p>
       ${wheel('poids',range(35,200,0.5),v=>String(v).replace('.',',')+' kg','Poids en kilos')}
       <div class="qz-bmi" id="qzBmi"></div><button type="button" class="qz-next" data-next>Continuer →</button>`},
     ()=>{if(A.pas==null)A.pas={inactif:5000,peu:7000,actif:9000,tres:11000}[A.activite]||7000;
@@ -1110,7 +1110,7 @@ font[style]{background:none!important;box-shadow:none!important}
       <div class="qz-scale"><span>1 000</span><span>20 000</span></div></div>
       <div class="qz-bmi" id="qzPasInfo"></div><button type="button" class="qz-next" data-next>Valider mon objectif →</button>`},
     ()=>{const p0=A.poids||(A.sex==='F'?65:80);if(A.cible==null)A.cible=Math.round((A.goal==='perte'?p0*0.92:A.goal==='physique'?p0+3:p0)*2)/2;
-      return `<h2>Quel est votre <em>poids cible</em> ?</h2><p>Votre poids actuel : ${String(p0).replace('.',',')} kg</p>
+      return `<h2>Quel est votre <em>poids cible</em>&nbsp;?</h2><p>Votre poids actuel : ${String(p0).replace('.',',')} kg</p>
       <div class="qz-age"><b><span id="qzMV">${String(A.cible).replace('.',',')}</span></b><small>kg</small>
       <div class="qz-meas"><button type="button" class="qz-pm" data-pm="-1" aria-label="Moins">−</button><input class="qz-range" id="qzM" data-key="cible" data-step="0.5" type="range" min="35" max="200" step="0.5" value="${A.cible}" aria-label="Poids cible en kilos"><button type="button" class="qz-pm" data-pm="1" aria-label="Plus">+</button></div>
       <div class="qz-scale"><span>35 kg</span><span>200 kg</span></div></div>
@@ -1128,7 +1128,7 @@ font[style]{background:none!important;box-shadow:none!important}
       <div class="qz-scale"><span>3 jours</span><span>30 jours</span></div></div>
       <div class="qz-chart qz-check" id="qzSuivi"></div><div class="qz-care" id="qzSuiviTip" hidden></div>
       <button type="button" class="qz-next" data-next>Continuer →</button>`,
-    ()=>`<h2>Que devons-nous <em>prendre en compte</em> ?</h2><p>Plusieurs choix possibles.</p>
+    ()=>`<h2>Que devons-nous <em>prendre en compte</em>&nbsp;?</h2><p>Plusieurs choix possibles.</p>
       <div class="qz-opts qz-multi">${SANTE.map(o=>`<button type="button" data-mk="sante" data-m="${o[0]}" aria-pressed="${A.sante.includes(o[0])}"><span class="e" aria-hidden="true">${o[1]}</span><span><b>${esc(o[2])}</b></span><i class="qz-ck" aria-hidden="true"></i></button>`).join('')}</div>
       <div class="qz-care" id="qzSanteNote" hidden></div>
       <button type="button" class="qz-next" data-next ${A.sante.length?'':'disabled'}>Continuer →</button>
