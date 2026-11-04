@@ -369,6 +369,38 @@ h1 em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--cor
 .qz-sum{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
 .qz-sum span{background:#FFE4EC;color:var(--ink);font-weight:700;border-radius:999px;padding:7px 12px;font-size:.88rem}
 @media (prefers-reduced-motion:reduce){.qz-step,.qz-path{animation:none;stroke-dashoffset:0}}
+.qz-tour{width:100%;display:grid;gap:12px}
+.qz-slides{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;border-radius:26px}
+.qz-slides::-webkit-scrollbar{display:none}
+.qz-sl{flex:0 0 100%;scroll-snap-align:center;margin:0;display:grid;gap:14px}
+.qz-sl figcaption{font-family:var(--display);font-weight:800;font-size:clamp(1.25rem,5vw,1.6rem);line-height:1.15;letter-spacing:-.02em;padding:0 6px}
+.qz-sl figcaption em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--coral));-webkit-background-clip:text;background-clip:text;color:transparent}
+.qz-ph{position:relative;height:min(52vh,380px);border-radius:26px;overflow:hidden;background:linear-gradient(135deg,#FFE4EC,#FFCFDC)}
+.qz-ph>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.qz-macro{position:absolute;left:14px;right:14px;bottom:14px;background:rgba(255,255,255,.95);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-radius:20px;padding:12px 14px;display:grid;gap:6px;text-align:left;box-shadow:0 12px 30px -12px rgba(0,0,0,.4)}
+.qz-macro small{color:var(--muted);font-weight:800;font-size:.72rem}
+.qz-macro b{font-family:var(--display);font-size:1.4rem;color:var(--coral)}
+.qz-macro div{display:flex;flex-wrap:wrap;gap:6px 12px}
+.qz-macro span{display:flex;align-items:center;gap:5px;font-weight:800;font-size:.8rem}
+.qz-macro i{width:9px;height:9px;border-radius:50%}
+.qz-vf{position:absolute;inset:16% 12% 24%}
+.qz-vf i{position:absolute;width:30px;height:30px;border:3px solid #FFFFFF;border-radius:6px}
+.qz-vf i:nth-child(1){left:0;top:0;border-right:0;border-bottom:0}.qz-vf i:nth-child(2){right:0;top:0;border-left:0;border-bottom:0}
+.qz-vf i:nth-child(3){left:0;bottom:0;border-right:0;border-top:0}.qz-vf i:nth-child(4){right:0;bottom:0;border-left:0;border-top:0}
+.qz-vf b{position:absolute;left:6px;right:6px;height:3px;border-radius:3px;background:#FF5C8A;box-shadow:0 0 14px 2px #FF5C8A;animation:scan 2.2s ease-in-out infinite alternate}
+.qz-cam{position:absolute;top:14px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.5);color:#FFFFFF;font-weight:800;font-size:.8rem;border-radius:999px;padding:6px 14px;white-space:nowrap}
+.qz-shut{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);width:56px;height:56px;border-radius:50%;background:#FFFFFF;box-shadow:0 0 0 5px rgba(255,255,255,.45)}
+.qz-prog{background:#FFFFFF;border:1px solid var(--line);display:grid;align-content:start;gap:10px;padding:16px;text-align:left}
+.qz-prog small{font-weight:800;color:var(--muted)}
+.qz-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.qz-grid img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:12px;background:#FFE4EC}
+.qz-prog svg{width:100%;height:auto}
+.qz-pst{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.qz-pst span{background:#FFF5F7;border-radius:14px;padding:10px;font-weight:700;font-size:.8rem}
+.qz-pst b{display:block;font-family:var(--display);font-size:1.3rem;color:var(--coral)}
+.qz-dots{display:flex;justify-content:center;gap:8px}
+.qz-dots button{width:9px;height:9px;border-radius:99px;border:0;background:#F5DCE3;padding:0;cursor:pointer;transition:width .3s,background .3s}
+.qz-dots button[aria-current="true"]{width:26px;background:var(--coral)}
 .goog-te-banner-frame,.skiptranslate>iframe,#goog-gt-tt,.goog-te-balloon-frame{display:none!important}
 body{top:0!important}
 font[style]{background:none!important;box-shadow:none!important}
@@ -609,6 +641,7 @@ font[style]{background:none!important;box-shadow:none!important}
   const GOALS=[['perte','🔥','Perdre du poids','Affiner ma silhouette'],['sante','❤️','Être en meilleure santé','Manger plus équilibré'],['physique','💪','Améliorer mon physique','Plus de muscle, plus tonique'],['energie','⚡','Avoir plus d\'énergie','Fini les coups de fatigue']];
   const TRIED=[['debut','🌱','Je commence tout juste','C\'est ma première fois'],['echec','🔁','J\'ai essayé, mais sans résultat','Rien n\'a vraiment duré'],['encours','💪','J\'y travaille déjà','Je veux aller plus loin']];
   const DEFI2=[['complique','🧩','C\'était trop compliqué','Trop de règles à suivre'],['temps2','⏱️','Je n\'avais pas assez de temps','Difficile à caser dans ma journée'],['resultats','📉','Je ne voyais pas de résultats','Beaucoup d\'efforts pour rien'],['stress','😣','C\'était stressant ou accablant','Trop de pression'],['motivation2','🔋','J\'ai perdu ma motivation','J\'ai abandonné en route']];
+  const SAVOIR=[['debutant','🌱','Débutant','Je découvre les bases'],['inter','📘','Intermédiaire','Je connais les calories et les macros'],['pro','🏆','Pro','Je maîtrise déjà le sujet']];
   const past=()=>A.tried==='debut'||A.tried==='echec';
   const DEFI=[['grignotage','🍪','Le grignotage','Les envies entre les repas'],['temps','⏱️','Le manque de temps','Je mange sur le pouce'],['motivation','📉','La motivation','Je commence puis j\'arrête'],['idees','🤔','Je ne sais pas quoi manger','Manque d\'idées de repas'],['sucre','🍰','Le sucre','Desserts, sodas, viennoiseries'],['fastfood','🍔','Fast-food et restaurants','Les repas à l\'extérieur']];
   const esc=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -649,18 +682,45 @@ font[style]{background:none!important;box-shadow:none!important}
       <div class="qz-how"><div><i>📸</i><b>Photographiez</b><small>votre assiette</small></div><div><i>🔍</i><b>On analyse</b><small>chaque aliment</small></div><div><i>✅</i><b>C'est ajouté</b><small>à votre journée</small></div></div>
       <button type="button" class="qz-next" data-next>Voir mon profil →</button>`,
     ()=>{const g=GOALS.find(x=>x[0]===A.goal)||GOALS[0],d=DEFI.concat(DEFI2).find(x=>x[0]===A.defi)||(past()?DEFI2:DEFI)[0];
-      return `<h2>Votre profil est <em>prêt</em>.</h2><p>Voici ce que nous avons retenu.</p><div class="qz-sum"><span>${A.sex==='H'?'👨 Homme':'👩 Femme'}</span><span>🎂 ${A.age} ans</span><span>${g[1]} ${esc(g[2])}</span><span>${d[1]} ${esc(d[2])}</span></div><button type="button" class="qz-next" data-done>Terminer</button>`}
+      return `<h2>Votre profil est <em>prêt</em>.</h2><p>Voici ce que nous avons retenu.</p><div class="qz-sum"><span>${A.sex==='H'?'👨 Homme':'👩 Femme'}</span><span>🎂 ${A.age} ans</span><span>${g[1]} ${esc(g[2])}</span><span>${d[1]} ${esc(d[2])}</span></div><button type="button" class="qz-next" data-done>Terminer</button>`},
+    ()=>`<div class="qz-tour" id="qzTour">
+        <div class="qz-slides" id="qzSlides">
+          <figure class="qz-sl"><div class="qz-ph"><img src="${U('photo-1467003909585-2f8a72700288')}" alt="Dîner : saumon, quinoa et légumes" onerror="this.onerror=null;this.src='assiette.jpg'">
+            <div class="qz-macro"><small>Votre dîner</small><b>520 kcal</b><div><span><i style="background:#F5B83D"></i>Glucides 40 g</span><span><i style="background:#D93B4B"></i>Protéines 42 g</span><span><i style="background:#7B61FF"></i>Lipides 20 g</span></div></div></div>
+            <figcaption>Un vrai aperçu de ce qu'il y a <em>dans votre assiette</em>.</figcaption></figure>
+          <figure class="qz-sl"><div class="qz-ph"><img src="${U('photo-1488477181946-6428a0291777')}" alt="Collation : yaourt et fruits rouges" onerror="this.onerror=null;this.src='assiette.jpg'">
+            <div class="qz-vf" aria-hidden="true"><i></i><i></i><i></i><i></i><b></b></div><span class="qz-cam">📸 Collation · analyse…</span><span class="qz-shut" aria-hidden="true"></span></div>
+            <figcaption>Prenez simplement une photo de votre repas, <em>presque comme par magie</em>.</figcaption></figure>
+          <figure class="qz-sl"><div class="qz-ph qz-prog"><small>Vos progrès en photo</small>
+            <div class="qz-grid"><img src="${U('photo-1525351484163-7529414344d8')}" alt="" onerror="this.onerror=null;this.src='assiette.jpg'"><img src="assiette.jpg" alt=""><img src="${U('photo-1488477181946-6428a0291777')}" alt="" onerror="this.onerror=null;this.src='assiette.jpg'"><img src="${U('photo-1467003909585-2f8a72700288')}" alt="" onerror="this.onerror=null;this.src='assiette.jpg'"></div>
+            <svg viewBox="0 0 220 60" aria-hidden="true"><path d="M6 14 C60 18 90 36 214 48" fill="none" stroke="#E11D48" stroke-width="4" stroke-linecap="round"/><circle cx="214" cy="48" r="5" fill="#22A06B"/></svg>
+            <div class="qz-pst"><span><b>28</b> repas photographiés</span><span><b>7/7</b> jours suivis</span></div></div>
+            <figcaption>Vos repas, vos progrès : <em>tout en photo</em>.</figcaption></figure>
+        </div>
+        <div class="qz-dots" id="qzDots"><button type="button" aria-label="Photo 1" aria-current="true"></button><button type="button" aria-label="Photo 2"></button><button type="button" aria-label="Photo 3"></button></div>
+      </div><button type="button" class="qz-next" data-next>Continuer →</button>`,
+    ()=>`<h2>Que savez-vous sur <em>l'alimentation saine</em> ?</h2>${opts('savoir',SAVOIR)}`
   ];
+  const flow=()=>A.tried==='encours'?[0,1,2,3,4,9,10,5,8]:[0,1,2,3,4,5,6,7,8];
+  let tourT=null;
   function render(){
-    body.innerHTML=`<div class="qz-step">${STEPS[step]()}</div>`;body.scrollTop=0;
-    document.getElementById('qzBar').style.width=Math.round((step+1)/STEPS.length*100)+'%';
+    clearInterval(tourT);const F=flow();
+    body.innerHTML=`<div class="qz-step">${STEPS[F[step]]()}</div>`;body.scrollTop=0;
+    document.getElementById('qzBar').style.width=Math.round((step+1)/F.length*100)+'%';
+    const sl=document.getElementById('qzSlides');
+    if(sl){const dots=[...document.querySelectorAll('#qzDots button')];let i=0;
+      const show=n=>{i=(n+3)%3;sl.scrollTo({left:sl.clientWidth*i,behavior:'smooth'})};
+      sl.addEventListener('scroll',()=>{const k=Math.round(sl.scrollLeft/sl.clientWidth);i=k;dots.forEach((d,j)=>d.setAttribute('aria-current',j===k))},{passive:true});
+      dots.forEach((d,j)=>d.onclick=()=>{show(j);clearInterval(tourT)});
+      if(!matchMedia('(prefers-reduced-motion: reduce)').matches)tourT=setInterval(()=>show(i+1),3500);
+      sl.addEventListener('pointerdown',()=>clearInterval(tourT),{once:true});}
     document.getElementById('qzBack').disabled=step===0;
     const rg=document.getElementById('qzAge');
     if(rg){const set=()=>{A.age=+rg.value;document.getElementById('qzAgeV').textContent=A.age;rg.style.setProperty('--p',((A.age-16)/64*100)+'%')};set();rg.addEventListener('input',set)}
   }
-  function go(n){step=Math.max(0,Math.min(STEPS.length-1,n));render()}
+  function go(n){step=Math.max(0,Math.min(flow().length-1,n));render()}
   function open(){step=0;qz.hidden=false;document.body.style.overflow='hidden';render();try{history.pushState({qz:1},'','#bilan')}catch(e){}}
-  function close(fromHistory){qz.hidden=true;document.body.style.overflow='';if(!fromHistory&&location.hash==='#bilan'){try{history.back()}catch(e){}}}
+  function close(fromHistory){clearInterval(tourT);qz.hidden=true;document.body.style.overflow='';if(!fromHistory&&location.hash==='#bilan'){try{history.back()}catch(e){}}}
   body.addEventListener('click',e=>{
     const o=e.target.closest('[data-k]');
     if(o){A[o.dataset.k]=o.dataset.v;o.parentNode.querySelectorAll('[data-k]').forEach(x=>x.setAttribute('aria-pressed',x===o));setTimeout(()=>go(step+1),220);return}
