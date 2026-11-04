@@ -342,6 +342,11 @@ h1 em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--cor
 .qz-age{width:100%;display:grid;gap:14px;justify-items:center}
 .qz-age b{font-family:var(--display);font-size:4.4rem;line-height:1;background:linear-gradient(90deg,var(--orange),var(--coral));-webkit-background-clip:text;background-clip:text;color:transparent}
 .qz-age small{color:var(--muted);font-weight:700}
+.qz-cmp{display:flex;align-items:center;justify-content:center;gap:14px}
+.qz-from{display:grid;justify-items:center;font-family:var(--display);font-weight:800;font-size:2.2rem;line-height:1;color:#9A9AA0}
+.qz-from small{font-size:.8rem;margin-top:6px}
+.qz-arr{font-family:var(--display);font-weight:800;font-size:2.6rem;line-height:1;color:var(--btn1)}
+.qz-to{display:grid;justify-items:center;gap:6px}.qz-to small{font-size:.8rem}
 .qz-range{width:100%;-webkit-appearance:none;appearance:none;height:10px;border-radius:99px;background:linear-gradient(90deg,var(--orange),var(--coral) var(--p,30%),#FFE4EC var(--p,30%));outline-offset:6px}
 .qz-range::-webkit-slider-thumb{-webkit-appearance:none;width:32px;height:32px;border-radius:50%;background:#FFFFFF;border:4px solid var(--coral);box-shadow:0 6px 16px -6px var(--coral);cursor:grab}
 .qz-range::-moz-range-thumb{width:26px;height:26px;border-radius:50%;background:#FFFFFF;border:4px solid var(--coral);cursor:grab}
@@ -423,6 +428,7 @@ h1 em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--cor
 .qz-wl{position:relative;height:100%;overflow-y:auto;scroll-snap-type:y mandatory;scrollbar-width:none;-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 22%,#000 78%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0,#000 22%,#000 78%,transparent 100%);outline:none}
 .qz-wl::-webkit-scrollbar{display:none}
 .qz-wpad{display:block;height:118px}
+.qz-w3{width:100%;display:grid;justify-items:center}.qz-w3 .qz-wi span{transform:none;opacity:max(.35,calc(1 - var(--a) * .45))}.qz-w3 .qz-wheel{height:192px}.qz-w3 .qz-wpad{height:64px}.qz-w3 .qz-wl{-webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,.25) 0,#000 34%,#000 66%,rgba(0,0,0,.25) 100%);mask-image:linear-gradient(180deg,rgba(0,0,0,.25) 0,#000 34%,#000 66%,rgba(0,0,0,.25) 100%)}
 .qz-wi{--a:max(calc(var(--d,3) * 1),calc(var(--d,3) * -1));height:64px;display:grid;place-items:center;scroll-snap-align:center;cursor:pointer;perspective:600px}
 .qz-wi span{display:block;font-family:var(--display);font-weight:600;font-size:1.45rem;letter-spacing:-.01em;color:#111111;transform-origin:50% 50% -110px;transform:rotateX(calc(var(--d,3) * -18deg));opacity:max(0,calc(1 - var(--a) * .3));backface-visibility:hidden;white-space:nowrap}
 .qz-wi[aria-selected="true"] span{font-weight:800;font-size:1.9rem;letter-spacing:-.03em}
@@ -1090,7 +1096,7 @@ font[style]{background:none!important;box-shadow:none!important}
     ()=>`<h2 class="qz-intro">Quel régime <span style="white-space:nowrap">préférez-vous&nbsp;?</span></h2>${opts('regime',REGIME)}`,
     ()=>`<h2 class="qz-intro">Avez-vous des <em>intolérances alimentaires</em>&nbsp;?</h2>
       <div class="qz-chips">${INTOL.map(o=>`<button type="button" data-mk="intol" data-m="${o[0]}" aria-pressed="${A.intol.includes(o[0])}"><span aria-hidden="true">${o[1]}</span>${esc(o[2])}</button>`).join('')}</div>
-      <button type="button" class="qz-next" data-all>${A.intol.length?'Continuer →':'Je mange de tout'}</button>`,
+      <button type="button" class="qz-next" data-all data-empty="Je mange de tout">${A.intol.length?'Continuer →':'Je mange de tout'}</button>`,
     ()=>`<h2 class="qz-intro">Quel est votre <em>niveau d'activité</em>&nbsp;?</h2><p class="qz-hint">Cela nous aide à calculer vos besoins quotidiens</p>${opts('activite',ACTIV)}`,
     ()=>`<h2 class="qz-intro">Combien de temps <em>marchez-vous</em> lors d'une journée type&nbsp;?</h2>${opts('marche',MARCHE)}`,
     ()=>`<h2 class="qz-intro">Êtes-vous <em>essoufflé</em> après avoir monté des escaliers&nbsp;?</h2>${opts('escaliers',ESCAL)}`,
@@ -1099,7 +1105,7 @@ font[style]{background:none!important;box-shadow:none!important}
       ${wheel('taille',range(120,220,1),v=>v+' cm','Taille en centimètres')}
       <button type="button" class="qz-next" data-next>Continuer →</button>`},
     ()=>{if(A.poids==null)A.poids=A.sex==='F'?65:80;
-      return `<h2>Quel est votre <em>poids actuel</em>&nbsp;?</h2><p>Faites défiler pour choisir.</p>
+      return `<h2 class="qz-intro">Veuillez saisir votre poids actuel</h2><p class="qz-hint">C'est ici que commence votre parcours</p>
       ${wheel('poids',range(35,200,0.5),v=>String(v).replace('.',',')+' kg','Poids en kilos')}
       <div class="qz-bmi" id="qzBmi"></div><button type="button" class="qz-next" data-next>Continuer →</button>`},
     ()=>{if(A.pas==null)A.pas={inactif:5000,peu:7000,actif:9000,tres:11000}[A.activite]||7000;
@@ -1109,29 +1115,26 @@ font[style]{background:none!important;box-shadow:none!important}
       <div class="qz-scale"><span>1 000</span><span>20 000</span></div></div>
       <div class="qz-bmi" id="qzPasInfo"></div><button type="button" class="qz-next" data-next>Valider mon objectif →</button>`},
     ()=>{const p0=A.poids||(A.sex==='F'?65:80);if(A.cible==null)A.cible=Math.round((A.goal==='perte'?p0*0.92:A.goal==='physique'?p0+3:p0)*2)/2;
-      return `<h2>Quel est votre <em>poids cible</em>&nbsp;?</h2><p>Votre poids actuel : ${String(p0).replace('.',',')} kg</p>
-      <div class="qz-age"><b><span id="qzMV">${String(A.cible).replace('.',',')}</span></b><small>kg</small>
+      return `<h2 class="qz-intro">Quel est votre poids cible&nbsp;?</h2>
+      <div class="qz-age"><div class="qz-cmp"><span class="qz-from" title="Poids actuel">${String(p0).replace('.',',')}<small>kg</small></span><span class="qz-arr" aria-label="vers">»</span><span class="qz-to"><b><span id="qzMV">${String(A.cible).replace('.',',')}</span></b><small>kg</small></span></div>
       <div class="qz-meas"><button type="button" class="qz-pm" data-pm="-1" aria-label="Moins">−</button><input class="qz-range" id="qzM" data-key="cible" data-step="0.5" type="range" min="35" max="200" step="0.5" value="${A.cible}" aria-label="Poids cible en kilos"><button type="button" class="qz-pm" data-pm="1" aria-label="Plus">+</button></div>
       <div class="qz-scale"><span>35 kg</span><span>200 kg</span></div></div>
       <div class="qz-bmi" id="qzCible"></div><div class="qz-care" id="qzCibleWarn" hidden></div>
       <button type="button" class="qz-next" data-next>Continuer →</button>`},
-    ()=>`<h2>Choisissez un <em>rythme</em> qui vous convient</h2><p>Progression attendue par semaine.</p>
+    ()=>`<h2 class="qz-intro">Choisissez un rythme qui vous convient</h2><p>Progression attendue par semaine.</p>
       <div class="qz-age"><b><span id="qzMV">${String(A.rythme).replace('.',',')}</span></b><small>kg / semaine</small>
       <div class="qz-meas qz-meas-r"><input class="qz-range" id="qzM" data-key="rythme" data-step="0.1" type="range" min="0.4" max="1.2" step="0.1" value="${A.rythme}" aria-label="Progression par semaine en kilos"></div>
       <div class="qz-pace"><span data-z="0">🐢 Souple</span><span data-z="1">⚖️ Équilibré</span><span data-z="2">🔥 Strict</span></div></div>
       <div class="qz-bmi" id="qzEta"></div><div class="qz-care" id="qzPaceWarn" hidden>⚠️ <span><b>Rythme exigeant.</b> Au-delà de 1 kg par semaine, avancez avec prudence et écoutez votre corps.</span></div>
       <button type="button" class="qz-next" data-next>Continuer →</button>`,
-    ()=>`<div class="qz-sci-ic" aria-hidden="true">⏰</div><h2>Planifiez votre <em>premier point de suivi</em></h2><p>Dans combien de jours voulez-vous faire le point ?</p>
-      <div class="qz-age"><b><span id="qzMV">${A.suivi}</span></b><small>jours</small>
-      <div class="qz-meas"><button type="button" class="qz-pm" data-pm="-1" aria-label="Moins">−</button><input class="qz-range" id="qzM" data-key="suivi" data-step="1" type="range" min="3" max="30" step="1" value="${A.suivi}" aria-label="Jours avant le premier point de suivi"><button type="button" class="qz-pm" data-pm="1" aria-label="Plus">+</button></div>
-      <div class="qz-scale"><span>3 jours</span><span>30 jours</span></div></div>
+    ()=>`<div class="qz-sci-ic" aria-hidden="true">⏰</div><h2 class="qz-intro">Planifiez votre premier point de suivi</h2><p class="qz-hint">Nous suivons vos progrès à partir de votre pesée et ajustons le plan si nécessaire</p>
+      <div class="qz-w3">${wheel('suivi',range(3,30,1),n=>n+' jours','Jours avant le premier point de suivi')}</div>
       <div class="qz-chart qz-check" id="qzSuivi"></div><div class="qz-care" id="qzSuiviTip" hidden></div>
       <button type="button" class="qz-next" data-next>Continuer →</button>`,
-    ()=>`<h2>Que devons-nous <em>prendre en compte</em>&nbsp;?</h2><p>Plusieurs choix possibles.</p>
+    ()=>`<h2 class="qz-intro">Que devons-nous prendre en compte&nbsp;?</h2><p class="qz-hint">Nous gardons vos besoins de santé à l'esprit</p>
       <div class="qz-opts qz-multi">${SANTE.map(o=>`<button type="button" data-mk="sante" data-m="${o[0]}" aria-pressed="${A.sante.includes(o[0])}"><span class="e" aria-hidden="true">${o[1]}</span><span><b>${esc(o[2])}</b></span><i class="qz-ck" aria-hidden="true"></i></button>`).join('')}</div>
       <div class="qz-care" id="qzSanteNote" hidden></div>
-      <button type="button" class="qz-next" data-next ${A.sante.length?'':'disabled'}>Continuer →</button>
-      <button type="button" class="qz-all" data-none="sante">✅ Rien de tout ça</button>`,
+      <button type="button" class="qz-next" data-all data-empty="Aucun problème de santé">${A.sante.length?'Continuer →':'Aucun problème de santé'}</button>`,
     ()=>`<div class="qz-hug" aria-hidden="true">🤝</div><h2>Vous n'êtes pas seul dans <em>cette aventure</em>.</h2>
       <p class="qz-lead">Nous serons avec vous à chaque étape.</p>
       <button type="button" class="qz-next" data-next>Continuer →</button>`,
@@ -1213,6 +1216,14 @@ font[style]{background:none!important;box-shadow:none!important}
         qz.appendChild(sh);requestAnimationFrame(()=>requestAnimationFrame(()=>sh.classList.add('open')));
         sh.addEventListener('click',e=>{const b=e.target.closest('[data-burn]');if(!b)return;A.burn=b.dataset.burn;sh.classList.remove('open');setTimeout(()=>go(step+1),300)});
       },li.length*D+300));}
+    const suiviUpd=v=>{const sv=document.getElementById('qzSuivi');if(!sv)return;const d=new Date();d.setDate(d.getDate()+v);
+          const p0=A.poids||0,c=A.cible==null?p0:A.cible,diff=c-p0,kg=Math.min(Math.abs(diff),A.rythme*v/7),kgs=(Math.round(kg*10)/10).toFixed(1).replace('.',',');
+          const at=Math.abs(diff)<0.5?'Poids stable : on fera le point sur vos habitudes.':`Vous pourriez avoir ${diff<0?'perdu':'pris'} <b>≈ ${kgs} kg</b>${p0?` (≈ ${(Math.round((p0+(diff<0?-kg:kg))*10)/10).toFixed(1).replace('.',',')} kg)`:''}.`;
+          sv.innerHTML=`<span class="qz-big">${d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'})}</span><span>${at}</span>`;
+          const tp=document.getElementById('qzSuiviTip');
+          if(v<=4){tp.hidden=false;tp.innerHTML='⏳ <span><b>Un peu tôt pour suivre les progrès.</b> Le poids varie d\'un jour à l\'autre (eau, repas, sommeil). Un premier point vers 7 jours est plus parlant.</span>'}
+          else if(v>=11){tp.hidden=false;tp.innerHTML='🕰️ <span><b>Un peu tard pour suivre les progrès.</b> Un point plus rapproché aide à corriger le tir et à garder la motivation. Nous conseillons 7 à 10 jours.</span>'}
+          else tp.hidden=true;}
     const mr=document.getElementById('qzM');
     if(mr){const k=mr.dataset.key,st=+mr.dataset.step,mn=+mr.min,mx=+mr.max;
       const set=v=>{v=Math.round(Math.round(Math.max(mn,Math.min(mx,v))/st)*st*10)/10;A[k]=v;mr.value=v;document.getElementById('qzMV').textContent=mr.dataset.fmt==='pas'?v.toLocaleString('fr-FR'):k==='rythme'?v.toFixed(1).replace('.',','):String(v).replace('.',',');
@@ -1227,14 +1238,6 @@ font[style]{background:none!important;box-shadow:none!important}
           const diff=Math.abs((A.cible||A.poids||0)-(A.poids||0));
           if(diff<0.5)et.innerHTML='Vous gardez votre poids actuel : le rythme sert à installer vos habitudes.';
           else{const wk=Math.ceil(diff/v),d=new Date();d.setDate(d.getDate()+wk*7);et.innerHTML=`Objectif atteint vers le <b>${d.toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'})}</b> (≈ ${wk} semaine${wk>1?'s':''})`}}
-        const sv=document.getElementById('qzSuivi');if(sv&&k==='suivi'){const d=new Date();d.setDate(d.getDate()+v);
-          const p0=A.poids||0,c=A.cible==null?p0:A.cible,diff=c-p0,kg=Math.min(Math.abs(diff),A.rythme*v/7),kgs=(Math.round(kg*10)/10).toFixed(1).replace('.',',');
-          const at=Math.abs(diff)<0.5?'Poids stable : on fera le point sur vos habitudes.':`Vous pourriez avoir ${diff<0?'perdu':'pris'} <b>≈ ${kgs} kg</b>${p0?` (≈ ${(Math.round((p0+(diff<0?-kg:kg))*10)/10).toFixed(1).replace('.',',')} kg)`:''}.`;
-          sv.innerHTML=`<span class="qz-big">${d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'})}</span><span>${at}</span>`;
-          const tp=document.getElementById('qzSuiviTip');
-          if(v<=4){tp.hidden=false;tp.innerHTML='⏳ <span><b>Un peu tôt pour suivre les progrès.</b> Le poids varie d\'un jour à l\'autre (eau, repas, sommeil). Un premier point vers 7 jours est plus parlant.</span>'}
-          else if(v>=11){tp.hidden=false;tp.innerHTML='🕰️ <span><b>Un peu tard pour suivre les progrès.</b> Un point plus rapproché aide à corriger le tir et à garder la motivation. Nous conseillons 7 à 10 jours.</span>'}
-          else tp.hidden=true;}
         const pi=document.getElementById('qzPasInfo');if(pi){const km=v*0.75/1000;pi.innerHTML=`≈ <b>${km.toFixed(1).replace('.',',')} km</b> de marche par jour`}mr.style.setProperty('--p',((v-mn)/(mx-mn)*100)+'%');
         const bm=document.getElementById('qzBmi');if(bm&&A.taille){const i=A.poids/((A.taille/100)**2);bm.innerHTML=`IMC estimé : <b>${i.toFixed(1).replace('.',',')}</b>`}};
       set(+mr.value);mr.addEventListener('input',()=>set(+mr.value));
@@ -1246,7 +1249,7 @@ font[style]{background:none!important;box-shadow:none!important}
         const lo=Math.max(0,k-4),hi=Math.min(items.length-1,k+4);
         for(let j=lo;j<=hi;j++){const x=items[j];x.setAttribute('aria-selected',j===k);x.style.setProperty('--d',(j-pos).toFixed(3))}
         if(mark.lo!=null)for(let j=mark.lo;j<=mark.hi;j++)if(j<lo||j>hi){items[j].setAttribute('aria-selected','false');items[j].style.setProperty('--d',4)}
-        mark.lo=lo;mark.hi=hi;bmi()};
+        mark.lo=lo;mark.hi=hi;bmi();if(key==='suivi')suiviUpd(A[key])};
       items.forEach(x=>x.style.setProperty('--d',4));
       const init=()=>{if(!wh.isConnected)return;wh.scrollTop=want*H;if(Math.abs(wh.scrollTop-want*H)>H/3){if(init.n++<80)setTimeout(init,40);return}ready=true;mark()};init.n=0;requestAnimationFrame(init);
       wh.addEventListener('scroll',()=>requestAnimationFrame(mark),{passive:true});
@@ -1273,7 +1276,7 @@ font[style]{background:none!important;box-shadow:none!important}
     const o=e.target.closest('[data-k]');
     if(o){A[o.dataset.k]=o.dataset.v;o.parentNode.querySelectorAll('[data-k]').forEach(x=>x.setAttribute('aria-pressed',x===o));setTimeout(()=>go(step+1),220);return}
     const mb=e.target.closest('[data-m]');
-    if(mb){const k=mb.dataset.mk||'change',v=mb.dataset.m;A[k]=A[k].includes(v)?A[k].filter(x=>x!==v):A[k].concat(v);mb.setAttribute('aria-pressed',A[k].includes(v));const nx=body.querySelector('[data-next]');if(nx)nx.disabled=!A[k].length;if(k==='sante')santeNote();if(k==='intol'){const ab=body.querySelector('[data-all]');if(ab)ab.textContent=A.intol.length?'Continuer →':'Je mange de tout'}return}
+    if(mb){const k=mb.dataset.mk||'change',v=mb.dataset.m;A[k]=A[k].includes(v)?A[k].filter(x=>x!==v):A[k].concat(v);mb.setAttribute('aria-pressed',A[k].includes(v));const nx=body.querySelector('[data-next]');if(nx)nx.disabled=!A[k].length;if(k==='sante')santeNote();const ab=body.querySelector('[data-all][data-empty]');if(ab)ab.textContent=A[k].length?'Continuer →':ab.dataset.empty;return}
     const nb=e.target.closest('[data-none]');if(nb){A[nb.dataset.none]=[];go(step+1);return}
     if(e.target.closest('[data-all]')){go(step+1);return}
     if(e.target.closest('[data-next]')){go(step+1);return}
