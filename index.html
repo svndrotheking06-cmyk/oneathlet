@@ -672,6 +672,7 @@ font[style]{background:none!important;box-shadow:none!important}
   const INTOL=[['lactose','🥛','Lactose'],['crustaces','🦐','Crustacés'],['miel','🍯','Miel'],['arachides','🥜','Arachides'],['poisson','🐟','Poisson'],['ble','🌾','Blé'],['mollusques','🦪','Mollusques'],['gluten','🍞','Gluten'],['lait','🍼','Lait'],['oeufs','🥚','Œufs'],['coque','🌰','Fruits à coque'],['soja','🫘','Soja'],['agrumes','🍊','Agrumes']];
   const ACTIV=[['inactif','🛋️','Inactif','Peu ou pas de sport, travail assis'],['peu','🚶','Peu actif','Marche régulière, sport 1 à 2 fois / semaine'],['actif','🏃','Actif','Sport 3 à 4 fois / semaine'],['tres','🏋️','Très actif','Sport intense 5 fois / semaine et plus']];
   const MARCHE=[['m20','🐢','Moins de 20 min','Surtout assis ou en voiture'],['m60','🚶','20 à 60 min','Quelques trajets à pied'],['m120','🚶‍♂️','1 à 2 heures','Je marche régulièrement'],['m120p','🥾','Plus de 2 heures','Je suis souvent debout ou à pied']];
+  const ESCAL=[['facile','🚀','Je monte plusieurs étages sans effort',''],['un','🙂','Un étage, c\'est facile pour moi',''],['peu','😮‍💨','Un peu essoufflé, mais je peux encore parler',''],['tres','🥵','Très essoufflé, je ne peux plus parler','']];
   const past=()=>A.tried==='debut'||A.tried==='echec';
   const DEFI=[['grignotage','🍪','Le grignotage','Les envies entre les repas'],['temps','⏱️','Le manque de temps','Je mange sur le pouce'],['motivation','📉','La motivation','Je commence puis j\'arrête'],['idees','🤔','Je ne sais pas quoi manger','Manque d\'idées de repas'],['sucre','🍰','Le sucre','Desserts, sodas, viennoiseries'],['fastfood','🍔','Fast-food et restaurants','Les repas à l\'extérieur']];
   const esc=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -762,9 +763,10 @@ font[style]{background:none!important;box-shadow:none!important}
       <button type="button" class="qz-next" data-next ${A.intol.length?'':'disabled'}>Continuer →</button>
       <button type="button" class="qz-all" data-all>🍽️ Je mange de tout</button>`,
     ()=>`<h2>Quel est votre <em>niveau d'activité</em> ?</h2>${opts('activite',ACTIV)}`,
-    ()=>`<h2>Combien de temps <em>marchez-vous</em> lors d'une journée type ?</h2>${opts('marche',MARCHE)}`
+    ()=>`<h2>Combien de temps <em>marchez-vous</em> lors d'une journée type ?</h2>${opts('marche',MARCHE)}`,
+    ()=>`<h2>Êtes-vous <em>essoufflé</em> après avoir monté des escaliers ?</h2>${opts('escaliers',ESCAL)}`
   ];
-  const flow=()=>A.tried==='encours'?[0,1,2,3,4,9,10,11,12,13,14,15,16,17,18,19,5,8]:[0,1,2,3,4,5,11,12,13,14,15,16,17,18,19,6,7,8];
+  const flow=()=>A.tried==='encours'?[0,1,2,3,4,9,10,11,12,13,14,15,16,17,18,19,20,5,8]:[0,1,2,3,4,5,11,12,13,14,15,16,17,18,19,20,6,7,8];
   let tourT=null;
   function render(){
     clearInterval(tourT);const F=flow();
