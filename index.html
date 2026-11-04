@@ -351,6 +351,7 @@ h1 em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--cor
 .qz-opts button:hover{border-color:var(--coral);transform:translateY(-2px)}
 .qz-opts button[aria-pressed="true"]{border-color:var(--coral);background:#FFF5F7}
 .qz-opts .e{width:46px;height:46px;border-radius:14px;background:#FFE4EC;display:grid;place-items:center;font-size:1.6rem;flex:none}
+.qz-nobox{width:100%}.qz-nobox .qz-opts .e{background:none;width:auto;height:auto;border-radius:0;font-size:1.9rem}
 .qz-opts b{display:block;font-size:1rem}
 .qz-opts small{color:var(--muted);font-weight:600;font-size:.82rem}
 .qz-next{width:min(100%,420px);border:0;border-radius:999px;padding:16px;font:inherit;font-weight:800;font-size:1.05rem;color:#FFFFFF;background:linear-gradient(135deg,var(--orange),var(--coral));box-shadow:0 16px 30px -16px var(--coral);cursor:pointer}
@@ -1014,7 +1015,7 @@ font[style]{background:none!important;box-shadow:none!important}
     else{big='Assiettes équilibrées';pts=[110,98,84,70,58,46,36,28,22];miles=['Repas plus variés','Moins de produits sucrés','Habitudes installées']}
     const d=pts.map((y,i)=>(i?'L':'M')+(14+i*34)+' '+y).join(' ');
     const fill=d+' L'+(14+8*34)+' 130 L14 130 Z';
-    return `<h2>Votre progression<br><em>en environ 2 mois</em></h2><p>Estimation pour ${who} qui suit son programme OneAthlet.</p>
+    return `<h2 class="qz-intro">Votre progression<br><em>en environ 2 mois</em></h2><p>Estimation pour ${who} qui suit son programme OneAthlet.</p>
       <div class="qz-chart"><span class="qz-big">${big}</span>
       <svg viewBox="0 0 300 140" role="img" aria-label="Courbe de progression sur 8 semaines"><defs><linearGradient id="qzg" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#FF5C8A" stop-opacity=".28"/><stop offset="1" stop-color="#FF5C8A" stop-opacity="0"/></linearGradient></defs>
       <path d="${fill}" fill="url(#qzg)"/><path class="qz-path" d="${d}" fill="none" stroke="#E11D48" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
@@ -1029,7 +1030,7 @@ font[style]{background:none!important;box-shadow:none!important}
       <p class="qz-hint">Choisissez votre sexe pour commencer</p>
       <div class="qz-sex"><button type="button" data-k="sex" data-v="H" aria-pressed="${A.sex==='H'}"><span class="qz-pic"><img src="homme.jpg" alt=""></span>Homme</button><button type="button" data-k="sex" data-v="F" aria-pressed="${A.sex==='F'}"><span class="qz-pic"><img src="femme.jpg" alt=""></span>Femme</button></div>`,
     ()=>`<h2>Quel âge avez-vous ?</h2><div class="qz-age"><b id="qzAgeV">${A.age}</b><small>ans</small><input class="qz-range" id="qzAge" type="range" min="16" max="80" value="${A.age}" aria-label="Âge"><div class="qz-scale"><span>16</span><span>80</span></div></div><button type="button" class="qz-next" data-next>Continuer →</button>`,
-    ()=>`<h2>Quel est votre <em>objectif</em> ?</h2>${opts('goal',GOALS)}`,
+    ()=>`<h2 class="qz-intro">Quel est votre objectif ?</h2><p class="qz-hint">Aidez-nous à comprendre votre motivation</p><div class="qz-nobox">${opts('goal',GOALS)}</div>`,
     ()=>proj()+`<button type="button" class="qz-next" data-next>Continuer →</button>`,
     ()=>`<h2>Avez-vous déjà essayé de <em>changer votre corps</em> ?</h2>${opts('tried',TRIED)}`,
     ()=>past()?`<h2>Quel a été votre <em>plus grand défi</em> jusqu'ici ?</h2>${opts('defi',DEFI2)}`:`<h2>Quel est votre <em>plus grand défi</em> ?</h2>${opts('defi',DEFI)}`,
