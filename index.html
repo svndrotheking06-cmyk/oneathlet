@@ -356,7 +356,10 @@ h1 em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--cor
 .qz-opts button:hover{border-color:var(--coral);transform:translateY(-2px)}
 .qz-opts button[aria-pressed="true"]{border-color:var(--coral);background:#FFF5F7}
 .qz-opts .e{width:46px;height:46px;border-radius:14px;background:#FFE4EC;display:grid;place-items:center;font-size:1.6rem;flex:none}
-.qz-nobox,.qz-gray{width:100%}.qz-gray .qz-opts small{color:#8A8A8F;font-weight:500;margin-top:2px;display:block;line-height:1.35}.qz-nobox .qz-opts .e{background:none;width:auto;height:auto;border-radius:0;font-size:1.9rem}
+.qz-nobox,.qz-gray{width:100%}
+.qz-small{gap:7px}.qz-small button{padding:9px 44px 9px 12px;gap:10px;border-radius:14px}
+.qz-small .e{width:auto;height:auto;background:none;border-radius:0;font-size:1.35rem}
+.qz-small b{font-size:.92rem;font-weight:700}.qz-small .qz-ck{right:12px;width:20px;height:20px}.qz-gray .qz-opts small{color:#8A8A8F;font-weight:500;margin-top:2px;display:block;line-height:1.35}.qz-nobox .qz-opts .e{background:none;width:auto;height:auto;border-radius:0;font-size:1.9rem}
 .qz-opts b{display:block;font-size:1rem}
 .qz-opts small{color:var(--muted);font-weight:600;font-size:.82rem}
 .qz-next{width:min(100%,420px);border:0;border-radius:999px;padding:16px;font:inherit;font-weight:800;font-size:1.05rem;color:#FFFFFF;background:linear-gradient(135deg,var(--orange),var(--coral));box-shadow:0 16px 30px -16px var(--coral);cursor:pointer}
@@ -485,6 +488,8 @@ h1 em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--cor
   .qz-top,.qz-body{background:var(--page);width:100%}
   .qz-top{max-width:none;border-radius:0}
   .qz-step{max-width:none}
+  #qz .qz-step h2,#qz .qz-step h2.qz-intro{font-size:1.75rem}
+  #qz .qz-sl figcaption{font-size:1.35rem}
   .qz-sheet{left:50%;right:auto;width:min(440px,100%);transform:translateX(-50%)}
 }
 .qz-grab{width:42px;height:5px;border-radius:5px;background:#EBD3DA}
@@ -1190,7 +1195,7 @@ font[style]{background:none!important;box-shadow:none!important}
       ${wheel('meals',[1,2,3,4,5,6],n=>n===6?'6 repas et +':n+' repas','Nombre de repas par jour')}
       <button type="button" class="qz-next" data-next>Continuer →</button>`,
     ()=>`<h2 class="qz-intro">Que souhaitez-vous changer dans vos <em>habitudes alimentaires</em>&nbsp;?</h2>
-      <div class="qz-opts qz-multi">${CHANGE.map(o=>`<button type="button" data-m="${o[0]}" aria-pressed="${A.change.includes(o[0])}"><span class="e" aria-hidden="true">${o[1]}</span><span><b>${esc(o[2])}</b></span><i class="qz-ck" aria-hidden="true"></i></button>`).join('')}</div>
+      <div class="qz-opts qz-multi qz-small">${CHANGE.map(o=>`<button type="button" data-m="${o[0]}" aria-pressed="${A.change.includes(o[0])}"><span class="e" aria-hidden="true">${o[1]}</span><span><b>${esc(o[2])}</b></span><i class="qz-ck" aria-hidden="true"></i></button>`).join('')}</div>
       <button type="button" class="qz-next" data-next ${A.change.length?'':'disabled'}>Continuer →</button>`,
     ()=>{const ch=CHANGE.filter(o=>A.change.includes(o[0]));
       return `<div class="qz-sci-ic" aria-hidden="true">🧭</div><h2>Vous avez <em>le contrôle</em>.</h2>
