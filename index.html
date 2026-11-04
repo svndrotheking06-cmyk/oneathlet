@@ -419,6 +419,12 @@ h1 em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--cor
 .qz-next:disabled{background:#F5DCE3;box-shadow:none;cursor:default;color:#FFFFFF}
 .qz-care{display:flex;gap:10px;align-items:flex-start;text-align:left;background:#F2F7FF;border:1px solid #D9E6FA;border-radius:18px;padding:14px;font-size:.88rem;line-height:1.45;color:var(--ink)}
 .qz-care b{display:block;margin-bottom:2px}
+.qz-chips{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;width:100%}
+.qz-chips button{display:inline-flex;align-items:center;gap:7px;border:2px solid var(--line);background:var(--surface);border-radius:999px;padding:10px 14px;font:inherit;font-weight:700;font-size:.92rem;color:var(--ink);cursor:pointer;transition:border-color .15s,background .15s}
+.qz-chips button:hover{border-color:var(--coral)}
+.qz-chips button[aria-pressed="true"]{border-color:var(--coral);background:var(--coral);color:#FFFFFF}
+.qz-all{width:min(100%,420px);border:2px solid var(--line);background:var(--surface);border-radius:999px;padding:14px;font:inherit;font-weight:800;font-size:1rem;color:var(--ink);cursor:pointer;margin-top:-6px}
+.qz-all:hover{border-color:var(--coral);color:var(--coral)}
 .goog-te-banner-frame,.skiptranslate>iframe,#goog-gt-tt,.goog-te-balloon-frame{display:none!important}
 body{top:0!important}
 font[style]{background:none!important;box-shadow:none!important}
@@ -653,7 +659,7 @@ font[style]{background:none!important;box-shadow:none!important}
 (function(){
   const qz=document.getElementById('qz'),body=document.getElementById('qzBody');if(!qz)return;
   const U=id=>'https://images.unsplash.com/'+id+'?auto=format&fit=crop&w=300&h=400&q=80';
-  const A={change:[],meals:3,sex:null,age:30,goal:null,tried:null,defi:null};let step=0;
+  const A={intol:[],change:[],meals:3,sex:null,age:30,goal:null,tried:null,defi:null};let step=0;
   const MAN='<svg viewBox="0 0 160 180" aria-hidden="true"><circle cx="80" cy="80" r="74" fill="#FFE4EC"/><path d="M30 180c4-36 24-54 50-54s46 18 50 54z" fill="#E11D48"/><path d="M66 112h28v18c0 8-28 8-28 0z" fill="#F2B79F"/><ellipse cx="80" cy="78" rx="26" ry="31" fill="#F6C6AE"/><path d="M53 74c-2-22 12-34 28-34 17 0 29 11 26 33-4-10-12-15-27-15s-22 5-27 16z" fill="#3A2420"/><circle cx="70" cy="82" r="2.6" fill="#2A141A"/><circle cx="90" cy="82" r="2.6" fill="#2A141A"/><path d="M72 95c5 4 11 4 16 0" stroke="#B5524A" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>';
   const WOMAN='<svg viewBox="0 0 160 180" aria-hidden="true"><circle cx="80" cy="80" r="74" fill="#FFE4EC"/><path d="M44 66c0-26 16-38 36-38s36 12 36 38v56c-8 8-20 10-36 10s-28-2-36-10z" fill="#5A2E22"/><path d="M34 180c4-34 22-52 46-52s42 18 46 52z" fill="#FF5C8A"/><path d="M68 112h24v16c0 8-24 8-24 0z" fill="#F2B79F"/><ellipse cx="80" cy="80" rx="24" ry="29" fill="#F6C6AE"/><path d="M56 76c2-18 12-28 26-28 13 0 22 8 23 24-8-8-22-12-36-8-5 2-9 6-13 12z" fill="#5A2E22"/><circle cx="71" cy="84" r="2.5" fill="#2A141A"/><circle cx="89" cy="84" r="2.5" fill="#2A141A"/><path d="M73 96c4 3 10 3 14 0" stroke="#C0505A" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>';
   const GOALS=[['perte','🔥','Perdre du poids','Affiner ma silhouette'],['sante','❤️','Être en meilleure santé','Manger plus équilibré'],['physique','💪','Améliorer mon physique','Plus de muscle, plus tonique'],['energie','⚡','Avoir plus d\'énergie','Fini les coups de fatigue']];
@@ -663,6 +669,7 @@ font[style]{background:none!important;box-shadow:none!important}
   const PRO=[['oui','🩺','Oui','Un professionnel m\'a recommandé OneAthlet'],['non','🙋','Non','Je l\'ai découvert par moi-même']];
   const CHANGE=[['sucre','🍰','Moins de sucre'],['malbouffe','🍔','Manger moins de malbouffe'],['boulimie','🫶','Arrêter les crises de boulimie'],['legumes','🥦','Manger plus de légumes'],['stress','😮‍💨','Arrêter de manger sous le stress'],['maison','🍳','Cuisiner plus souvent à la maison'],['sel','🧂','Manger moins de sel']];
   const REGIME=[['equilibre','🥗','Équilibré','Un peu de tout, sans excès'],['vege','🥕','Végétarien','Ni viande ni poisson'],['vegan','🌱','Vegan','100 % végétal'],['paleo','🥩','Paléo','Sans céréales ni produits laitiers'],['keto','🥑','Cétogène','Très peu de glucides, plus de lipides'],['hp','💪','Riche en protéines','Une protéine à chaque repas'],['lowcarb','🍞','Faible en glucides','Moins de pain, pâtes et riz']];
+  const INTOL=[['lactose','🥛','Lactose'],['crustaces','🦐','Crustacés'],['miel','🍯','Miel'],['arachides','🥜','Arachides'],['poisson','🐟','Poisson'],['ble','🌾','Blé'],['mollusques','🦪','Mollusques'],['gluten','🍞','Gluten'],['lait','🍼','Lait'],['oeufs','🥚','Œufs'],['coque','🌰','Fruits à coque'],['soja','🫘','Soja'],['agrumes','🍊','Agrumes']];
   const past=()=>A.tried==='debut'||A.tried==='echec';
   const DEFI=[['grignotage','🍪','Le grignotage','Les envies entre les repas'],['temps','⏱️','Le manque de temps','Je mange sur le pouce'],['motivation','📉','La motivation','Je commence puis j\'arrête'],['idees','🤔','Je ne sais pas quoi manger','Manque d\'idées de repas'],['sucre','🍰','Le sucre','Desserts, sodas, viennoiseries'],['fastfood','🍔','Fast-food et restaurants','Les repas à l\'extérieur']];
   const esc=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -703,7 +710,7 @@ font[style]{background:none!important;box-shadow:none!important}
       <div class="qz-how"><div><i>📸</i><b>Photographiez</b><small>votre assiette</small></div><div><i>🔍</i><b>On analyse</b><small>chaque aliment</small></div><div><i>✅</i><b>C'est ajouté</b><small>à votre journée</small></div></div>
       <button type="button" class="qz-next" data-next>Voir mon profil →</button>`,
     ()=>{const g=GOALS.find(x=>x[0]===A.goal)||GOALS[0],d=DEFI.concat(DEFI2).find(x=>x[0]===A.defi)||(past()?DEFI2:DEFI)[0];
-      return `<h2>Votre profil est <em>prêt</em>.</h2><p>Voici ce que nous avons retenu.</p><div class="qz-sum"><span>${A.sex==='H'?'👨 Homme':'👩 Femme'}</span><span>🎂 ${A.age} ans</span><span>🍽️ ${A.meals===6?'6 repas et +':A.meals+' repas'} / jour</span>${(()=>{const rg=REGIME.find(x=>x[0]===A.regime);return rg?`<span>${rg[1]} ${esc(rg[2])}</span>`:''})()}<span>${g[1]} ${esc(g[2])}</span><span>${d[1]} ${esc(d[2])}</span></div><button type="button" class="qz-next" data-done>Terminer</button>`},
+      return `<h2>Votre profil est <em>prêt</em>.</h2><p>Voici ce que nous avons retenu.</p><div class="qz-sum"><span>${A.sex==='H'?'👨 Homme':'👩 Femme'}</span><span>🎂 ${A.age} ans</span><span>🍽️ ${A.meals===6?'6 repas et +':A.meals+' repas'} / jour</span>${(()=>{const rg=REGIME.find(x=>x[0]===A.regime);return rg?`<span>${rg[1]} ${esc(rg[2])}</span>`:''})()}${A.intol.length?`<span>🚫 Sans ${INTOL.filter(o=>A.intol.includes(o[0])).map(o=>o[2].toLowerCase()).join(', ')}</span>`:(A.regime?'<span>🍽️ Mange de tout</span>':'')}<span>${g[1]} ${esc(g[2])}</span><span>${d[1]} ${esc(d[2])}</span></div><button type="button" class="qz-next" data-done>Terminer</button>`},
     ()=>`<div class="qz-tour" id="qzTour">
         <div class="qz-slides" id="qzSlides">
           <figure class="qz-sl"><div class="qz-ph"><img src="${U('photo-1467003909585-2f8a72700288')}" alt="Dîner : saumon, quinoa et légumes" onerror="this.onerror=null;this.src='assiette.jpg'">
@@ -747,9 +754,13 @@ font[style]{background:none!important;box-shadow:none!important}
       ${ch.length?`<div class="qz-sum">${ch.map(o=>`<span>${o[1]} ${esc(o[2])}</span>`).join('')}</div>`:''}
       ${A.change.includes('boulimie')?`<div class="qz-care">🫶 <span><b>Vous n'êtes pas seul·e.</b> Les crises de boulimie sont un trouble fréquent qui se soigne. En plus de OneAthlet, parlez-en à votre médecin ou à un professionnel spécialisé : un accompagnement fait vraiment la différence.</span></div>`:''}
       <button type="button" class="qz-next" data-next>Continuer →</button>`},
-    ()=>`<h2>Quel <em>régime</em> préférez-vous ?</h2>${opts('regime',REGIME)}`
+    ()=>`<h2>Quel <em>régime</em> préférez-vous ?</h2>${opts('regime',REGIME)}`,
+    ()=>`<h2>Avez-vous des <em>intolérances</em> alimentaires ?</h2><p>Sélectionnez tout ce qui s'applique.</p>
+      <div class="qz-chips">${INTOL.map(o=>`<button type="button" data-mk="intol" data-m="${o[0]}" aria-pressed="${A.intol.includes(o[0])}"><span aria-hidden="true">${o[1]}</span>${esc(o[2])}</button>`).join('')}</div>
+      <button type="button" class="qz-next" data-next ${A.intol.length?'':'disabled'}>Continuer →</button>
+      <button type="button" class="qz-all" data-all>🍽️ Je mange de tout</button>`
   ];
-  const flow=()=>A.tried==='encours'?[0,1,2,3,4,9,10,11,12,13,14,15,16,5,8]:[0,1,2,3,4,5,11,12,13,14,15,16,6,7,8];
+  const flow=()=>A.tried==='encours'?[0,1,2,3,4,9,10,11,12,13,14,15,16,17,5,8]:[0,1,2,3,4,5,11,12,13,14,15,16,17,6,7,8];
   let tourT=null;
   function render(){
     clearInterval(tourT);const F=flow();
@@ -781,7 +792,8 @@ font[style]{background:none!important;box-shadow:none!important}
     const o=e.target.closest('[data-k]');
     if(o){A[o.dataset.k]=o.dataset.v;o.parentNode.querySelectorAll('[data-k]').forEach(x=>x.setAttribute('aria-pressed',x===o));setTimeout(()=>go(step+1),220);return}
     const mb=e.target.closest('[data-m]');
-    if(mb){const v=mb.dataset.m;A.change=A.change.includes(v)?A.change.filter(x=>x!==v):A.change.concat(v);mb.setAttribute('aria-pressed',A.change.includes(v));const nx=body.querySelector('[data-next]');if(nx)nx.disabled=!A.change.length;return}
+    if(mb){const k=mb.dataset.mk||'change',v=mb.dataset.m;A[k]=A[k].includes(v)?A[k].filter(x=>x!==v):A[k].concat(v);mb.setAttribute('aria-pressed',A[k].includes(v));const nx=body.querySelector('[data-next]');if(nx)nx.disabled=!A[k].length;return}
+    if(e.target.closest('[data-all]')){A.intol=[];go(step+1);return}
     if(e.target.closest('[data-next]')){go(step+1);return}
     if(e.target.closest('[data-done]')){try{localStorage.setItem('oneathlet-bilan',JSON.stringify(A))}catch(err){}close()}
   });
