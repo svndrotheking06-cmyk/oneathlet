@@ -519,6 +519,8 @@ h1 em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--cor
 @media (prefers-reduced-motion:reduce){.qz-step .qz-tl li,.qz-step .qz-tl::before{animation:none;opacity:1}}
 .qz-tl-d{position:relative;z-index:1;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;flex:none;color:#FFFFFF;font-family:var(--display);font-weight:800;font-size:1.1rem;background:linear-gradient(135deg,var(--orange),var(--coral));box-shadow:0 0 0 6px #FFE4EC}
 .qz-tl li:last-child .qz-tl-d{background:#22A06B;box-shadow:0 0 0 6px #E3F4EC}
+.qz-tl-q li:last-child .qz-tl-d{background:linear-gradient(135deg,var(--orange),var(--coral));box-shadow:0 0 0 6px #FFE4EC}
+.qz-tl-q .qz-tl-d::after{content:"";width:14px;height:14px;border-radius:50%;background:#FFFFFF}
 .qz-tl div{display:grid;gap:3px;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:12px 14px;flex:1}
 .qz-tl small{color:var(--coral);font-weight:800;font-size:.76rem}
 .qz-tl b{font-family:var(--display);font-size:1.1rem}
@@ -1164,13 +1166,12 @@ font[style]{background:none!important;box-shadow:none!important}
     ()=>{const P=planOf(),d1=new Date();d1.setDate(d1.getDate()+A.suivi);const d2=new Date();d2.setDate(d2.getDate()+60);
       const f=d=>d.toLocaleDateString('fr-FR',{day:'numeric',month:'long'}),dir=P.diff<0?'−':'+',kg=n=>fr(Math.abs(P.at(n)-P.w));
       const st=Math.abs(P.diff)<0.5;
-      return `<h2>Ce qui <em>vous attend</em></h2><p>Vos 3 points d'étape.</p>
-      <ol class="qz-tl">
-        <li><span class="qz-tl-d">1</span><div><small>Aujourd'hui</small><b>Le départ : ${fr(P.w)} kg</b><span>Votre plan démarre : premiers repas photographiés, objectif de ${P.kcal.toLocaleString('fr-FR')} kcal par jour.</span></div></li>
-        <li><span class="qz-tl-d">2</span><div><small>Dans ${A.suivi} jours · ${f(d1)}</small><b>${st?'Habitudes installées':'≈ '+fr(P.at(A.suivi))+' kg ('+dir+kg(A.suivi)+' kg)'}</b><span>Votre premier point de suivi : on regarde vos progrès et on ajuste si besoin.</span></div></li>
-        <li><span class="qz-tl-d">3</span><div><small>Dans 2 mois · ${f(d2)}</small><b>${st?'Énergie et équilibre':'≈ '+fr(P.at(60))+' kg ('+dir+kg(60)+' kg)'}</b><span>De nouvelles habitudes bien ancrées et des résultats visibles.</span></div></li>
+      return `<h2 class="qz-intro">Voici ce qui vous attend</h2>
+      <ol class="qz-tl qz-tl-q">
+        <li><span class="qz-tl-d"></span><div><small>Aujourd'hui</small><b>Le départ : ${fr(P.w)} kg</b><span>Votre plan démarre : premiers repas photographiés, objectif de ${P.kcal.toLocaleString('fr-FR')} kcal par jour.</span></div></li>
+        <li><span class="qz-tl-d"></span><div><small>Dans ${A.suivi} jours · ${f(d1)}</small><b>${st?'Habitudes installées':'≈ '+fr(P.at(A.suivi))+' kg ('+dir+kg(A.suivi)+' kg)'}</b><span>Votre premier point de suivi : on regarde vos progrès et on ajuste si besoin.</span></div></li>
+        <li><span class="qz-tl-d"></span><div><small>Dans 2 mois · ${f(d2)}</small><b>${st?'Énergie et équilibre':'≈ '+fr(P.at(60))+' kg ('+dir+kg(60)+' kg)'}</b><span>De nouvelles habitudes bien ancrées et des résultats visibles.</span></div></li>
       </ol>
-      <span class="qz-note">Estimation selon le rythme choisi (${fr(A.rythme)} kg / semaine). Les résultats varient d'une personne à l'autre.</span>
       <button type="button" class="qz-next" data-next>Continuer →</button>`},
     ()=>{const P=planOf(),goalTxt=Math.abs(P.diff)<0.5?'garder mon poids':'atteindre '+fr(P.c)+' kg';
       return `<h2>Choisissez <em>votre plan</em></h2><p>Pour ${Math.abs(P.diff)<0.5?'garder votre poids et installer vos habitudes':'passer de '+fr(P.w)+' kg à <b>'+fr(P.c)+' kg</b>'}.</p>
@@ -1186,7 +1187,7 @@ font[style]{background:none!important;box-shadow:none!important}
   function render(){
     clearInterval(tourT);sheetOff();const F=flow();
     body.innerHTML=`<div class="qz-step">${STEPS[F[step]]()}</div>`;body.scrollTop=0;
-    document.getElementById('qzBar').style.width=Math.round((step+1)/F.length*100)+'%';
+    {const end=F.indexOf(29),bar=document.getElementById('qzBar');bar.style.width=Math.round(Math.min(1,(step+1)/(end+1))*100)+'%';bar.parentNode.style.visibility=step>end?'hidden':''}
     santeNote();
     const pay=document.getElementById('qzPay');
     if(pay){const note=()=>{const o=OFFRES.find(x=>x[0]===A.offre);document.getElementById('qzPayNote').textContent=`Abonnement de ${fr(o[2],2)} € renouvelé automatiquement toutes les ${o[1]} semaines. Résiliable à tout moment. Paiement sécurisé par Stripe.`};note();
