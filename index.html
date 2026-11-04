@@ -662,6 +662,7 @@ font[style]{background:none!important;box-shadow:none!important}
   const SAVOIR=[['debutant','🌱','Débutant','Je découvre les bases'],['inter','📘','Intermédiaire','Je connais les calories et les macros'],['pro','🏆','Pro','Je maîtrise déjà le sujet']];
   const PRO=[['oui','🩺','Oui','Un professionnel m\'a recommandé OneAthlet'],['non','🙋','Non','Je l\'ai découvert par moi-même']];
   const CHANGE=[['sucre','🍰','Moins de sucre'],['malbouffe','🍔','Manger moins de malbouffe'],['boulimie','🫶','Arrêter les crises de boulimie'],['legumes','🥦','Manger plus de légumes'],['stress','😮‍💨','Arrêter de manger sous le stress'],['maison','🍳','Cuisiner plus souvent à la maison'],['sel','🧂','Manger moins de sel']];
+  const REGIME=[['equilibre','🥗','Équilibré','Un peu de tout, sans excès'],['vege','🥕','Végétarien','Ni viande ni poisson'],['vegan','🌱','Vegan','100 % végétal'],['paleo','🥩','Paléo','Sans céréales ni produits laitiers'],['keto','🥑','Cétogène','Très peu de glucides, plus de lipides'],['hp','💪','Riche en protéines','Une protéine à chaque repas'],['lowcarb','🍞','Faible en glucides','Moins de pain, pâtes et riz']];
   const past=()=>A.tried==='debut'||A.tried==='echec';
   const DEFI=[['grignotage','🍪','Le grignotage','Les envies entre les repas'],['temps','⏱️','Le manque de temps','Je mange sur le pouce'],['motivation','📉','La motivation','Je commence puis j\'arrête'],['idees','🤔','Je ne sais pas quoi manger','Manque d\'idées de repas'],['sucre','🍰','Le sucre','Desserts, sodas, viennoiseries'],['fastfood','🍔','Fast-food et restaurants','Les repas à l\'extérieur']];
   const esc=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -702,7 +703,7 @@ font[style]{background:none!important;box-shadow:none!important}
       <div class="qz-how"><div><i>📸</i><b>Photographiez</b><small>votre assiette</small></div><div><i>🔍</i><b>On analyse</b><small>chaque aliment</small></div><div><i>✅</i><b>C'est ajouté</b><small>à votre journée</small></div></div>
       <button type="button" class="qz-next" data-next>Voir mon profil →</button>`,
     ()=>{const g=GOALS.find(x=>x[0]===A.goal)||GOALS[0],d=DEFI.concat(DEFI2).find(x=>x[0]===A.defi)||(past()?DEFI2:DEFI)[0];
-      return `<h2>Votre profil est <em>prêt</em>.</h2><p>Voici ce que nous avons retenu.</p><div class="qz-sum"><span>${A.sex==='H'?'👨 Homme':'👩 Femme'}</span><span>🎂 ${A.age} ans</span><span>🍽️ ${A.meals===6?'6 repas et +':A.meals+' repas'} / jour</span><span>${g[1]} ${esc(g[2])}</span><span>${d[1]} ${esc(d[2])}</span></div><button type="button" class="qz-next" data-done>Terminer</button>`},
+      return `<h2>Votre profil est <em>prêt</em>.</h2><p>Voici ce que nous avons retenu.</p><div class="qz-sum"><span>${A.sex==='H'?'👨 Homme':'👩 Femme'}</span><span>🎂 ${A.age} ans</span><span>🍽️ ${A.meals===6?'6 repas et +':A.meals+' repas'} / jour</span>${(()=>{const rg=REGIME.find(x=>x[0]===A.regime);return rg?`<span>${rg[1]} ${esc(rg[2])}</span>`:''})()}<span>${g[1]} ${esc(g[2])}</span><span>${d[1]} ${esc(d[2])}</span></div><button type="button" class="qz-next" data-done>Terminer</button>`},
     ()=>`<div class="qz-tour" id="qzTour">
         <div class="qz-slides" id="qzSlides">
           <figure class="qz-sl"><div class="qz-ph"><img src="${U('photo-1467003909585-2f8a72700288')}" alt="Dîner : saumon, quinoa et légumes" onerror="this.onerror=null;this.src='assiette.jpg'">
@@ -745,9 +746,10 @@ font[style]{background:none!important;box-shadow:none!important}
       <p>Pas de régime strict, pas d'interdits : vous choisissez vos objectifs, et OneAthlet vous aide à les tenir, un repas à la fois.</p>
       ${ch.length?`<div class="qz-sum">${ch.map(o=>`<span>${o[1]} ${esc(o[2])}</span>`).join('')}</div>`:''}
       ${A.change.includes('boulimie')?`<div class="qz-care">🫶 <span><b>Vous n'êtes pas seul·e.</b> Les crises de boulimie sont un trouble fréquent qui se soigne. En plus de OneAthlet, parlez-en à votre médecin ou à un professionnel spécialisé : un accompagnement fait vraiment la différence.</span></div>`:''}
-      <button type="button" class="qz-next" data-next>Continuer →</button>`}
+      <button type="button" class="qz-next" data-next>Continuer →</button>`},
+    ()=>`<h2>Quel <em>régime</em> préférez-vous ?</h2>${opts('regime',REGIME)}`
   ];
-  const flow=()=>A.tried==='encours'?[0,1,2,3,4,9,10,11,12,13,14,15,5,8]:[0,1,2,3,4,5,11,12,13,14,15,6,7,8];
+  const flow=()=>A.tried==='encours'?[0,1,2,3,4,9,10,11,12,13,14,15,16,5,8]:[0,1,2,3,4,5,11,12,13,14,15,16,6,7,8];
   let tourT=null;
   function render(){
     clearInterval(tourT);const F=flow();
