@@ -351,7 +351,7 @@ h1 em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--cor
 .qz-opts button:hover{border-color:var(--coral);transform:translateY(-2px)}
 .qz-opts button[aria-pressed="true"]{border-color:var(--coral);background:#FFF5F7}
 .qz-opts .e{width:46px;height:46px;border-radius:14px;background:#FFE4EC;display:grid;place-items:center;font-size:1.6rem;flex:none}
-.qz-nobox{width:100%}.qz-nobox .qz-opts .e{background:none;width:auto;height:auto;border-radius:0;font-size:1.9rem}
+.qz-nobox,.qz-gray{width:100%}.qz-gray .qz-opts small{color:#8A8A8F;font-weight:500;margin-top:2px;display:block;line-height:1.35}.qz-nobox .qz-opts .e{background:none;width:auto;height:auto;border-radius:0;font-size:1.9rem}
 .qz-opts b{display:block;font-size:1rem}
 .qz-opts small{color:var(--muted);font-weight:600;font-size:.82rem}
 .qz-next{width:min(100%,420px);border:0;border-radius:999px;padding:16px;font:inherit;font-weight:800;font-size:1.05rem;color:#FFFFFF;background:linear-gradient(135deg,var(--orange),var(--coral));box-shadow:0 16px 30px -16px var(--coral);cursor:pointer}
@@ -971,7 +971,7 @@ font[style]{background:none!important;box-shadow:none!important}
   const GOALS=[['perte','🔥','Perdre du poids','Affiner ma silhouette'],['sante','❤️','Être en meilleure santé','Manger plus équilibré'],['physique','💪','Améliorer mon physique','Plus de muscle, plus tonique'],['energie','⚡','Avoir plus d\'énergie','Fini les coups de fatigue']];
   const TRIED=[['debut','🌱','Je commence tout juste','C\'est ma première fois'],['echec','🔁','J\'ai essayé, mais sans résultat','Rien n\'a vraiment duré'],['encours','💪','J\'y travaille déjà','Je veux aller plus loin']];
   const DEFI2=[['complique','🧩','C\'était trop compliqué','Trop de règles à suivre'],['temps2','⏱️','Je n\'avais pas assez de temps','Difficile à caser dans ma journée'],['resultats','📉','Je ne voyais pas de résultats','Beaucoup d\'efforts pour rien'],['stress','😣','C\'était stressant ou accablant','Trop de pression'],['motivation2','🔋','J\'ai perdu ma motivation','J\'ai abandonné en route']];
-  const SAVOIR=[['debutant','🌱','Débutant','Je découvre les bases'],['inter','📘','Intermédiaire','Je connais les calories et les macros'],['pro','🏆','Pro','Je maîtrise déjà le sujet']];
+  const SAVOIR=[['debutant','🌱','Débutant','Je ne connais pas grand-chose à la nutrition et j\'ai besoin d\'aide pour commencer'],['inter','📘','Intermédiaire','J\'en sais un peu, mais j\'ai besoin de plus de structure et de contrôle sur mon alimentation'],['pro','🏆','Pro','J\'en sais beaucoup et je veux juste affiner mes habitudes alimentaires']];
   const PRO=[['oui','✅','Oui','Un professionnel m\'a recommandé OneAthlet'],['non','❌','Non','Je l\'ai découvert par moi-même']];
   const CHANGE=[['sucre','🍰','Moins de sucre'],['malbouffe','🍔','Manger moins de malbouffe'],['boulimie','🫶','Arrêter les crises de boulimie'],['legumes','🥦','Manger plus de légumes'],['stress','😮‍💨','Arrêter de manger sous le stress'],['maison','🍳','Cuisiner plus souvent à la maison'],['sel','🧂','Manger moins de sel']];
   const REGIME=[['equilibre','🥗','Équilibré','Un peu de tout, sans excès'],['vege','🥕','Végétarien','Ni viande ni poisson'],['vegan','🌱','Vegan','100 % végétal'],['paleo','🥩','Paléo','Sans céréales ni produits laitiers'],['keto','🥑','Cétogène','Très peu de glucides, plus de lipides'],['hp','💪','Riche en protéines','Une protéine à chaque repas'],['lowcarb','🍞','Faible en glucides','Moins de pain, pâtes et riz']];
@@ -1064,7 +1064,7 @@ font[style]{background:none!important;box-shadow:none!important}
         </div>
         <div class="qz-dots" id="qzDots"><button type="button" aria-label="Photo 1" aria-current="true"></button><button type="button" aria-label="Photo 2"></button><button type="button" aria-label="Photo 3"></button></div>
       </div><button type="button" class="qz-next" data-next>Continuer →</button>`,
-    ()=>`<h2>Que savez-vous sur <em>l'alimentation saine</em> ?</h2>${opts('savoir',SAVOIR)}`,
+    ()=>`<h2 class="qz-intro">Que savez-vous sur l'<em>alimentation saine</em> ?</h2><div class="qz-gray">${opts('savoir',SAVOIR)}</div>`,
     ()=>`<h2 class="qz-intro">Avez-vous été orienté vers OneAthlet par un professionnel de <em>thérapie nutritionnelle ou comportementale</em> ?</h2>${opts('pro',PRO)}`,
     ()=>`<div class="qz-sci-ic" aria-hidden="true">🔬</div><h2>Une approche <em>scientifique</em></h2>
       <p>Notre plan nutritionnel s'appuie sur les recherches et les recommandations des principales organisations de santé :</p>
