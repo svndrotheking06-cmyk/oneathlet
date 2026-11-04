@@ -34,13 +34,8 @@ body{margin:0;background:var(--page);color:var(--ink);font-family:var(--body);mi
 .lang{position:relative}
 .lang-btn{border:0;background:none;font:inherit;font-weight:700;font-size:.9rem;color:var(--muted);padding:8px 6px;cursor:pointer}
 .lang-btn:hover,.lang-btn[aria-expanded="true"]{color:var(--ink)}
-.lang-pop{position:absolute;right:0;top:calc(100% + 8px);z-index:20;min-width:170px;display:grid;gap:2px;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:6px;box-shadow:0 18px 40px -18px rgba(42,20,26,.35);animation:pop .15s ease-out}
-.lang-pop button{border:0;background:none;font:inherit;font-weight:700;font-size:.92rem;color:var(--ink);text-align:left;padding:10px 12px;border-radius:12px;cursor:pointer}
-.lang-pop button:hover{background:var(--coral-soft)}
-.lang-pop button[aria-current="true"]{color:var(--coral)}
-.lang-pop button[aria-current="true"]::after{content:" ✓"}
 @keyframes pop{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
-@media (prefers-reduced-motion:reduce){.lang-pop{animation:none}}
+@media (prefers-reduced-motion:reduce){}
 .hero{display:grid;align-content:center;justify-items:center;text-align:center;gap:0;padding:40px clamp(20px,6vw,80px) 64px;min-height:min(82vh,760px);max-width:1080px;width:100%;margin:0 auto}
 .kick{background:var(--coral-soft);color:var(--coral);font-weight:800;font-size:.76rem;text-transform:uppercase;letter-spacing:.1em;padding:6px 12px;border-radius:999px}
 h1{margin:0;font-family:var(--display);font-weight:800;font-size:clamp(2.8rem,10vw,6rem);line-height:1;letter-spacing:-.045em;max-width:12ch;text-wrap:balance;margin-inline:auto}
@@ -588,6 +583,28 @@ h1 em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--cor
 :root{--btn1:#EB5149;--btn2:#EB5149}
 .start,.qz-next,.rvm-go,.mp-photo{background:var(--btn1)!important;box-shadow:0 16px 30px -16px var(--btn2)!important}
 .qz-next:disabled{background:#F5DCE3!important;box-shadow:none!important}
+.lang-dr{position:fixed;inset:0;z-index:80}
+.lang-dr[hidden]{display:none}
+.lang-bg{position:absolute;inset:0;background:rgba(17,17,17,0);transition:background .3s}
+.lang-dr.on .lang-bg{background:rgba(17,17,17,.35)}
+.lang-pn{position:absolute;top:0;right:0;bottom:0;width:min(400px,88vw);background:#FFFFFF;display:flex;flex-direction:column;gap:12px;padding:max(18px,env(safe-area-inset-top)) 18px max(14px,env(safe-area-inset-bottom));box-shadow:-24px 0 50px -20px rgba(17,17,17,.35);transform:translateX(100%);transition:transform .32s cubic-bezier(.2,.9,.25,1)}
+.lang-dr.on .lang-pn{transform:none}
+.lang-hd{display:flex;justify-content:space-between;align-items:center}
+.lang-hd h2{margin:0;font-family:"Inter Tight",system-ui,sans-serif;font-weight:700;font-size:1.3rem;letter-spacing:-.02em;color:#111111}
+.lang-x{width:38px;height:38px;border:0;background:none;font-size:1.6rem;line-height:1;color:#111111;cursor:pointer}
+.lang-q{width:100%;font:inherit;font-size:1rem;padding:12px 14px;border-radius:14px;border:1.5px solid #E7E2E4;background:#F7F7F8;color:#111111;outline:none}
+.lang-q:focus{border-color:var(--btn1)}
+.lang-ls{flex:1;overflow-y:auto;display:grid;align-content:start;gap:2px;margin:0 -6px;padding:0 6px}
+.lang-ls button{display:flex;justify-content:space-between;align-items:center;gap:10px;border:0;background:none;font:inherit;text-align:left;padding:12px 12px;border-radius:12px;cursor:pointer;color:#111111}
+.lang-ls button[hidden]{display:none}
+.lang-ls button:hover{background:#F7F7F8}
+.lang-ls b{font-weight:600;font-size:.98rem}
+.lang-ls small{color:#8A8A8F;font-size:.8rem;font-weight:500}
+.lang-ls button[aria-current="true"]{background:#FDECEA}
+.lang-ls button[aria-current="true"] b{color:var(--btn1)}
+.lang-ls button[aria-current="true"] small::after{content:"  ✓";color:var(--btn1);font-weight:800}
+.lang-nt{margin:0;color:#8A8A8F;font-size:.74rem;text-align:center}
+@media (prefers-reduced-motion:reduce){.lang-pn,.lang-bg{transition:none}}
 .goog-te-banner-frame,.skiptranslate>iframe,#goog-gt-tt,.goog-te-balloon-frame{display:none!important}
 body{top:0!important}
 font[style]{background:none!important;box-shadow:none!important}
@@ -601,9 +618,7 @@ font[style]{background:none!important;box-shadow:none!important}
     <button type="button" class="start" id="startBtn">Commencer</button>
     <div class="lang notranslate" translate="no">
       <button type="button" class="lang-btn" id="langBtn" aria-haspopup="true" aria-expanded="false" aria-label="Langue / Language">FR</button>
-      <div class="lang-pop" id="langPop" hidden>
-        <button type="button" data-l="fr">Français</button><button type="button" data-l="en">English</button><button type="button" data-l="es">Español</button><button type="button" data-l="de">Deutsch</button><button type="button" data-l="it">Italiano</button><button type="button" data-l="pt">Português</button><button type="button" data-l="nl">Nederlands</button><button type="button" data-l="ar">العربية</button><button type="button" data-l="tr">Türkçe</button>
-      </div>
+
     </div>
   </div>
 </header>
@@ -811,6 +826,13 @@ font[style]{background:none!important;box-shadow:none!important}
   <div class="qz-body" id="qzBody"></div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<div class="lang-dr" id="langDr" hidden>
+  <div class="lang-bg" data-close></div>
+  <aside class="lang-pn notranslate" translate="no" role="dialog" aria-modal="true" aria-labelledby="langT">
+    <div class="lang-hd"><h2 id="langT">Choisir la langue</h2><button type="button" class="lang-x" data-close aria-label="Fermer">×</button></div>
+    <div class="lang-ls" id="langLs"><button type="button" data-l="fr" data-q="français français fr"><b>Français</b><small>Français</small></button><button type="button" data-l="en" data-q="english anglais en"><b>English</b><small>Anglais</small></button><button type="button" data-l="es" data-q="español espagnol es"><b>Español</b><small>Espagnol</small></button><button type="button" data-l="de" data-q="deutsch allemand de"><b>Deutsch</b><small>Allemand</small></button><button type="button" data-l="it" data-q="italiano italien it"><b>Italiano</b><small>Italien</small></button><button type="button" data-l="pt" data-q="português portugais pt"><b>Português</b><small>Portugais</small></button><button type="button" data-l="nl" data-q="nederlands néerlandais nl"><b>Nederlands</b><small>Néerlandais</small></button><button type="button" data-l="ar" data-q="العربية arabe ar"><b>العربية</b><small>Arabe</small></button><button type="button" data-l="tr" data-q="türkçe turc tr"><b>Türkçe</b><small>Turc</small></button><button type="button" data-l="ru" data-q="русский russe ru"><b>Русский</b><small>Russe</small></button><button type="button" data-l="uk" data-q="українська ukrainien uk"><b>Українська</b><small>Ukrainien</small></button><button type="button" data-l="pl" data-q="polski polonais pl"><b>Polski</b><small>Polonais</small></button><button type="button" data-l="ro" data-q="română roumain ro"><b>Română</b><small>Roumain</small></button><button type="button" data-l="el" data-q="ελληνικά grec el"><b>Ελληνικά</b><small>Grec</small></button><button type="button" data-l="sv" data-q="svenska suédois sv"><b>Svenska</b><small>Suédois</small></button><button type="button" data-l="no" data-q="norsk norvégien no"><b>Norsk</b><small>Norvégien</small></button><button type="button" data-l="da" data-q="dansk danois da"><b>Dansk</b><small>Danois</small></button><button type="button" data-l="fi" data-q="suomi finnois fi"><b>Suomi</b><small>Finnois</small></button><button type="button" data-l="cs" data-q="čeština tchèque cs"><b>Čeština</b><small>Tchèque</small></button><button type="button" data-l="sk" data-q="slovenčina slovaque sk"><b>Slovenčina</b><small>Slovaque</small></button><button type="button" data-l="hu" data-q="magyar hongrois hu"><b>Magyar</b><small>Hongrois</small></button><button type="button" data-l="bg" data-q="български bulgare bg"><b>Български</b><small>Bulgare</small></button><button type="button" data-l="hr" data-q="hrvatski croate hr"><b>Hrvatski</b><small>Croate</small></button><button type="button" data-l="sr" data-q="српски serbe sr"><b>Српски</b><small>Serbe</small></button><button type="button" data-l="sl" data-q="slovenščina slovène sl"><b>Slovenščina</b><small>Slovène</small></button><button type="button" data-l="bs" data-q="bosanski bosniaque bs"><b>Bosanski</b><small>Bosniaque</small></button><button type="button" data-l="sq" data-q="shqip albanais sq"><b>Shqip</b><small>Albanais</small></button><button type="button" data-l="mk" data-q="македонски macédonien mk"><b>Македонски</b><small>Macédonien</small></button><button type="button" data-l="lt" data-q="lietuvių lituanien lt"><b>Lietuvių</b><small>Lituanien</small></button><button type="button" data-l="lv" data-q="latviešu letton lv"><b>Latviešu</b><small>Letton</small></button><button type="button" data-l="et" data-q="eesti estonien et"><b>Eesti</b><small>Estonien</small></button><button type="button" data-l="is" data-q="íslenska islandais is"><b>Íslenska</b><small>Islandais</small></button><button type="button" data-l="ga" data-q="gaeilge irlandais ga"><b>Gaeilge</b><small>Irlandais</small></button><button type="button" data-l="ca" data-q="català catalan ca"><b>Català</b><small>Catalan</small></button><button type="button" data-l="eu" data-q="euskara basque eu"><b>Euskara</b><small>Basque</small></button><button type="button" data-l="gl" data-q="galego galicien gl"><b>Galego</b><small>Galicien</small></button><button type="button" data-l="mt" data-q="malti maltais mt"><b>Malti</b><small>Maltais</small></button><button type="button" data-l="lb" data-q="lëtzebuergesch luxembourgeois lb"><b>Lëtzebuergesch</b><small>Luxembourgeois</small></button><button type="button" data-l="zh-CN" data-q="中文（简体） chinois simplifié zh-cn"><b>中文（简体）</b><small>Chinois simplifié</small></button><button type="button" data-l="zh-TW" data-q="中文（繁體） chinois traditionnel zh-tw"><b>中文（繁體）</b><small>Chinois traditionnel</small></button><button type="button" data-l="ja" data-q="日本語 japonais ja"><b>日本語</b><small>Japonais</small></button><button type="button" data-l="ko" data-q="한국어 coréen ko"><b>한국어</b><small>Coréen</small></button><button type="button" data-l="hi" data-q="हिन्दी hindi hi"><b>हिन्दी</b><small>Hindi</small></button><button type="button" data-l="bn" data-q="বাংলা bengali bn"><b>বাংলা</b><small>Bengali</small></button><button type="button" data-l="ur" data-q="اردو ourdou ur"><b>اردو</b><small>Ourdou</small></button><button type="button" data-l="pa" data-q="ਪੰਜਾਬੀ pendjabi pa"><b>ਪੰਜਾਬੀ</b><small>Pendjabi</small></button><button type="button" data-l="ta" data-q="தமிழ் tamoul ta"><b>தமிழ்</b><small>Tamoul</small></button><button type="button" data-l="te" data-q="తెలుగు télougou te"><b>తెలుగు</b><small>Télougou</small></button><button type="button" data-l="mr" data-q="मराठी marathi mr"><b>मराठी</b><small>Marathi</small></button><button type="button" data-l="gu" data-q="ગુજરાતી gujarati gu"><b>ગુજરાતી</b><small>Gujarati</small></button><button type="button" data-l="th" data-q="ไทย thaï th"><b>ไทย</b><small>Thaï</small></button><button type="button" data-l="vi" data-q="tiếng việt vietnamien vi"><b>Tiếng Việt</b><small>Vietnamien</small></button><button type="button" data-l="id" data-q="bahasa indonesia indonésien id"><b>Bahasa Indonesia</b><small>Indonésien</small></button><button type="button" data-l="ms" data-q="bahasa melayu malais ms"><b>Bahasa Melayu</b><small>Malais</small></button><button type="button" data-l="tl" data-q="filipino filipino tl"><b>Filipino</b><small>Filipino</small></button><button type="button" data-l="fa" data-q="فارسی persan fa"><b>فارسی</b><small>Persan</small></button><button type="button" data-l="iw" data-q="עברית hébreu iw"><b>עברית</b><small>Hébreu</small></button><button type="button" data-l="ku" data-q="kurdî kurde ku"><b>Kurdî</b><small>Kurde</small></button><button type="button" data-l="hy" data-q="հայերեն arménien hy"><b>Հայերեն</b><small>Arménien</small></button><button type="button" data-l="ka" data-q="ქართული géorgien ka"><b>ქართული</b><small>Géorgien</small></button><button type="button" data-l="az" data-q="azərbaycan azerbaïdjanais az"><b>Azərbaycan</b><small>Azerbaïdjanais</small></button><button type="button" data-l="kk" data-q="қазақ kazakh kk"><b>Қазақ</b><small>Kazakh</small></button><button type="button" data-l="uz" data-q="oʻzbek ouzbek uz"><b>Oʻzbek</b><small>Ouzbek</small></button><button type="button" data-l="sw" data-q="kiswahili swahili sw"><b>Kiswahili</b><small>Swahili</small></button><button type="button" data-l="am" data-q="አማርኛ amharique am"><b>አማርኛ</b><small>Amharique</small></button><button type="button" data-l="ha" data-q="hausa haoussa ha"><b>Hausa</b><small>Haoussa</small></button><button type="button" data-l="yo" data-q="yorùbá yoruba yo"><b>Yorùbá</b><small>Yoruba</small></button><button type="button" data-l="ig" data-q="igbo igbo ig"><b>Igbo</b><small>Igbo</small></button><button type="button" data-l="zu" data-q="isizulu zoulou zu"><b>isiZulu</b><small>Zoulou</small></button><button type="button" data-l="af" data-q="afrikaans afrikaans af"><b>Afrikaans</b><small>Afrikaans</small></button><button type="button" data-l="so" data-q="soomaali somali so"><b>Soomaali</b><small>Somali</small></button><button type="button" data-l="mg" data-q="malagasy malgache mg"><b>Malagasy</b><small>Malgache</small></button><button type="button" data-l="wo" data-q="wolof wolof wo"><b>Wolof</b><small>Wolof</small></button><button type="button" data-l="ln" data-q="lingála lingala ln"><b>Lingála</b><small>Lingala</small></button><button type="button" data-l="ht" data-q="kreyòl ayisyen créole haïtien ht"><b>Kreyòl ayisyen</b><small>Créole haïtien</small></button></div>
+  </aside>
+</div>
 <div class="paybar" id="payBar" hidden role="status"></div>
 <div class="mp" id="mp" hidden role="dialog" aria-modal="true" aria-label="Mon plan OneAthlet"><div class="mp-in" id="mpIn"></div></div>
 <script>
@@ -1334,17 +1356,19 @@ font[style]{background:none!important;box-shadow:none!important}
 })();
 /* Téléphones : un toucher les écarte (écrans tactiles, sans survol) */
 document.querySelector('.phones').addEventListener('click',e=>e.currentTarget.classList.toggle('open'));
-/* Langue : traduction automatique (Google Traduction) mémorisée dans un cookie */
+/* Langue : panneau latéral, traduction automatique (Google Traduction) mémorisée dans un cookie */
 (function(){
-  const btn=document.getElementById('langBtn'),pop=document.getElementById('langPop'),items=[...pop.querySelectorAll('[data-l]')],codes=items.map(b=>b.dataset.l);
-  const m=document.cookie.match(/(?:^|; )googtrans=\/fr\/([a-z-]+)/),LANG=m&&codes.includes(m[1])?m[1]:'fr';
-  btn.textContent=LANG.toUpperCase();document.documentElement.lang=LANG;
+  const btn=document.getElementById('langBtn'),dr=document.getElementById('langDr'),ls=document.getElementById('langLs'),items=[...ls.querySelectorAll('[data-l]')],codes=items.map(b=>b.dataset.l);
+  const m=document.cookie.match(/(?:^|; )googtrans=\/fr\/([A-Za-z-]+)/),LANG=m&&codes.includes(m[1])?m[1]:'fr';
+  btn.textContent=LANG.split('-')[0].toUpperCase();document.documentElement.lang=LANG;
   items.forEach(b=>b.setAttribute('aria-current',b.dataset.l===LANG));
-  const open=o=>{pop.hidden=!o;btn.setAttribute('aria-expanded',o)};
-  btn.addEventListener('click',e=>{e.stopPropagation();open(pop.hidden)});
-  document.addEventListener('click',e=>{if(!pop.hidden&&!pop.contains(e.target))open(false)});
-  document.addEventListener('keydown',e=>{if(e.key==='Escape')open(false)});
-  pop.addEventListener('click',e=>{
+  const cur=items.find(b=>b.dataset.l===LANG);if(cur)ls.prepend(cur);
+  const open=o=>{if(o){dr.hidden=false;requestAnimationFrame(()=>dr.classList.add('on'));document.body.style.overflow='hidden'}
+    else{dr.classList.remove('on');document.body.style.overflow='';setTimeout(()=>{dr.hidden=true},300)}btn.setAttribute('aria-expanded',o)};
+  btn.addEventListener('click',e=>{e.stopPropagation();open(dr.hidden)});
+  dr.addEventListener('click',e=>{if(e.target.closest('[data-close]'))open(false)});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!dr.hidden)open(false)});
+  ls.addEventListener('click',e=>{
     const b=e.target.closest('[data-l]');if(!b)return;
     const v=b.dataset.l;if(v===LANG){open(false);return}
     const parts=location.hostname.split('.'),root=parts.length>1?'.'+parts.slice(-2).join('.'):'';
