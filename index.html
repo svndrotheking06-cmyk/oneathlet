@@ -413,6 +413,12 @@ h1 em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--cor
 .qz-wpad{display:block;height:112px}
 .qz-wi{height:56px;display:grid;place-items:center;scroll-snap-align:center;font-family:var(--display);font-weight:800;font-size:1.3rem;color:var(--muted);cursor:pointer;transform:scale(calc(1 - min(var(--d,1),2) * .12));opacity:calc(1 - min(var(--d,1),2) * .3);transition:color .15s}
 .qz-wi[aria-selected="true"]{color:var(--coral);font-size:1.5rem}
+.qz-multi button{position:relative;padding-right:48px}
+.qz-ck{position:absolute;right:16px;top:50%;transform:translateY(-50%);width:22px;height:22px;border-radius:7px;border:2px solid var(--line);background:#FFFFFF}
+.qz-multi button[aria-pressed="true"] .qz-ck{border-color:var(--coral);background:var(--coral) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 12.5l4.2 4.2L19 7' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/16px no-repeat}
+.qz-next:disabled{background:#F5DCE3;box-shadow:none;cursor:default;color:#FFFFFF}
+.qz-care{display:flex;gap:10px;align-items:flex-start;text-align:left;background:#F2F7FF;border:1px solid #D9E6FA;border-radius:18px;padding:14px;font-size:.88rem;line-height:1.45;color:var(--ink)}
+.qz-care b{display:block;margin-bottom:2px}
 .goog-te-banner-frame,.skiptranslate>iframe,#goog-gt-tt,.goog-te-balloon-frame{display:none!important}
 body{top:0!important}
 font[style]{background:none!important;box-shadow:none!important}
@@ -647,7 +653,7 @@ font[style]{background:none!important;box-shadow:none!important}
 (function(){
   const qz=document.getElementById('qz'),body=document.getElementById('qzBody');if(!qz)return;
   const U=id=>'https://images.unsplash.com/'+id+'?auto=format&fit=crop&w=300&h=400&q=80';
-  const A={meals:3,sex:null,age:30,goal:null,tried:null,defi:null};let step=0;
+  const A={change:[],meals:3,sex:null,age:30,goal:null,tried:null,defi:null};let step=0;
   const MAN='<svg viewBox="0 0 160 180" aria-hidden="true"><circle cx="80" cy="80" r="74" fill="#FFE4EC"/><path d="M30 180c4-36 24-54 50-54s46 18 50 54z" fill="#E11D48"/><path d="M66 112h28v18c0 8-28 8-28 0z" fill="#F2B79F"/><ellipse cx="80" cy="78" rx="26" ry="31" fill="#F6C6AE"/><path d="M53 74c-2-22 12-34 28-34 17 0 29 11 26 33-4-10-12-15-27-15s-22 5-27 16z" fill="#3A2420"/><circle cx="70" cy="82" r="2.6" fill="#2A141A"/><circle cx="90" cy="82" r="2.6" fill="#2A141A"/><path d="M72 95c5 4 11 4 16 0" stroke="#B5524A" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>';
   const WOMAN='<svg viewBox="0 0 160 180" aria-hidden="true"><circle cx="80" cy="80" r="74" fill="#FFE4EC"/><path d="M44 66c0-26 16-38 36-38s36 12 36 38v56c-8 8-20 10-36 10s-28-2-36-10z" fill="#5A2E22"/><path d="M34 180c4-34 22-52 46-52s42 18 46 52z" fill="#FF5C8A"/><path d="M68 112h24v16c0 8-24 8-24 0z" fill="#F2B79F"/><ellipse cx="80" cy="80" rx="24" ry="29" fill="#F6C6AE"/><path d="M56 76c2-18 12-28 26-28 13 0 22 8 23 24-8-8-22-12-36-8-5 2-9 6-13 12z" fill="#5A2E22"/><circle cx="71" cy="84" r="2.5" fill="#2A141A"/><circle cx="89" cy="84" r="2.5" fill="#2A141A"/><path d="M73 96c4 3 10 3 14 0" stroke="#C0505A" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>';
   const GOALS=[['perte','🔥','Perdre du poids','Affiner ma silhouette'],['sante','❤️','Être en meilleure santé','Manger plus équilibré'],['physique','💪','Améliorer mon physique','Plus de muscle, plus tonique'],['energie','⚡','Avoir plus d\'énergie','Fini les coups de fatigue']];
@@ -655,6 +661,7 @@ font[style]{background:none!important;box-shadow:none!important}
   const DEFI2=[['complique','🧩','C\'était trop compliqué','Trop de règles à suivre'],['temps2','⏱️','Je n\'avais pas assez de temps','Difficile à caser dans ma journée'],['resultats','📉','Je ne voyais pas de résultats','Beaucoup d\'efforts pour rien'],['stress','😣','C\'était stressant ou accablant','Trop de pression'],['motivation2','🔋','J\'ai perdu ma motivation','J\'ai abandonné en route']];
   const SAVOIR=[['debutant','🌱','Débutant','Je découvre les bases'],['inter','📘','Intermédiaire','Je connais les calories et les macros'],['pro','🏆','Pro','Je maîtrise déjà le sujet']];
   const PRO=[['oui','🩺','Oui','Un professionnel m\'a recommandé OneAthlet'],['non','🙋','Non','Je l\'ai découvert par moi-même']];
+  const CHANGE=[['sucre','🍰','Moins de sucre'],['malbouffe','🍔','Manger moins de malbouffe'],['boulimie','🫶','Arrêter les crises de boulimie'],['legumes','🥦','Manger plus de légumes'],['stress','😮‍💨','Arrêter de manger sous le stress'],['maison','🍳','Cuisiner plus souvent à la maison'],['sel','🧂','Manger moins de sel']];
   const past=()=>A.tried==='debut'||A.tried==='echec';
   const DEFI=[['grignotage','🍪','Le grignotage','Les envies entre les repas'],['temps','⏱️','Le manque de temps','Je mange sur le pouce'],['motivation','📉','La motivation','Je commence puis j\'arrête'],['idees','🤔','Je ne sais pas quoi manger','Manque d\'idées de repas'],['sucre','🍰','Le sucre','Desserts, sodas, viennoiseries'],['fastfood','🍔','Fast-food et restaurants','Les repas à l\'extérieur']];
   const esc=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -729,9 +736,18 @@ font[style]{background:none!important;box-shadow:none!important}
         <div class="qz-wl" id="qzWheel" role="listbox" aria-label="Nombre de repas par jour" tabindex="0">
           <span class="qz-wpad"></span>${[1,2,3,4,5,6].map(n=>`<div class="qz-wi" role="option" data-n="${n}" aria-selected="${A.meals===n}">${n===6?'6 repas et +':n+' repas'}</div>`).join('')}<span class="qz-wpad"></span>
         </div></div>
-      <button type="button" class="qz-next" data-next>Continuer →</button>`
+      <button type="button" class="qz-next" data-next>Continuer →</button>`,
+    ()=>`<h2>Que souhaitez-vous <em>changer</em> dans vos habitudes alimentaires ?</h2><p>Plusieurs choix possibles.</p>
+      <div class="qz-opts qz-multi">${CHANGE.map(o=>`<button type="button" data-m="${o[0]}" aria-pressed="${A.change.includes(o[0])}"><span class="e" aria-hidden="true">${o[1]}</span><span><b>${esc(o[2])}</b></span><i class="qz-ck" aria-hidden="true"></i></button>`).join('')}</div>
+      <button type="button" class="qz-next" data-next ${A.change.length?'':'disabled'}>Continuer →</button>`,
+    ()=>{const ch=CHANGE.filter(o=>A.change.includes(o[0]));
+      return `<div class="qz-sci-ic" aria-hidden="true">🧭</div><h2>Vous avez <em>le contrôle</em>.</h2>
+      <p>Pas de régime strict, pas d'interdits : vous choisissez vos objectifs, et OneAthlet vous aide à les tenir, un repas à la fois.</p>
+      ${ch.length?`<div class="qz-sum">${ch.map(o=>`<span>${o[1]} ${esc(o[2])}</span>`).join('')}</div>`:''}
+      ${A.change.includes('boulimie')?`<div class="qz-care">🫶 <span><b>Vous n'êtes pas seul·e.</b> Les crises de boulimie sont un trouble fréquent qui se soigne. En plus de OneAthlet, parlez-en à votre médecin ou à un professionnel spécialisé : un accompagnement fait vraiment la différence.</span></div>`:''}
+      <button type="button" class="qz-next" data-next>Continuer →</button>`}
   ];
-  const flow=()=>A.tried==='encours'?[0,1,2,3,4,9,10,11,12,13,5,8]:[0,1,2,3,4,5,11,12,13,6,7,8];
+  const flow=()=>A.tried==='encours'?[0,1,2,3,4,9,10,11,12,13,14,15,5,8]:[0,1,2,3,4,5,11,12,13,14,15,6,7,8];
   let tourT=null;
   function render(){
     clearInterval(tourT);const F=flow();
@@ -762,6 +778,8 @@ font[style]{background:none!important;box-shadow:none!important}
   body.addEventListener('click',e=>{
     const o=e.target.closest('[data-k]');
     if(o){A[o.dataset.k]=o.dataset.v;o.parentNode.querySelectorAll('[data-k]').forEach(x=>x.setAttribute('aria-pressed',x===o));setTimeout(()=>go(step+1),220);return}
+    const mb=e.target.closest('[data-m]');
+    if(mb){const v=mb.dataset.m;A.change=A.change.includes(v)?A.change.filter(x=>x!==v):A.change.concat(v);mb.setAttribute('aria-pressed',A.change.includes(v));const nx=body.querySelector('[data-next]');if(nx)nx.disabled=!A.change.length;return}
     if(e.target.closest('[data-next]')){go(step+1);return}
     if(e.target.closest('[data-done]')){try{localStorage.setItem('oneathlet-bilan',JSON.stringify(A))}catch(err){}close()}
   });
