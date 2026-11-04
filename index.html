@@ -53,7 +53,8 @@ h1.hero-t em{font-style:normal;font-weight:600}
 h1 em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--coral));-webkit-background-clip:text;background-clip:text;color:transparent}
 .sub{margin:36px auto 0;font-size:clamp(1.02rem,2.2vw,1.22rem);font-weight:500;line-height:1.65;color:var(--muted);max-width:62ch}
 .sub span{display:block;text-wrap:balance}
-.sub span+span{margin-top:10px}
+.sub span+span{margin-top:2px}
+@media (min-width:761px){.sub{max-width:none}.sub span{white-space:nowrap}}
 .sub b{color:var(--ink)}
 .show{padding:0 0 70px;overflow:hidden}
 .phones{position:relative;height:640px;width:min(100%,960px);margin:0 auto}
@@ -606,7 +607,7 @@ font[style]{background:none!important;box-shadow:none!important}
 
 <main class="hero">
   <h1 class="hero-t"><span class="l1">Transformez votre corps en mangeant</span> <span class="l2">mieux,</span> <span class="l3">sans sacrifier votre plaisir.</span></h1>
-  <p class="sub"><span>Obtenez un objectif calorique conçu pour vous, puis enregistrez vos repas en prenant une photo.</span> <span>OneAthlet compte pour vous, et vous gardez les aliments que vous aimez.</span></p>
+  <p class="sub"><span>Obtenez un objectif calorique conçu pour vous, puis</span> <span>enregistrez vos repas en prenant une photo. OneAthlet compte pour</span> <span>vous, et vous gardez les aliments que vous aimez.</span></p>
   <button type="button" class="start hero-go" id="heroGo">Commencer votre objectif →</button>
 </main>
 
