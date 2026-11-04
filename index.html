@@ -608,6 +608,8 @@ font[style]{background:none!important;box-shadow:none!important}
   const WOMAN='<svg viewBox="0 0 160 180" aria-hidden="true"><circle cx="80" cy="80" r="74" fill="#FFE4EC"/><path d="M44 66c0-26 16-38 36-38s36 12 36 38v56c-8 8-20 10-36 10s-28-2-36-10z" fill="#5A2E22"/><path d="M34 180c4-34 22-52 46-52s42 18 46 52z" fill="#FF5C8A"/><path d="M68 112h24v16c0 8-24 8-24 0z" fill="#F2B79F"/><ellipse cx="80" cy="80" rx="24" ry="29" fill="#F6C6AE"/><path d="M56 76c2-18 12-28 26-28 13 0 22 8 23 24-8-8-22-12-36-8-5 2-9 6-13 12z" fill="#5A2E22"/><circle cx="71" cy="84" r="2.5" fill="#2A141A"/><circle cx="89" cy="84" r="2.5" fill="#2A141A"/><path d="M73 96c4 3 10 3 14 0" stroke="#C0505A" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>';
   const GOALS=[['perte','🔥','Perdre du poids','Affiner ma silhouette'],['sante','❤️','Être en meilleure santé','Manger plus équilibré'],['physique','💪','Améliorer mon physique','Plus de muscle, plus tonique'],['energie','⚡','Avoir plus d\'énergie','Fini les coups de fatigue']];
   const TRIED=[['debut','🌱','Je commence tout juste','C\'est ma première fois'],['echec','🔁','J\'ai essayé, mais sans résultat','Rien n\'a vraiment duré'],['encours','💪','J\'y travaille déjà','Je veux aller plus loin']];
+  const DEFI2=[['complique','🧩','C\'était trop compliqué','Trop de règles à suivre'],['temps2','⏱️','Je n\'avais pas assez de temps','Difficile à caser dans ma journée'],['resultats','📉','Je ne voyais pas de résultats','Beaucoup d\'efforts pour rien'],['stress','😣','C\'était stressant ou accablant','Trop de pression'],['motivation2','🔋','J\'ai perdu ma motivation','J\'ai abandonné en route']];
+  const past=()=>A.tried==='debut'||A.tried==='echec';
   const DEFI=[['grignotage','🍪','Le grignotage','Les envies entre les repas'],['temps','⏱️','Le manque de temps','Je mange sur le pouce'],['motivation','📉','La motivation','Je commence puis j\'arrête'],['idees','🤔','Je ne sais pas quoi manger','Manque d\'idées de repas'],['sucre','🍰','Le sucre','Desserts, sodas, viennoiseries'],['fastfood','🍔','Fast-food et restaurants','Les repas à l\'extérieur']];
   const esc=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const opts=(k,list)=>`<div class="qz-opts">${list.map(o=>`<button type="button" data-k="${k}" data-v="${o[0]}" aria-pressed="${A[k]===o[0]}"><span class="e" aria-hidden="true">${o[1]}</span><span><b>${esc(o[2])}</b><small>${esc(o[3])}</small></span></button>`).join('')}</div>`;
@@ -636,7 +638,7 @@ font[style]{background:none!important;box-shadow:none!important}
     ()=>`<h2>Quel est votre <em>objectif</em> ?</h2>${opts('goal',GOALS)}`,
     ()=>proj()+`<button type="button" class="qz-next" data-next>Continuer →</button>`,
     ()=>`<h2>Avez-vous déjà essayé de <em>changer votre corps</em> ?</h2>${opts('tried',TRIED)}`,
-    ()=>`<h2>Quel est votre <em>plus grand défi</em> ?</h2>${opts('defi',DEFI)}`,
+    ()=>past()?`<h2>Quel a été votre <em>plus grand défi</em> jusqu'ici ?</h2>${opts('defi',DEFI2)}`:`<h2>Quel est votre <em>plus grand défi</em> ?</h2>${opts('defi',DEFI)}`,
     ()=>`<h2>Voici à quoi ressemblent<br><em>vos assiettes analysées</em></h2><p>Chaque plat photographié est décomposé en calories et en macros.</p>
       <div class="qz-plates">
         <div class="qz-plate">🍳<img src="${U('photo-1525351484163-7529414344d8')}" alt="" loading="lazy" onerror="this.remove()"><span>Petit-déjeuner<b>330 kcal</b>P 22 g · G 28 g</span></div>
@@ -646,7 +648,7 @@ font[style]{background:none!important;box-shadow:none!important}
     ()=>`<h2>C'est <em>aussi simple</em> que ça.</h2><p>Pas de pesée, pas de calcul : prenez juste vos plats en photo.</p>
       <div class="qz-how"><div><i>📸</i><b>Photographiez</b><small>votre assiette</small></div><div><i>🔍</i><b>On analyse</b><small>chaque aliment</small></div><div><i>✅</i><b>C'est ajouté</b><small>à votre journée</small></div></div>
       <button type="button" class="qz-next" data-next>Voir mon profil →</button>`,
-    ()=>{const g=GOALS.find(x=>x[0]===A.goal)||GOALS[0],d=DEFI.find(x=>x[0]===A.defi)||DEFI[0];
+    ()=>{const g=GOALS.find(x=>x[0]===A.goal)||GOALS[0],d=DEFI.concat(DEFI2).find(x=>x[0]===A.defi)||(past()?DEFI2:DEFI)[0];
       return `<h2>Votre profil est <em>prêt</em>.</h2><p>Voici ce que nous avons retenu.</p><div class="qz-sum"><span>${A.sex==='H'?'👨 Homme':'👩 Femme'}</span><span>🎂 ${A.age} ans</span><span>${g[1]} ${esc(g[2])}</span><span>${d[1]} ${esc(d[2])}</span></div><button type="button" class="qz-next" data-done>Terminer</button>`}
   ];
   function render(){
