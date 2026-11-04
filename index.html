@@ -401,6 +401,11 @@ h1 em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--cor
 .qz-dots{display:flex;justify-content:center;gap:8px}
 .qz-dots button{width:9px;height:9px;border-radius:99px;border:0;background:#F5DCE3;padding:0;cursor:pointer;transition:width .3s,background .3s}
 .qz-dots button[aria-current="true"]{width:26px;background:var(--coral)}
+.qz-sci-ic{width:84px;height:84px;border-radius:50%;display:grid;place-items:center;font-size:2.4rem;background:radial-gradient(circle,#FFE4EC 0%,#FFE4EC 50%,rgba(255,228,236,0) 72%)}
+.qz-orgs{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%}
+.qz-orgs div{display:grid;gap:4px;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:16px 10px}
+.qz-orgs b{font-family:var(--display);font-size:1.4rem;font-weight:800;color:var(--ink);letter-spacing:.02em}
+.qz-orgs small{color:var(--muted);font-weight:600;font-size:.74rem;line-height:1.3}
 .goog-te-banner-frame,.skiptranslate>iframe,#goog-gt-tt,.goog-te-balloon-frame{display:none!important}
 body{top:0!important}
 font[style]{background:none!important;box-shadow:none!important}
@@ -642,6 +647,7 @@ font[style]{background:none!important;box-shadow:none!important}
   const TRIED=[['debut','🌱','Je commence tout juste','C\'est ma première fois'],['echec','🔁','J\'ai essayé, mais sans résultat','Rien n\'a vraiment duré'],['encours','💪','J\'y travaille déjà','Je veux aller plus loin']];
   const DEFI2=[['complique','🧩','C\'était trop compliqué','Trop de règles à suivre'],['temps2','⏱️','Je n\'avais pas assez de temps','Difficile à caser dans ma journée'],['resultats','📉','Je ne voyais pas de résultats','Beaucoup d\'efforts pour rien'],['stress','😣','C\'était stressant ou accablant','Trop de pression'],['motivation2','🔋','J\'ai perdu ma motivation','J\'ai abandonné en route']];
   const SAVOIR=[['debutant','🌱','Débutant','Je découvre les bases'],['inter','📘','Intermédiaire','Je connais les calories et les macros'],['pro','🏆','Pro','Je maîtrise déjà le sujet']];
+  const PRO=[['oui','🩺','Oui','Un professionnel m\'a recommandé OneAthlet'],['non','🙋','Non','Je l\'ai découvert par moi-même']];
   const past=()=>A.tried==='debut'||A.tried==='echec';
   const DEFI=[['grignotage','🍪','Le grignotage','Les envies entre les repas'],['temps','⏱️','Le manque de temps','Je mange sur le pouce'],['motivation','📉','La motivation','Je commence puis j\'arrête'],['idees','🤔','Je ne sais pas quoi manger','Manque d\'idées de repas'],['sucre','🍰','Le sucre','Desserts, sodas, viennoiseries'],['fastfood','🍔','Fast-food et restaurants','Les repas à l\'extérieur']];
   const esc=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -699,9 +705,20 @@ font[style]{background:none!important;box-shadow:none!important}
         </div>
         <div class="qz-dots" id="qzDots"><button type="button" aria-label="Photo 1" aria-current="true"></button><button type="button" aria-label="Photo 2"></button><button type="button" aria-label="Photo 3"></button></div>
       </div><button type="button" class="qz-next" data-next>Continuer →</button>`,
-    ()=>`<h2>Que savez-vous sur <em>l'alimentation saine</em> ?</h2>${opts('savoir',SAVOIR)}`
+    ()=>`<h2>Que savez-vous sur <em>l'alimentation saine</em> ?</h2>${opts('savoir',SAVOIR)}`,
+    ()=>`<h2>Avez-vous été orienté vers OneAthlet par un <em>professionnel</em> de thérapie nutritionnelle ou comportementale ?</h2>${opts('pro',PRO)}`,
+    ()=>`<div class="qz-sci-ic" aria-hidden="true">🔬</div><h2>Une approche <em>scientifique</em></h2>
+      <p>Notre plan nutritionnel s'appuie sur les recherches et les recommandations des principales organisations de santé :</p>
+      <div class="qz-orgs">
+        <div><b>OMS</b><small>Organisation mondiale de la santé</small></div>
+        <div><b>UNICEF</b><small>Fonds des Nations unies pour l'enfance</small></div>
+        <div><b>NIH</b><small>Instituts américains de la santé</small></div>
+        <div><b>EFSA</b><small>Autorité européenne de sécurité des aliments</small></div>
+      </div>
+      <span class="qz-note">OneAthlet n'est pas affilié à ces organisations : nous nous appuyons sur leurs recommandations publiques.</span>
+      <button type="button" class="qz-next" data-next>Continuer →</button>`
   ];
-  const flow=()=>A.tried==='encours'?[0,1,2,3,4,9,10,5,8]:[0,1,2,3,4,5,6,7,8];
+  const flow=()=>A.tried==='encours'?[0,1,2,3,4,9,10,11,12,5,8]:[0,1,2,3,4,5,11,12,6,7,8];
   let tourT=null;
   function render(){
     clearInterval(tourT);const F=flow();
