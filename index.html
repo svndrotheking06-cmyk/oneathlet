@@ -440,6 +440,9 @@ h1 em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--cor
 .qz-check .qz-big::first-letter{text-transform:uppercase}
 .qz-check span:last-child{color:var(--muted);font-weight:600}
 .qz-check b{color:var(--ink)}
+.qz-hug{width:120px;height:120px;border-radius:50%;display:grid;place-items:center;font-size:3.4rem;margin-top:24px;background:radial-gradient(circle,#FFE4EC 0%,#FFE4EC 52%,rgba(255,228,236,0) 72%);animation:qzpop .6s ease-out}
+@keyframes qzpop{from{transform:scale(.6);opacity:0}to{transform:none;opacity:1}}
+.qz-step .qz-lead{margin:-4px 0 10px;font-size:1.15rem;color:var(--muted);font-weight:700}
 .goog-te-banner-frame,.skiptranslate>iframe,#goog-gt-tt,.goog-te-balloon-frame{display:none!important}
 body{top:0!important}
 font[style]{background:none!important;box-shadow:none!important}
@@ -821,9 +824,12 @@ font[style]{background:none!important;box-shadow:none!important}
       <div class="qz-opts qz-multi">${SANTE.map(o=>`<button type="button" data-mk="sante" data-m="${o[0]}" aria-pressed="${A.sante.includes(o[0])}"><span class="e" aria-hidden="true">${o[1]}</span><span><b>${esc(o[2])}</b></span><i class="qz-ck" aria-hidden="true"></i></button>`).join('')}</div>
       <div class="qz-care" id="qzSanteNote" hidden></div>
       <button type="button" class="qz-next" data-next ${A.sante.length?'':'disabled'}>Continuer →</button>
-      <button type="button" class="qz-all" data-none="sante">✅ Rien de tout ça</button>`
+      <button type="button" class="qz-all" data-none="sante">✅ Rien de tout ça</button>`,
+    ()=>`<div class="qz-hug" aria-hidden="true">🤝</div><h2>Vous n'êtes pas seul dans <em>cette aventure</em>.</h2>
+      <p class="qz-lead">Nous serons avec vous à chaque étape.</p>
+      <button type="button" class="qz-next" data-next>Continuer →</button>`
   ];
-  const flow=()=>A.tried==='encours'?[0,1,2,3,4,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,5,8]:[0,1,2,3,4,5,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,6,7,8];
+  const flow=()=>A.tried==='encours'?[0,1,2,3,4,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,5,8]:[0,1,2,3,4,5,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,6,7,8];
   let tourT=null;
   function render(){
     clearInterval(tourT);const F=flow();
