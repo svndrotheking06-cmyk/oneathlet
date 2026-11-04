@@ -316,7 +316,7 @@ h1 em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--cor
 .qz{position:fixed;inset:0;z-index:60;background:var(--page);display:grid;grid-template-rows:auto 1fr;overflow:hidden}
 .qz[hidden]{display:none}
 .qz-top{display:flex;align-items:center;gap:12px;padding:max(14px,env(safe-area-inset-top)) 16px 10px;max-width:640px;width:100%;margin:0 auto}
-.qz-ic{width:40px;height:40px;border-radius:50%;border:0;background:#FFE4EC;color:var(--ink);font-size:1.15rem;font-weight:800;cursor:pointer;flex:none}
+.qz-ic{width:36px;height:40px;border:0;background:none;color:var(--ink);font-size:1.4rem;font-weight:800;cursor:pointer;flex:none;padding:0}
 .qz-ic[disabled]{visibility:hidden}
 .qz-bar{flex:1;height:8px;border-radius:99px;background:#FFE4EC;overflow:hidden}
 .qz-bar i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--orange),var(--coral));transition:width .4s}
@@ -789,7 +789,6 @@ font[style]{background:none!important;box-shadow:none!important}
   <div class="qz-top">
     <button type="button" class="qz-ic" id="qzBack" aria-label="Retour">←</button>
     <div class="qz-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"><i id="qzBar"></i></div>
-    <button type="button" class="qz-ic" id="qzClose" aria-label="Fermer">×</button>
   </div>
   <div class="qz-body" id="qzBody"></div>
 </div>
@@ -1191,7 +1190,6 @@ font[style]{background:none!important;box-shadow:none!important}
       sl.addEventListener('pointerup',e=>{if(x0==null)return;const dx=e.clientX-x0;x0=null;if(Math.abs(dx)>40){show(i+(dx<0?1:-1));auto()}});
       sl.addEventListener('pointercancel',()=>{x0=null});
       show(0);auto();}
-    document.getElementById('qzBack').disabled=step===0;
     const rg=document.getElementById('qzAge');
     if(rg){const set=()=>{A.age=+rg.value;document.getElementById('qzAgeV').textContent=A.age;rg.style.setProperty('--p',((A.age-16)/64*100)+'%')};set();rg.addEventListener('input',set)}
   }
@@ -1208,8 +1206,7 @@ font[style]{background:none!important;box-shadow:none!important}
     if(e.target.closest('[data-next]')){go(step+1);return}
     if(e.target.closest('[data-done]')){try{localStorage.setItem('oneathlet-bilan',JSON.stringify(A))}catch(err){}close()}
   });
-  document.getElementById('qzBack').onclick=()=>go(step-1);
-  document.getElementById('qzClose').onclick=()=>close();
+  document.getElementById('qzBack').onclick=()=>step===0?close():go(step-1);
   document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!qz.hidden)close()});
   window.addEventListener('popstate',()=>{if(!qz.hidden&&location.hash!=='#bilan')close(true)});
   document.addEventListener('click',e=>{const b=e.target.closest('.start');if(b&&b.id!=='rvsOpen'){e.preventDefault();open()}});
