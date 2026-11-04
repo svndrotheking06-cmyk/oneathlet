@@ -615,6 +615,17 @@ h1 em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--cor
 .rvs h2{font-family:"Inter Tight",system-ui,-apple-system,"Segoe UI",sans-serif;font-weight:600;font-size:clamp(1.9rem,4.4vw,3.4rem);line-height:1.1;letter-spacing:-.032em;color:#111111}
 .rvs h2 em{background:none;-webkit-text-fill-color:#111111;color:#111111;font-style:normal}
 .rvs-sub{color:#6E7179;font-weight:400}
+.qz-top{display:grid!important;gap:10px}
+.qz-hd{display:grid;grid-template-columns:44px 1fr 44px;align-items:center}
+.qz-brand{justify-self:center;font-size:1.15rem}
+.qz-lang{justify-self:end}
+.qz-step h2.qz-intro{font-family:"Inter Tight",system-ui,-apple-system,"Segoe UI",sans-serif;font-weight:700;font-size:clamp(1.8rem,7vw,2.5rem);line-height:1.12;letter-spacing:-.03em;color:#111111;margin-top:8px}
+.qz-step h2.qz-intro em{background:none;-webkit-text-fill-color:var(--btn1);color:var(--btn1)}
+.qz-step .qz-tag{margin:-4px 0 0;font-weight:700;color:#111111;font-size:1.02rem}
+.qz-step .qz-hint{margin:2px 0 4px;color:#8A8A8F;font-weight:500;font-size:.95rem}
+.qz-pic{position:relative;display:block;width:100%;aspect-ratio:3/4;max-width:170px;border-radius:18px;overflow:hidden}
+.qz-pic svg{width:100%;height:100%}
+.qz-pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top}
 .goog-te-banner-frame,.skiptranslate>iframe,#goog-gt-tt,.goog-te-balloon-frame{display:none!important}
 body{top:0!important}
 font[style]{background:none!important;box-shadow:none!important}
@@ -831,7 +842,11 @@ font[style]{background:none!important;box-shadow:none!important}
 
 <div class="qz" id="qz" hidden role="dialog" aria-modal="true" aria-label="Votre bilan OneAthlet">
   <div class="qz-top">
-    <button type="button" class="qz-ic" id="qzBack" aria-label="Retour">←</button>
+    <div class="qz-hd">
+      <button type="button" class="qz-ic" id="qzBack" aria-label="Retour">←</button>
+      <span class="brand qz-brand notranslate" translate="no">One<span>athlet</span></span>
+      <button type="button" class="lang-btn qz-lang notranslate" translate="no" id="qzLang" aria-label="Langue / Language">FR</button>
+    </div>
     <div class="qz-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"><i id="qzBar"></i></div>
   </div>
   <div class="qz-body" id="qzBody"></div>
@@ -1009,7 +1024,10 @@ font[style]{background:none!important;box-shadow:none!important}
       <span class="qz-note">Estimation indicative : les résultats varient d'une personne à l'autre.</span>`;
   }
   const STEPS=[
-    ()=>`<h2>Vous êtes…</h2><div class="qz-sex"><button type="button" data-k="sex" data-v="H" aria-pressed="${A.sex==='H'}">${MAN}Un homme</button><button type="button" data-k="sex" data-v="F" aria-pressed="${A.sex==='F'}">${WOMAN}Une femme</button></div>`,
+    ()=>`<h2 class="qz-intro">Créez votre plan <em>de perte de poids personnalisé</em></h2>
+      <p class="qz-tag">Simple. Basé sur la science. Adapté à vous.</p>
+      <p class="qz-hint">Choisissez votre sexe pour commencer</p>
+      <div class="qz-sex"><button type="button" data-k="sex" data-v="H" aria-pressed="${A.sex==='H'}"><span class="qz-pic"><img src="homme.jpg" alt=""></span>Homme</button><button type="button" data-k="sex" data-v="F" aria-pressed="${A.sex==='F'}"><span class="qz-pic"><img src="femme.jpg" alt=""></span>Femme</button></div>`,
     ()=>`<h2>Quel âge avez-vous ?</h2><div class="qz-age"><b id="qzAgeV">${A.age}</b><small>ans</small><input class="qz-range" id="qzAge" type="range" min="16" max="80" value="${A.age}" aria-label="Âge"><div class="qz-scale"><span>16</span><span>80</span></div></div><button type="button" class="qz-next" data-next>Continuer →</button>`,
     ()=>`<h2>Quel est votre <em>objectif</em> ?</h2>${opts('goal',GOALS)}`,
     ()=>proj()+`<button type="button" class="qz-next" data-next>Continuer →</button>`,
@@ -1372,6 +1390,7 @@ document.querySelector('.phones').addEventListener('click',e=>e.currentTarget.cl
   const btn=document.getElementById('langBtn'),dr=document.getElementById('langDr'),ls=document.getElementById('langLs'),items=[...ls.querySelectorAll('[data-l]')],codes=items.map(b=>b.dataset.l);
   const m=document.cookie.match(/(?:^|; )googtrans=\/fr\/([A-Za-z-]+)/),LANG=m&&codes.includes(m[1])?m[1]:'fr';
   btn.textContent=LANG.split('-')[0].toUpperCase();document.documentElement.lang=LANG;
+  const qzl=document.getElementById('qzLang');if(qzl){qzl.textContent=btn.textContent;qzl.addEventListener('click',e=>{e.stopPropagation();btn.click()})}
   items.forEach(b=>b.setAttribute('aria-current',b.dataset.l===LANG));
   const cur=items.find(b=>b.dataset.l===LANG);if(cur)ls.prepend(cur);
   const open=o=>{if(o){dr.hidden=false;requestAnimationFrame(()=>dr.classList.add('on'));document.body.style.overflow='hidden'}
