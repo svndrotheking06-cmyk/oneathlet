@@ -29,6 +29,7 @@ function safeReturn(url: unknown): string | null {
 }
 
 // Formules du quiz : abonnement renouvelé toutes les 4, 12 ou 52 semaines.
+const TRIAL_DAYS = 7;
 const PLANS: Record<string, { weeks: number; cents: number; name: string }> = {
   w4: { weeks: 4, cents: 999, name: "OneAthlet · plan 4 semaines" },
   w12: { weeks: 12, cents: 1999, name: "OneAthlet · plan 12 semaines" },
@@ -52,6 +53,18 @@ Deno.serve(async (req) => {
     if (!back) return json({ error: "Adresse de retour non autorisée." }, 400);
     const cible = Number(body.cible);
     try {
+      // Essai gratuit de 7 jours (si le site le demande), une seule fois par adresse e-mail.
+      let trial = 0;
+      if ((body as any).trial === true) {
+        trial = TRIAL_DAYS;
+        try {
+          const prev = await stripe.customers.list({ email, limit: 10 });
+          for (const c of prev.data) {
+            const subs = await stripe.subscriptions.list({ customer: c.id, status: "all", limit: 1 });
+            if (subs.data.length) { trial = 0; break; }
+          }
+        } catch (e) { console.error(e); }
+      }
       const session = await stripe.checkout.sessions.create({
         mode: "subscription",
         line_items: [{
@@ -64,14 +77,15 @@ Deno.serve(async (req) => {
           },
         }],
         customer_email: email,
-        subscription_data: { metadata: { email, plan: String(body.plan) } },
-        metadata: { email, plan: String(body.plan) },
+        subscription_data: { metadata: { email, plan: String(body.plan) }, ...(trial ? { trial_period_days: trial, trial_settings: { end_behavior: { missing_payment_method: "cancel" } } } : {}) },
+        payment_method_collection: "always",
+        metadata: { email, plan: String(body.plan), essai: trial ? String(trial) : "0" },
         allow_promotion_codes: true,
         locale: "fr",
         success_url: back + "?paiement=ok&sid={CHECKOUT_SESSION_ID}",
         cancel_url: back + "?paiement=annule",
       });
-      return json({ url: session.url });
+      return json({ url: session.url, essai: trial });
     } catch (err) {
       console.error(err);
       return json({ error: "Le paiement n'a pas pu démarrer. Réessayez." }, 502);
