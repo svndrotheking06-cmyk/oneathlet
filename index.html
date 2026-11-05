@@ -506,6 +506,18 @@ h1 em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--cor
 .qz-err{margin:0;min-height:1.1em;color:var(--coral);font-weight:700;font-size:.88rem}
 .qz-mail .qz-next{width:100%}
 .qz-res{display:grid;gap:10px;width:100%}
+.qz-sum2{width:100%;display:grid;gap:12px;text-align:left}
+.qz-bmi2{border:1px solid #E6E6EA;border-radius:16px;padding:16px;display:grid;gap:10px}
+.qz-bmi2-h{display:flex;justify-content:space-between;align-items:baseline;gap:10px}.qz-bmi2-h span{font-weight:600;color:#111111;font-size:.95rem}
+.qz-bmi2-h b{font-family:"Inter Tight",system-ui,sans-serif;font-weight:600;font-size:1.8rem;color:#111111}
+.qz-bmi2-bar{position:relative;height:8px;border-radius:99px;background:linear-gradient(90deg,#7DB8E8 0 14%,#4CB782 14% 40%,#F2B544 40% 60%,#EB5149 60%)}
+.qz-bmi2-bar i{position:absolute;top:50%;width:16px;height:16px;border-radius:50%;background:#FFFFFF;border:3px solid #111111;transform:translate(-50%,-50%)}
+.qz-bmi2-l{display:flex;justify-content:space-between;color:#8A8A8F;font-size:.72rem;font-weight:500}
+.qz-bmi2 small{color:#6E7179;font-size:.85rem}.qz-bmi2 small b{color:#111111}
+.qz-rows{margin:0;border:1px solid #E6E6EA;border-radius:16px;overflow:hidden}
+.qz-rows div{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;padding:13px 16px;border-top:1px solid #EFEFF2}.qz-rows div:first-child{border-top:0}
+.qz-rows dt{color:#6E7179;font-weight:500;font-size:.9rem}
+.qz-rows dd{margin:0;text-align:right;color:#111111;font-weight:700;font-size:.92rem;display:grid;gap:2px}.qz-rows dd small{color:#8A8A8F;font-weight:500;font-size:.78rem;max-width:200px}
 .qz-res-k{display:grid;gap:2px;background:linear-gradient(135deg,var(--orange),var(--coral));color:#FFFFFF;border-radius:24px;padding:18px}
 .qz-res-k small{font-weight:800;opacity:.9}
 .qz-res-k b{font-family:var(--display);font-size:2.2rem;line-height:1.1}
@@ -677,7 +689,7 @@ h1 em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--cor
 .rvs h2 em{background:none;-webkit-text-fill-color:#111111;color:#111111;font-style:normal}
 .rvs-sub{color:#6E7179;font-weight:400}
 .qz-top{display:grid!important;gap:10px}
-.qz-hd{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;min-height:44px}.qz-hd>.qz-ic{justify-self:start}
+.qz-hd{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;min-height:44px}.qz-hd>.qz-ic{justify-self:start}[dir=rtl] #qzBack{transform:scaleX(-1)}
 .qz-brand{justify-self:center;font-size:1.15rem}
 .qz-lang,.qz-hdpay{justify-self:end;grid-column:3;grid-row:1}
 .qz-hdpay{border:0;border-radius:10px;background:var(--btn1);color:#FFFFFF;font:inherit;font-weight:800;font-size:.82rem;padding:9px 12px;cursor:pointer;white-space:nowrap}
@@ -1257,19 +1269,26 @@ font[style]{background:none!important;box-shadow:none!important}
       <p class="qz-err" id="qzMailErr" role="alert"></p>
       <button type="submit" class="qz-next" id="qzMailGo">Découvrir le plan →</button></form>
       <span class="qz-note">🔒 Votre e-mail sert à vous envoyer votre plan. Pas de spam, désinscription en un clic.</span>`,
-    ()=>{const P=planOf();
-      return `<h2>Votre <em>résumé personnel</em></h2><p>Calculé à partir de vos réponses.</p>
-      <div class="qz-res">
-        <div class="qz-res-k"><small>Objectif calorique</small><b>${P.kcal.toLocaleString('fr-FR')} kcal</b><span>par jour${A.burn==='oui'?' + calories brûlées':''}</span></div>
-        <div class="qz-res-m"><span><i style="background:#D93B4B"></i>Protéines<b>${P.prot} g</b></span><span><i style="background:#F5B83D"></i>Glucides<b>${P.carb} g</b></span><span><i style="background:#7B61FF"></i>Lipides<b>${P.fat} g</b></span></div>
-        <div class="qz-res-g">
-          <div><small>IMC actuel</small><b>${fr(P.bmi)}</b><span>${P.bmiTxt}</span></div>
-          <div><small>Objectif</small><b>${fr(P.c)} kg</b><span>${P.weeks?'vers le '+P.end.toLocaleDateString('fr-FR',{day:'numeric',month:'short',year:'numeric'}):'poids stable'}</span></div>
-          <div><small>Eau</small><b>${fr(P.eau)} L</b><span>par jour</span></div>
-          <div><small>Pas</small><b>${(A.pas||7000).toLocaleString('fr-FR')}</b><span>par jour</span></div>
-        </div>
+    ()=>{const P=planOf(),act=ACTIV.find(x=>x[0]===A.activite),reg=REGIME.find(x=>x[0]===A.regime)||REGIME[0];
+      const sc=(A.age<30?1:A.age>=45?-1:0)+(A.activite==='actif'||A.activite==='tres'?1:A.activite==='inactif'?-1:0)+(A.sex==='F'?-0.5:0);
+      const met=sc>=1?['Rapide','vos progrès peuvent venir vite, gardez le rythme']:sc<=-1?['Lent','les progrès prennent du temps, restez régulier']:['Modéré','des progrès réguliers, semaine après semaine'];
+      const pos=Math.max(2,Math.min(98,(P.bmi-15)/(40-15)*100));
+      return `<h2 class="qz-intro">Votre résumé personnel</h2><p class="qz-hint">Calculé à partir de vos réponses</p>
+      <div class="qz-sum2">
+        <div class="qz-bmi2"><div class="qz-bmi2-h"><span>Indice de masse corporelle (IMC)</span><b>${fr(P.bmi)}</b></div>
+          <div class="qz-bmi2-bar"><i style="left:${pos}%"></i></div>
+          <div class="qz-bmi2-l"><span>Insuffisant</span><span>Normal</span><span>Surpoids</span><span>Obésité</span></div>
+          <small>Votre IMC : <b>${P.bmiTxt}</b></small></div>
+        <dl class="qz-rows">
+          <div><dt>Objectif calorique</dt><dd>${P.kcal.toLocaleString('fr-FR')} kcal / jour</dd></div>
+          <div><dt>Niveau d'activité</dt><dd>${esc(act?act[2]:'Peu actif')}</dd></div>
+          <div><dt>Type de régime</dt><dd>${esc(reg[2])}</dd></div>
+          <div><dt>Métabolisme</dt><dd>${met[0]}<small>${met[1]}</small></dd></div>
+          <div><dt>Objectif de poids</dt><dd>${fr(P.c)} kg<small>${P.weeks?'vers le '+P.end.toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'}):'poids stable'}</small></dd></div>
+          <div><dt>Protéines</dt><dd>${P.prot} g / jour</dd></div><div><dt>Glucides</dt><dd>${P.carb} g / jour</dd></div><div><dt>Lipides</dt><dd>${P.fat} g / jour</dd></div>
+        </dl>
       </div>
-      <span class="qz-note">Estimations indicatives, basées sur la formule de Mifflin-St Jeor. Elles ne remplacent pas un avis médical.</span>
+      <span class="qz-note">Estimations indicatives (formule de Mifflin-St Jeor). Elles ne remplacent pas un avis médical.</span>
       <button type="button" class="qz-next" data-next>Continuer</button>`},
     ()=>{const P=planOf(),d1=new Date();d1.setDate(d1.getDate()+A.suivi);const d2=new Date();d2.setDate(d2.getDate()+60);
       const f=d=>d.toLocaleDateString('fr-FR',{day:'numeric',month:'long'}),dir=P.diff<0?'−':'+',kg=n=>fr(Math.abs(P.at(n)-P.w));
@@ -1297,8 +1316,8 @@ font[style]{background:none!important;box-shadow:none!important}
       <p class="qz-err" id="qzPayErr" role="alert"></p>
       <button type="button" class="qz-next qz-pay" id="qzPay">Obtenir mon plan pour ${goalTxt}</button>
       <span class="qz-note" id="qzPayNote"></span>
-      <h3 class="qz-h3">Ce qui est inclus</h3>
-      <ul class="qz-inc"><li><span><b>Plan tout-en-un personnalisé</b><small>${P.kcal.toLocaleString('fr-FR')} kcal par jour, menus adaptés à votre régime et vos intolérances</small></span></li><li><span><b>Reconnaissance précise des repas</b><small>Une photo de votre assiette : calories et macros en quelques secondes</small></span></li><li><span><b>Suivi nutritionnel complet</b><small>Calories, protéines, glucides et lipides de la journée</small></span></li><li><span><b>Calories brûlées</b><small>Ajoutez vos activités, votre objectif du jour s'ajuste</small></span></li><li><span><b>Coach IA</b><small>Posez vos questions nutrition, réponse immédiate</small></span></li></ul>
+      <h3 class="qz-h3">Qu'est-ce qui est inclus ?</h3>
+      <ul class="qz-inc"><li><span><b>Plan tout-en-un personnalisé</b><small>${P.kcal.toLocaleString('fr-FR')} kcal par jour, menus adaptés à votre régime et vos intolérances</small></span></li><li><span><b>Reconnaissance précise des repas</b><small>Une photo de votre assiette : calories et macros en quelques secondes</small></span></li><li><span><b>Suivi nutritionnel complet</b><small>Calories, protéines, glucides et lipides de la journée</small></span></li><li><span><b>Calories brûlées</b><small>Ajoutez vos activités, votre objectif du jour s'ajuste</small></span></li><li><span><b>Coach IA OneAthlet 24/7</b><small>Posez vos questions nutrition, réponse immédiate</small></span></li></ul>
       <div class="qz-for"><div><i>🔥</i><span>Soutient votre objectif : <b>${esc(g[2])}</b></span></div><div><i>🎯</i><span>Personnalisé pour : <b>${A.sex==='F'?'Femmes':'Hommes'}</b></span></div><div><i>🥦</i><span>Optimisé pour : <b>${P.kcal.toLocaleString('fr-FR')} calories par jour</b></span></div><div><i>🚶</i><span>Objectif de pas : <b>${(A.pas||8000).toLocaleString('fr-FR')} pas par jour</b></span></div></div>
       <div class="qz-gar"><div class="qz-gar-ic" aria-hidden="true">🛡️</div><b>Satisfait ou remboursé</b><p>Nous sommes convaincus que notre plan peut vous aider à atteindre vos objectifs et que vous verrez vos premiers progrès visibles en 4 semaines. Si vous suivez le plan comme prévu sans obtenir de résultats, nous vous rembourserons votre achat.</p></div>
       <div class="qz-paybar" id="qzPayFix"><button type="button" class="qz-next qz-pay" tabindex="-1">Obtenir mon plan pour ${goalTxt}</button></div>`}
@@ -1309,7 +1328,7 @@ font[style]{background:none!important;box-shadow:none!important}
   function render(){
     clearInterval(tourT);sheetOff();const F=flow();
     body.innerHTML=`<div class="qz-step">${STEPS[F[step]]()}</div>`;body.scrollTop=0;
-    {const end=F.indexOf(29),bar=document.getElementById('qzBar');bar.style.width=Math.round(Math.min(1,(step+1)/(end+1))*100)+'%';bar.parentNode.style.visibility=step>end?'hidden':'';const isPay=F[step]===33;document.getElementById('qzLang').hidden=isPay;document.getElementById('qzHdPay').hidden=!isPay}
+    {const end=F.indexOf(29),bar=document.getElementById('qzBar');bar.style.width=Math.round(Math.min(1,(step+1)/(end+1))*100)+'%';bar.parentNode.style.visibility=step>end?'hidden':'';const isPay=F[step]===33;document.getElementById('qzBack').style.visibility=F[step]>=31?'hidden':'';document.getElementById('qzLang').hidden=isPay;document.getElementById('qzHdPay').hidden=!isPay}
     santeNote();
     const pay=document.getElementById('qzPay');
     if(pay){const fx=document.getElementById('qzPayFix');fx.querySelector('button').onclick=()=>pay.click();
@@ -1520,7 +1539,7 @@ document.querySelector('.phones').addEventListener('click',e=>e.currentTarget.cl
 (function(){
   const btn=document.getElementById('langBtn'),dr=document.getElementById('langDr'),ls=document.getElementById('langLs'),items=[...ls.querySelectorAll('[data-l]')],codes=items.map(b=>b.dataset.l);
   const m=document.cookie.match(/(?:^|; )googtrans=\/fr\/([A-Za-z-]+)/),LANG=m&&codes.includes(m[1])?m[1]:'fr';
-  btn.textContent=LANG.split('-')[0].toUpperCase();document.documentElement.lang=LANG;
+  btn.textContent=LANG.split('-')[0].toUpperCase();document.documentElement.lang=LANG;if(['ar','fa','iw','ur'].includes(LANG))document.documentElement.dir='rtl';
   const qzl=document.getElementById('qzLang');if(qzl){qzl.textContent=btn.textContent;qzl.addEventListener('click',e=>{e.stopPropagation();btn.click()})}
   items.forEach(b=>b.setAttribute('aria-current',b.dataset.l===LANG));
   const cur=items.find(b=>b.dataset.l===LANG);if(cur)ls.prepend(cur);
@@ -1538,15 +1557,44 @@ document.querySelector('.phones').addEventListener('click',e=>e.currentTarget.cl
     location.reload();
   });
   if(LANG==='fr'||window.claude)return;
-  const d=document.createElement('div');d.id='google_translate_element';d.hidden=true;document.body.appendChild(d);
-  window.googleTranslateElementInit=function(){try{new google.translate.TranslateElement({pageLanguage:'fr',autoDisplay:false},'google_translate_element')}catch(e){}};
-  const sc=document.createElement('script');sc.src='https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';sc.async=true;document.head.appendChild(sc);
-  /* Le quiz et « Mon plan » sont créés après le chargement : on relance la traduction à chaque changement d'écran */
-  let tmr=null,calm=0;
-  const again=()=>{const sel=document.querySelector('.goog-te-combo');if(!sel){tmr=setTimeout(again,500);return}calm=Date.now()+300;sel.value=LANG;sel.dispatchEvent(new Event('change'))};
-  const mo=new MutationObserver(ms=>{if(Date.now()<calm)return;if(!ms.some(x=>[...x.addedNodes].some(n=>n.nodeType===1&&n.tagName!=='FONT')))return;clearTimeout(tmr);tmr=setTimeout(again,250)});
-  ['qz','mp'].forEach(id=>{const el=document.getElementById(id);if(el)mo.observe(el,{childList:true,subtree:true})});
-  ['qz','mp'].forEach(id=>{const el=document.getElementById(id);if(el)new MutationObserver(()=>{if(!el.hidden){clearTimeout(tmr);tmr=setTimeout(again,250)}}).observe(el,{attributes:true,attributeFilter:['hidden']})});
+  /* Traduction OneAthlet : chaque texte français est traduit une seule fois par l'IA (fonction « traduire »), puis gardé en mémoire */
+  const API='https://dbrpduznzqynkuebulxx.supabase.co/functions/v1/traduire',KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRicnBkdXpuenF5bmt1ZWJ1bHh4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIxMDM4OTAsImV4cCI6MjEwNzY3OTg5MH0.8XVULvee0zcbp7qjlmHupBdhxUKb0tYz6fm1xK4eJkk';
+  const CK='oneathlet-trad-'+LANG;let cache={};try{cache=JSON.parse(localStorage.getItem(CK)||'{}')||{}}catch(e){}
+  const save=()=>{try{localStorage.setItem(CK,JSON.stringify(cache))}catch(e){}};
+  const NUM=/\d(?:[\d\s  .,]*\d)?/g;
+  const tpl=t=>{const n=[];const k=t.replace(NUM,x=>'{'+(n.push(x)-1)+'}');return [k,n]};
+  const fill=(t,n)=>t.replace(/\{(\d+)\}/g,(m,i)=>n[+i]!=null?n[+i]:m);
+  const UNIT=/^(kg|cm|g|l|kcal|min|km|h|ml|lb|€|%|x)$/i;
+  const worth=k=>{const l=k.replace(/\{\d+\}/g,'').replace(/[^\p{L}]/gu,'');return l.length>1&&!UNIT.test(l)};
+  const SKIP='script,style,noscript,textarea,code,.notranslate,[translate="no"]';
+  const done=new WeakMap(),wait=new Map();
+  const put=(node,src,lead,trail,n,attr)=>{const tr=cache[src];if(tr==null)return false;const v=lead+fill(tr,n)+trail;
+    if(attr){node.setAttribute(attr,v);done.set(node,(done.get(node)||'')+'|'+attr+':'+v)}else{node.nodeValue=v;done.set(node,v)}return true};
+  function scan(root){
+    const el=root.nodeType===1?root:root.parentElement;if(!el||el.closest(SKIP))return;
+    const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>{const p=n.parentElement;return !p||p.closest(SKIP)?NodeFilter.FILTER_REJECT:NodeFilter.FILTER_ACCEPT}});
+    const nodes=root.nodeType===3?[root]:[];let x;while((x=w.nextNode()))nodes.push(x);
+    nodes.forEach(nd=>{const v=nd.nodeValue;if(!v||done.get(nd)===v)return;const t=v.trim();if(!t)return;const [k,n]=tpl(t);if(!worth(k))return;
+      const lead=v.slice(0,v.indexOf(t)),trail=v.slice(v.indexOf(t)+t.length);
+      if(!put(nd,k,lead,trail,n)){if(!wait.has(k))wait.set(k,[]);wait.get(k).push(()=>put(nd,k,lead,trail,n))}});
+    if(root.nodeType===1)[root,...root.querySelectorAll('[placeholder],[aria-label]')].forEach(e=>{if(e.closest(SKIP))return;['placeholder','aria-label'].forEach(a=>{const v=e.getAttribute(a);if(!v||(done.get(e)||'').includes('|'+a+':'+v))return;
+      const [k,n]=tpl(v.trim());if(!worth(k))return;if(!put(e,k,'','',n,a)){if(!wait.has(k))wait.set(k,[]);wait.get(k).push(()=>put(e,k,'','',n,a))}})});
+  }
+  let busy=false,tmr=null;const html=document.documentElement;
+  async function flush(){if(busy)return;const keys=[...wait.keys()].filter(k=>cache[k]==null);
+    if(!keys.length){wait.forEach(fs=>fs.forEach(f=>f()));wait.clear();html.classList.remove('oa-tr','oa-tr0');return}
+    busy=true;html.classList.add('oa-tr');
+    try{for(let i=0;i<keys.length;i+=150){const r=await fetch(API,{method:'POST',headers:{apikey:KEY,Authorization:'Bearer '+KEY,'Content-Type':'application/json'},body:JSON.stringify({lang:LANG,texts:keys.slice(i,i+150)})});
+      const d=await r.json().catch(()=>({}));if(d&&d.t)Object.assign(cache,d.t);else break}save()}catch(e){}
+    wait.forEach((fs,k)=>{if(cache[k]!=null){fs.forEach(f=>f());wait.delete(k)}});
+    if([...wait.keys()].length){wait.clear()}busy=false;html.classList.remove('oa-tr','oa-tr0')}
+  const go=()=>{clearTimeout(tmr);tmr=setTimeout(flush,40)};
+  html.classList.add('oa-tr0');setTimeout(()=>html.classList.remove('oa-tr0','oa-tr'),5000);
+  const st=document.createElement('style');st.textContent='html.oa-tr0 body{visibility:hidden}html.oa-tr .qz-step,html.oa-tr #mpIn{visibility:hidden}';document.head.appendChild(st);
+  scan(document.body);go();
+  new MutationObserver(ms=>{let any=false;ms.forEach(m=>{if(m.type==='characterData'){if(done.get(m.target)!==m.target.nodeValue){scan(m.target);any=true}}
+    else if(m.type==='attributes'){scan(m.target);any=true}else m.addedNodes.forEach(n=>{if(n.nodeType===1||n.nodeType===3){scan(n);any=true}})});if(any&&wait.size){if(document.querySelector('.qz-step')&&[...wait.keys()].some(k=>cache[k]==null))html.classList.add('oa-tr');go()}})
+    .observe(document.body,{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:['placeholder','aria-label']});
 })();
 </script>
 
