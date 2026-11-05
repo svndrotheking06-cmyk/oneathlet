@@ -771,6 +771,12 @@ button.es-card{cursor:pointer;width:100%}
 .es-por b{min-width:120px}
 .es-sh .mp-rec{background:#FFFFFF}
 /* profil */
+.es-cav{position:relative;flex:none;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:800;background:linear-gradient(145deg,var(--c),color-mix(in srgb,var(--c) 60%,#000))}
+.es-cav img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:50%;z-index:1}.es-cav i{z-index:2;position:absolute;right:-4px;bottom:-4px;font-style:normal;font-size:.55em;background:#fff;border-radius:50%;width:1.7em;height:1.7em;display:grid;place-items:center;box-shadow:0 2px 6px -2px rgba(0,0,0,.25)}
+.es-cl{display:grid;gap:10px}
+.es-cc{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:14px;border:2px solid transparent;background:#FFFFFF;border-radius:22px;padding:14px;font:inherit;color:#111;text-align:left;cursor:pointer}
+.es-cc.on{border-color:var(--es-r)}.es-cc span{display:grid;gap:2px}.es-cc b{font-size:1.05rem}.es-cc em{font-style:normal;font-weight:700;font-size:.85rem}.es-cc small{color:var(--es-m);font-size:.82rem;line-height:1.35}.es-cc strong{color:var(--es-r);font-size:1.2rem}
+.es-cbar{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;border:0;background:#FFFFFF;border-radius:18px;padding:10px 14px;font:inherit;color:#111;text-align:left;cursor:pointer}.es-cbar span{display:grid}.es-cbar small{color:var(--es-m);font-size:.8rem}.es-cbar em{font-style:normal;color:var(--es-r);font-weight:700;font-size:.88rem}
 .es-pl{list-style:none;margin:0;padding:0;background:#FFFFFF;border-radius:24px;overflow:hidden}
 .es-pl li+li{border-top:1px solid #F0F0F3}
 .es-pl button{width:100%;display:grid;grid-template-columns:30px 1fr auto auto;align-items:center;gap:10px;border:0;background:none;padding:15px 16px;font:inherit;font-size:1rem;color:#111;text-align:left;cursor:pointer}
@@ -1384,7 +1390,7 @@ font[style]{background:none!important;box-shadow:none!important}
           <button type="button" class="es-pill" data-open="act">${a.n?`${a.n} activité${a.n>1?'s':''} · ${nf(a.min)} min`:'Ajouter une activité'}</button></section>
       </div>
       ${E.sante?'':`<button type="button" class="es-card es-hk" id="esHK"><span class="es-hk-i">❤️</span><span><b>Connecter Apple Santé</b><small>Vos pas et calories actives envoyés automatiquement depuis votre iPhone</small></span>${chev}</button>`}
-      <button type="button" class="es-card es-coach" id="esCoach"><span class="es-hk-i">💬</span><span><b>Coach IA OneAthlet</b><small>Une question sur vos repas ? Réponse en quelques secondes, 24 h/24</small></span>${chev}</button>`;
+      <button type="button" class="es-card es-coach" id="esCoach">${cAv(coachOf(),44)}<span><b>${coachOf().n} · votre coach</b><small>${coachOf().sp} · réponse en quelques secondes, 24 h/24</small></span>${chev}</button>`;
     bindProf();
     $('esCal').onclick=()=>{E.calOpen=!E.calOpen;E.calM=E.calM||d.slice(0,7);pageNut()};
     box.querySelectorAll('[data-day]').forEach(b=>b.onclick=()=>{E.jour=b.dataset.day;E.calOpen=false;pageNut()});
@@ -1511,19 +1517,32 @@ font[style]{background:none!important;box-shadow:none!important}
       }catch(e){bd.querySelector('#esTok').innerHTML='<p class="qz-err">'+esc(e.message)+'</p>'}})}
 
   /* --- Coach IA --- */
-  function coachSheet(){const c=cGet(),G=goals();
-    sheet('Coach IA OneAthlet',`<div class="mp-chat" id="mpChat"><div class="mp-msg ai">Bonjour ! Je connais votre plan (${nf(G.kcal)} kcal, ${G.prot} g de protéines par jour). Posez-moi vos questions : idées de repas, faim le soir, restaurant, sport…</div>${c.map(m=>`<div class="mp-msg ${m.role==='user'?'me':'ai'}">${esc(m.content)}</div>`).join('')}</div>
-      <div class="mp-sug">${['Une idée de dîner rapide ?','J\'ai faim le soir, que faire ?','Que manger au restaurant ?'].map(t=>`<button type="button" data-sug>${t}</button>`).join('')}</div>
+  /* Coachs IA : 4 personnalités au choix (ce sont des assistants IA, pas de vraies personnes) */
+  const COACHS=[
+    {id:'thomas',n:'Thomas',g:'H',sp:'Perte de poids & nutrition',c:'#EB5149',e:'🥗',d:'Calme et précis. Il vous aide à perdre du poids sans frustration : portions, faim, écarts, plan simple au quotidien.',hi:'Salut, moi c\'est Thomas ! On va perdre du poids ensemble, sans régime frustrant.',sug:['Comment perdre du poids sans avoir faim ?','J\'ai fait un écart, je fais quoi ?','Une idée de dîner léger ?']},
+    {id:'karim',n:'Karim',g:'H',sp:'Muscle & force',c:'#1F6FEB',e:'🏋️',d:'Direct et motivant. Il vous guide pour prendre du muscle et gagner en force : protéines, entraînement, récupération.',hi:'Salut, c\'est Karim ! Prêt à prendre du muscle ? On commence quand tu veux.',sug:['Combien de protéines par jour pour moi ?','Que manger avant et après la séance ?','Un programme simple pour débuter ?']},
+    {id:'lea',n:'Ana',g:'F',img:'coach-ana.jpg',sp:'Nutrition & fitness',c:'#22A06B',e:'💪',d:'Experte en nutrition et en fitness. Elle relie votre assiette à vos séances : énergie, silhouette tonique, cardio.',hi:'Coucou, je suis Ana ! On allie bonne alimentation et fitness pour des résultats visibles.',sug:['Quoi manger pour avoir de l\'énergie à la salle ?','Une séance fitness de 20 minutes ?','Comment avoir un ventre plus plat ?']},
+    {id:'sarah',n:'Sarah',g:'F',img:'coach-sarah.jpg',sp:'Lifestyle & bien-être',c:'#B45CE0',e:'🌿',d:'Douce et bienveillante. Elle vous accompagne sur le sommeil, le stress, les habitudes et le rapport à la nourriture.',hi:'Bonjour, moi c\'est Sarah ! Prenons soin de vous, un petit pas à la fois.',sug:['Je mange quand je suis stressé(e), que faire ?','Comment mieux dormir ?','Une routine du matin simple ?']}
+  ];
+  const coachOf=()=>COACHS.find(c=>c.id===E.reglages.coach)||COACHS[0];
+  const cAv=(c,sz)=>`<span class="es-cav" style="--c:${c.c};width:${sz}px;height:${sz}px;font-size:${Math.round(sz*.42)}px">${c.img?`<img src="${c.img}" alt="" onerror="this.remove()">`:''}${c.n[0]}<i>${c.e}</i></span>`;
+  function coachChoix(after){const cur=coachOf();
+    sheet('Choisir mon coach',`<p class="es-p es-mute">Vos coachs sont des assistants IA, chacun avec sa spécialité et sa façon de parler. Vous pouvez changer quand vous voulez.</p>
+      <div class="es-cl">${COACHS.map(c=>`<button type="button" class="es-cc${c.id===cur.id?' on':''}" data-co="${c.id}">${cAv(c,56)}<span><b>${c.n}</b><em style="color:${c.c}">${c.sp}</em><small>${c.d}</small></span>${c.id===cur.id?'<strong>✓</strong>':''}</button>`).join('')}</div>`,bd=>{
+      bd.querySelectorAll('[data-co]').forEach(b=>b.onclick=()=>{const prev=E.reglages.coach;E.reglages.coach=b.dataset.co;saveReg();if(prev!==b.dataset.co){try{localStorage.removeItem(cKey())}catch(e){}}closeSheet(true);if(E.page==='nut')pageNut();toast('Votre coach : '+coachOf().n+' ✓');(after||coachSheet)()})})}
+  function coachSheet(){const c=cGet(),G=goals(),co=coachOf();
+    sheet(co.n+' · '+co.sp,`<button type="button" class="es-cbar" id="esCo">${cAv(co,40)}<span><b>${co.n}</b><small>${co.sp} · coach IA</small></span><em>Changer</em></button><div class="mp-chat" id="mpChat"><div class="mp-msg ai">${esc(co.hi)} Je connais votre plan (${nf(G.kcal)} kcal, ${G.prot} g de protéines par jour). Posez-moi vos questions.</div>${c.map(m=>`<div class="mp-msg ${m.role==='user'?'me':'ai'}">${esc(m.content)}</div>`).join('')}</div>
+      <div class="mp-sug">${co.sug.map(t=>`<button type="button" data-sug>${esc(t)}</button>`).join('')}</div>
       <form id="mpC" class="mp-cf"><input name="q" placeholder="Votre question…" maxlength="600" autocomplete="off" required><button type="submit" class="mp-btn" aria-label="Envoyer">➤</button></form>`,bd=>{
       const ch=bd.querySelector('#mpChat');ch.scrollTop=ch.scrollHeight;
       const send=async txt=>{txt=String(txt||'').trim().slice(0,600);if(!txt)return;const hist=cGet().concat({role:'user',content:txt});try{localStorage.setItem(cKey(),JSON.stringify(hist.slice(-30)))}catch(e){}
         ch.insertAdjacentHTML('beforeend',`<div class="mp-msg me">${esc(txt)}</div><div class="mp-msg ai mp-typing" id="mpTyping"><span></span><span></span><span></span></div>`);ch.scrollTop=ch.scrollHeight;const fm=bd.querySelector('#mpC');fm.q.value='';fm.querySelector('button').disabled=true;
         const t=tot(E.jour),p=prof();
-        try{const r=await fetch(URL_+'/functions/v1/coach',{method:'POST',headers:H,body:JSON.stringify({sid,messages:hist.slice(-12),profil:{sexe:p.sex,age:p.age,poids:p.poids,cible:p.cible,kcal:G.kcal,proteines:G.prot,glucides:G.carb,lipides:G.fat,regime:p.regime,intolerances:p.intol||[],objectif:p.goal,sante:p.sante||[],mange_aujourdhui:Math.round(t.k),brule_aujourdhui:Math.round(actOf(E.jour).k)}})});
+        try{const r=await fetch(URL_+'/functions/v1/coach',{method:'POST',headers:H,body:JSON.stringify({sid,coach:coachOf().id,messages:hist.slice(-12),profil:{sexe:p.sex,age:p.age,poids:p.poids,cible:p.cible,kcal:G.kcal,proteines:G.prot,glucides:G.carb,lipides:G.fat,regime:p.regime,intolerances:p.intol||[],objectif:p.goal,sante:p.sante||[],mange_aujourdhui:Math.round(t.k),brule_aujourdhui:Math.round(actOf(E.jour).k)}})});
           const d=await r.json();const ans=d.reponse||d.error||'Le coach est indisponible pour le moment.';if(d.reponse){try{localStorage.setItem(cKey(),JSON.stringify(hist.concat({role:'assistant',content:ans}).slice(-30)))}catch(e){}}
           bd.querySelector('#mpTyping').outerHTML=`<div class="mp-msg ai">${esc(ans)}</div>`}catch(err){bd.querySelector('#mpTyping').outerHTML='<div class="mp-msg ai">Connexion impossible. Réessayez.</div>'}
         fm.querySelector('button').disabled=false;ch.scrollTop=ch.scrollHeight};
-      bd.querySelector('#mpC').onsubmit=e=>{e.preventDefault();send(e.target.q.value)};bd.querySelectorAll('[data-sug]').forEach(b=>b.onclick=()=>send(b.textContent))})}
+      bd.querySelector('#esCo').onclick=()=>coachChoix();bd.querySelector('#mpC').onsubmit=e=>{e.preventDefault();send(e.target.q.value)};bd.querySelectorAll('[data-sug]').forEach(b=>b.onclick=()=>send(b.textContent))})}
   const cKey=()=>'oneathlet-coach-'+sid;
   const cGet=()=>{try{const c=JSON.parse(localStorage.getItem(cKey())||'[]');if(Array.isArray(c))return c.slice(-30)}catch(e){}return []};
 
@@ -1629,7 +1648,7 @@ font[style]{background:none!important;box-shadow:none!important}
     const row=(k,ic,l,v)=>`<li><button type="button" data-pr="${k}"><span class="es-pi">${ic}</span><span>${l}</span><em>${v}</em>${chev}</button></li>`;
     sheet('Profil',`<ul class="es-pl">${row('kcal','🔥','Calories et macros',nf(G.kcal)+' kcal')}${row('eau','💧','Objectif d\'eau',nf(G.eau)+' ml')}${row('pas','🚶','Pas quotidiens',nf(G.pas)+' pas')}${row('cible','🎯','Objectif de poids',p.cible?nf(p.cible,1)+' kg':'--')}${row('goal','⭐','Objectif',esc(OBJ[p.goal]||'--'))}</ul>
       <ul class="es-pl">${row('sex','👤','Sexe',SEXE[p.sex]||'--')}${row('age','🎂','Âge',p.age?p.age+' ans':'--')}${row('taille','📏','Taille',p.taille?p.taille+' cm':'--')}${row('poids','⚖️','Poids de départ',depart()?nf(depart(),1)+' kg':'--')}${row('activite','🏃','Niveau d\'activité',ACTL[p.activite]||'--')}${row('regime','🥗','Régime',esc(REG[p.regime]||'Équilibré'))}${row('intol','🚫','Intolérances',(p.intol||[]).length?(p.intol||[]).length+' choisie'+((p.intol||[]).length>1?'s':''):'Aucune')}</ul>
-      <ul class="es-pl">${row('sante','❤️','Apple Santé',E.sante?'Connecté':'Non connecté')}${row('langue','🌍','Langue',esc((document.getElementById('langBtn')||{}).textContent||'FR'))}${row('abo','💳','Abonnement',inf.annule?'Résilié':inf.renouvellement?'Actif':'Actif')}</ul>
+      <ul class="es-pl">${row('coach','🧑‍🏫','Coach',coachOf().n)}${row('sante','❤️','Apple Santé',E.sante?'Connecté':'Non connecté')}${row('langue','🌍','Langue',esc((document.getElementById('langBtn')||{}).textContent||'FR'))}${row('abo','💳','Abonnement',inf.annule?'Résilié':inf.renouvellement?'Actif':'Actif')}</ul>
       ${inf.email?`<p class="es-mute es-small es-c">${esc(inf.email)}${inf.renouvellement&&!inf.annule?' · renouvellement le '+new Date(inf.renouvellement).toLocaleDateString('fr-FR',{day:'numeric',month:'long'}):''}</p>`:''}
       <ul class="es-pl es-pl-c"><li><button type="button" id="esBack">Retour au site</button></li><li><button type="button" class="es-red" id="esWipe">Supprimer mes données</button></li></ul>`,bd=>{
       bd.querySelectorAll('[data-pr]').forEach(b=>b.onclick=()=>editPr(b.dataset.pr));
@@ -1656,6 +1675,7 @@ font[style]{background:none!important;box-shadow:none!important}
     if(k==='intol')return sheet('Intolérances',`<div class="es-opts">${Object.keys(INTL).map(x=>`<button type="button" data-iv="${x}" aria-pressed="${(p.intol||[]).includes(x)}">${INTL[x]}</button>`).join('')}</div><button type="button" class="es-btn" id="esIok">Enregistrer</button>`,bd=>{
       bd.querySelectorAll('[data-iv]').forEach(b=>b.onclick=()=>b.setAttribute('aria-pressed',b.getAttribute('aria-pressed')!=='true'));bd.querySelector('#esIok').onclick=()=>set({intol:[...bd.querySelectorAll('[data-iv][aria-pressed="true"]')].map(b=>b.dataset.iv)})});
     if(k==='sante')return santeSheet();
+    if(k==='coach')return coachChoix(profil);
     if(k==='langue'){closeSheet(true);const b=document.getElementById('langBtn');if(b)b.click();return}
     if(k==='abo')return sheet('Abonnement',`<p class="es-p">Changez de moyen de paiement, téléchargez vos factures ou résiliez à tout moment depuis l'espace sécurisé de Stripe.</p><button type="button" class="es-btn" id="esPortal">Gérer ou résilier mon abonnement</button>`,bd=>{
       bd.querySelector('#esPortal').onclick=async e=>{const b=e.target;b.disabled=true;b.textContent='Ouverture…';try{const r=await fetch(URL_+'/functions/v1/checkout',{method:'POST',headers:H,body:JSON.stringify({action:'monportail',sid,returnUrl:back})});const d=await r.json();if(d.url){location.href=d.url;return}b.textContent=d.error||'Indisponible pour le moment'}catch(err){b.textContent='Connexion impossible'}b.disabled=false}});

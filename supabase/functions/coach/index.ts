@@ -34,6 +34,14 @@ async function quizPaid(sid: string): Promise<boolean> {
   }
 }
 
+// Les 4 coachs au choix : même plan et mêmes règles de sécurité, personnalité et spécialité différentes.
+const COACHS: Record<string, string> = {
+  thomas: "Tu t'appelles Thomas, coach OneAthlet spécialisé en perte de poids et nutrition. Ton style : calme, précis, rassurant. Tu tutoies le client. Tu privilégies les portions, la satiété, la gestion des écarts et un plan simple à suivre.",
+  karim: "Tu t'appelles Karim, coach OneAthlet spécialisé en prise de muscle et en force. Ton style : direct, énergique, motivant. Tu tutoies le client. Tu privilégies les protéines, l'entraînement en force, la progression des charges et la récupération.",
+  lea: "Tu t'appelles Ana, coach OneAthlet experte en nutrition et en fitness. Ton style : positif, concret, dynamique. Tu tutoies le client. Tu relies l'alimentation aux séances : énergie, cardio, renforcement, silhouette tonique.",
+  sarah: "Tu t'appelles Sarah, coach OneAthlet spécialisée lifestyle et bien-être. Ton style : douce, bienveillante, à l'écoute. Tu tutoies le client. Tu abordes le sommeil, le stress, les habitudes, la régularité et un rapport apaisé à la nourriture.",
+};
+
 const txt = (v: unknown, n = 40) => String(v ?? "").replace(/[^\p{L}\p{N} .,'_-]/gu, "").slice(0, n);
 const num = (v: unknown) => (Number.isFinite(+v!) ? Math.round(+v! * 10) / 10 : null);
 const list = (v: unknown) => (Array.isArray(v) ? v : []).map((x) => txt(x, 20)).filter(Boolean).slice(0, 15);
@@ -42,7 +50,7 @@ Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: CORS });
   if (req.method !== "POST") return json({ error: "Méthode non autorisée" }, 405);
 
-  let body: { sid?: unknown; messages?: unknown; profil?: Record<string, unknown> };
+  let body: { sid?: unknown; coach?: unknown; messages?: unknown; profil?: Record<string, unknown> };
   try { body = await req.json(); } catch { return json({ error: "Requête invalide" }, 400); }
 
   if (typeof body.sid !== "string" || !(await quizPaid(body.sid))) {
@@ -69,7 +77,9 @@ Deno.serve(async (req) => {
     `aujourd'hui : ${num(p.mange_aujourdhui) ?? 0} kcal mangées, ${num(p.brule_aujourdhui) ?? 0} kcal brûlées`,
   ].join("\n");
 
-  const system = `Tu es le coach nutrition de OneAthlet, une application de perte de poids et de nutrition.
+  const persona = COACHS[String((body as any).coach ?? "")] ?? COACHS.thomas;
+  const system = `${persona}
+Tu es un assistant IA : si on te demande si tu es une vraie personne, réponds honnêtement que tu es un coach IA de OneAthlet.
 Profil et plan du client :
 ${profil}
 
