@@ -760,14 +760,14 @@ button.es-card{cursor:pointer;width:100%}
 .es-recg{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .es-rc{position:relative;background:#FFFFFF;border-radius:24px;overflow:hidden}
 .es-rc-b{border:0;background:none;padding:0;width:100%;text-align:left;font:inherit;color:inherit;cursor:pointer;display:grid}
-.es-rc-i{display:grid;place-items:center;aspect-ratio:4/3;overflow:hidden}
+.es-rc-i{display:grid;place-items:center;aspect-ratio:4/3;overflow:hidden;position:relative}.es-rc-i img,.es-rd-i img{position:absolute;inset:0}
 .es-rc-i img{width:100%;height:100%;object-fit:cover}
 .c-pdj{background:linear-gradient(135deg,#FFF4D6,#FFE2B8)}.c-dej{background:linear-gradient(135deg,#E6F6EC,#CDEDD9)}.c-din{background:linear-gradient(135deg,#E8EEFF,#D5DEFB)}.c-col{background:linear-gradient(135deg,#FFE8EE,#FFD3DE)}
 .es-remo{font-size:3.2rem;filter:drop-shadow(0 6px 10px rgba(0,0,0,.12))}.es-remo.big{font-size:5rem}
 .es-rc-t{display:grid;gap:3px;padding:10px 12px 14px}.es-rc-t b{font-size:.9rem;font-weight:600;line-height:1.25}.es-rc-t small{color:var(--es-m);font-size:.75rem}.es-rc-m{color:#111!important;font-weight:600}
 .es-fav{position:absolute;top:8px;right:8px;border:0;background:rgba(255,255,255,.9);border-radius:999px;min-width:34px;height:34px;padding:0 10px;font:inherit;font-size:1rem;color:var(--es-r);cursor:pointer;box-shadow:0 2px 8px -4px rgba(0,0,0,.25)}
 .es-rd-h .es-fav{position:static;flex:none;width:auto}.es-rd-h small{color:var(--es-m)}
-.es-rd-i{border-radius:24px;aspect-ratio:16/10;display:grid;place-items:center;overflow:hidden}.es-rd-i img{width:100%;height:100%;object-fit:cover}
+.es-rd-i{border-radius:24px;aspect-ratio:16/10;display:grid;place-items:center;overflow:hidden;position:relative}.es-rd-i img{width:100%;height:100%;object-fit:cover}
 .es-por b{min-width:120px}
 .es-sh .mp-rec{background:#FFFFFF}
 /* profil */
@@ -1278,6 +1278,119 @@ font[style]{background:none!important;box-shadow:none!important}
     'Curry de pois chiches au lait de coco, riz':['din',[18,78,18,13,9,500],{vg:1,vn:1,gf:1}],
     'Crevettes sautées, légumes et riz':['din',[32,55,14,4,6,600],{gf:1}]
   };
+  /* 36 recettes supplémentaires pour l'espace abonné */
+  const REMO={};
+  RECETTES["Pancakes protéinés à la banane"]={k:440,t:15,i:[[1, "", "banane mûre"], [2, "", "œufs"], [40, "g", "flocons d'avoine"], [100, "g", "fromage blanc 0 %"], [0, "", "cannelle"]],s:["Écrasez la banane, ajoutez les œufs, l'avoine mixée et le fromage blanc.", "Faites cuire de petits pancakes 2 min de chaque côté dans une poêle antiadhésive.", "Saupoudrez de cannelle et servez."]};
+  RECETTES["Avocado toast et œuf poché"]={k:330,t:10,i:[[60, "g", "pain complet"], [0.5, "", "avocat"], [1, "", "œuf"], [0, "", "citron, sel, piment d'Espelette"]],s:["Faites griller le pain.", "Écrasez l'avocat avec un trait de citron et étalez-le.", "Pochez l'œuf 3 min dans l'eau frémissante vinaigrée, posez-le sur la tartine."]};
+  RECETTES["Bowl yaourt grec, granola et kiwi"]={k:370,t:3,i:[[200, "g", "yaourt grec 2 %"], [40, "g", "granola peu sucré"], [1, "", "kiwi"]],s:["Versez le yaourt dans un bol.", "Ajoutez le granola et le kiwi en rondelles."]};
+  RECETTES["Overnight oats chocolat-banane"]={k:390,t:5,i:[[50, "g", "flocons d'avoine"], [150, "ml", "lait demi-écrémé"], [10, "g", "cacao non sucré"], [0.5, "", "banane"], [10, "g", "graines de chia"]],s:["Mélangez l'avoine, le lait, le cacao et le chia dans un bocal.", "Laissez une nuit au réfrigérateur.", "Ajoutez la banane en rondelles le matin."]};
+  RECETTES["Omelette de blancs, champignons et feta"]={k:380,t:10,i:[[4, "", "blancs d'œufs"], [1, "", "œuf entier"], [100, "g", "champignons"], [30, "g", "feta"], [40, "g", "pain complet"]],s:["Faites revenir les champignons 4 min.", "Battez les blancs et l'œuf, versez sur les champignons.", "Émiettez la feta, pliez l'omelette et servez avec le pain."]};
+  RECETTES["Chia pudding coco et mangue"]={k:280,t:5,i:[[30, "g", "graines de chia"], [200, "ml", "boisson au lait de coco"], [100, "g", "mangue"], [10, "g", "sirop d'érable"]],s:["Mélangez le chia et la boisson coco, laissez gonfler 2 h ou une nuit.", "Ajoutez la mangue en dés et le sirop d'érable."]};
+  RECETTES["Wrap petit-déjeuner œufs et épinards"]={k:420,t:10,i:[[60, "g", "tortilla de blé"], [2, "", "œufs"], [50, "g", "épinards"], [20, "g", "emmental râpé"]],s:["Faites tomber les épinards 1 min à la poêle.", "Ajoutez les œufs battus et brouillez-les.", "Garnissez la tortilla, ajoutez le fromage et roulez."]};
+  RECETTES["Smoothie bowl fruits rouges protéiné"]={k:330,t:5,i:[[150, "g", "fruits rouges surgelés"], [1, "", "banane"], [30, "g", "protéine whey"], [100, "ml", "lait d'amande"]],s:["Mixez les fruits rouges, la banane, la whey et le lait d'amande.", "Versez dans un bol bien épais, ajoutez quelques fruits frais."]};
+  RECETTES["Tartines ricotta, fraises et miel"]={k:310,t:5,i:[[60, "g", "pain complet"], [60, "g", "ricotta"], [100, "g", "fraises"], [10, "g", "miel"]],s:["Faites griller le pain.", "Étalez la ricotta, ajoutez les fraises en lamelles.", "Terminez avec un filet de miel."]};
+  RECETTES["Buddha bowl saumon, riz et edamame"]={k:560,t:20,i:[[120, "g", "pavé de saumon"], [150, "g", "riz cuit"], [80, "g", "edamame"], [0.5, "", "concombre"], [10, "ml", "sauce soja"]],s:["Faites cuire le saumon 10 min au four à 200 °C.", "Disposez le riz, l'edamame et le concombre en lamelles dans un bol.", "Ajoutez le saumon émietté et la sauce soja."]};
+  RECETTES["Wrap poulet, crudités et houmous"]={k:450,t:10,i:[[60, "g", "tortilla de blé"], [100, "g", "blanc de poulet cuit"], [40, "g", "houmous"], [80, "g", "carotte râpée, salade, tomate"]],s:["Étalez le houmous sur la tortilla.", "Ajoutez le poulet émincé et les crudités.", "Roulez bien serré et coupez en deux."]};
+  RECETTES["Chili sin carne"]={k:500,t:30,i:[[200, "g", "haricots rouges cuits"], [200, "g", "tomates concassées"], [1, "", "poivron"], [50, "g", "maïs"], [120, "g", "riz cuit"], [0, "", "cumin, paprika, oignon"]],s:["Faites revenir l'oignon et le poivron avec les épices.", "Ajoutez les tomates, les haricots et le maïs, laissez mijoter 20 min.", "Servez avec le riz."]};
+  RECETTES["Poke bowl thon et avocat"]={k:480,t:15,i:[[120, "g", "thon frais qualité sushi"], [150, "g", "riz cuit"], [0.5, "", "avocat"], [50, "g", "mangue"], [10, "ml", "sauce soja"]],s:["Coupez le thon en dés et mélangez-le à la sauce soja.", "Disposez le riz, le thon, l'avocat et la mangue dans un bol."]};
+  RECETTES["Salade de lentilles, feta et légumes"]={k:450,t:15,i:[[200, "g", "lentilles cuites"], [40, "g", "feta"], [150, "g", "tomates et concombre"], [10, "g", "huile d'olive"], [0, "", "vinaigre, persil"]],s:["Rincez les lentilles.", "Ajoutez les légumes en dés et la feta émiettée.", "Assaisonnez d'huile, de vinaigre et de persil."]};
+  RECETTES["Pâtes complètes au poulet et pesto"]={k:560,t:20,i:[[180, "g", "pâtes complètes cuites"], [100, "g", "blanc de poulet"], [20, "g", "pesto"], [100, "g", "tomates cerises"]],s:["Faites cuire les pâtes.", "Faites dorer le poulet en morceaux 6 min.", "Mélangez avec le pesto et les tomates cerises coupées."]};
+  RECETTES["Curry de poulet léger, riz basmati"]={k:540,t:25,i:[[130, "g", "blanc de poulet"], [150, "g", "riz basmati cuit"], [80, "ml", "lait de coco léger"], [150, "g", "courgette et poivron"], [0, "", "pâte de curry, oignon"]],s:["Faites revenir l'oignon et la pâte de curry.", "Ajoutez le poulet en dés et les légumes, faites dorer 5 min.", "Versez le lait de coco, laissez mijoter 10 min et servez avec le riz."]};
+  RECETTES["Tacos de bœuf et salsa"]={k:470,t:20,i:[[2, "", "tortillas de maïs"], [120, "g", "bœuf haché 5 %"], [100, "g", "tomate et oignon"], [0.25, "", "avocat"], [0, "", "coriandre, citron vert, cumin"]],s:["Faites cuire le bœuf avec le cumin.", "Préparez une salsa avec la tomate, l'oignon, la coriandre et le citron vert.", "Garnissez les tortillas chaudes avec le bœuf, la salsa et l'avocat."]};
+  RECETTES["Quinoa, tofu grillé et légumes croquants"]={k:470,t:20,i:[[150, "g", "quinoa cuit"], [150, "g", "tofu ferme"], [150, "g", "brocoli, carotte, poivron"], [5, "g", "huile de sésame"], [10, "ml", "tamari"]],s:["Faites griller le tofu en cubes 6 min.", "Faites sauter les légumes 4 min, ils doivent rester croquants.", "Servez sur le quinoa avec le tamari."]};
+  RECETTES["Soupe miso, tofu et légumes"]={k:260,t:15,i:[[20, "g", "pâte miso"], [100, "g", "tofu soyeux"], [100, "g", "champignons, chou, oignon nouveau"], [30, "g", "nouilles de riz"]],s:["Faites chauffer 400 ml d'eau avec les légumes 5 min.", "Ajoutez les nouilles et le tofu en dés, 3 min.", "Hors du feu, délayez la pâte miso."]};
+  RECETTES["Poulet rôti aux herbes et légumes"]={k:520,t:40,i:[[150, "g", "cuisse de poulet sans peau"], [200, "g", "pommes de terre"], [200, "g", "carottes et courgettes"], [10, "g", "huile d'olive"], [0, "", "thym, romarin, ail"]],s:["Coupez les légumes, mélangez avec l'huile et les herbes.", "Ajoutez le poulet et enfournez 35 min à 200 °C.", "Servez bien doré."]};
+  RECETTES["Omelette aux légumes et salade"]={k:360,t:15,i:[[3, "", "œufs"], [150, "g", "poivron, courgette, oignon"], [20, "g", "emmental râpé"], [80, "g", "salade verte"]],s:["Faites revenir les légumes 5 min.", "Versez les œufs battus, ajoutez le fromage et laissez prendre.", "Servez avec la salade."]};
+  RECETTES["Truite, brocoli et boulgour"]={k:430,t:20,i:[[140, "g", "pavé de truite"], [150, "g", "boulgour cuit"], [150, "g", "brocoli"], [0, "", "citron, aneth"]],s:["Faites cuire la truite 10 min au four avec citron et aneth.", "Faites cuire le brocoli 6 min à la vapeur.", "Servez avec le boulgour."]};
+  RECETTES["Ratatouille et œufs pochés"]={k:400,t:35,i:[[300, "g", "ratatouille maison"], [2, "", "œufs"], [40, "g", "pain complet"]],s:["Faites mijoter aubergine, courgette, poivron et tomate 25 min.", "Creusez deux puits, cassez-y les œufs, couvrez 5 min.", "Servez avec le pain."]};
+  RECETTES["Chili con carne léger"]={k:560,t:35,i:[[120, "g", "bœuf haché 5 %"], [150, "g", "haricots rouges cuits"], [200, "g", "tomates concassées"], [100, "g", "riz cuit"], [0, "", "oignon, cumin, piment"]],s:["Faites dorer le bœuf avec l'oignon et les épices.", "Ajoutez les tomates et les haricots, laissez mijoter 20 min.", "Servez avec le riz."]};
+  RECETTES["Courgettes farcies à la dinde"]={k:420,t:40,i:[[2, "", "courgettes"], [130, "g", "dinde hachée"], [100, "g", "tomates concassées"], [20, "g", "parmesan"], [80, "g", "riz cuit"]],s:["Coupez les courgettes en deux et videz-les.", "Faites revenir la dinde avec la chair des courgettes et la tomate.", "Garnissez, ajoutez le parmesan et enfournez 25 min à 190 °C. Servez avec le riz."]};
+  RECETTES["Pizza maison pâte complète et légumes"]={k:520,t:30,i:[[100, "g", "pâte à pizza complète"], [60, "g", "sauce tomate"], [60, "g", "mozzarella allégée"], [100, "g", "poivron, champignons, oignon"]],s:["Étalez la pâte, ajoutez la sauce tomate.", "Garnissez de légumes et de mozzarella.", "Enfournez 12 à 15 min à 230 °C."]};
+  RECETTES["Velouté de potiron et pois chiches grillés"]={k:340,t:30,i:[[300, "g", "potiron"], [100, "g", "pois chiches cuits"], [50, "ml", "lait de coco"], [0, "", "oignon, paprika, sel"]],s:["Faites cuire le potiron et l'oignon 20 min dans de l'eau, mixez avec le lait de coco.", "Faites griller les pois chiches au paprika 10 min à la poêle.", "Servez le velouté parsemé de pois chiches."]};
+  RECETTES["Fromage blanc, noix et cannelle"]={k:230,t:2,i:[[200, "g", "fromage blanc 0 %"], [20, "g", "noix"], [0, "", "cannelle"]],s:["Versez le fromage blanc, ajoutez les noix concassées et la cannelle."]};
+  RECETTES["Banane et beurre de cacahuète"]={k:225,t:2,i:[[1, "", "banane"], [20, "g", "beurre de cacahuète"]],s:["Coupez la banane en rondelles et tartinez-les de beurre de cacahuète."]};
+  RECETTES["Edamame au sel"]={k:180,t:6,i:[[150, "g", "edamame surgelés"], [0, "", "fleur de sel"]],s:["Faites cuire les edamame 5 min dans l'eau bouillante.", "Égouttez et parsemez de fleur de sel."]};
+  RECETTES["Galettes de riz, thon et concombre"]={k:240,t:5,i:[[3, "", "galettes de riz"], [80, "g", "thon au naturel"], [0.25, "", "concombre"], [0, "", "citron, poivre"]],s:["Émiettez le thon avec un peu de citron.", "Garnissez les galettes de thon et de concombre en rondelles."]};
+  RECETTES["Energy balls dattes et cacao"]={k:210,t:10,i:[[40, "g", "dattes dénoyautées"], [15, "g", "amandes"], [5, "g", "cacao non sucré"]],s:["Mixez les dattes, les amandes et le cacao.", "Formez 4 petites boules, gardez-les au frais."]};
+  RECETTES["Skyr et compote sans sucre ajouté"]={k:150,t:2,i:[[150, "g", "skyr"], [100, "g", "compote sans sucre ajouté"]],s:["Versez le skyr et la compote dans un bol, mélangez ou superposez."]};
+  RECETTES["Smoothie vert épinards, pomme, gingembre"]={k:160,t:5,i:[[1, "", "pomme"], [50, "g", "épinards"], [0.5, "", "banane"], [5, "g", "gingembre frais"], [200, "ml", "eau froide"]],s:["Mixez tous les ingrédients 1 min.", "Buvez bien frais."]};
+  RECETTES["Mozzarella, tomates cerises et basilic"]={k:180,t:3,i:[[80, "g", "mozzarella allégée"], [150, "g", "tomates cerises"], [0, "", "basilic, poivre"]],s:["Coupez la mozzarella et les tomates.", "Ajoutez le basilic et un tour de poivre."]};
+  RECETTES["Pomme au four, cannelle et amandes"]={k:150,t:25,i:[[1, "", "pomme"], [10, "g", "amandes effilées"], [5, "g", "miel"], [0, "", "cannelle"]],s:["Évidez la pomme, saupoudrez de cannelle.", "Enfournez 20 min à 180 °C.", "Ajoutez les amandes et le miel."]};
+  RINFO["Pancakes protéinés à la banane"]=["pdj",[26, 58, 12, 6, 19, 300],{"vg": 1}];
+  RINFO["Avocado toast et œuf poché"]=["pdj",[15, 30, 17, 9, 3, 420],{"vg": 1}];
+  RINFO["Bowl yaourt grec, granola et kiwi"]=["pdj",[25, 45, 10, 5, 22, 90],{"vg": 1}];
+  RINFO["Overnight oats chocolat-banane"]=["pdj",[15, 58, 10, 11, 17, 80],{"vg": 1}];
+  RINFO["Omelette de blancs, champignons et feta"]=["pdj",[36, 20, 15, 4, 3, 900],{"vg": 1}];
+  RINFO["Chia pudding coco et mangue"]=["pdj",[6, 30, 14, 12, 20, 40],{"vg": 1, "vn": 1, "gf": 1}];
+  RINFO["Wrap petit-déjeuner œufs et épinards"]=["pdj",[26, 33, 20, 3, 3, 750],{"vg": 1}];
+  RINFO["Smoothie bowl fruits rouges protéiné"]=["pdj",[28, 45, 5, 7, 30, 110],{"vg": 1, "gf": 1}];
+  RINFO["Tartines ricotta, fraises et miel"]=["pdj",[14, 44, 9, 6, 18, 380],{"vg": 1}];
+  RINFO["Buddha bowl saumon, riz et edamame"]=["dej",[38, 52, 20, 6, 4, 750],{}];
+  RINFO["Wrap poulet, crudités et houmous"]=["dej",[37, 40, 14, 6, 4, 850],{}];
+  RINFO["Chili sin carne"]=["dej",[20, 92, 4, 20, 10, 400],{"vg": 1, "vn": 1, "gf": 1}];
+  RINFO["Poke bowl thon et avocat"]=["dej",[36, 55, 12, 6, 9, 700],{}];
+  RINFO["Salade de lentilles, feta et légumes"]=["dej",[24, 45, 18, 17, 6, 500],{"vg": 1, "gf": 1}];
+  RINFO["Pâtes complètes au poulet et pesto"]=["dej",[42, 58, 17, 7, 4, 350],{}];
+  RINFO["Curry de poulet léger, riz basmati"]=["dej",[42, 55, 14, 4, 6, 450],{"gf": 1}];
+  RINFO["Tacos de bœuf et salsa"]=["dej",[33, 34, 21, 6, 4, 500],{"gf": 1}];
+  RINFO["Quinoa, tofu grillé et légumes croquants"]=["dej",[28, 40, 21, 7, 5, 300],{"vg": 1, "vn": 1, "gf": 1}];
+  RINFO["Soupe miso, tofu et légumes"]=["din",[18, 20, 11, 4, 5, 1100],{"vg": 1, "vn": 1}];
+  RINFO["Poulet rôti aux herbes et légumes"]=["din",[42, 45, 16, 7, 7, 250],{"gf": 1}];
+  RINFO["Omelette aux légumes et salade"]=["din",[25, 10, 24, 3, 5, 450],{"vg": 1, "gf": 1}];
+  RINFO["Truite, brocoli et boulgour"]=["din",[36, 35, 14, 8, 3, 150],{}];
+  RINFO["Ratatouille et œufs pochés"]=["din",[20, 35, 19, 9, 12, 500],{"vg": 1}];
+  RINFO["Chili con carne léger"]=["din",[42, 62, 13, 14, 8, 600],{"gf": 1}];
+  RINFO["Courgettes farcies à la dinde"]=["din",[40, 30, 15, 4, 7, 450],{"gf": 1}];
+  RINFO["Pizza maison pâte complète et légumes"]=["din",[26, 62, 17, 7, 7, 850],{"vg": 1}];
+  RINFO["Velouté de potiron et pois chiches grillés"]=["din",[12, 45, 12, 12, 10, 500],{"vg": 1, "vn": 1, "gf": 1}];
+  RINFO["Fromage blanc, noix et cannelle"]=["col",[18, 10, 13, 1, 8, 85],{"vg": 1, "gf": 1}];
+  RINFO["Banane et beurre de cacahuète"]=["col",[6, 30, 10, 4, 15, 90],{"vg": 1, "vn": 1, "gf": 1}];
+  RINFO["Edamame au sel"]=["col",[16, 13, 8, 8, 3, 350],{"vg": 1, "vn": 1, "gf": 1}];
+  RINFO["Galettes de riz, thon et concombre"]=["col",[23, 29, 2, 2, 1, 300],{"gf": 1}];
+  RINFO["Energy balls dattes et cacao"]=["col",[5, 26, 9, 4, 20, 5],{"vg": 1, "vn": 1, "gf": 1}];
+  RINFO["Skyr et compote sans sucre ajouté"]=["col",[16, 18, 0, 1, 16, 60],{"vg": 1, "gf": 1}];
+  RINFO["Smoothie vert épinards, pomme, gingembre"]=["col",[3, 34, 2, 6, 22, 40],{"vg": 1, "vn": 1, "gf": 1}];
+  RINFO["Mozzarella, tomates cerises et basilic"]=["col",[15, 7, 10, 2, 5, 330],{"vg": 1, "gf": 1}];
+  RINFO["Pomme au four, cannelle et amandes"]=["col",[2, 26, 5, 5, 20, 2],{"vg": 1, "gf": 1}];
+  REMO["Pancakes protéinés à la banane"]="🥞";
+  REMO["Avocado toast et œuf poché"]="🥑";
+  REMO["Bowl yaourt grec, granola et kiwi"]="🥣";
+  REMO["Overnight oats chocolat-banane"]="🍫";
+  REMO["Omelette de blancs, champignons et feta"]="🍳";
+  REMO["Chia pudding coco et mangue"]="🥭";
+  REMO["Wrap petit-déjeuner œufs et épinards"]="🌯";
+  REMO["Smoothie bowl fruits rouges protéiné"]="🍓";
+  REMO["Tartines ricotta, fraises et miel"]="🍞";
+  REMO["Buddha bowl saumon, riz et edamame"]="🍣";
+  REMO["Wrap poulet, crudités et houmous"]="🌯";
+  REMO["Chili sin carne"]="🌶️";
+  REMO["Poke bowl thon et avocat"]="🐟";
+  REMO["Salade de lentilles, feta et légumes"]="🥗";
+  REMO["Pâtes complètes au poulet et pesto"]="🍝";
+  REMO["Curry de poulet léger, riz basmati"]="🍛";
+  REMO["Tacos de bœuf et salsa"]="🌮";
+  REMO["Quinoa, tofu grillé et légumes croquants"]="🥢";
+  REMO["Soupe miso, tofu et légumes"]="🍜";
+  REMO["Poulet rôti aux herbes et légumes"]="🍗";
+  REMO["Omelette aux légumes et salade"]="🍳";
+  REMO["Truite, brocoli et boulgour"]="🐟";
+  REMO["Ratatouille et œufs pochés"]="🍅";
+  REMO["Chili con carne léger"]="🫘";
+  REMO["Courgettes farcies à la dinde"]="🥒";
+  REMO["Pizza maison pâte complète et légumes"]="🍕";
+  REMO["Velouté de potiron et pois chiches grillés"]="🎃";
+  REMO["Fromage blanc, noix et cannelle"]="🥛";
+  REMO["Banane et beurre de cacahuète"]="🍌";
+  REMO["Edamame au sel"]="🫛";
+  REMO["Galettes de riz, thon et concombre"]="🍘";
+  REMO["Energy balls dattes et cacao"]="🍫";
+  REMO["Skyr et compote sans sucre ajouté"]="🍏";
+  REMO["Smoothie vert épinards, pomme, gingembre"]="🥬";
+  REMO["Mozzarella, tomates cerises et basilic"]="🍅";
+  REMO["Pomme au four, cannelle et amandes"]="🍎";
+  /* Photos des recettes (Unsplash, licence libre) */
+  const RIMG={"Omelette 3 œufs, épinards, pain complet": "1533089860892-a7c6f0a88666", "Porridge d'avoine, lait d'amande, fruits rouges": "1494597564530-871f2b93ac55", "Skyr, myrtilles et graines de chia": "1488477181946-6428a0291777", "Œufs brouillés, avocat et saumon fumé": "1541519227354-08fa5d50c44d", "Smoothie banane, lait de coco et graines": "1553530666-ba11a7da3888", "Pancakes protéinés à la banane": "1528207776546-365bb710ee93", "Avocado toast et œuf poché": "1613769049987-b31b641f25b1", "Bowl yaourt grec, granola et kiwi": "1490474418585-ba9bad8fd0ea", "Overnight oats chocolat-banane": "1571748982800-fa51082c2224", "Bowl quinoa, pois chiches et légumes rôtis": "1512621776951-a57141f2eefd", "Salade de bœuf, avocat et noix": "1504674900247-0877df9cc836", "Dahl de lentilles corail, riz basmati": "1585937421612-70a008356fbe", "Salade de thon, œuf, légumes croquants": "1490645935967-10de6ba17061", "Buddha bowl saumon, riz et edamame": "1546069901-ba9599a7e63c", "Poke bowl thon et avocat": "1623428187969-5da2dcea5ebf", "Salade de lentilles, feta et légumes": "1561043433-aaf687c4cf04", "Pâtes complètes au poulet et pesto": "1473093295043-cdd812d0e601", "Curry de poulet léger, riz basmati": "1565557623262-b51c2513a641", "Tacos de bœuf et salsa": "1599974579688-8dbdd335c77f", "Quinoa, tofu grillé et légumes croquants": "1604908176997-125f25cc6f3d", "Cabillaud, quinoa et courgettes": "1539136788836-5699e78bfc75", "Wok de tofu, légumes et nouilles de riz": "1585032226651-759b368d7246", "Dinde, purée de patate douce et salade": "1598515214211-89d3c73ae83b", "Steak, légumes verts et beurre aux herbes": "1615937657715-bc7b4b7962c1", "Curry de pois chiches au lait de coco, riz": "1618449840665-9ed506d73a34", "Crevettes sautées, légumes et riz": "1559847844-5315695dadae", "Soupe miso, tofu et légumes": "1516684732162-798a0062be99", "Poulet rôti aux herbes et légumes": "1598103442097-8b74394b95c6", "Omelette aux légumes et salade": "1510693206972-df098062cb71", "Truite, brocoli et boulgour": "1519708227418-c8fd9a32b7a2", "Pizza maison pâte complète et légumes": "1565299624946-b28f40a0ae38", "Velouté de potiron et pois chiches grillés": "1476718406336-bb5a9690ee2a", "Pomme et amandes": "1568702846914-96b305d2aaeb", "Houmous et bâtonnets de carottes": "1522184216316-3c25379f9760", "Myrtilles et graines de courge": "1502741338009-cac2772e18bc", "Banane et beurre de cacahuète": "1571771894821-ce9b6c11b08e", "Smoothie vert épinards, pomme, gingembre": "1610970881699-44a5587cabec", "Mozzarella, tomates cerises et basilic": "1623855244183-52fd8d3ce2f7"};
+  const rimgU=(id,w)=>'https://images.unsplash.com/photo-'+id+'?auto=format&fit=crop&w='+w+'&h='+Math.round(w*.75)+'&q=70';
   /* ===== Espace abonné : Nutrition, Progrès, Recettes (données enregistrées sur le serveur, par client) ===== */
   const EAPI=URL_+'/functions/v1/espace';
   const api=async(action,extra)=>{const r=await fetch(EAPI,{method:'POST',headers:H,body:JSON.stringify(Object.assign({action,sid},extra||{}))});const d=await r.json().catch(()=>({}));if(!r.ok)throw new Error(d.error||'Connexion impossible');return d};
@@ -1429,7 +1542,7 @@ font[style]{background:none!important;box-shadow:none!important}
           const q=T.querySelector('#esQ'),res=T.querySelector('#esRes');let offT=null;
           const local=v=>{const n=norm(v.trim());const A=ALIMENTS.filter(a=>!n||norm(a[0]).includes(n)).slice(0,n?40:25).map(a=>({n:a[0],e:a[1],per:{k:a[2],p:a[3],c:a[4],l:a[5],fib:a[6],suc:a[7],na:a[8]},por:a[9]}));
             const Rr=Object.keys(RECETTES).filter(r=>n&&norm(r).includes(n)).map(r=>({rec:r}));return Rr.concat(A)};
-          const draw=(list,off)=>{res.innerHTML=list.map((a,i)=>a.rec?`<li><button type="button" data-ri="${esc(a.rec)}"><span class="es-ie">${EMOJI[a.rec]||'🍽️'}</span><span class="es-in"><b>${esc(a.rec)}</b><small>Recette · ${RECETTES[a.rec].k} kcal la portion</small></span><em>›</em></button></li>`:`<li><button type="button" data-ai="${i}"><span class="es-ie">${esc(a.e)}</span><span class="es-in"><b>${esc(a.n)}</b><small>${nf(a.per.k)} kcal · P ${nf(a.per.p,1)} · G ${nf(a.per.c,1)} · L ${nf(a.per.l,1)} pour 100 g${a.marque?' · '+esc(a.marque):''}</small></span><em>›</em></button></li>`).join('')||'<li class="es-mute es-p">Aucun aliment trouvé.</li>';
+          const draw=(list,off)=>{res.innerHTML=list.map((a,i)=>a.rec?`<li><button type="button" data-ri="${esc(a.rec)}"><span class="es-ie">${EMOJI[a.rec]||REMO[a.rec]||'🍽️'}</span><span class="es-in"><b>${esc(a.rec)}</b><small>Recette · ${RECETTES[a.rec].k} kcal la portion</small></span><em>›</em></button></li>`:`<li><button type="button" data-ai="${i}"><span class="es-ie">${esc(a.e)}</span><span class="es-in"><b>${esc(a.n)}</b><small>${nf(a.per.k)} kcal · P ${nf(a.per.p,1)} · G ${nf(a.per.c,1)} · L ${nf(a.per.l,1)} pour 100 g${a.marque?' · '+esc(a.marque):''}</small></span><em>›</em></button></li>`).join('')||'<li class="es-mute es-p">Aucun aliment trouvé.</li>';
             res.querySelectorAll('[data-ai]').forEach(b=>b.onclick=()=>quantite(meal,list[+b.dataset.ai]));res.querySelectorAll('[data-ri]').forEach(b=>b.onclick=()=>recDetail(b.dataset.ri,meal))};
           let cur=local('');draw(cur);
           q.oninput=()=>{cur=local(q.value);draw(cur);clearTimeout(offT);const v=q.value.trim();T.querySelector('#esOff').textContent='';
@@ -1440,7 +1553,7 @@ font[style]{background:none!important;box-shadow:none!important}
           setTimeout(()=>q.focus(),300)}
         else if(k==='p'){T.innerHTML=`<p class="es-p">Prenez votre assiette en photo : l'IA reconnaît les aliments et estime calories et macros.</p><label class="mp-photo"><input type="file" accept="image/*" capture="environment" id="esPh" hidden>📸 Prendre ou choisir une photo</label><div id="esPhR"></div>`;
           T.querySelector('#esPh').onchange=e=>{const f=e.target.files&&e.target.files[0];if(f)analyse(f,meal,T.querySelector('#esPhR'));e.target.value=''}}
-        else{const fav=E.favoris.filter(r=>RECETTES[r]);T.innerHTML=fav.length?`<ul class="es-res">${fav.map(r=>`<li><button type="button" data-ri="${esc(r)}"><span class="es-ie">${EMOJI[r]||'🍽️'}</span><span class="es-in"><b>${esc(r)}</b><small>${RECETTES[r].k} kcal la portion</small></span><em>›</em></button></li>`).join('')}</ul>`:'<p class="es-mute es-p">Aucune recette en favori. Touchez ♡ sur une recette pour la retrouver ici.</p>';
+        else{const fav=E.favoris.filter(r=>RECETTES[r]);T.innerHTML=fav.length?`<ul class="es-res">${fav.map(r=>`<li><button type="button" data-ri="${esc(r)}"><span class="es-ie">${EMOJI[r]||REMO[r]||'🍽️'}</span><span class="es-in"><b>${esc(r)}</b><small>${RECETTES[r].k} kcal la portion</small></span><em>›</em></button></li>`).join('')}</ul>`:'<p class="es-mute es-p">Aucune recette en favori. Touchez ♡ sur une recette pour la retrouver ici.</p>';
           T.querySelectorAll('[data-ri]').forEach(b=>b.onclick=()=>recDetail(b.dataset.ri,meal))}};
       tabs.forEach(t=>t.onclick=()=>show(t.dataset.tab));show('s')})}
   async function analyse(file,meal,out){out.innerHTML='<div class="mp-wait"><span class="mp-spin"></span>Analyse de votre repas…</div>';
@@ -1612,9 +1725,9 @@ font[style]{background:none!important;box-shadow:none!important}
 
   /* ================= RECETTES ================= */
   const FILTRES=[['tout','Toutes'],['fav','♥ Favoris'],['pdj','Petit-déjeuner'],['dej','Déjeuner'],['din','Dîner'],['col','Collation'],['hp','Riche en protéines'],['lc','Faible en calories'],['vg','Végétarien'],['vn','Vegan'],['gf','Sans gluten']];
-  function recList(){return Object.keys(RECETTES).map(n=>{const r=RECETTES[n],inf=RINFO[n]||['dej',[0,0,0,0,0,0],{}];return {n,k:r.k,t:r.t,cat:inf[0],m:inf[1],tags:inf[2],img:inf[3]||null,e:EMOJI[n]||'🍽️'}})}
+  function recList(){return Object.keys(RECETTES).map(n=>{const r=RECETTES[n],inf=RINFO[n]||['dej',[0,0,0,0,0,0],{}];return {n,k:r.k,t:r.t,cat:inf[0],m:inf[1],tags:inf[2],img:inf[3]||null,ph:RIMG[n]||null,e:EMOJI[n]||REMO[n]||'🍽️'}})}
   const recOk=(r,f)=>f==='tout'||(f==='fav'?E.favoris.includes(r.n):['pdj','dej','din','col'].includes(f)?r.cat===f:f==='hp'?r.m[0]*4/r.k>=.25:f==='lc'?r.k<=400:!!r.tags[f]);
-  const recImg=(r,big)=>r.img?`<img src="${r.img}" alt="" loading="lazy">`:`<span class="es-remo${big?' big':''}">${r.e}</span>`;
+  const recImg=(r,big)=>{const src=r.ph?rimgU(r.ph,big?900:480):r.img;return `<span class="es-remo${big?' big':''}">${r.e}</span>${src?`<img src="${src}" alt="${esc(r.n)}" loading="lazy" onerror="this.remove()">`:''}`};
   function pageRec(){const f=E.filtre,list=recList().filter(r=>recOk(r,f));
     $('esPg').innerHTML=`<header class="es-hd"><div><h1>Recettes</h1><small>Adaptées à votre objectif de ${nf(goals().kcal)} kcal</small></div></header>
       <div class="es-chips es-fil" role="tablist">${FILTRES.map(x=>`<button type="button" data-f="${x[0]}" aria-pressed="${x[0]===f}">${x[1]}</button>`).join('')}</div>
