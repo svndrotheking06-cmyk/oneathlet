@@ -1166,10 +1166,10 @@ font[style]{background:none!important;box-shadow:none!important}
       return `<h2>Votre profil est <em>prêt</em>.</h2><p>Voici ce que nous avons retenu.</p><div class="qz-sum"><span>${A.sex==='H'?'👨 Homme':'👩 Femme'}</span><span>🎂 ${A.age} ans</span>${A.taille?`<span>📏 ${A.taille} cm</span>`:''}${A.poids?`<span>⚖️ ${String(A.poids).replace('.',',')} kg</span>`:''}${A.cible?`<span>🎯 Objectif ${String(A.cible).replace('.',',')} kg</span>`:''}<span>📅 ${A.rythme.toFixed(1).replace('.',',')} kg / semaine</span><span>🗓️ Premier point à ${A.suivi} jours</span>${A.burn?`<span>🔥 Calories brûlées ${A.burn==='oui'?'ajoutées':'non ajoutées'} à l'objectif</span>`:''}${A.sante.length?`<span>⚕️ ${SANTE.filter(o=>A.sante.includes(o[0])).map(o=>o[2]).join(', ')}</span>`:''}${A.pas?`<span>👟 ${A.pas.toLocaleString('fr-FR')} pas / jour</span>`:''}<span>🍽️ ${A.meals===6?'6 repas et +':A.meals+' repas'} / jour</span>${(()=>{const ac=ACTIV.find(x=>x[0]===A.activite);return ac?`<span>${ac[1]} ${esc(ac[2])}</span>`:''})()}${(()=>{const mr=MARCHE.find(x=>x[0]===A.marche);return mr?`<span>🚶 ${esc(mr[2])} de marche</span>`:''})()}${(()=>{const rg=REGIME.find(x=>x[0]===A.regime);return rg?`<span>${rg[1]} ${esc(rg[2])}</span>`:''})()}${A.intol.length?`<span>🚫 Sans ${INTOL.filter(o=>A.intol.includes(o[0])).map(o=>o[2].toLowerCase()).join(', ')}</span>`:(A.regime?'<span>🍽️ Mange de tout</span>':'')}<span>${g[1]} ${esc(g[2])}</span>${ds.map(d=>`<span>${d[1]} ${esc(d[2])}</span>`).join('')}</div><button type="button" class="qz-next" data-done>Terminer</button>`},
     ()=>`<div class="qz-tour" id="qzTour">
         <div class="qz-slides" id="qzSlides">
-          <figure class="qz-sl"><div class="qz-ph"><img src="${U('photo-1467003909585-2f8a72700288')}" alt="Dîner : saumon, quinoa et légumes" onerror="this.onerror=null;this.src='assiette.jpg'">
+          <figure class="qz-sl"><div class="qz-ph"><img src="diner.jpg" alt="Dîner : saumon, quinoa et salade" onerror="this.onerror=null;this.src='assiette.jpg'">
             <div class="qz-macro"><small>Votre dîner</small><b>520 kcal</b><div><span><i style="background:#F5B83D"></i>Glucides 40 g</span><span><i style="background:#D93B4B"></i>Protéines 42 g</span><span><i style="background:#7B61FF"></i>Lipides 20 g</span></div></div></div>
             <figcaption>Un vrai aperçu de ce qu'il y a <em>dans votre assiette</em>.</figcaption></figure>
-          <figure class="qz-sl"><div class="qz-ph"><img src="${U('photo-1488477181946-6428a0291777')}" alt="Collation : yaourt et fruits rouges" onerror="this.onerror=null;this.src='assiette.jpg'">
+          <figure class="qz-sl"><div class="qz-ph"><img src="collation.jpg" alt="Collation : salade de tomates cerises et feta" onerror="this.onerror=null;this.src='assiette.jpg'">
             <div class="qz-vf" aria-hidden="true"><i></i><i></i><i></i><i></i><b></b></div><span class="qz-cam">📸 Collation · analyse…</span><span class="qz-shut" aria-hidden="true"></span></div>
             <figcaption>Prenez simplement une photo de votre repas, <em>presque comme par magie</em>.</figcaption></figure>
           <figure class="qz-sl"><div class="qz-ph qz-prog"><small>Vos progrès en photo</small>
@@ -1541,6 +1541,12 @@ document.querySelector('.phones').addEventListener('click',e=>e.currentTarget.cl
   const d=document.createElement('div');d.id='google_translate_element';d.hidden=true;document.body.appendChild(d);
   window.googleTranslateElementInit=function(){try{new google.translate.TranslateElement({pageLanguage:'fr',autoDisplay:false},'google_translate_element')}catch(e){}};
   const sc=document.createElement('script');sc.src='https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';sc.async=true;document.head.appendChild(sc);
+  /* Le quiz et « Mon plan » sont créés après le chargement : on relance la traduction à chaque changement d'écran */
+  let tmr=null,calm=0;
+  const again=()=>{const sel=document.querySelector('.goog-te-combo');if(!sel){tmr=setTimeout(again,500);return}calm=Date.now()+300;sel.value=LANG;sel.dispatchEvent(new Event('change'))};
+  const mo=new MutationObserver(ms=>{if(Date.now()<calm)return;if(!ms.some(x=>[...x.addedNodes].some(n=>n.nodeType===1&&n.tagName!=='FONT')))return;clearTimeout(tmr);tmr=setTimeout(again,250)});
+  ['qz','mp'].forEach(id=>{const el=document.getElementById(id);if(el)mo.observe(el,{childList:true,subtree:true})});
+  ['qz','mp'].forEach(id=>{const el=document.getElementById(id);if(el)new MutationObserver(()=>{if(!el.hidden){clearTimeout(tmr);tmr=setTimeout(again,250)}}).observe(el,{attributes:true,attributeFilter:['hidden']})});
 })();
 </script>
 
