@@ -557,6 +557,15 @@ h1 em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--cor
 .qz-tl li:last-child .qz-tl-d{background:#22A06B;box-shadow:0 0 0 6px #E3F4EC}
 .qz-tl-q li:last-child .qz-tl-d{background:linear-gradient(135deg,var(--orange),var(--coral));box-shadow:0 0 0 6px #FFE4EC}
 .qz-tl-q .qz-tl-d::after{content:"";width:14px;height:14px;border-radius:50%;background:#FFFFFF}
+.qz-tl-plain::before{left:9px!important;top:12px!important;bottom:30px!important;border-left:2px dashed #F2B8B3!important}
+.qz-tl-plain li{gap:16px;padding-bottom:22px}
+.qz-tl-plain .qz-tl-d,.qz-tl-plain li:last-child .qz-tl-d{width:12px;height:12px;margin:6px 4px 0;background:var(--btn1);box-shadow:none}
+.qz-tl-plain .qz-tl-d::after{display:none}
+.qz-tl-plain div{background:none!important;border:0!important;border-radius:0!important;padding:0!important;box-shadow:none!important;gap:4px}
+.tlq-r{margin:0;display:flex;flex-wrap:wrap;justify-content:flex-start;align-items:baseline;gap:0 4px}
+.qz-tl-plain .tlq-r small{color:#111111;font-weight:700;font-size:.9rem}
+.qz-tl-plain .tlq-r b{font:inherit;font-weight:700;font-size:.9rem;color:#111111;white-space:nowrap}.qz-tl-plain .tlq-r b::before{content:"· ";font-weight:700}
+.qz-tl-plain div>span{color:#111111!important;font-weight:500;font-size:.88rem;line-height:1.4}
 .qz-tl div{display:grid;gap:3px;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:12px 14px;flex:1}
 .qz-tl small{color:var(--coral);font-weight:800;font-size:.76rem}
 .qz-tl b{font-family:var(--display);font-size:1.1rem}
@@ -1174,7 +1183,7 @@ font[style]{background:none!important;box-shadow:none!important}
     ()=>`<h2>Quel âge avez-vous&nbsp;?</h2><div class="qz-age"><b id="qzAgeV">${A.age}</b><small>ans</small><input class="qz-range" id="qzAge" type="range" min="16" max="80" value="${A.age}" aria-label="Âge"><div class="qz-scale"><span>16</span><span>80</span></div></div><button type="button" class="qz-next" data-next>Continuer</button>`,
     ()=>`<h2 class="qz-intro">Quel est votre objectif&nbsp;?</h2><p class="qz-hint">Aidez-nous à comprendre votre motivation</p><div class="qz-nobox">${opts('goal',GOALS)}</div>`,
     ()=>proj()+`<button type="button" class="qz-next" data-next>Continuer</button>`,
-    ()=>`<h2>Avez-vous déjà essayé de <em>changer votre corps</em>&nbsp;?</h2>${opts('tried',TRIED)}`,
+    ()=>`<h2 class="qz-intro">${({perte:'Avez-vous déjà essayé de <em>perdre du poids</em>&nbsp;?',sante:'Avez-vous déjà essayé d\'<em>améliorer vos habitudes alimentaires</em>&nbsp;?',energie:'Avez-vous déjà essayé de <em>changer votre alimentation</em> pour <em>avoir plus d\'énergie</em>&nbsp;?'})[A.goal]||'Avez-vous déjà essayé de <em>changer votre corps</em>&nbsp;?'}</h2>${opts('tried',TRIED)}`,
     ()=>`<h2 class="qz-intro">${past()?"Quel a été votre <em>plus grand défi</em> jusqu'ici&nbsp;?":"Quel est votre <em>plus grand défi</em>&nbsp;?"}</h2>
       <div class="qz-opts qz-multi qz-round">${(past()?DEFI2:DEFI).map(o=>`<button type="button" data-mk="defi" data-m="${o[0]}" aria-pressed="${A.defi.includes(o[0])}"><span class="e" aria-hidden="true">${o[1]}</span><span><b>${esc(o[2])}</b><small>${esc(o[3])}</small></span><i class="qz-ck" aria-hidden="true"></i></button>`).join('')}</div>
       <button type="button" class="qz-next" data-next ${A.defi.length?'':'disabled'}>Continuer</button>`,
@@ -1305,12 +1314,12 @@ font[style]{background:none!important;box-shadow:none!important}
       <button type="button" class="qz-next" data-next>Continuer</button>`},
     ()=>{const P=planOf(),d1=new Date();d1.setDate(d1.getDate()+A.suivi);const d2=new Date();d2.setDate(d2.getDate()+60);
       const f=d=>d.toLocaleDateString('fr-FR',{day:'numeric',month:'long'}),dir=P.diff<0?'−':'+',kg=n=>fr(Math.abs(P.at(n)-P.w));
-      const st=Math.abs(P.diff)<0.5;
+      const st=Math.abs(P.diff)<0.5,kgs=v=>fr(v).replace(/,0$/,'')+' kg';
       return `<h2 class="qz-intro">Voici ce qui vous attend</h2>
-      <ol class="qz-tl qz-tl-q">
-        <li><span class="qz-tl-d"></span><div><small>Aujourd'hui</small><b>Le départ : ${fr(P.w)} kg</b><span>Votre plan démarre : premiers repas photographiés, objectif de ${P.kcal.toLocaleString('fr-FR')} kcal par jour.</span></div></li>
-        <li><span class="qz-tl-d"></span><div><small>Dans ${A.suivi} jours · ${f(d1)}</small><b>${st?'Habitudes installées':'≈ '+fr(P.at(A.suivi))+' kg ('+dir+kg(A.suivi)+' kg)'}</b><span>Votre premier point de suivi : on regarde vos progrès et on ajuste si besoin.</span></div></li>
-        <li><span class="qz-tl-d"></span><div><small>Dans 2 mois · ${f(d2)}</small><b>${st?'Énergie et équilibre':'≈ '+fr(P.at(60))+' kg ('+dir+kg(60)+' kg)'}</b><span>De nouvelles habitudes bien ancrées et des résultats visibles.</span></div></li>
+      <ol class="qz-tl qz-tl-q qz-tl-plain">
+        <li><span class="qz-tl-d"></span><div><p class="tlq-r"><small>Aujourd'hui · ${f(new Date())}</small><b>${kgs(P.w)}</b></p><span>Votre plan démarre : premiers repas photographiés, objectif de ${P.kcal.toLocaleString('fr-FR')} kcal par jour.</span></div></li>
+        <li><span class="qz-tl-d"></span><div><p class="tlq-r"><small>Dans ${A.suivi} jours · ${f(d1)}</small><b>${st?kgs(P.w):kgs(P.at(A.suivi))}</b></p><span>Votre premier point de suivi : on regarde vos progrès et on ajuste si besoin.</span></div></li>
+        <li><span class="qz-tl-d"></span><div><p class="tlq-r"><small>Dans 2 mois · ${f(d2)}</small><b>${st?kgs(P.w):kgs(P.at(60))}</b></p><span>De nouvelles habitudes bien ancrées et des résultats visibles.</span></div></li>
       </ol>
       <button type="button" class="qz-next" data-next>Continuer</button>`},
     ()=>{const P=planOf(),st=Math.abs(P.diff)<0.5,goalTxt=st?'garder mon poids':'atteindre '+fr(P.c)+' kg';
