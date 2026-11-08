@@ -518,6 +518,12 @@ h1 em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--cor
 .qz-mail .qz-next{width:100%}
 .qz-res{display:grid;gap:10px;width:100%}
 .qz-sum2{width:100%;display:grid;gap:12px;text-align:left}
+.qz-step:has(.qz-sum2){gap:12px}
+#qz .qz-step h2.qz-sum2-t{font-size:1.6rem;margin-top:0}
+.qz-sum2{gap:8px}.qz-sum2 .qz-bmi2{padding:11px 14px;gap:6px;border-radius:14px}.qz-sum2 .qz-bmi2-h b{font-size:1.4rem}.qz-sum2 .qz-bmi2-h span{font-size:.85rem}
+.qz-sum2 .qz-bmi2 small{font-size:.8rem}.qz-sum2 .qz-bmi2-l{font-size:.68rem}
+.qz-sum2 .qz-rows{border-radius:14px}.qz-sum2 .qz-rows div{padding:8px 14px;align-items:center}.qz-sum2 .qz-rows dt{font-size:.84rem}.qz-sum2 .qz-rows dd{font-size:.86rem}.qz-sum2 .qz-rows dd small{font-size:.72rem}
+.qz-sum2-n{font-size:.72rem!important;margin:-4px 0 0}
 .qz-bmi2{border:1px solid #E6E6EA;border-radius:16px;padding:16px;display:grid;gap:10px}
 .qz-bmi2-h{display:flex;justify-content:space-between;align-items:baseline;gap:10px}.qz-bmi2-h span{font-weight:600;color:#111111;font-size:.95rem}
 .qz-bmi2-h b{font-family:"Inter Tight",system-ui,sans-serif;font-weight:600;font-size:1.8rem;color:#111111}
@@ -608,6 +614,19 @@ h1 em{font-style:normal;background:linear-gradient(90deg,var(--orange),var(--cor
 .mp{position:fixed;inset:0;z-index:65;background:var(--page);overflow-y:auto}
 .mp[hidden]{display:none}
 .mp-in{max-width:620px;margin:0 auto;padding:max(14px,env(safe-area-inset-top)) 16px 40px;display:grid;gap:16px}
+.ft{border-top:1px solid #EFEFF2;margin-top:40px;padding:34px 16px max(34px,env(safe-area-inset-bottom));background:#FAFAFB}
+.ft-in{max-width:1080px;margin:0 auto;display:grid;gap:14px;justify-items:center;text-align:center}
+.ft-b{font-family:"Inter Tight",system-ui,sans-serif;font-weight:600;font-size:1.2rem}.ft-b b{color:var(--btn1,#EB5149);font-weight:600}
+.ft-l{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 20px}.ft-l a{color:#6E7179;text-decoration:none;font-size:.9rem;font-weight:500}.ft-l a:hover{color:#111}
+.ft small{color:#8A8A8F;font-size:.8rem}
+.lg{position:fixed;inset:0;z-index:90;background:#FFFFFF;overflow-y:auto}
+.lg-in{max-width:720px;margin:0 auto;padding:max(14px,env(safe-area-inset-top)) 20px 60px}
+.lg-hd{position:sticky;top:0;background:#FFFFFF;display:flex;justify-content:space-between;align-items:center;padding:10px 0;z-index:2}
+.lg-hd b{font-size:1.05rem}.lg-x{width:40px;height:40px;border-radius:50%;border:0;background:#F2F2F6;font-size:1.5rem;cursor:pointer}
+.lg-tabs{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:4px 0 10px}.lg-tabs button{flex:none;border:0;background:#F2F2F6;border-radius:999px;padding:9px 14px;font:inherit;font-weight:600;font-size:.85rem;cursor:pointer;color:#111}.lg-tabs button[aria-pressed="true"]{background:#111;color:#fff}
+.lg-a{display:none;color:#2A2A2E;line-height:1.6;font-size:.95rem}.lg-a.on{display:block}
+.lg-a h1{font-family:"Inter Tight",system-ui,sans-serif;font-weight:700;font-size:1.8rem;letter-spacing:-.02em;margin:10px 0 4px;color:#111}
+.lg-a h2{font-size:1.05rem;margin:22px 0 6px;color:#111}.lg-a p{margin:0 0 8px}.lg-a ul{margin:0 0 8px;padding-left:20px}.lg-up{color:#8A8A8F;font-size:.85rem}
 /* ===== Espace abonné ===== */
 .mp:has(.es){background:#F2F2F6}
 .mp-in:has(.es){max-width:640px;padding:0 0 0}
@@ -1128,7 +1147,7 @@ font[style]{background:none!important;box-shadow:none!important}
     <div class="qz-hd">
       <button type="button" class="qz-ic" id="qzBack" aria-label="Retour">←</button>
       <span class="brand qz-brand notranslate" translate="no">One<span>athlet</span></span>
-      <button type="button" class="lang-btn qz-lang notranslate" translate="no" id="qzLang" aria-label="Langue / Language">FR</button><button type="button" class="qz-hdpay" id="qzHdPay" hidden>Essai gratuit</button>
+      <button type="button" class="lang-btn qz-lang notranslate" translate="no" id="qzLang" aria-label="Langue / Language">FR</button><button type="button" class="qz-hdpay" id="qzHdPay" hidden>Obtenir mon plan</button>
     </div>
     <div class="qz-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"><i id="qzBar"></i></div>
   </div>
@@ -1985,6 +2004,7 @@ font[style]{background:none!important;box-shadow:none!important}
     ()=>`<div class="qz-hug" aria-hidden="true">📩</div><h2>Recevez votre <em>plan personnalisé</em></h2>
       <p>Pour améliorer votre silhouette, à votre rythme. Saisissez votre e-mail pour le recevoir.</p>
       <form class="qz-mail" id="qzMail" novalidate><input id="qzEmail" type="email" inputmode="email" autocomplete="email" placeholder="votre@email.com" aria-label="Adresse e-mail" value="${esc(A.email)}" required>
+      <label class="qz-opt"><input type="checkbox" id="qzRgpd" ${A.rgpd?'checked':''}> <span>J'accepte que mes réponses, y compris mes informations de santé (poids, problèmes de santé), soient utilisées pour créer et suivre mon plan.</span></label>
       <label class="qz-opt"><input type="checkbox" id="qzOptin" ${A.optin?'checked':''}> <span>Je veux aussi recevoir des conseils OneAthlet par e-mail (facultatif)</span></label>
       <p class="qz-err" id="qzMailErr" role="alert"></p>
       <button type="submit" class="qz-next" id="qzMailGo">Découvrir le plan →</button></form>
@@ -1993,7 +2013,7 @@ font[style]{background:none!important;box-shadow:none!important}
       const sc=(A.age<30?1:A.age>=45?-1:0)+(A.activite==='actif'||A.activite==='tres'?1:A.activite==='inactif'?-1:0)+(A.sex==='F'?-0.5:0);
       const met=sc>=1?['Rapide','vos progrès peuvent venir vite, gardez le rythme']:sc<=-1?['Lent','les progrès prennent du temps, restez régulier']:['Modéré','des progrès réguliers, semaine après semaine'];
       const pos=Math.max(2,Math.min(98,(P.bmi-15)/(40-15)*100));
-      return `<h2 class="qz-intro">Votre résumé personnel</h2><p class="qz-hint">Calculé à partir de vos réponses</p>
+      return `<h2 class="qz-intro qz-sum2-t">Votre résumé personnel</h2>
       <div class="qz-sum2">
         <div class="qz-bmi2"><div class="qz-bmi2-h"><span>Indice de masse corporelle (IMC)</span><b>${fr(P.bmi)}</b></div>
           <div class="qz-bmi2-bar"><i style="left:${pos}%"></i></div>
@@ -2003,12 +2023,12 @@ font[style]{background:none!important;box-shadow:none!important}
           <div><dt>Objectif calorique</dt><dd>${P.kcal.toLocaleString('fr-FR')} kcal / jour</dd></div>
           <div><dt>Niveau d'activité</dt><dd>${esc(act?act[2]:'Peu actif')}</dd></div>
           <div><dt>Type de régime</dt><dd>${esc(reg[2])}</dd></div>
-          <div><dt>Métabolisme</dt><dd>${met[0]}<small>${met[1]}</small></dd></div>
+          <div><dt>Métabolisme</dt><dd>${met[0]}</dd></div>
           <div><dt>Objectif de poids</dt><dd>${fr(P.c)} kg<small>${P.weeks?'vers le '+P.end.toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'}):'poids stable'}</small></dd></div>
-          <div><dt>Protéines</dt><dd>${P.prot} g / jour</dd></div><div><dt>Glucides</dt><dd>${P.carb} g / jour</dd></div><div><dt>Lipides</dt><dd>${P.fat} g / jour</dd></div>
+          <div><dt>Prot. · Gluc. · Lip.</dt><dd>${P.prot} · ${P.carb} · ${P.fat} g</dd></div>
         </dl>
       </div>
-      <span class="qz-note">Estimations indicatives (formule de Mifflin-St Jeor). Elles ne remplacent pas un avis médical.</span>
+      <span class="qz-note qz-sum2-n">Estimations indicatives, elles ne remplacent pas un avis médical.</span>
       <button type="button" class="qz-next" data-next>Continuer</button>`},
     ()=>{const P=planOf(),d1=new Date();d1.setDate(d1.getDate()+A.suivi);const d2=new Date();d2.setDate(d2.getDate()+60);
       const f=d=>d.toLocaleDateString('fr-FR',{day:'numeric',month:'long'}),dir=P.diff<0?'−':'+',kg=n=>fr(Math.abs(P.at(n)-P.w));
@@ -2034,13 +2054,13 @@ font[style]{background:none!important;box-shadow:none!important}
           <text x="16" y="147" font-size="10" font-weight="700" fill="#8A8A8F">Maintenant</text><text x="284" y="147" text-anchor="end" font-size="10" font-weight="700" fill="#8A8A8F">${mois(endD)}</text></svg></div>
       <div class="qz-offres" role="radiogroup" aria-label="Formule">${OFFRES.map(o=>`<button type="button" class="qz-of" role="radio" data-of="${o[0]}" aria-checked="${A.offre===o[0]}">${o[3]?`<span class="qz-of-b">${o[3]}</span>`:''}<span class="qz-of-r" aria-hidden="true"></span><span class="qz-of-t"><b>${o[1]} semaines</b><small>${fr(o[2]/o[1],2)} € / semaine</small></span><span class="qz-of-p"><b>${fr(o[2],2)} €</b><small>toutes les ${o[1]} sem.</small></span></button>`).join('')}</div>
       <p class="qz-err" id="qzPayErr" role="alert"></p>
-      <button type="button" class="qz-next qz-pay" id="qzPay">Commencer mon essai gratuit de 7 jours</button>
+      <button type="button" class="qz-next qz-pay" id="qzPay">Obtenir mon plan pour ${goalTxt}</button>
       <span class="qz-note" id="qzPayNote"></span>
       <h3 class="qz-h3">Qu'est-ce qui est inclus ?</h3>
       <ul class="qz-inc"><li><span><b>Plan tout-en-un personnalisé</b><small>${P.kcal.toLocaleString('fr-FR')} kcal par jour, menus adaptés à votre régime et vos intolérances</small></span></li><li><span><b>Reconnaissance précise des repas</b><small>Une photo de votre assiette : calories et macros en quelques secondes</small></span></li><li><span><b>Suivi nutritionnel complet</b><small>Calories, protéines, glucides et lipides de la journée</small></span></li><li><span><b>Calories brûlées</b><small>Ajoutez vos activités, votre objectif du jour s'ajuste</small></span></li><li><span><b>Coach IA OneAthlet 24/7</b><small>Posez vos questions nutrition, réponse immédiate</small></span></li></ul>
       <div class="qz-for"><div><i>🔥</i><span>Soutient votre objectif : <b>${esc(g[2])}</b></span></div><div><i>🎯</i><span>Personnalisé pour : <b>${A.sex==='F'?'Femmes':'Hommes'}</b></span></div><div><i>🥦</i><span>Optimisé pour : <b>${P.kcal.toLocaleString('fr-FR')} calories par jour</b></span></div><div><i>🚶</i><span>Objectif de pas : <b>${(A.pas||8000).toLocaleString('fr-FR')} pas par jour</b></span></div></div>
       <div class="qz-gar"><div class="qz-gar-ic" aria-hidden="true">🛡️</div><b>Satisfait ou remboursé</b><p>Nous sommes convaincus que notre plan peut vous aider à atteindre vos objectifs et que vous verrez vos premiers progrès visibles en 4 semaines. Si vous suivez le plan comme prévu sans obtenir de résultats, nous vous rembourserons votre achat.</p></div>
-      <div class="qz-paybar" id="qzPayFix"><button type="button" class="qz-next qz-pay" tabindex="-1">Commencer mon essai gratuit de 7 jours</button></div>`}
+      <div class="qz-paybar" id="qzPayFix"><button type="button" class="qz-next qz-pay" tabindex="-1">Obtenir mon plan pour ${goalTxt}</button></div>`}
   ];
   const flow=()=>A.tried==='encours'?[0,1,2,3,4,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33]:[0,1,2,3,4,5,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33];
   let tourT=null,loadT=[];
@@ -2053,10 +2073,10 @@ font[style]{background:none!important;box-shadow:none!important}
     const pay=document.getElementById('qzPay');
     if(pay){const fx=document.getElementById('qzPayFix');fx.querySelector('button').onclick=()=>pay.click();
       const io=new IntersectionObserver(([en])=>fx.classList.toggle('on',!en.isIntersecting),{root:body});io.observe(pay);
-      const note=()=>{const o=OFFRES.find(x=>x[0]===A.offre);document.getElementById('qzPayNote').textContent=`Gratuit pendant 7 jours, puis ${fr(o[2],2)} € toutes les ${o[1]} semaines, prélevés automatiquement à la fin de l'essai. Annulez avant le ${(d=>{d.setDate(d.getDate()+7);return d.toLocaleDateString('fr-FR',{day:'numeric',month:'long'})})(new Date())} pour ne rien payer. Résiliable à tout moment. Paiement sécurisé par Stripe.`};note();
+      const note=()=>{const o=OFFRES.find(x=>x[0]===A.offre);document.getElementById('qzPayNote').innerHTML=`Abonnement de ${fr(o[2],2)} € renouvelé automatiquement toutes les ${o[1]} semaines. Résiliable à tout moment. Paiement sécurisé par Stripe.`};note();
       body.querySelectorAll('[data-of]').forEach(b=>b.onclick=()=>{A.offre=b.dataset.of;body.querySelectorAll('[data-of]').forEach(x=>x.setAttribute('aria-checked',x===b));note()});
       pay.onclick=async()=>{const er=document.getElementById('qzPayErr'),txt=pay.textContent;er.textContent='';pay.disabled=true;pay.textContent='Ouverture du paiement…';
-        try{const res=await fetch('https://dbrpduznzqynkuebulxx.supabase.co/functions/v1/checkout',{method:'POST',headers:{apikey:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRicnBkdXpuenF5bmt1ZWJ1bHh4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIxMDM4OTAsImV4cCI6MjEwNzY3OTg5MH0.8XVULvee0zcbp7qjlmHupBdhxUKb0tYz6fm1xK4eJkk',Authorization:'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRicnBkdXpuenF5bmt1ZWJ1bHh4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIxMDM4OTAsImV4cCI6MjEwNzY3OTg5MH0.8XVULvee0zcbp7qjlmHupBdhxUKb0tYz6fm1xK4eJkk','Content-Type':'application/json'},body:JSON.stringify({action:'quiz',trial:true,plan:A.offre,email:A.email,cible:A.cible,returnUrl:location.origin+location.pathname})});
+        try{const res=await fetch('https://dbrpduznzqynkuebulxx.supabase.co/functions/v1/checkout',{method:'POST',headers:{apikey:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRicnBkdXpuenF5bmt1ZWJ1bHh4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIxMDM4OTAsImV4cCI6MjEwNzY3OTg5MH0.8XVULvee0zcbp7qjlmHupBdhxUKb0tYz6fm1xK4eJkk',Authorization:'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRicnBkdXpuenF5bmt1ZWJ1bHh4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIxMDM4OTAsImV4cCI6MjEwNzY3OTg5MH0.8XVULvee0zcbp7qjlmHupBdhxUKb0tYz6fm1xK4eJkk','Content-Type':'application/json'},body:JSON.stringify({action:'quiz',plan:A.offre,email:A.email,cible:A.cible,returnUrl:location.origin+location.pathname})});
           const d=await res.json().catch(()=>({}));if(d.url){try{localStorage.setItem('oneathlet-bilan',JSON.stringify(A))}catch(e){}location.href=d.url;return}
           er.textContent=d.error||'Le paiement n\'a pas pu démarrer. Réessayez.'}
         catch(e){er.textContent='Connexion impossible. Vérifiez votre réseau et réessayez.'}
@@ -2064,6 +2084,7 @@ font[style]{background:none!important;box-shadow:none!important}
     const mf=document.getElementById('qzMail');
     if(mf){mf.onsubmit=async e=>{e.preventDefault();const em=document.getElementById('qzEmail').value.trim(),er=document.getElementById('qzMailErr'),bt=document.getElementById('qzMailGo');
       if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)){er.textContent='Saisissez une adresse e-mail valide.';return}
+      if(!document.getElementById('qzRgpd').checked){er.textContent='Cochez la case d\'accord pour que nous puissions créer votre plan.';return}A.rgpd=true;
       er.textContent='';A.email=em;A.optin=document.getElementById('qzOptin').checked;bt.disabled=true;bt.textContent='Un instant…';
       const rep={sex:A.sex,age:A.age,goal:A.goal,tried:A.tried,defi:A.defi,savoir:A.savoir,pro:A.pro,meals:A.meals,change:A.change,regime:A.regime,intol:A.intol,activite:A.activite,marche:A.marche,escaliers:A.escaliers,taille:A.taille,poids:A.poids,pas:A.pas,cible:A.cible,rythme:A.rythme,suivi:A.suivi,sante:A.sante,burn:A.burn};
       try{await fetch('https://dbrpduznzqynkuebulxx.supabase.co/rest/v1/leads',{method:'POST',headers:{apikey:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRicnBkdXpuenF5bmt1ZWJ1bHh4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIxMDM4OTAsImV4cCI6MjEwNzY3OTg5MH0.8XVULvee0zcbp7qjlmHupBdhxUKb0tYz6fm1xK4eJkk',Authorization:'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRicnBkdXpuenF5bmt1ZWJ1bHh4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIxMDM4OTAsImV4cCI6MjEwNzY3OTg5MH0.8XVULvee0zcbp7qjlmHupBdhxUKb0tYz6fm1xK4eJkk','Content-Type':'application/json',Prefer:'return=minimal'},body:JSON.stringify({email:em,conseils:A.optin,reponses:rep})})}catch(err){}
