@@ -849,6 +849,41 @@ button.es-card{cursor:pointer;width:100%}
 .mp-menu div{flex:1;display:grid;gap:1px;min-width:0}.mp-menu small{color:var(--muted);font-weight:800;font-size:.72rem}.mp-menu b{font-size:.92rem}
 .mp-menu em{font-style:normal;color:#22A06B;font-weight:800;font-size:.78rem;white-space:nowrap}
 .mp-note{margin:0;color:var(--muted);font-size:.8rem;font-weight:600}
+.scv{position:fixed;inset:0;z-index:3000;background:#000000;opacity:0;transition:opacity .25s}.scv.on{opacity:1}
+.scv-in{position:relative;height:100%;max-width:480px;margin:0 auto;overflow:hidden}
+.scv-ph{position:absolute;inset:0}.scv-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.scv-top{position:absolute;z-index:3;top:calc(env(safe-area-inset-top,0px) + 14px);left:14px;right:14px;display:flex;align-items:center;gap:10px}
+.scv-x{width:40px;height:40px;flex:none;border-radius:50%;border:0;background:rgba(0,0,0,.55);color:#FFFFFF;font-size:1.5rem;line-height:1;cursor:pointer}
+.scv-st{background:rgba(0,0,0,.55);color:#FFFFFF;font-weight:700;font-size:.85rem;border-radius:999px;padding:8px 14px;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.scv-vf{position:absolute;z-index:2;left:9%;right:9%;top:16%;height:44%}
+.scv-vf i{position:absolute;width:36px;height:36px;border:3px solid #FFFFFF;border-radius:7px}
+.scv-vf i:nth-child(1){left:0;top:0;border-right:0;border-bottom:0}.scv-vf i:nth-child(2){right:0;top:0;border-left:0;border-bottom:0}
+.scv-vf i:nth-child(3){left:0;bottom:0;border-right:0;border-top:0}.scv-vf i:nth-child(4){right:0;bottom:0;border-left:0;border-top:0}
+.scv-vf b{position:absolute;left:6px;right:6px;height:3px;border-radius:3px;background:#FF5C8A;box-shadow:0 0 14px 2px #FF5C8A;animation:scan 1.6s ease-in-out infinite alternate}
+.scv.done .scv-vf{opacity:0;transition:opacity .3s}
+.scv-tags span{position:absolute;z-index:3;max-width:46%;overflow:hidden;text-overflow:ellipsis;background:#FFFFFF;color:#111111;font-size:.72rem;font-weight:800;border-radius:999px;padding:6px 10px;box-shadow:0 6px 16px -6px rgba(0,0,0,.5);white-space:nowrap;opacity:0;animation:pop .35s ease forwards}
+.scv-sh{position:absolute;z-index:4;left:0;right:0;bottom:0;max-height:64%;overflow:auto;background:#FFFFFF;color:#111111;border-radius:28px 28px 0 0;padding:10px 18px calc(18px + env(safe-area-inset-bottom,0px));display:grid;gap:12px;box-shadow:0 -14px 30px -12px rgba(0,0,0,.35);transform:translateY(102%);transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.scv.done .scv-sh{transform:none}
+.scv-grab{justify-self:center;width:40px;height:5px;border-radius:5px;background:#E5E5EA}
+.scv-hd{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.scv-hd small{display:block;color:#22A06B;font-weight:800;font-size:.78rem}.scv-hd b{font-size:1.08rem}
+.scv-kc{display:grid;justify-items:end;flex:none}.scv-kc b{font-family:"Inter Tight",system-ui,sans-serif;font-size:2.1rem;color:#EB5149;line-height:1}.scv-kc small{color:#8A8A8F;font-weight:700;font-size:.75rem}
+.scv-mac{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.scv-mac div{background:#F6F6F8;border-radius:14px;padding:10px;display:grid;gap:5px;min-width:0}
+.scv-mac span{color:#8A8A8F;font-size:.72rem;font-weight:800}.scv-mac b{font-size:1.02rem}
+.scv-mac i{display:block;height:6px;border-radius:6px;background:#ECECEF;overflow:hidden}
+.scv-mac u{display:block;height:100%;width:0;background:var(--c);border-radius:6px;transition:width 1s ease .3s}
+.scv.done .scv-mac u{width:var(--w)}
+.scv-list{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+.scv-list li{opacity:0;transform:translateY(6px);transition:opacity .35s,transform .35s}.scv.done .scv-list li{opacity:1;transform:none}
+.scv-list label{display:flex;align-items:center;gap:9px;padding:8px 2px;border-bottom:1px solid #F0F0F2;font-size:.9rem;font-weight:600;cursor:pointer}
+.scv-list input{width:18px;height:18px;accent-color:#EB5149;flex:none}
+.scv-e{font-size:1.15rem}.scv-n{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.scv-list em{margin-left:auto;font-style:normal;color:#8A8A8F;font-size:.85rem;white-space:nowrap}
+.scv-tip{margin:0;background:#F6F6F8;border-radius:14px;padding:10px 12px;font-size:.85rem;color:#3A3A3C}
+.scv-msg{margin:6px 0;font-size:.95rem;text-align:center;color:#3A3A3C}
+.scv-btn{border:0;border-radius:999px;padding:15px;font:inherit;font-weight:800;font-size:.98rem;color:#FFFFFF;background:#EB5149;cursor:pointer;box-shadow:0 16px 30px -16px #EB5149}.scv-btn:disabled{opacity:.45}
+@media (prefers-reduced-motion:reduce){.scv-vf b{animation:none;top:50%}.scv-sh,.scv-mac u,.scv-list li{transition:none}.scv-tags span{animation:none;opacity:1}}
 .es-snap{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:0;border-radius:18px;padding:14px 16px;margin:0 0 12px;background:#111111;color:#FFFFFF;font:inherit;cursor:pointer}.es-snap-i{width:44px;height:44px;border-radius:50%;background:#FFFFFF;display:grid;place-items:center;font-size:1.35rem;flex:none}.es-snap span:nth-child(2){display:grid;gap:2px;flex:1;min-width:0}.es-snap b{font-size:1rem}.es-snap small{color:#C8C8CC;font-size:.8rem}.es-snap em{font-style:normal;font-size:1.4rem;color:#C8C8CC}
 .es-mpick{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 14px}.es-mpick button{border:1.5px solid #E5E5EA;background:#FFFFFF;border-radius:12px;padding:11px 8px;font:inherit;font-weight:600;font-size:.88rem;color:#111111;cursor:pointer}.es-mpick button[aria-checked=true]{border-color:#EB5149;background:#FFF1F0;color:#EB5149}
 .mp-photo{display:block;text-align:center;border-radius:999px;padding:15px;font-weight:800;color:#FFFFFF;background:linear-gradient(135deg,var(--orange),var(--coral));cursor:pointer;box-shadow:0 16px 30px -16px var(--coral)}
@@ -1601,15 +1636,40 @@ font[style]{background:none!important;box-shadow:none!important}
         else{const fav=E.favoris.filter(r=>RECETTES[r]);T.innerHTML=fav.length?`<ul class="es-res">${fav.map(r=>`<li><button type="button" data-ri="${esc(r)}"><span class="es-ie">${EMOJI[r]||REMO[r]||'🍽️'}</span><span class="es-in"><b>${esc(r)}</b><small>${RECETTES[r].k} kcal la portion</small></span><em>›</em></button></li>`).join('')}</ul>`:'<p class="es-mute es-p">Aucune recette en favori. Touchez ♡ sur une recette pour la retrouver ici.</p>';
           T.querySelectorAll('[data-ri]').forEach(b=>b.onclick=()=>recDetail(b.dataset.ri,meal))}};
       tabs.forEach(t=>t.onclick=()=>show(t.dataset.tab));show('s')})}
-  async function analyse(file,meal,out){out.innerHTML='<div class="mp-wait"><span class="mp-spin"></span>Analyse de votre repas…</div>';
-    try{const data=await toJpeg(file);const r=await fetch(URL_+'/functions/v1/scan',{method:'POST',headers:H,body:JSON.stringify({sid,image:data.split(',')[1],mediaType:'image/jpeg',diet:[prof().regime].filter(Boolean),intol:prof().intol||[],lang:'fr'})});
-      const d=await r.json();if(!d.result){out.innerHTML='<p class="qz-err">'+esc(d.error||'L\'analyse a échoué. Réessayez.')+'</p>';return}
-      const al=d.result.aliments||[];if(!al.length){out.innerHTML='<p class="es-p">'+esc(d.result.conseil||'Aucun aliment détecté.')+'</p>';return}
-      out.innerHTML=`<div class="mp-res"><img src="${data}" alt="Votre repas"><b>${esc(d.result.plat||'Votre repas')}</b><ul class="es-res">${al.map((a,i)=>`<li><label class="es-chk"><input type="checkbox" checked data-pa="${i}"><span class="es-ie">${esc(a.emoji||'🍽️')}</span><span class="es-in"><b>${esc(a.nom)}</b><small>${nf(a.grammes)} g · P ${nf(a.proteines)} · G ${nf(a.glucides)} · L ${nf(a.lipides)}</small></span><em>${nf(a.kcal)} kcal</em></label></li>`).join('')}</ul>${d.result.conseil?`<p class="mp-tip">💡 ${esc(d.result.conseil)}</p>`:''}<button type="button" class="es-btn" id="esPhAdd">Ajouter au repas</button></div>`;
-      out.querySelector('#esPhAdd').onclick=()=>{const x=J(E.jour);out.querySelectorAll('[data-pa]').forEach(c=>{if(!c.checked)return;const a=al[+c.dataset.pa],g=+a.grammes||100;
+  async function analyse(file,meal,out){let data;
+    try{data=await toJpeg(file)}catch(e){out.innerHTML='<p class="qz-err">Photo illisible. Réessayez avec une autre photo.</p>';return}
+    const mk=MEALK.find(m=>m[0]===meal)||MEALK[1],G=goals();
+    const o=document.createElement('div');o.className='scv';o.setAttribute('role','dialog');o.setAttribute('aria-modal','true');o.setAttribute('aria-label','Analyse de votre repas');
+    o.innerHTML=`<div class="scv-in"><div class="scv-ph"><img src="${data}" alt="Votre repas"><div class="scv-top"><button type="button" class="scv-x" aria-label="Fermer">×</button><span class="scv-st">📸 ${esc(mk[1])} · analyse…</span></div><div class="scv-vf" aria-hidden="true"><i></i><i></i><i></i><i></i><b></b></div><div class="scv-tags" aria-hidden="true"></div></div><div class="scv-sh" aria-live="polite"></div></div>`;
+    document.body.appendChild(o);requestAnimationFrame(()=>o.classList.add('on'));
+    const close=()=>{o.classList.remove('on');setTimeout(()=>o.remove(),250)};o.querySelector('.scv-x').onclick=close;
+    const sh=o.querySelector('.scv-sh'),st=o.querySelector('.scv-st');
+    const fail=m=>{st.textContent='📸 '+mk[1];o.classList.add('done');sh.innerHTML=`<span class="scv-grab"></span><p class="scv-msg">${esc(m)}</p><button type="button" class="scv-btn" data-scx>Fermer</button>`;sh.querySelector('[data-scx]').onclick=close};
+    try{const t0=Date.now();const r=await fetch(URL_+'/functions/v1/scan',{method:'POST',headers:H,body:JSON.stringify({sid,image:data.split(',')[1],mediaType:'image/jpeg',diet:[prof().regime].filter(Boolean),intol:prof().intol||[],lang:'fr'})});
+      const d=await r.json();const wait=1600-(Date.now()-t0);if(wait>0)await new Promise(z=>setTimeout(z,wait));
+      if(!d.result)return fail(d.error||'L\'analyse a échoué. Réessayez.');
+      const al=d.result.aliments||[];if(!al.length)return fail(d.result.conseil||'Aucun aliment détecté sur la photo.');
+      const POS=[[5,13],[50,17],[8,22],[48,26],[6,31],[50,35]];
+      o.querySelector('.scv-tags').innerHTML=al.slice(0,6).map((a,i)=>`<span style="left:${POS[i][0]}%;top:${POS[i][1]}%;animation-delay:${.15*i}s">${esc(a.emoji||'🍽️')} ${esc(a.nom)} · ${nf(a.kcal)} kcal</span>`).join('');
+      st.textContent='📸 '+mk[1]+' · analysé ✓';
+      sh.innerHTML=`<span class="scv-grab"></span>
+        <div class="scv-hd"><div><small>Analyse terminée ✓</small><b>${esc(d.result.plat||'Votre repas')}</b></div><div class="scv-kc"><b id="scvK">0</b><small>kcal</small></div></div>
+        <div class="scv-mac" id="scvM"></div>
+        <ul class="scv-list">${al.map((a,i)=>`<li style="transition-delay:${.5+.12*i}s"><label><input type="checkbox" checked data-pa="${i}"><span class="scv-e">${esc(a.emoji||'🍽️')}</span><span class="scv-n">${esc(a.nom)} · ${nf(a.grammes)} g</span><em>${nf(a.kcal)} kcal</em></label></li>`).join('')}</ul>
+        ${d.result.conseil?`<p class="scv-tip">💡 ${esc(d.result.conseil)}</p>`:''}
+        <button type="button" class="scv-btn" id="scvAdd">Ajouter à mon suivi · ${esc(mk[1])}</button>`;
+      const sum=()=>{const z={k:0,p:0,c:0,l:0};sh.querySelectorAll('[data-pa]').forEach(c=>{if(!c.checked)return;const a=al[+c.dataset.pa];z.k+=+a.kcal||0;z.p+=+a.proteines||0;z.c+=+a.glucides||0;z.l+=+a.lipides||0});return z};
+      const draw=(anim)=>{const z=sum();
+        sh.querySelector('#scvM').innerHTML=[['Protéines',z.p,G.prot,'#D93B4B'],['Glucides',z.c,G.carb,'#F5B83D'],['Lipides',z.l,G.fat,'#7B61FF']].map(m=>`<div><span>${m[0]}</span><b>${nf(m[1])} g</b><i><u style="--w:${Math.min(100,Math.round(m[1]/(m[2]||1)*100))}%;--c:${m[3]}"></u></i></div>`).join('');
+        const kb=sh.querySelector('#scvK'),to=Math.round(z.k);
+        if(anim){const t1=performance.now();const step=t=>{const q=Math.min(1,(t-t1)/900);kb.textContent=nf(Math.round(to*(1-Math.pow(1-q,3))));if(q<1)requestAnimationFrame(step)};requestAnimationFrame(step)}else kb.textContent=nf(to);
+        sh.querySelector('#scvAdd').disabled=!to&&!sh.querySelector('[data-pa]:checked')};
+      draw(true);o.classList.add('done');
+      sh.querySelectorAll('[data-pa]').forEach(c=>c.onchange=()=>draw(false));
+      sh.querySelector('#scvAdd').onclick=()=>{const x=J(E.jour);let n=0;sh.querySelectorAll('[data-pa]').forEach(c=>{if(!c.checked)return;n++;const a=al[+c.dataset.pa],g=+a.grammes||100;
         x.data.repas[meal].push({id:Math.random().toString(36).slice(2),n:a.nom,e:a.emoji||'🍽️',q:g,u:'g',k:Math.round(+a.kcal||0),p:r1(a.proteines),c:r1(a.glucides),l:r1(a.lipides),fib:0,suc:0,na:0,src:{n:a.nom,e:a.emoji||'🍽️',per:{k:(+a.kcal||0)*100/g,p:(+a.proteines||0)*100/g,c:(+a.glucides||0)*100/g,l:(+a.lipides||0)*100/g,fib:0,suc:0,na:0},por:g}})});
-        save(E.jour);closeSheet();pageNut();toast('Repas ajouté ✓')}}
-    catch(e){out.innerHTML='<p class="qz-err">Connexion impossible. Réessayez.</p>'}}
+        if(!n)return;save(E.jour);close();closeSheet();pageNut();toast('Repas ajouté ✓')}}
+    catch(e){fail('Connexion impossible. Réessayez.')}}
   // Choix de la quantité (ajout ou modification)
   function quantite(meal,food,edit){const per=food.per;
     if(!per){sheet(esc(food.n),`<p class="es-p">Cet aliment a été ajouté sans détail par 100 g : vous pouvez seulement le supprimer.</p><button type="button" class="es-btn es-del" id="esDel">Supprimer</button>`,bd=>{bd.querySelector('#esDel').onclick=()=>{const x=J(E.jour);x.data.repas[meal]=x.data.repas[meal].filter(i=>i.id!==edit.id);save(E.jour);closeSheet();pageNut()}});return}
