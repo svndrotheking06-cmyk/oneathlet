@@ -849,6 +849,8 @@ button.es-card{cursor:pointer;width:100%}
 .mp-menu div{flex:1;display:grid;gap:1px;min-width:0}.mp-menu small{color:var(--muted);font-weight:800;font-size:.72rem}.mp-menu b{font-size:.92rem}
 .mp-menu em{font-style:normal;color:#22A06B;font-weight:800;font-size:.78rem;white-space:nowrap}
 .mp-note{margin:0;color:var(--muted);font-size:.8rem;font-weight:600}
+.es-snap{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:0;border-radius:18px;padding:14px 16px;margin:0 0 12px;background:#111111;color:#FFFFFF;font:inherit;cursor:pointer}.es-snap-i{width:44px;height:44px;border-radius:50%;background:#FFFFFF;display:grid;place-items:center;font-size:1.35rem;flex:none}.es-snap span:nth-child(2){display:grid;gap:2px;flex:1;min-width:0}.es-snap b{font-size:1rem}.es-snap small{color:#C8C8CC;font-size:.8rem}.es-snap em{font-style:normal;font-size:1.4rem;color:#C8C8CC}
+.es-mpick{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 14px}.es-mpick button{border:1.5px solid #E5E5EA;background:#FFFFFF;border-radius:12px;padding:11px 8px;font:inherit;font-weight:600;font-size:.88rem;color:#111111;cursor:pointer}.es-mpick button[aria-checked=true]{border-color:#EB5149;background:#FFF1F0;color:#EB5149}
 .mp-photo{display:block;text-align:center;border-radius:999px;padding:15px;font-weight:800;color:#FFFFFF;background:linear-gradient(135deg,var(--orange),var(--coral));cursor:pointer;box-shadow:0 16px 30px -16px var(--coral)}
 .mp-wait{display:grid;gap:12px;justify-items:center;text-align:center;color:var(--muted);font-weight:700;padding:16px}
 .mp-wait.big{padding:80px 16px}
@@ -1523,6 +1525,7 @@ font[style]{background:none!important;box-shadow:none!important}
         <p class="es-goal">Objectif ${nf(G.kcal)} kcal${addBurn&&burn?` + ${nf(burn)} brûlées`:''}</p>
         <div class="es-mac">${[['Glucides','🌾',t.c,G.carb,'#F5B83D'],['Protéines','🍗',t.p,G.prot,'#EB5149'],['Lipides','🥑',t.l,G.fat,'#7B61FF']].map(m=>`<div><span>${m[1]} ${m[0]}</span>${pbar(m[2]/m[3],m[4])}<small><b>${nf(m[2])}</b> / ${m[3]} g</small></div>`).join('')}</div>
       </section>
+      <button type="button" class="es-snap" id="esSnap"><span class="es-snap-i">📸</span><span><b>Photographier mon assiette</b><small>L'IA calcule les calories et les macros</small></span><em>›</em></button>
       <section class="es-card"><div class="es-ch"><h2>Repas</h2><button type="button" class="es-lk" id="esAll">Voir tout ${chev}</button></div>
         <div class="es-meals">${MEALK.map(m=>{const k=mealK(d,m[0]);return `<div class="es-ml"><button type="button" class="es-mlr" data-meal="${m[0]}" aria-label="${m[1]} : ${nf(k)} kcal">${ring(72,6,k/(G.kcal*m[3]),'#EB5149',`<text x="36" y="44" text-anchor="middle" font-size="24">${m[2]}</text>`)}</button><button type="button" class="es-plus" data-add="${m[0]}" aria-label="Ajouter au ${m[1]}">+</button><b>${m[1]}</b><small>${nf(k)} kcal</small></div>`}).join('')}</div></section>
       <section class="es-card"><div class="es-ch"><h2>Score nutritionnel</h2><button type="button" class="es-i" id="esScI" aria-label="Comment le score est calculé">i</button></div>
@@ -1545,6 +1548,7 @@ font[style]{background:none!important;box-shadow:none!important}
     box.querySelectorAll('[data-wk]').forEach(b=>b.onclick=()=>{E.jour=addD(E.jour,+b.dataset.wk);pageNut()});
     box.querySelectorAll('[data-cm]').forEach(b=>b.onclick=()=>{const [y,m]=E.calM.split('-').map(Number);const n=new Date(y,m-1+(+b.dataset.cm),1);E.calM=iso(n).slice(0,7);pageNut()});
     box.querySelectorAll('[data-add]').forEach(b=>b.onclick=()=>ajout(b.dataset.add));
+    const snap=box.querySelector('#esSnap');if(snap)snap.onclick=photoRepas;
     box.querySelectorAll('[data-meal]').forEach(b=>b.onclick=()=>repas(b.dataset.meal));
     $('esAll').onclick=()=>repas(null);
     $('esScI').onclick=()=>sheet('Score nutritionnel','<p class="es-p">Le score sur 100 se calcule à partir de votre journée :</p><ul class="es-ul"><li><b>30 pts</b> : calories proches de votre objectif</li><li><b>25 pts</b> : glucides, protéines et lipides équilibrés</li><li><b>15 pts</b> : eau bue</li><li><b>10 pts</b> : fibres</li><li><b>10 pts</b> : sucre sous la limite</li><li><b>10 pts</b> : sodium sous la limite</li></ul>');
@@ -1568,6 +1572,12 @@ font[style]{background:none!important;box-shadow:none!important}
     sheet(only?ks[0][1]:'Repas du '+pd(d).toLocaleDateString('fr-FR',{day:'numeric',month:'long'}),html,bd=>{
       bd.querySelectorAll('[data-add2]').forEach(b=>b.onclick=()=>ajout(b.dataset.add2));
       bd.querySelectorAll('[data-it]').forEach(b=>b.onclick=()=>{const [m,id]=b.dataset.it.split('|');const it=x.data.repas[m].find(i=>i.id===id);if(it)quantite(m,it.src||{n:it.n,e:it.e,per:null},it)})})}
+
+  /* --- Photo de l'assiette : choix du repas puis analyse IA --- */
+  function photoRepas(){const h=new Date().getHours();let meal=h<11?'pdj':h<15?'dej':h<18?'col':'din';
+    sheet('Photographier mon assiette',`<p class="es-p">Prenez votre assiette en photo : l'IA reconnaît chaque aliment et calcule les calories et les macros.</p><div class="es-mpick" role="radiogroup" aria-label="Repas">${MEALK.map(m=>`<button type="button" role="radio" data-pm="${m[0]}" aria-checked="${m[0]===meal}">${m[2]} ${m[1]}</button>`).join('')}</div><label class="mp-photo"><input type="file" accept="image/*" capture="environment" id="esPh2" hidden>📸 Prendre ou choisir une photo</label><div id="esPhR2"></div>`,bd=>{
+      const bs=bd.querySelectorAll('[data-pm]');bs.forEach(b=>b.onclick=()=>{meal=b.dataset.pm;bs.forEach(x=>x.setAttribute('aria-checked',x===b))});
+      bd.querySelector('#esPh2').onchange=e=>{const f=e.target.files&&e.target.files[0];if(f)analyse(f,meal,bd.querySelector('#esPhR2'));e.target.value=''}})}
 
   /* --- Ajouter un aliment : recherche, photo, recettes favorites --- */
   function ajout(meal){const mk=MEALK.find(m=>m[0]===meal);
